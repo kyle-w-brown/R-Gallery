@@ -1,0 +1,9 @@
+bookdown::gitbook:
+  css: style.css
+  config:
+    toc:
+      before: |
+        <li><a href="./">R Gallery Book</a></li>
+      after: |
+        <li><a href="https://github.com/kyle-w-brown" target="blank">Kyle W. Brown</a></li>
+

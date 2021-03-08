@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<br>
+<br>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/v4-shims.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons/css/academicons.min.css">
+
+<center>
+<p> 
+<a href="https://www.worldcapitalis.com" ><img src="wcis.png" data-canonical-src="wcis.png" width="45px" /></a> &nbsp; <img src="bar.png" data-canonical-src="bar.png" width="15px" /> &nbsp; &#169;2021 Kyle W. Brown. All rights reserved.</p>
+
+<a href="https://github.com/kyle-w-brown" target="_blank"> <i class="fa fa-github w3-xlarge"></i></a>
+    <a href="https://www.hackerrank.com/kylewbrown" target="_blank"> <i class="fab fa-hackerrank w3-xlarge"></i></a>
+    <a href="https://www.linkedin.com/in/kyle-w-brown-abb5091ab" target="_blank"> <i class="fa fa-linkedin w3-xlarge w3-hover-opacity"></i></a>
+    <a href="https://www.worldcapitalis.com" target="_blank"> <i class="fa fa-globe-americas w3-xlarge w3-hover-opacity"></i></a>
+    <a href="https://rpubs.com/kylewbrown" target="_blank"> <i class="fab fa-r-project w3-xlarge w3-hover-opacity"></i></a>
+    <a href="https://scholar.google.com/citations?user=ZEI5qpUAAAAJ%26hl=en" target="_blank"> <i class="ai ai-google-scholar-square w3-xlarge w3-hover-opacity"></i></a>
+</center>
+<br>
+</html>

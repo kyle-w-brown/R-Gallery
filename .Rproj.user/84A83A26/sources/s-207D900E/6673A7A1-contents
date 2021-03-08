@@ -1,0 +1,25 @@
+--- 
+title: "R-Gallery-Book"
+author: "Kyle W. Brown"
+date: "2021-01-21"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+description: "This is the complete guide to the R Gallery."
+---
+
+# Introduction
+
+Welcome the R Gallery Book, a complete guide to the [R Graph Gallery](https://www.r-graph-gallery.com/) website. This information is taken directly from R graph gallery with careful detail in reproducing plots and completing ideas. This material created by [Kyle W. Brown](https://github.com/kyle-w-brown) as way to have one single reading collection of updated R gallery plots and graphs.  
+
+<br>
+
+<center>
+[![](images/website.png)](https://www.r-graph-gallery.com/)
+</center>
+
+<br>
+
+While this book was created to encapsulate the entire [R Graph Gallery website](https://www.r-graph-gallery.com/) into one readable source, another purpose is serving as introductory level into data visualization using [R programming language](https://www.r-project.org/about.html).

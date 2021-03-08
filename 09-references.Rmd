@@ -1,0 +1,9 @@
+`r if (knitr::is_html_output()) '
+# References {-}
+'`
+
+Holtz, Yan. 2018. *R Graph Gallery*. https://www.r-graph-gallery.com/
+
+Xie, Yihui. 2015. *Dynamic Documents with R and Knitr*. 2nd ed. Boca Raton, Florida: Chapman; Hall/CRC. http://yihui.org/knitr/.
+
+------. 2020. *Bookdown: Authoring Books and Technical Documents with r Markdown*. https://CRAN.R-project.org/package=bookdown.

@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 5 Applications | R Gallery Book</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 5 Applications | R Gallery Book" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 5 Applications | R Gallery Book" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Kyle W. Brown" />
+
+
+<meta name="date" content="2021-01-19" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="methods.html"/>
+<link rel="next" href="final-words.html"/>
+<script src="libs/header-attrs-2.6/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.9.2.1/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.52.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.52.2/plotly-latest.min.js"></script>
+<script src="libs/d3-3.5.6/./d3.min.js"></script>
+<link href="libs/circlepackeR-0.1/./style.css" rel="stylesheet" />
+<script src="libs/circlepackeR-binding-0.0.0.9000/circlepackeR.js"></script>
+<link href="libs/dygraphs-1.1.1/dygraph.css" rel="stylesheet" />
+<script src="libs/dygraphs-1.1.1/dygraph-combined.js"></script>
+<script src="libs/dygraphs-1.1.1/shapes.js"></script>
+<script src="libs/moment-2.8.4/moment.js"></script>
+<script src="libs/moment-timezone-0.2.5/moment-timezone-with-data.js"></script>
+<script src="libs/moment-fquarter-1.0.0/moment-fquarter.min.js"></script>
+<script src="libs/dygraphs-binding-1.1.1.6/dygraphs.js"></script>
+<script src="libs/Dygraph.Plotters.CandlestickPlotter-1.0/candlestick.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">R Gallery Book</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Prerequisites</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
+<li class="chapter" data-level="3" data-path="literature.html"><a href="literature.html"><i class="fa fa-check"></i><b>3</b> Literature</a></li>
+<li class="chapter" data-level="4" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>4</b> Methods</a></li>
+<li class="chapter" data-level="5" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>5</b> Applications</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="applications.html"><a href="applications.html#example-one"><i class="fa fa-check"></i><b>5.1</b> Example one</a></li>
+<li class="chapter" data-level="5.2" data-path="applications.html"><a href="applications.html#example-two"><i class="fa fa-check"></i><b>5.2</b> Example two</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>6</b> Final Words</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="7" data-path="distributions.html"><a href="distributions.html"><i class="fa fa-check"></i><b>7</b> Distributions</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="distributions.html"><a href="distributions.html#violin"><i class="fa fa-check"></i><b>7.1</b> Violin</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="distributions.html"><a href="distributions.html#base-r-violin-plot"><i class="fa fa-check"></i><b>7.1.1</b> Base R Violin Plot</a></li>
+<li class="chapter" data-level="7.1.2" data-path="distributions.html"><a href="distributions.html#basic-ggplot-violin-plot"><i class="fa fa-check"></i><b>7.1.2</b> Basic ggplot Violin Plot</a></li>
+<li class="chapter" data-level="7.1.3" data-path="distributions.html"><a href="distributions.html#note-on-input-format"><i class="fa fa-check"></i><b>7.1.3</b> Note on Input Format</a></li>
+<li class="chapter" data-level="7.1.4" data-path="distributions.html"><a href="distributions.html#from-wide-format"><i class="fa fa-check"></i><b>7.1.4</b> From Wide Format</a></li>
+<li class="chapter" data-level="7.1.5" data-path="distributions.html"><a href="distributions.html#reorder-a-variable-with-ggplot2"><i class="fa fa-check"></i><b>7.1.5</b> Reorder a variable with ggplot2</a></li>
+<li class="chapter" data-level="7.1.6" data-path="distributions.html"><a href="distributions.html#method-1-the-forecats-library"><i class="fa fa-check"></i><b>7.1.6</b> Method 1: the Forecats library</a></li>
+<li class="chapter" data-level="7.1.7" data-path="distributions.html"><a href="distributions.html#method-2-using-dplyr-only"><i class="fa fa-check"></i><b>7.1.7</b> Method 2: Using Dplyr Only</a></li>
+<li class="chapter" data-level="7.1.8" data-path="distributions.html"><a href="distributions.html#method-3-the-reorder-function-of-base-r"><i class="fa fa-check"></i><b>7.1.8</b> Method 3: the reorder() Function of Base R</a></li>
+<li class="chapter" data-level="7.1.9" data-path="distributions.html"><a href="distributions.html#horizontal-violin-plot-with-ggplot2"><i class="fa fa-check"></i><b>7.1.9</b> Horizontal Violin Plot with ggplot2</a></li>
+<li class="chapter" data-level="7.1.10" data-path="distributions.html"><a href="distributions.html#violin-plot-with-included-boxplot-and-sample-size-in-ggplot2"><i class="fa fa-check"></i><b>7.1.10</b> Violin Plot with included Boxplot and Sample Size in ggplot2</a></li>
+<li class="chapter" data-level="7.1.11" data-path="distributions.html"><a href="distributions.html#grouped-violin-chart-with-ggplot2"><i class="fa fa-check"></i><b>7.1.11</b> Grouped Violin Chart with ggplot2</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="distributions.html"><a href="distributions.html#density"><i class="fa fa-check"></i><b>7.2</b> Density</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="distributions.html"><a href="distributions.html#basic-density-chart-with-ggplot2"><i class="fa fa-check"></i><b>7.2.1</b> Basic density chart with ggplot2</a></li>
+<li class="chapter" data-level="7.2.2" data-path="distributions.html"><a href="distributions.html#custom-with-theme_ipsum"><i class="fa fa-check"></i><b>7.2.2</b> Custom with theme_ipsum</a></li>
+<li class="chapter" data-level="7.2.3" data-path="distributions.html"><a href="distributions.html#mirror-density-chart-with-ggplot2"><i class="fa fa-check"></i><b>7.2.3</b> Mirror Density Chart with ggplot2</a></li>
+<li class="chapter" data-level="7.2.4" data-path="distributions.html"><a href="distributions.html#density-with-geom_density"><i class="fa fa-check"></i><b>7.2.4</b> Density with geom_density</a></li>
+<li class="chapter" data-level="7.2.5" data-path="distributions.html"><a href="distributions.html#histogram-with-geom_histogram"><i class="fa fa-check"></i><b>7.2.5</b> Histogram with geom_histogram</a></li>
+<li class="chapter" data-level="7.2.6" data-path="distributions.html"><a href="distributions.html#density-chart-with-several-groups"><i class="fa fa-check"></i><b>7.2.6</b> Density Chart with Several Groups</a></li>
+<li class="chapter" data-level="7.2.7" data-path="distributions.html"><a href="distributions.html#multi-density-chart"><i class="fa fa-check"></i><b>7.2.7</b> Multi density chart</a></li>
+<li class="chapter" data-level="7.2.8" data-path="distributions.html"><a href="distributions.html#small-multiple-with-facet_wrap"><i class="fa fa-check"></i><b>7.2.8</b> Small Multiple with facet_wrap()</a></li>
+<li class="chapter" data-level="7.2.9" data-path="distributions.html"><a href="distributions.html#stacked-density-chart"><i class="fa fa-check"></i><b>7.2.9</b> Stacked Density Chart</a></li>
+<li class="chapter" data-level="7.2.10" data-path="distributions.html"><a href="distributions.html#marginal-distribution-with-ggplot2-and-ggextra"><i class="fa fa-check"></i><b>7.2.10</b> Marginal distribution with ggplot2 and ggExtra</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="distributions.html"><a href="distributions.html#histogram"><i class="fa fa-check"></i><b>7.3</b> Histogram</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="distributions.html"><a href="distributions.html#ggplot2"><i class="fa fa-check"></i><b>7.3.1</b> ggplot2</a></li>
+<li class="chapter" data-level="7.3.2" data-path="distributions.html"><a href="distributions.html#basic-histogram-with-ggplot2"><i class="fa fa-check"></i><b>7.3.2</b> Basic histogram with ggplot2</a></li>
+<li class="chapter" data-level="7.3.3" data-path="distributions.html"><a href="distributions.html#basic-histogram-with-geom_histogram"><i class="fa fa-check"></i><b>7.3.3</b> Basic histogram with geom_histogram</a></li>
+<li class="chapter" data-level="7.3.4" data-path="distributions.html"><a href="distributions.html#control-bin-size-with-binwidth"><i class="fa fa-check"></i><b>7.3.4</b> Control Bin Size with Binwidth</a></li>
+<li class="chapter" data-level="7.3.5" data-path="distributions.html"><a href="distributions.html#histogram-with-several-groups---ggplot2"><i class="fa fa-check"></i><b>7.3.5</b> Histogram with Several Groups - GGPLOT2</a></li>
+<li class="chapter" data-level="7.3.6" data-path="distributions.html"><a href="distributions.html#using-small-multiple"><i class="fa fa-check"></i><b>7.3.6</b> Using Small Multiple</a></li>
+<li class="chapter" data-level="7.3.7" data-path="distributions.html"><a href="distributions.html#base-r"><i class="fa fa-check"></i><b>7.3.7</b> Base R</a></li>
+<li class="chapter" data-level="7.3.8" data-path="distributions.html"><a href="distributions.html#two-histograms-with-melt-colors"><i class="fa fa-check"></i><b>7.3.8</b> Two Histograms with Melt Colors</a></li>
+<li class="chapter" data-level="7.3.9" data-path="distributions.html"><a href="distributions.html#boxplot-on-top-of-histogram"><i class="fa fa-check"></i><b>7.3.9</b> Boxplot on top of Histogram</a></li>
+<li class="chapter" data-level="7.3.10" data-path="distributions.html"><a href="distributions.html#histogram-with-colored-tail"><i class="fa fa-check"></i><b>7.3.10</b> Histogram with Colored Tail</a></li>
+<li class="chapter" data-level="7.3.11" data-path="distributions.html"><a href="distributions.html#mirrored-histogram-in-base-r"><i class="fa fa-check"></i><b>7.3.11</b> Mirrored Histogram in Base R</a></li>
+<li class="chapter" data-level="7.3.12" data-path="distributions.html"><a href="distributions.html#histogram-without-border"><i class="fa fa-check"></i><b>7.3.12</b> Histogram without Border</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="distributions.html"><a href="distributions.html#boxplot"><i class="fa fa-check"></i><b>7.4</b> Boxplot</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="distributions.html"><a href="distributions.html#ggplot2-1"><i class="fa fa-check"></i><b>7.4.1</b> Ggplot2</a></li>
+<li class="chapter" data-level="7.4.2" data-path="distributions.html"><a href="distributions.html#ggplot2-boxplot-parameters"><i class="fa fa-check"></i><b>7.4.2</b> Ggplot2 Boxplot Parameters</a></li>
+<li class="chapter" data-level="7.4.3" data-path="distributions.html"><a href="distributions.html#control-ggplot2-boxplot-colors"><i class="fa fa-check"></i><b>7.4.3</b> Control ggplot2 Boxplot Colors</a></li>
+<li class="chapter" data-level="7.4.4" data-path="distributions.html"><a href="distributions.html#highlighting-a-group"><i class="fa fa-check"></i><b>7.4.4</b> Highlighting a Group</a></li>
+<li class="chapter" data-level="7.4.5" data-path="distributions.html"><a href="distributions.html#grouped-boxplot"><i class="fa fa-check"></i><b>7.4.5</b> Grouped Boxplot</a></li>
+<li class="chapter" data-level="7.4.6" data-path="distributions.html"><a href="distributions.html#using-small-multiple-1"><i class="fa fa-check"></i><b>7.4.6</b> Using Small Multiple</a></li>
+<li class="chapter" data-level="7.4.7" data-path="distributions.html"><a href="distributions.html#ggplot2-boxplot-with-variable-width"><i class="fa fa-check"></i><b>7.4.7</b> Ggplot2 Boxplot with Variable Width</a></li>
+<li class="chapter" data-level="7.4.8" data-path="distributions.html"><a href="distributions.html#ggplot2-boxplot-from-continuous-variable"><i class="fa fa-check"></i><b>7.4.8</b> Ggplot2 Boxplot from Continuous Variable</a></li>
+<li class="chapter" data-level="7.4.9" data-path="distributions.html"><a href="distributions.html#ggplot2-boxplot-with-mean-value"><i class="fa fa-check"></i><b>7.4.9</b> Ggplot2 Boxplot with Mean Value</a></li>
+<li class="chapter" data-level="7.4.10" data-path="distributions.html"><a href="distributions.html#basic-r"><i class="fa fa-check"></i><b>7.4.10</b> Basic R</a></li>
+<li class="chapter" data-level="7.4.11" data-path="distributions.html"><a href="distributions.html#basic-r-x-axis-labels-on-several-lines"><i class="fa fa-check"></i><b>7.4.11</b> Basic R: X Axis Labels on Several Lines</a></li>
+<li class="chapter" data-level="7.4.12" data-path="distributions.html"><a href="distributions.html#boxplot-with-jitter-in-base-r"><i class="fa fa-check"></i><b>7.4.12</b> Boxplot with Jitter in Base R</a></li>
+<li class="chapter" data-level="7.4.13" data-path="distributions.html"><a href="distributions.html#ordering-boxplots-in-base-r"><i class="fa fa-check"></i><b>7.4.13</b> Ordering Boxplots in Base R</a></li>
+<li class="chapter" data-level="7.4.14" data-path="distributions.html"><a href="distributions.html#give-a-specific-order"><i class="fa fa-check"></i><b>7.4.14</b> Give a Specific Order</a></li>
+<li class="chapter" data-level="7.4.15" data-path="distributions.html"><a href="distributions.html#grouped-and-ordered-boxplot"><i class="fa fa-check"></i><b>7.4.15</b> Grouped and Ordered Boxplot</a></li>
+<li class="chapter" data-level="7.4.16" data-path="distributions.html"><a href="distributions.html#add-text-over-boxplot-in-base-r"><i class="fa fa-check"></i><b>7.4.16</b> Add Text over Boxplot in Base R</a></li>
+<li class="chapter" data-level="7.4.17" data-path="distributions.html"><a href="distributions.html#tukey-test-and-boxplot-in-r"><i class="fa fa-check"></i><b>7.4.17</b> Tukey Test and Boxplot in R</a></li>
+<li class="chapter" data-level="7.4.18" data-path="distributions.html"><a href="distributions.html#tukey-test-results"><i class="fa fa-check"></i><b>7.4.18</b> Tukey Test Results</a></li>
+<li class="chapter" data-level="7.4.19" data-path="distributions.html"><a href="distributions.html#control-box-type-with-the-bty-option"><i class="fa fa-check"></i><b>7.4.19</b> Control Box Type with the bty Option</a></li>
+<li class="chapter" data-level="7.4.20" data-path="distributions.html"><a href="distributions.html#split-base-r-plot-window-with-layout"><i class="fa fa-check"></i><b>7.4.20</b> Split Base R Plot Window with layout()</a></li>
+<li class="chapter" data-level="7.4.21" data-path="distributions.html"><a href="distributions.html#subdivide-second-row"><i class="fa fa-check"></i><b>7.4.21</b> Subdivide Second Row</a></li>
+<li class="chapter" data-level="7.4.22" data-path="distributions.html"><a href="distributions.html#custom-proportions"><i class="fa fa-check"></i><b>7.4.22</b> Custom Proportions</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="distributions.html"><a href="distributions.html#ridgeline-chart"><i class="fa fa-check"></i><b>7.5</b> Ridgeline Chart</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="distributions.html"><a href="distributions.html#basic-ridgeline-plot"><i class="fa fa-check"></i><b>7.5.1</b> Basic Ridgeline Plot</a></li>
+<li class="chapter" data-level="7.5.2" data-path="distributions.html"><a href="distributions.html#shape-variation"><i class="fa fa-check"></i><b>7.5.2</b> Shape Variation</a></li>
+<li class="chapter" data-level="7.5.3" data-path="distributions.html"><a href="distributions.html#color-relative-to-numeric-value"><i class="fa fa-check"></i><b>7.5.3</b> Color Relative to Numeric Value</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="correlation.html"><a href="correlation.html"><i class="fa fa-check"></i><b>8</b> Correlation</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="correlation.html"><a href="correlation.html#scatterplot"><i class="fa fa-check"></i><b>8.1</b> Scatterplot</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="correlation.html"><a href="correlation.html#basic-scatterplot-in-base-r"><i class="fa fa-check"></i><b>8.1.1</b> Basic Scatterplot in Base R</a></li>
+<li class="chapter" data-level="8.1.2" data-path="correlation.html"><a href="correlation.html#customizations"><i class="fa fa-check"></i><b>8.1.2</b> Customizations</a></li>
+<li class="chapter" data-level="8.1.3" data-path="correlation.html"><a href="correlation.html#map-a-variable-to-marker-feature-in-ggplot2-scatterplot"><i class="fa fa-check"></i><b>8.1.3</b> Map a Variable to Marker Feature in <code>ggplot2</code> Scatterplot</a></li>
+<li class="chapter" data-level="8.1.4" data-path="correlation.html"><a href="correlation.html#works-with-any-aesthetics"><i class="fa fa-check"></i><b>8.1.4</b> Works with any Aesthetics</a></li>
+<li class="chapter" data-level="8.1.5" data-path="correlation.html"><a href="correlation.html#mapping-to-several-features"><i class="fa fa-check"></i><b>8.1.5</b> Mapping to Several Features</a></li>
+<li class="chapter" data-level="8.1.6" data-path="correlation.html"><a href="correlation.html#add-text-labels-with-ggplot2"><i class="fa fa-check"></i><b>8.1.6</b> Add Text Labels with ggplot2</a></li>
+<li class="chapter" data-level="8.1.7" data-path="correlation.html"><a href="correlation.html#add-labels-with-geom_label"><i class="fa fa-check"></i><b>8.1.7</b> Add Labels with <code>geom_label()</code></a></li>
+<li class="chapter" data-level="8.1.8" data-path="correlation.html"><a href="correlation.html#add-one-text-label-only"><i class="fa fa-check"></i><b>8.1.8</b> Add One Text Label Only</a></li>
+<li class="chapter" data-level="8.1.9" data-path="correlation.html"><a href="correlation.html#add-labels-for-a-selection-of-marker"><i class="fa fa-check"></i><b>8.1.9</b> Add Labels for a Selection of Marker</a></li>
+<li class="chapter" data-level="8.1.10" data-path="correlation.html"><a href="correlation.html#ggplot2-scatterplot-with-rug"><i class="fa fa-check"></i><b>8.1.10</b> Ggplot2 Scatterplot with Rug</a></li>
+<li class="chapter" data-level="8.1.11" data-path="distributions.html"><a href="distributions.html#marginal-distribution-with-ggplot2-and-ggextra"><i class="fa fa-check"></i><b>8.1.11</b> Marginal Distribution with Ggplot2 and ggExtra</a></li>
+<li class="chapter" data-level="8.1.12" data-path="distributions.html"><a href="distributions.html#more-customization"><i class="fa fa-check"></i><b>8.1.12</b> More Customization</a></li>
+<li class="chapter" data-level="8.1.13" data-path="correlation.html"><a href="correlation.html#linear-model-and-confidence-interval-in-ggplot2"><i class="fa fa-check"></i><b>8.1.13</b> Linear Model and Confidence Interval in ggplot2</a></li>
+<li class="chapter" data-level="8.1.14" data-path="correlation.html"><a href="correlation.html#using-base-r"><i class="fa fa-check"></i><b>8.1.14</b> Using Base R</a></li>
+<li class="chapter" data-level="8.1.15" data-path="correlation.html"><a href="correlation.html#scatterplot-with-polynomial-curve-fitting"><i class="fa fa-check"></i><b>8.1.15</b> Scatterplot with Polynomial Curve Fitting</a></li>
+<li class="chapter" data-level="8.1.16" data-path="correlation.html"><a href="correlation.html#polynomial-curve-fitting-and-confidence-interval"><i class="fa fa-check"></i><b>8.1.16</b> Polynomial Curve Fitting and Confidence Interval</a></li>
+<li class="chapter" data-level="8.1.17" data-path="correlation.html"><a href="correlation.html#lattice-xy-plot-function"><i class="fa fa-check"></i><b>8.1.17</b> Lattice XY Plot Function</a></li>
+<li class="chapter" data-level="8.1.18" data-path="correlation.html"><a href="correlation.html#correlation-between-discrete-variable"><i class="fa fa-check"></i><b>8.1.18</b> Correlation between Discrete Variable</a></li>
+<li class="chapter" data-level="8.1.19" data-path="correlation.html"><a href="correlation.html#use-mtext-to-write-text-in-margin"><i class="fa fa-check"></i><b>8.1.19</b> Use mtext() to Write Text in Margin</a></li>
+<li class="chapter" data-level="8.1.20" data-path="correlation.html"><a href="correlation.html#customizations-2"><i class="fa fa-check"></i><b>8.1.20</b> Customizations</a></li>
+<li class="chapter" data-level="8.1.21" data-path="correlation.html"><a href="correlation.html#the-split_screen-function-of-r"><i class="fa fa-check"></i><b>8.1.21</b> The split_screen() Function of R</a></li>
+<li class="chapter" data-level="8.1.22" data-path="correlation.html"><a href="correlation.html#use-par-mfrow-to-split-screen"><i class="fa fa-check"></i><b>8.1.22</b> Use par mfrow to Split Screen</a></li>
+<li class="chapter" data-level="8.1.23" data-path="correlation.html"><a href="correlation.html#base-r-graph-parameters-a-cheatsheet."><i class="fa fa-check"></i><b>8.1.23</b> Base R Graph Parameters: A Cheatsheet.</a></li>
+<li class="chapter" data-level="8.1.24" data-path="correlation.html"><a href="correlation.html#special-use-case-manhattan-plots"><i class="fa fa-check"></i><b>8.1.24</b> SPECIAL USE CASE: MANHATTAN PLOTS</a></li>
+<li class="chapter" data-level="8.1.25" data-path="correlation.html"><a href="correlation.html#highly-customizable-with-ggplot2"><i class="fa fa-check"></i><b>8.1.25</b> Highly Customizable with ggplot2</a></li>
+<li class="chapter" data-level="8.1.26" data-path="correlation.html"><a href="correlation.html#switch-to-an-interactive-version-with-plotly"><i class="fa fa-check"></i><b>8.1.26</b> Switch to an Interactive Version with Plotly</a></li>
+<li class="chapter" data-level="8.1.27" data-path="correlation.html"><a href="correlation.html#circular-version-with-cmplot"><i class="fa fa-check"></i><b>8.1.27</b> Circular Version with CMplot</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="correlation.html"><a href="correlation.html#heatmap"><i class="fa fa-check"></i><b>8.2</b> Heatmap</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="correlation.html"><a href="correlation.html#normalization"><i class="fa fa-check"></i><b>8.2.1</b> Normalization</a></li>
+<li class="chapter" data-level="8.2.2" data-path="correlation.html"><a href="correlation.html#dendrogram-and-reordering"><i class="fa fa-check"></i><b>8.2.2</b> Dendrogram and Reordering</a></li>
+<li class="chapter" data-level="8.2.3" data-path="correlation.html"><a href="correlation.html#color-palette"><i class="fa fa-check"></i><b>8.2.3</b> Color Palette</a></li>
+<li class="chapter" data-level="8.2.4" data-path="correlation.html"><a href="correlation.html#custom-layout"><i class="fa fa-check"></i><b>8.2.4</b> Custom Layout</a></li>
+<li class="chapter" data-level="8.2.5" data-path="correlation.html"><a href="correlation.html#add-color-beside-heatmap"><i class="fa fa-check"></i><b>8.2.5</b> Add Color beside Heatmap</a></li>
+<li class="chapter" data-level="8.2.6" data-path="correlation.html"><a href="correlation.html#using-geom_title-from-ggplot2"><i class="fa fa-check"></i><b>8.2.6</b> Using geom_title() from Ggplot2</a></li>
+<li class="chapter" data-level="8.2.7" data-path="correlation.html"><a href="correlation.html#ggplot2-heatmap"><i class="fa fa-check"></i><b>8.2.7</b> Ggplot2 Heatmap</a></li>
+<li class="chapter" data-level="8.2.8" data-path="correlation.html"><a href="correlation.html#control-color-palette"><i class="fa fa-check"></i><b>8.2.8</b> Control Color Palette</a></li>
+<li class="chapter" data-level="8.2.9" data-path="correlation.html"><a href="correlation.html#from-wide-input-format"><i class="fa fa-check"></i><b>8.2.9</b> From Wide Input Format</a></li>
+<li class="chapter" data-level="8.2.10" data-path="correlation.html"><a href="correlation.html#turn-it-interactive-with-plotly"><i class="fa fa-check"></i><b>8.2.10</b> Turn it Interactive with Plotly</a></li>
+<li class="chapter" data-level="8.2.11" data-path="correlation.html"><a href="correlation.html#interactive-heatmaps-from-r"><i class="fa fa-check"></i><b>8.2.11</b> Interactive Heatmaps from R</a></li>
+<li class="chapter" data-level="8.2.12" data-path="correlation.html"><a href="correlation.html#heatmap-for-time-series"><i class="fa fa-check"></i><b>8.2.12</b> Heatmap for Time Series</a></li>
+<li class="chapter" data-level="8.2.13" data-path="correlation.html"><a href="correlation.html#using-the-levelplot-function-of-lattice"><i class="fa fa-check"></i><b>8.2.13</b> Using the levelplot() Function of Lattice</a></li>
+<li class="chapter" data-level="8.2.14" data-path="correlation.html"><a href="correlation.html#from-wide-input-matrix"><i class="fa fa-check"></i><b>8.2.14</b> From Wide Input Matrix</a></li>
+<li class="chapter" data-level="8.2.15" data-path="correlation.html"><a href="correlation.html#flip-and-reorder-axis"><i class="fa fa-check"></i><b>8.2.15</b> Flip and Reorder Axis</a></li>
+<li class="chapter" data-level="8.2.16" data-path="correlation.html"><a href="correlation.html#custom-colors"><i class="fa fa-check"></i><b>8.2.16</b> Custom Colors</a></li>
+<li class="chapter" data-level="8.2.17" data-path="correlation.html"><a href="correlation.html#heatmap-with-smoothing---latticeextra"><i class="fa fa-check"></i><b>8.2.17</b> Heatmap with Smoothing - LatticeExtra</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="correlation.html"><a href="correlation.html#correlogram"><i class="fa fa-check"></i><b>8.3</b> Correlogram</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="correlation.html"><a href="correlation.html#visualize-correlation-with-ggcorr"><i class="fa fa-check"></i><b>8.3.1</b> Visualize Correlation with ggcorr()</a></li>
+<li class="chapter" data-level="8.3.2" data-path="correlation.html"><a href="correlation.html#split-by-group"><i class="fa fa-check"></i><b>8.3.2</b> Split by Group</a></li>
+<li class="chapter" data-level="8.3.3" data-path="correlation.html"><a href="correlation.html#using-the-corrgram-package"><i class="fa fa-check"></i><b>8.3.3</b> Using the Corrgram Package</a></li>
+<li class="chapter" data-level="8.3.4" data-path="correlation.html"><a href="correlation.html#visualize-correlation-with-ggcorr-1"><i class="fa fa-check"></i><b>8.3.4</b> Visualize Correlation with ggcorr()</a></li>
+<li class="chapter" data-level="8.3.5" data-path="correlation.html"><a href="correlation.html#split-by-group-1"><i class="fa fa-check"></i><b>8.3.5</b> Split by Group</a></li>
+<li class="chapter" data-level="8.3.6" data-path="correlation.html"><a href="correlation.html#change-plot-types"><i class="fa fa-check"></i><b>8.3.6</b> Change plot types</a></li>
+<li class="chapter" data-level="8.3.7" data-path="correlation.html"><a href="correlation.html#other-methods"><i class="fa fa-check"></i><b>8.3.7</b> Other Methods</a></li>
+<li class="chapter" data-level="8.3.8" data-path="correlation.html"><a href="correlation.html#basic-scatterplot-matrix"><i class="fa fa-check"></i><b>8.3.8</b> Basic Scatterplot Matrix</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="correlation.html"><a href="correlation.html#bubble-plot"><i class="fa fa-check"></i><b>8.4</b> Bubble Plot</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="correlation.html"><a href="correlation.html#most-basic-bubble-chart-with-geom_point"><i class="fa fa-check"></i><b>8.4.1</b> Most Basic bubble Chart with geom_point()</a></li>
+<li class="chapter" data-level="8.4.2" data-path="correlation.html"><a href="correlation.html#control-circle-size-with-scale_size"><i class="fa fa-check"></i><b>8.4.2</b> Control Circle Size with scale_size()</a></li>
+<li class="chapter" data-level="8.4.3" data-path="correlation.html"><a href="correlation.html#add-a-fourth-dimension-color"><i class="fa fa-check"></i><b>8.4.3</b> Add a Fourth Dimension: Color</a></li>
+<li class="chapter" data-level="8.4.4" data-path="correlation.html"><a href="correlation.html#make-it-pretty"><i class="fa fa-check"></i><b>8.4.4</b> Make it Pretty</a></li>
+<li class="chapter" data-level="8.4.5" data-path="correlation.html"><a href="correlation.html#interactive-version"><i class="fa fa-check"></i><b>8.4.5</b> Interactive Version</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="correlation.html"><a href="correlation.html#connected-scatterplot"><i class="fa fa-check"></i><b>8.5</b> Connected Scatterplot</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="correlation.html"><a href="correlation.html#connected-scatterplot-with-r-and-ggplot2"><i class="fa fa-check"></i><b>8.5.1</b> Connected Scatterplot with R and Ggplot2</a></li>
+<li class="chapter" data-level="8.5.2" data-path="correlation.html"><a href="correlation.html#customize-the-connected-scatterplot"><i class="fa fa-check"></i><b>8.5.2</b> Customize the Connected Scatterplot</a></li>
+<li class="chapter" data-level="8.5.3" data-path="correlation.html"><a href="correlation.html#connected-scatterplot-to-show-an-evolution"><i class="fa fa-check"></i><b>8.5.3</b> Connected Scatterplot to show an Evolution</a></li>
+<li class="chapter" data-level="8.5.4" data-path="correlation.html"><a href="correlation.html#connected-scatterplot-for-time-series"><i class="fa fa-check"></i><b>8.5.4</b> Connected Scatterplot for Time Series</a></li>
+<li class="chapter" data-level="8.5.5" data-path="correlation.html"><a href="correlation.html#connected-scatterplot-using-base-r"><i class="fa fa-check"></i><b>8.5.5</b> Connected Scatterplot using Base R</a></li>
+<li class="chapter" data-level="8.5.6" data-path="correlation.html"><a href="correlation.html#manage-dates-data-with-base-r"><i class="fa fa-check"></i><b>8.5.6</b> Manage Dates Data with Base R</a></li>
+<li class="chapter" data-level="8.5.7" data-path="correlation.html"><a href="correlation.html#switch-to-date-format"><i class="fa fa-check"></i><b>8.5.7</b> Switch to Date Format</a></li>
+<li class="chapter" data-level="8.5.8" data-path="correlation.html"><a href="correlation.html#base-r-graph-parameters-cheatsheet"><i class="fa fa-check"></i><b>8.5.8</b> Base R Graph Parameters: Cheatsheet</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="correlation.html"><a href="correlation.html#density-2d"><i class="fa fa-check"></i><b>8.6</b> Density 2D</a>
+<ul>
+<li class="chapter" data-level="8.6.1" data-path="correlation.html"><a href="correlation.html#the-issue-with-geom_point"><i class="fa fa-check"></i><b>8.6.1</b> The Issue with geom_point()</a></li>
+<li class="chapter" data-level="8.6.2" data-path="correlation.html"><a href="correlation.html#d-histogram-with-geom_bin2d"><i class="fa fa-check"></i><b>8.6.2</b> 2d Histogram with geom_bin2d()</a></li>
+<li class="chapter" data-level="8.6.3" data-path="correlation.html"><a href="correlation.html#hexbin-chart-with-geom_hex"><i class="fa fa-check"></i><b>8.6.3</b> Hexbin Chart with geom_hex()</a></li>
+<li class="chapter" data-level="8.6.4" data-path="correlation.html"><a href="correlation.html#d-distribution-with-geom_density_2d-or-stat_density_2d"><i class="fa fa-check"></i><b>8.6.4</b> 2d Distribution with geom_density_2d or stat_density_2d</a></li>
+<li class="chapter" data-level="8.6.5" data-path="correlation.html"><a href="correlation.html#customize-the-color-palette"><i class="fa fa-check"></i><b>8.6.5</b> Customize the Color Palette</a></li>
+<li class="chapter" data-level="8.6.6" data-path="correlation.html"><a href="correlation.html#hexbin-chart-with-the-hexbin-package"><i class="fa fa-check"></i><b>8.6.6</b> Hexbin Chart with the Hexbin Package</a></li>
+<li class="chapter" data-level="8.6.7" data-path="correlation.html"><a href="correlation.html#hexbin-chart-and-scatterplot-with-ggplot2"><i class="fa fa-check"></i><b>8.6.7</b> Hexbin Chart and Scatterplot with Ggplot2</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="ranking.html"><a href="ranking.html"><i class="fa fa-check"></i><b>9</b> Ranking</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="ranking.html"><a href="ranking.html#barplot"><i class="fa fa-check"></i><b>9.1</b> Barplot</a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="ranking.html"><a href="ranking.html#basic-barplot-with-ggplot2"><i class="fa fa-check"></i><b>9.1.1</b> Basic Barplot with Ggplot2</a></li>
+<li class="chapter" data-level="9.1.2" data-path="ranking.html"><a href="ranking.html#control-bar-color"><i class="fa fa-check"></i><b>9.1.2</b> Control Bar Color</a></li>
+<li class="chapter" data-level="9.1.3" data-path="ranking.html"><a href="ranking.html#horizontal-barplot-with-coord_flip"><i class="fa fa-check"></i><b>9.1.3</b> Horizontal Barplot with <code>coord_flip()</code></a></li>
+<li class="chapter" data-level="9.1.4" data-path="ranking.html"><a href="ranking.html#control-bar-width-with-width"><i class="fa fa-check"></i><b>9.1.4</b> Control Bar Width with Width</a></li>
+<li class="chapter" data-level="9.1.5" data-path="distributions.html"><a href="distributions.html#reorder-a-variable-with-ggplot2"><i class="fa fa-check"></i><b>9.1.5</b> Reorder a Variable with Ggplot2</a></li>
+<li class="chapter" data-level="9.1.6" data-path="distributions.html"><a href="distributions.html#method-1-the-forecats-library"><i class="fa fa-check"></i><b>9.1.6</b> Method 1: the Forecats Library</a></li>
+<li class="chapter" data-level="9.1.7" data-path="distributions.html"><a href="distributions.html#method-2-using-dplyr-only"><i class="fa fa-check"></i><b>9.1.7</b> Method 2: Using Dplyr Only</a></li>
+<li class="chapter" data-level="9.1.8" data-path="ranking.html"><a href="ranking.html#method-3-the-reorder-function-of-base"><i class="fa fa-check"></i><b>9.1.8</b> Method 3: the <code>reorder()</code> Function of Base</a></li>
+<li class="chapter" data-level="9.1.9" data-path="ranking.html"><a href="ranking.html#barplot-with-variable-width---ggplot2"><i class="fa fa-check"></i><b>9.1.9</b> Barplot with Variable Width - Ggplot2</a></li>
+<li class="chapter" data-level="9.1.10" data-path="ranking.html"><a href="ranking.html#barplot-with-error-bars"><i class="fa fa-check"></i><b>9.1.10</b> Barplot with Error Bars</a></li>
+<li class="chapter" data-level="9.1.11" data-path="ranking.html"><a href="ranking.html#customization"><i class="fa fa-check"></i><b>9.1.11</b> Customization</a></li>
+<li class="chapter" data-level="9.1.12" data-path="ranking.html"><a href="ranking.html#basic-r-and-the-barplot-function"><i class="fa fa-check"></i><b>9.1.12</b> Basic R and the <code>barplot()</code> Function</a></li>
+<li class="chapter" data-level="9.1.13" data-path="ranking.html"><a href="ranking.html#custom-color"><i class="fa fa-check"></i><b>9.1.13</b> Custom Color</a></li>
+<li class="chapter" data-level="9.1.14" data-path="ranking.html"><a href="ranking.html#title-axis-label-custom-limits"><i class="fa fa-check"></i><b>9.1.14</b> Title, Axis label, Custom Limits</a></li>
+<li class="chapter" data-level="9.1.15" data-path="ranking.html"><a href="ranking.html#horizontal-barplot"><i class="fa fa-check"></i><b>9.1.15</b> Horizontal Barplot</a></li>
+<li class="chapter" data-level="9.1.16" data-path="ranking.html"><a href="ranking.html#bar-width-space-between-bars"><i class="fa fa-check"></i><b>9.1.16</b> Bar Width &amp; Space between Bars</a></li>
+<li class="chapter" data-level="9.1.17" data-path="ranking.html"><a href="ranking.html#barplot-texture"><i class="fa fa-check"></i><b>9.1.17</b> Barplot Texture</a></li>
+<li class="chapter" data-level="9.1.18" data-path="ranking.html"><a href="ranking.html#advanced-r-barplot-customization"><i class="fa fa-check"></i><b>9.1.18</b> Advanced R Barplot Customization</a></li>
+<li class="chapter" data-level="9.1.19" data-path="ranking.html"><a href="ranking.html#axis-labels-orientation-with-las"><i class="fa fa-check"></i><b>9.1.19</b> Axis Labels Orientation with <code>las()</code></a></li>
+<li class="chapter" data-level="9.1.20" data-path="ranking.html"><a href="ranking.html#change-group-labels-with-names.arg"><i class="fa fa-check"></i><b>9.1.20</b> Change Group Labels with <strong>names.arg</strong></a></li>
+<li class="chapter" data-level="9.1.21" data-path="ranking.html"><a href="ranking.html#axis-labels-axis-title-style"><i class="fa fa-check"></i><b>9.1.21</b> Axis Labels &amp; Axis Title Style</a></li>
+<li class="chapter" data-level="9.1.22" data-path="ranking.html"><a href="ranking.html#increase-margin-size"><i class="fa fa-check"></i><b>9.1.22</b> Increase Margin Size</a></li>
+<li class="chapter" data-level="9.1.23" data-path="ranking.html"><a href="ranking.html#barplot-with-error-bars-1"><i class="fa fa-check"></i><b>9.1.23</b> Barplot with Error Bars</a></li>
+<li class="chapter" data-level="9.1.24" data-path="ranking.html"><a href="ranking.html#customization-1"><i class="fa fa-check"></i><b>9.1.24</b> Customization</a></li>
+<li class="chapter" data-level="9.1.25" data-path="ranking.html"><a href="ranking.html#standard-deviation-standard-error-or-confidence-interval"><i class="fa fa-check"></i><b>9.1.25</b> Standard Deviation, Standard Error or Confidence Interval?</a></li>
+<li class="chapter" data-level="9.1.26" data-path="ranking.html"><a href="ranking.html#basic-r-arrows-function"><i class="fa fa-check"></i><b>9.1.26</b> Basic R: <code>arrows()</code> Function</a></li>
+<li class="chapter" data-level="9.1.27" data-path="ranking.html"><a href="ranking.html#barplot-with-number-of-observation"><i class="fa fa-check"></i><b>9.1.27</b> Barplot with Number of Observation</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="ranking.html"><a href="ranking.html#radar-chart"><i class="fa fa-check"></i><b>9.2</b> Radar Chart</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="ranking.html"><a href="ranking.html#one-group-only---fmsb-library"><i class="fa fa-check"></i><b>9.2.1</b> One Group Only - FMSB Library</a></li>
+<li class="chapter" data-level="9.2.2" data-path="ranking.html"><a href="ranking.html#customization-2"><i class="fa fa-check"></i><b>9.2.2</b> Customization</a></li>
+<li class="chapter" data-level="9.2.3" data-path="ranking.html"><a href="ranking.html#several-groups"><i class="fa fa-check"></i><b>9.2.3</b> Several Groups</a></li>
+<li class="chapter" data-level="9.2.4" data-path="ranking.html"><a href="ranking.html#customization-3"><i class="fa fa-check"></i><b>9.2.4</b> Customization</a></li>
+<li class="chapter" data-level="9.2.5" data-path="ranking.html"><a href="ranking.html#about-axis-limits"><i class="fa fa-check"></i><b>9.2.5</b> About Axis Limits</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="ranking.html"><a href="ranking.html#wordcloud"><i class="fa fa-check"></i><b>9.3</b> Wordcloud</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="ranking.html"><a href="ranking.html#wordcloud2"><i class="fa fa-check"></i><b>9.3.1</b> Wordcloud2</a></li>
+<li class="chapter" data-level="9.3.2" data-path="ranking.html"><a href="ranking.html#the-wordcloud2-library"><i class="fa fa-check"></i><b>9.3.2</b> The <strong>Wordcloud2</strong> Library</a></li>
+<li class="chapter" data-level="9.3.3" data-path="ranking.html"><a href="ranking.html#color-background-color"><i class="fa fa-check"></i><b>9.3.3</b> Color &amp; Background Color</a></li>
+<li class="chapter" data-level="9.3.4" data-path="ranking.html"><a href="ranking.html#shape"><i class="fa fa-check"></i><b>9.3.4</b> Shape</a></li>
+<li class="chapter" data-level="9.3.5" data-path="ranking.html"><a href="ranking.html#word-orientation"><i class="fa fa-check"></i><b>9.3.5</b> Word Orientation</a></li>
+<li class="chapter" data-level="9.3.6" data-path="ranking.html"><a href="ranking.html#chinese-version"><i class="fa fa-check"></i><b>9.3.6</b> Chinese Version</a></li>
+<li class="chapter" data-level="9.3.7" data-path="ranking.html"><a href="ranking.html#use-letter-or-text-as-shape"><i class="fa fa-check"></i><b>9.3.7</b> Use Letter or Text as Shape</a></li>
+<li class="chapter" data-level="9.3.8" data-path="ranking.html"><a href="ranking.html#export-the-wordcloud"><i class="fa fa-check"></i><b>9.3.8</b> Export the Wordcloud</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="ranking.html"><a href="ranking.html#parallel-coordinates-chart"><i class="fa fa-check"></i><b>9.4</b> Parallel Coordinates Chart</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="ranking.html"><a href="ranking.html#parallel-coordinates-chart-with-ggally"><i class="fa fa-check"></i><b>9.4.1</b> Parallel Coordinates Chart with ggally</a></li>
+<li class="chapter" data-level="9.4.2" data-path="ranking.html"><a href="ranking.html#custom-color-theme-general-appearance"><i class="fa fa-check"></i><b>9.4.2</b> Custom Color, Theme, General Appearance</a></li>
+<li class="chapter" data-level="9.4.3" data-path="ranking.html"><a href="ranking.html#scaling"><i class="fa fa-check"></i><b>9.4.3</b> Scaling</a></li>
+<li class="chapter" data-level="9.4.4" data-path="ranking.html"><a href="ranking.html#highlight-a-group"><i class="fa fa-check"></i><b>9.4.4</b> Highlight a Group</a></li>
+<li class="chapter" data-level="9.4.5" data-path="ranking.html"><a href="ranking.html#parallel-chart-with-the-mass-library"><i class="fa fa-check"></i><b>9.4.5</b> Parallel Chart with the <code>MASS</code> Library</a></li>
+<li class="chapter" data-level="9.4.6" data-path="ranking.html"><a href="ranking.html#reorder-variables"><i class="fa fa-check"></i><b>9.4.6</b> Reorder Variables</a></li>
+<li class="chapter" data-level="9.4.7" data-path="ranking.html"><a href="ranking.html#highlight-a-group-1"><i class="fa fa-check"></i><b>9.4.7</b> Highlight a Group</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="ranking.html"><a href="ranking.html#lollipop-plot"><i class="fa fa-check"></i><b>9.5</b> Lollipop Plot</a>
+<ul>
+<li class="chapter" data-level="9.5.1" data-path="ranking.html"><a href="ranking.html#most-basic-lollipop-plot"><i class="fa fa-check"></i><b>9.5.1</b> Most Basic Lollipop Plot</a></li>
+<li class="chapter" data-level="9.5.2" data-path="ranking.html"><a href="ranking.html#from-1-numeric-and-1-categorical-variable"><i class="fa fa-check"></i><b>9.5.2</b> From 1 Numeric and 1 Categorical Variable</a></li>
+<li class="chapter" data-level="9.5.3" data-path="ranking.html"><a href="ranking.html#custom-lollipop-chart"><i class="fa fa-check"></i><b>9.5.3</b> Custom Lollipop Chart</a></li>
+<li class="chapter" data-level="9.5.4" data-path="ranking.html"><a href="ranking.html#stem"><i class="fa fa-check"></i><b>9.5.4</b> Stem</a></li>
+<li class="chapter" data-level="9.5.5" data-path="ranking.html"><a href="ranking.html#general-appearance-with-theme"><i class="fa fa-check"></i><b>9.5.5</b> General Appearance with theme()</a></li>
+<li class="chapter" data-level="9.5.6" data-path="ranking.html"><a href="ranking.html#horizontal-version"><i class="fa fa-check"></i><b>9.5.6</b> Horizontal Version</a></li>
+<li class="chapter" data-level="9.5.7" data-path="ranking.html"><a href="ranking.html#baseline"><i class="fa fa-check"></i><b>9.5.7</b> Baseline</a></li>
+<li class="chapter" data-level="9.5.8" data-path="ranking.html"><a href="ranking.html#lollipop-chart-with-2-groups"><i class="fa fa-check"></i><b>9.5.8</b> Lollipop Chart with 2 Groups</a></li>
+<li class="chapter" data-level="9.5.9" data-path="ranking.html"><a href="ranking.html#highlight-a-group-in-a-lollipop-chart"><i class="fa fa-check"></i><b>9.5.9</b> Highlight a Group in a Lollipop Chart</a></li>
+<li class="chapter" data-level="9.5.10" data-path="ranking.html"><a href="ranking.html#lollipop-chart-with-conditional-color"><i class="fa fa-check"></i><b>9.5.10</b> Lollipop Chart with Conditional Color</a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="ranking.html"><a href="ranking.html#circular-barplot"><i class="fa fa-check"></i><b>9.6</b> Circular Barplot</a>
+<ul>
+<li class="chapter" data-level="9.6.1" data-path="ranking.html"><a href="ranking.html#most-basic-circular-barplot"><i class="fa fa-check"></i><b>9.6.1</b> Most Basic Circular Barplot</a></li>
+<li class="chapter" data-level="9.6.2" data-path="ranking.html"><a href="ranking.html#add-labels-to-circular-barplot"><i class="fa fa-check"></i><b>9.6.2</b> Add Labels to Circular Barplot</a></li>
+<li class="chapter" data-level="9.6.3" data-path="ranking.html"><a href="ranking.html#circular-barplot-with-groups"><i class="fa fa-check"></i><b>9.6.3</b> Circular Barplot with Groups</a></li>
+<li class="chapter" data-level="9.6.4" data-path="ranking.html"><a href="ranking.html#space-between-groups"><i class="fa fa-check"></i><b>9.6.4</b> Space between Groups</a></li>
+<li class="chapter" data-level="9.6.5" data-path="ranking.html"><a href="ranking.html#order-bars"><i class="fa fa-check"></i><b>9.6.5</b> Order Bars</a></li>
+<li class="chapter" data-level="9.6.6" data-path="ranking.html"><a href="ranking.html#circular-barchart-customization"><i class="fa fa-check"></i><b>9.6.6</b> Circular Barchart Customization</a></li>
+<li class="chapter" data-level="9.6.7" data-path="ranking.html"><a href="ranking.html#circular-stacked-barplot"><i class="fa fa-check"></i><b>9.6.7</b> Circular Stacked Barplot</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html"><i class="fa fa-check"></i><b>10</b> Part of a Whole</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#grouped-and-stacked-barplot"><i class="fa fa-check"></i><b>10.1</b> Grouped and Stacked Barplot</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#grouped-stacked-and-percent-stacked-barplot-in-ggplot2"><i class="fa fa-check"></i><b>10.1.1</b> Grouped, Stacked and Percent Stacked Barplot in ggplot2</a></li>
+<li class="chapter" data-level="10.1.2" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#stacked-barchart"><i class="fa fa-check"></i><b>10.1.2</b> Stacked Barchart</a></li>
+<li class="chapter" data-level="10.1.3" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#percent-stacked-barchart"><i class="fa fa-check"></i><b>10.1.3</b> Percent Stacked Barchart</a></li>
+<li class="chapter" data-level="10.1.4" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#grouped-barchart-customization"><i class="fa fa-check"></i><b>10.1.4</b> Grouped Barchart Customization</a></li>
+<li class="chapter" data-level="10.1.5" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#small-multiple"><i class="fa fa-check"></i><b>10.1.5</b> Small Multiple</a></li>
+<li class="chapter" data-level="10.1.6" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#stacked-barplot-for-evolution"><i class="fa fa-check"></i><b>10.1.6</b> Stacked Barplot for Evolution</a></li>
+<li class="chapter" data-level="10.1.7" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#stacking-barplot"><i class="fa fa-check"></i><b>10.1.7</b> Stacking Barplot</a></li>
+<li class="chapter" data-level="10.1.8" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#three-periods-stacked-barplot"><i class="fa fa-check"></i><b>10.1.8</b> Three Periods Stacked Barplot</a></li>
+<li class="chapter" data-level="10.1.9" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#zoom-on-specific-variable"><i class="fa fa-check"></i><b>10.1.9</b> Zoom on Specific Variable</a></li>
+<li class="chapter" data-level="10.1.10" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#few-categories-stacked-barplot"><i class="fa fa-check"></i><b>10.1.10</b> Few Categories Stacked Barplot</a></li>
+<li class="chapter" data-level="10.1.11" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#many-categories-stacked-barplot"><i class="fa fa-check"></i><b>10.1.11</b> Many Categories Stacked Barplot</a></li>
+<li class="chapter" data-level="10.1.12" data-path="distributions.html"><a href="distributions.html#base-r"><i class="fa fa-check"></i><b>10.1.12</b> Base R</a></li>
+<li class="chapter" data-level="10.1.13" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#grouped-stacked-and-percent-stacked-barplot-in-base-r"><i class="fa fa-check"></i><b>10.1.13</b> Grouped, Stacked and Percent Stacked Barplot in Base R</a></li>
+<li class="chapter" data-level="10.1.14" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#grouped-barchart-2"><i class="fa fa-check"></i><b>10.1.14</b> Grouped Barchart</a></li>
+<li class="chapter" data-level="10.1.15" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#percent-stacked-barplot"><i class="fa fa-check"></i><b>10.1.15</b> Percent Stacked Barplot</a></li>
+<li class="chapter" data-level="10.1.16" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#barplot-for-likert-type-items"><i class="fa fa-check"></i><b>10.1.16</b> Barplot for likert Type Items</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#treemap"><i class="fa fa-check"></i><b>10.2</b> Treemap</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#most-basic-treemap-with-r"><i class="fa fa-check"></i><b>10.2.1</b> Most Basic Treemap with R</a></li>
+<li class="chapter" data-level="10.2.2" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#treemap-with-subgroups"><i class="fa fa-check"></i><b>10.2.2</b> Treemap with Subgroups</a></li>
+<li class="chapter" data-level="10.2.3" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#customize-your-r-treemap"><i class="fa fa-check"></i><b>10.2.3</b> Customize your R Treemap</a></li>
+<li class="chapter" data-level="10.2.4" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#borders"><i class="fa fa-check"></i><b>10.2.4</b> Borders</a></li>
+<li class="chapter" data-level="10.2.5" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#general-features"><i class="fa fa-check"></i><b>10.2.5</b> General Features</a></li>
+<li class="chapter" data-level="10.2.6" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#interactive-treemap-in-r"><i class="fa fa-check"></i><b>10.2.6</b> Interactive Treemap in R</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#donut-chart"><i class="fa fa-check"></i><b>10.3</b> Donut Chart</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#most-basic-doughnut-chart-with-ggplot2"><i class="fa fa-check"></i><b>10.3.1</b> Most Basic Doughnut Chart with Ggplot2</a></li>
+<li class="chapter" data-level="10.3.2" data-path="ranking.html"><a href="ranking.html#customization"><i class="fa fa-check"></i><b>10.3.2</b> Customization</a></li>
+<li class="chapter" data-level="10.3.3" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#donut-thickness"><i class="fa fa-check"></i><b>10.3.3</b> Donut Thickness</a></li>
+<li class="chapter" data-level="10.3.4" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#donut-chart-with-base-r"><i class="fa fa-check"></i><b>10.3.4</b> Donut Chart with Base R</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#piechart"><i class="fa fa-check"></i><b>10.4</b> Piechart</a>
+<ul>
+<li class="chapter" data-level="10.4.1" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#most-basic-piechart-with-pie"><i class="fa fa-check"></i><b>10.4.1</b> Most Basic Piechart with pie()</a></li>
+<li class="chapter" data-level="10.4.2" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#change-labels-with-labels"><i class="fa fa-check"></i><b>10.4.2</b> Change Labels with Labels</a></li>
+<li class="chapter" data-level="10.4.3" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#non-circular-piechart-with-edges"><i class="fa fa-check"></i><b>10.4.3</b> Non-Circular Piechart with Edges</a></li>
+<li class="chapter" data-level="10.4.4" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#add-stripes-with-density"><i class="fa fa-check"></i><b>10.4.4</b> Add Stripes with Density</a></li>
+<li class="chapter" data-level="10.4.5" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#color-with-col-and-border"><i class="fa fa-check"></i><b>10.4.5</b> Color with col and border</a></li>
+<li class="chapter" data-level="10.4.6" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#ggplot2-piechart"><i class="fa fa-check"></i><b>10.4.6</b> Ggplot2 Piechart</a></li>
+<li class="chapter" data-level="10.4.7" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#improve-appearance"><i class="fa fa-check"></i><b>10.4.7</b> Improve Appearance</a></li>
+<li class="chapter" data-level="10.4.8" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#adding-labels-with-geom_text"><i class="fa fa-check"></i><b>10.4.8</b> Adding Labels with geom_text()</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#dendrogram"><i class="fa fa-check"></i><b>10.5</b> Dendrogram</a>
+<ul>
+<li class="chapter" data-level="10.5.1" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#dendrogram-fromn-hierarchical-data"><i class="fa fa-check"></i><b>10.5.1</b> Dendrogram fromn Hierarchical Data</a></li>
+<li class="chapter" data-level="10.5.2" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#dendrogram-from-edge-list"><i class="fa fa-check"></i><b>10.5.2</b> Dendrogram from Edge List</a></li>
+<li class="chapter" data-level="10.5.3" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#dendrogram-from-a-nested-dataframe"><i class="fa fa-check"></i><b>10.5.3</b> Dendrogram from a Nested Dataframe</a></li>
+<li class="chapter" data-level="10.5.4" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#dendrogram-customization-with-r-and-ggraph"><i class="fa fa-check"></i><b>10.5.4</b> Dendrogram Customization with R and ggraph</a></li>
+<li class="chapter" data-level="10.5.5" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#circular-or-linear-layout"><i class="fa fa-check"></i><b>10.5.5</b> Circular or Linear Layout</a></li>
+<li class="chapter" data-level="10.5.6" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#edge-style"><i class="fa fa-check"></i><b>10.5.6</b> Edge Style</a></li>
+<li class="chapter" data-level="10.5.7" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#labels-and-nodes"><i class="fa fa-check"></i><b>10.5.7</b> Labels and Nodes</a></li>
+<li class="chapter" data-level="10.5.8" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#customize-aesthetics"><i class="fa fa-check"></i><b>10.5.8</b> Customize Aesthetics</a></li>
+<li class="chapter" data-level="10.5.9" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#circular-dendrogram-with-r-and-ggraph"><i class="fa fa-check"></i><b>10.5.9</b> Circular Dendrogram with R and ggraph</a></li>
+<li class="chapter" data-level="10.5.10" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#interactive-dendrogram-with-r"><i class="fa fa-check"></i><b>10.5.10</b> Interactive Dendrogram with R</a></li>
+<li class="chapter" data-level="10.5.11" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#dendrogram-from-clustering-result"><i class="fa fa-check"></i><b>10.5.11</b> Dendrogram from Clustering Result</a></li>
+<li class="chapter" data-level="10.5.12" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#zoom-on-a-group"><i class="fa fa-check"></i><b>10.5.12</b> Zoom on a Group</a></li>
+<li class="chapter" data-level="10.5.13" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#dendrogram-with-color-and-legend-in-r"><i class="fa fa-check"></i><b>10.5.13</b> Dendrogram with Color and Legend in R</a></li>
+<li class="chapter" data-level="10.5.14" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#more-customization-with-dendextend"><i class="fa fa-check"></i><b>10.5.14</b> More Customization with Dendextend</a></li>
+<li class="chapter" data-level="10.5.15" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#customized-dendrogram-with-r-and-the-dendextend-package"><i class="fa fa-check"></i><b>10.5.15</b> Customized Dendrogram with R and the Dendextend Package</a></li>
+<li class="chapter" data-level="10.5.16" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#the-set-function"><i class="fa fa-check"></i><b>10.5.16</b> The set() Function</a></li>
+<li class="chapter" data-level="10.5.17" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#highlight-clusters"><i class="fa fa-check"></i><b>10.5.17</b> Highlight Clusters</a></li>
+<li class="chapter" data-level="10.5.18" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#comparing-with-an-expected-clustering"><i class="fa fa-check"></i><b>10.5.18</b> Comparing with an Expected Clustering</a></li>
+<li class="chapter" data-level="10.5.19" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#comparing-2-dendrograms-with-tanglegram"><i class="fa fa-check"></i><b>10.5.19</b> Comparing 2 Dendrograms with tanglegram()</a></li>
+</ul></li>
+<li class="chapter" data-level="10.6" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#circular-packing"><i class="fa fa-check"></i><b>10.6</b> Circular Packing</a>
+<ul>
+<li class="chapter" data-level="10.6.1" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#basic-circle-packing-with-one-level"><i class="fa fa-check"></i><b>10.6.1</b> Basic Circle Packing with One Level</a></li>
+<li class="chapter" data-level="10.6.2" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#circle-packing-customization-with-r"><i class="fa fa-check"></i><b>10.6.2</b> Circle Packing Customization with R</a></li>
+<li class="chapter" data-level="10.6.3" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#map-color-to-bubble-value"><i class="fa fa-check"></i><b>10.6.3</b> Map Color to Bubble Value</a></li>
+<li class="chapter" data-level="10.6.4" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#background-customization"><i class="fa fa-check"></i><b>10.6.4</b> Background Customization</a></li>
+<li class="chapter" data-level="10.6.5" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#circle-packing-customization-with-r-1"><i class="fa fa-check"></i><b>10.6.5</b> Circle Packing Customization with R</a></li>
+<li class="chapter" data-level="10.6.6" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#interactive-circle-packing-with-r"><i class="fa fa-check"></i><b>10.6.6</b> Interactive Circle Packing with R</a></li>
+<li class="chapter" data-level="10.6.7" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#basic-circle-packing-with-several-hierarchy-level"><i class="fa fa-check"></i><b>10.6.7</b> Basic Circle Packing with Several Hierarchy Level</a></li>
+<li class="chapter" data-level="10.6.8" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#switching-to-another-chart-type"><i class="fa fa-check"></i><b>10.6.8</b> Switching to another Chart Type</a></li>
+<li class="chapter" data-level="10.6.9" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#customized-circle-packing-with-r-and-ggraph"><i class="fa fa-check"></i><b>10.6.9</b> Customized Circle Packing with R and ggraph</a></li>
+<li class="chapter" data-level="10.6.10" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#map-color-to-hierarchy-depth"><i class="fa fa-check"></i><b>10.6.10</b> Map Color to Hierarchy Depth</a></li>
+<li class="chapter" data-level="10.6.11" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#map-color-to-hierarchy-depth-1"><i class="fa fa-check"></i><b>10.6.11</b> Map Color to Hierarchy Depth</a></li>
+<li class="chapter" data-level="10.6.12" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#zoomable-circle-packing-with-r-and-circlepacker"><i class="fa fa-check"></i><b>10.6.12</b> Zoomable Circle Packing with R and circlePacker</a></li>
+<li class="chapter" data-level="10.6.13" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#circular-packing-fom-edge-list"><i class="fa fa-check"></i><b>10.6.13</b> Circular Packing fom Edge List</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="evolution.html"><a href="evolution.html"><i class="fa fa-check"></i><b>11</b> Evolution</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="evolution.html"><a href="evolution.html#line-chart"><i class="fa fa-check"></i><b>11.1</b> Line Chart</a>
+<ul>
+<li class="chapter" data-level="11.1.1" data-path="evolution.html"><a href="evolution.html#line-chart-with-r-and-ggplot2"><i class="fa fa-check"></i><b>11.1.1</b> Line Chart with R and ggplot2</a></li>
+<li class="chapter" data-level="11.1.2" data-path="evolution.html"><a href="evolution.html#customize-the-line-chart"><i class="fa fa-check"></i><b>11.1.2</b> Customize the Line Chart</a></li>
+<li class="chapter" data-level="11.1.3" data-path="evolution.html"><a href="evolution.html#line-plot-with-log-scale"><i class="fa fa-check"></i><b>11.1.3</b> Line Plot with Log Scale</a></li>
+<li class="chapter" data-level="11.1.4" data-path="evolution.html"><a href="evolution.html#without-log-transform"><i class="fa fa-check"></i><b>11.1.4</b> Without Log Transform</a></li>
+<li class="chapter" data-level="11.1.5" data-path="evolution.html"><a href="evolution.html#multi-groups-line-chart-with-ggplot2"><i class="fa fa-check"></i><b>11.1.5</b> Multi Groups Line Chart with ggplot2</a></li>
+<li class="chapter" data-level="11.1.6" data-path="evolution.html"><a href="evolution.html#customize-the-grouped-line-chart"><i class="fa fa-check"></i><b>11.1.6</b> Customize the Grouped Line Chart</a></li>
+<li class="chapter" data-level="11.1.7" data-path="correlation.html"><a href="correlation.html#linear-model-and-confidence-interval-in-ggplot2"><i class="fa fa-check"></i><b>11.1.7</b> Linear Model and Confidence Interval in ggplot2</a></li>
+<li class="chapter" data-level="11.1.8" data-path="evolution.html"><a href="evolution.html#line-chart-annotation-with-ggplot2"><i class="fa fa-check"></i><b>11.1.8</b> Line Chart Annotation with ggplot2</a></li>
+<li class="chapter" data-level="11.1.9" data-path="evolution.html"><a href="evolution.html#dual-y-axis-with-r-and-ggplot2"><i class="fa fa-check"></i><b>11.1.9</b> Dual Y Axis with R and ggplot2</a></li>
+<li class="chapter" data-level="11.1.10" data-path="evolution.html"><a href="evolution.html#adding-a-second-y-axis-with-sec.axis-the-idea"><i class="fa fa-check"></i><b>11.1.10</b> Adding a Second Y Axis with sec.axis(): the idea</a></li>
+<li class="chapter" data-level="11.1.11" data-path="evolution.html"><a href="evolution.html#show-2-series-on-the-same-line-chart-with-sec.axis"><i class="fa fa-check"></i><b>11.1.11</b> Show 2 Series on the Same Line Chart with sec.axis()</a></li>
+<li class="chapter" data-level="11.1.12" data-path="evolution.html"><a href="evolution.html#dual-y-axis-customization-with-ggplot2"><i class="fa fa-check"></i><b>11.1.12</b> Dual Y Axis Customization with ggplot2</a></li>
+<li class="chapter" data-level="11.1.13" data-path="evolution.html"><a href="evolution.html#barplot-with-overlapping-line-chart"><i class="fa fa-check"></i><b>11.1.13</b> Barplot with Overlapping Line Chart</a></li>
+<li class="chapter" data-level="11.1.14" data-path="evolution.html"><a href="evolution.html#line-chart-with-error-envelop-ggplot2-and-geom_ribbon"><i class="fa fa-check"></i><b>11.1.14</b> Line Chart with Error Envelop: ggplot2 and geom_ribbon()</a></li>
+<li class="chapter" data-level="11.1.15" data-path="evolution.html"><a href="evolution.html#spaghetti-plot"><i class="fa fa-check"></i><b>11.1.15</b> Spaghetti Plot</a></li>
+<li class="chapter" data-level="11.1.16" data-path="evolution.html"><a href="evolution.html#small-multiples-area-chart"><i class="fa fa-check"></i><b>11.1.16</b> Small Multiples Area Chart</a></li>
+<li class="chapter" data-level="11.1.17" data-path="evolution.html"><a href="evolution.html#change-line-chart-color-according-to-y-value"><i class="fa fa-check"></i><b>11.1.17</b> Change Line Chart Color according to Y Value</a></li>
+<li class="chapter" data-level="11.1.18" data-path="correlation.html"><a href="correlation.html#add-a-legend-to-a-base-r-chart"><i class="fa fa-check"></i><b>11.1.18</b> Add a Legend to a Base R Chart</a></li>
+<li class="chapter" data-level="11.1.19" data-path="evolution.html"><a href="evolution.html#reversed-y-axis-in-base-r"><i class="fa fa-check"></i><b>11.1.19</b> Reversed Y Axis in Base R</a></li>
+<li class="chapter" data-level="11.1.20" data-path="correlation.html"><a href="correlation.html#scatterplot-with-polynomial-curve-fitting"><i class="fa fa-check"></i><b>11.1.20</b> Scatterplot with Polynomial Curve Fitting</a></li>
+<li class="chapter" data-level="11.1.21" data-path="correlation.html"><a href="correlation.html#base-r-graph-parameters-a-cheatsheet."><i class="fa fa-check"></i><b>11.1.21</b> Base R Graph Parameters: a cheatsheet.</a></li>
+<li class="chapter" data-level="11.1.22" data-path="evolution.html"><a href="evolution.html#dual-y-axis-in-r"><i class="fa fa-check"></i><b>11.1.22</b> Dual Y Axis in R</a></li>
+<li class="chapter" data-level="11.1.23" data-path="evolution.html"><a href="evolution.html#dual-y-axis-line-chart"><i class="fa fa-check"></i><b>11.1.23</b> Dual Y Axis Line Chart</a></li>
+<li class="chapter" data-level="11.1.24" data-path="evolution.html"><a href="evolution.html#add-legend"><i class="fa fa-check"></i><b>11.1.24</b> Add Legend</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="evolution.html"><a href="evolution.html#area-chart"><i class="fa fa-check"></i><b>11.2</b> Area chart</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="evolution.html"><a href="evolution.html#area-chart-with-r-and-ggplot2"><i class="fa fa-check"></i><b>11.2.1</b> Area Chart with R and ggplot2</a></li>
+<li class="chapter" data-level="11.2.2" data-path="evolution.html"><a href="evolution.html#customize-the-line-chart-1"><i class="fa fa-check"></i><b>11.2.2</b> Customize the Line Chart</a></li>
+<li class="chapter" data-level="11.2.3" data-path="evolution.html"><a href="evolution.html#most-basic-stacked-area-with-ggplot2"><i class="fa fa-check"></i><b>11.2.3</b> Most Basic Stacked Area with ggplot2</a></li>
+<li class="chapter" data-level="11.2.4" data-path="evolution.html"><a href="evolution.html#control-stacking-order-with-ggplot2"><i class="fa fa-check"></i><b>11.2.4</b> Control Stacking Order with ggplot2</a></li>
+<li class="chapter" data-level="11.2.5" data-path="evolution.html"><a href="evolution.html#proportional-stacked-area-chart"><i class="fa fa-check"></i><b>11.2.5</b> Proportional Stacked Area Chart</a></li>
+<li class="chapter" data-level="11.2.6" data-path="evolution.html"><a href="evolution.html#color-style"><i class="fa fa-check"></i><b>11.2.6</b> Color &amp; Style</a></li>
+<li class="chapter" data-level="11.2.7" data-path="evolution.html"><a href="evolution.html#stacking-area-charts"><i class="fa fa-check"></i><b>11.2.7</b> Stacking Area Charts</a></li>
+<li class="chapter" data-level="11.2.8" data-path="evolution.html"><a href="evolution.html#using-the-ggplotly-function"><i class="fa fa-check"></i><b>11.2.8</b> Using the ggplotly() Function</a></li>
+<li class="chapter" data-level="11.2.9" data-path="evolution.html"><a href="evolution.html#using-plot_ly"><i class="fa fa-check"></i><b>11.2.9</b> Using plot_ly()</a></li>
+<li class="chapter" data-level="11.2.10" data-path="evolution.html"><a href="evolution.html#basic-line-chart-with-ggplot2-and-geom_line-3"><i class="fa fa-check"></i><b>11.2.10</b> Basic Line Chart with ggplot2 and geom_line()</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="evolution.html"><a href="evolution.html#streamgraph"><i class="fa fa-check"></i><b>11.3</b> Streamgraph</a>
+<ul>
+<li class="chapter" data-level="11.3.1" data-path="part-of-a-whole.html"><a href="part-of-a-whole.html#most-basic-streamgraph"><i class="fa fa-check"></i><b>11.3.1</b> Most Basic Streamgraph</a></li>
+<li class="chapter" data-level="11.3.2" data-path="evolution.html"><a href="evolution.html#control-streamgraph-offset"><i class="fa fa-check"></i><b>11.3.2</b> Control Streamgraph Offset</a></li>
+<li class="chapter" data-level="11.3.3" data-path="evolution.html"><a href="evolution.html#change-streamgraph-shape"><i class="fa fa-check"></i><b>11.3.3</b> Change Streamgraph Shape</a></li>
+<li class="chapter" data-level="11.3.4" data-path="evolution.html"><a href="evolution.html#change-streamgraph-color"><i class="fa fa-check"></i><b>11.3.4</b> Change Streamgraph Color</a></li>
+<li class="chapter" data-level="11.3.5" data-path="evolution.html"><a href="evolution.html#streamgraph-with-dropdown-button"><i class="fa fa-check"></i><b>11.3.5</b> Streamgraph with Dropdown Button</a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="evolution.html"><a href="evolution.html#time-series"><i class="fa fa-check"></i><b>11.4</b> Time Series</a>
+<ul>
+<li class="chapter" data-level="11.4.1" data-path="evolution.html"><a href="evolution.html#time-series-with-ggplot2"><i class="fa fa-check"></i><b>11.4.1</b> Time Series with Ggplot2</a></li>
+<li class="chapter" data-level="11.4.2" data-path="evolution.html"><a href="evolution.html#format-used-on-the-x-axis"><i class="fa fa-check"></i><b>11.4.2</b> Format used on the X Axis</a></li>
+<li class="chapter" data-level="11.4.3" data-path="evolution.html"><a href="evolution.html#breaks-and-minor-breaks"><i class="fa fa-check"></i><b>11.4.3</b> Breaks and Minor Breaks</a></li>
+<li class="chapter" data-level="11.4.4" data-path="evolution.html"><a href="evolution.html#add-angle-to-x-axis-labels"><i class="fa fa-check"></i><b>11.4.4</b> Add Angle to X Axis Labels</a></li>
+<li class="chapter" data-level="11.4.5" data-path="evolution.html"><a href="evolution.html#select-time-frame"><i class="fa fa-check"></i><b>11.4.5</b> Select Time Frame</a></li>
+<li class="chapter" data-level="11.4.6" data-path="evolution.html"><a href="evolution.html#line-chart-annotation-with-ggplot2-1"><i class="fa fa-check"></i><b>11.4.6</b> Line Chart Annotation with ggplot2</a></li>
+<li class="chapter" data-level="11.4.7" data-path="evolution.html"><a href="evolution.html#dual-y-axis-with-r-and-ggplot2-1"><i class="fa fa-check"></i><b>11.4.7</b> Dual Y Axis with R and ggplot2</a></li>
+<li class="chapter" data-level="11.4.8" data-path="evolution.html"><a href="evolution.html#adding-a-second-y-axis-with-sec.axis-the-idea-1"><i class="fa fa-check"></i><b>11.4.8</b> Adding a Second Y axis with sec.axis(): the idea</a></li>
+<li class="chapter" data-level="11.4.9" data-path="evolution.html"><a href="evolution.html#show-2-series-on-the-same-line-chart-with-sec.axis-1"><i class="fa fa-check"></i><b>11.4.9</b> Show 2 Series on the Same Line Chart with sec.axis()</a></li>
+<li class="chapter" data-level="11.4.10" data-path="evolution.html"><a href="evolution.html#dual-y-axis-customization-with-ggplot2-1"><i class="fa fa-check"></i><b>11.4.10</b> Dual Y Axis Customization with ggplot2</a></li>
+<li class="chapter" data-level="11.4.11" data-path="evolution.html"><a href="evolution.html#barplot-with-overlapping-line-chart-1"><i class="fa fa-check"></i><b>11.4.11</b> Barplot with Overlapping Line Chart</a></li>
+<li class="chapter" data-level="11.4.12" data-path="evolution.html"><a href="evolution.html#using-the-ggplotly-function-1"><i class="fa fa-check"></i><b>11.4.12</b> Using the ggplotly() Function</a></li>
+<li class="chapter" data-level="11.4.13" data-path="evolution.html"><a href="evolution.html#using-plot_ly-1"><i class="fa fa-check"></i><b>11.4.13</b> Using plot_ly()</a></li>
+<li class="chapter" data-level="11.4.14" data-path="evolution.html"><a href="evolution.html#an-introduction-to-interactive-time-series-with-r-and-dygraphs"><i class="fa fa-check"></i><b>11.4.14</b> An Introduction to Interactive Time Series with R and Dygraphs</a></li>
+<li class="chapter" data-level="11.4.15" data-path="evolution.html"><a href="evolution.html#if-time-is-a-numeric-variable"><i class="fa fa-check"></i><b>11.4.15</b> If Time is a Numeric Variable</a></li>
+<li class="chapter" data-level="11.4.16" data-path="evolution.html"><a href="evolution.html#if-time-is-a-date-variable"><i class="fa fa-check"></i><b>11.4.16</b> If Time is a Date Variable</a></li>
+<li class="chapter" data-level="11.4.17" data-path="evolution.html"><a href="evolution.html#several-series"><i class="fa fa-check"></i><b>11.4.17</b> Several Series</a></li>
+<li class="chapter" data-level="11.4.18" data-path="evolution.html"><a href="evolution.html#getting-the-date-format"><i class="fa fa-check"></i><b>11.4.18</b> Getting the Date Format</a></li>
+<li class="chapter" data-level="11.4.19" data-path="evolution.html"><a href="evolution.html#time-series-visualization-with-the-dygraphs-package"><i class="fa fa-check"></i><b>11.4.19</b> Time Series Visualization with the Dygraphs Package</a></li>
+<li class="chapter" data-level="11.4.20" data-path="evolution.html"><a href="evolution.html#area-chart-1"><i class="fa fa-check"></i><b>11.4.20</b> Area Chart</a></li>
+<li class="chapter" data-level="11.4.21" data-path="evolution.html"><a href="evolution.html#step-chart"><i class="fa fa-check"></i><b>11.4.21</b> Step Chart</a></li>
+<li class="chapter" data-level="11.4.22" data-path="ranking.html"><a href="ranking.html#lollipop-plot"><i class="fa fa-check"></i><b>11.4.22</b> Lollipop Plot</a></li>
+<li class="chapter" data-level="11.4.23" data-path="evolution.html"><a href="evolution.html#candlestick-chart"><i class="fa fa-check"></i><b>11.4.23</b> Candlestick Chart</a></li>
+<li class="chapter" data-level="11.4.24" data-path="evolution.html"><a href="evolution.html#line-chart-with-interval"><i class="fa fa-check"></i><b>11.4.24</b> Line Chart with Interval</a></li>
+<li class="chapter" data-level="11.4.25" data-path="evolution.html"><a href="evolution.html#the-hourly-heatmap"><i class="fa fa-check"></i><b>11.4.25</b> The Hourly Heatmap</a></li>
+<li class="chapter" data-level="11.4.26" data-path="evolution.html"><a href="evolution.html#dual-y-axis-in-r-1"><i class="fa fa-check"></i><b>11.4.26</b> Dual Y Axis in R</a></li>
+<li class="chapter" data-level="11.4.27" data-path="evolution.html"><a href="evolution.html#dual-y-axis-line-chart-1"><i class="fa fa-check"></i><b>11.4.27</b> Dual Y Axis Line Chart</a></li>
+<li class="chapter" data-level="11.4.28" data-path="evolution.html"><a href="evolution.html#add-legend-1"><i class="fa fa-check"></i><b>11.4.28</b> Add Legend</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="map.html"><a href="map.html"><i class="fa fa-check"></i><b>12</b> Map</a>
+<ul>
+<li class="chapter" data-level="12.0.1" data-path="map.html"><a href="map.html#background-map-in-r"><i class="fa fa-check"></i><b>12.0.1</b> Background map in R</a></li>
+<li class="chapter" data-level="12.1" data-path="map.html"><a href="map.html#basic-maps"><i class="fa fa-check"></i><b>12.1</b> Basic Maps</a>
+<ul>
+<li class="chapter" data-level="12.1.1" data-path="map.html"><a href="map.html#change-background-tile-with-leaflet-and-r"><i class="fa fa-check"></i><b>12.1.1</b> Change Background Tile with leaflet and R</a></li>
+<li class="chapter" data-level="12.1.2" data-path="map.html"><a href="map.html#the-ggmap-package-for-static-maps-with-background-titles"><i class="fa fa-check"></i><b>12.1.2</b> The ggmap Package for Static Maps with Background Titles</a></li>
+<li class="chapter" data-level="12.1.3" data-path="map.html"><a href="map.html#the-maps-mapdata-and-oz-packages-to-get-most-common-boundaries"><i class="fa fa-check"></i><b>12.1.3</b> The Maps, Mapdata and Oz Packages to get most common boundaries</a></li>
+<li class="chapter" data-level="12.1.4" data-path="map.html"><a href="map.html#mapdata-package"><i class="fa fa-check"></i><b>12.1.4</b> Mapdata Package</a></li>
+<li class="chapter" data-level="12.1.5" data-path="map.html"><a href="map.html#oz-package"><i class="fa fa-check"></i><b>12.1.5</b> Oz Package</a></li>
+<li class="chapter" data-level="12.1.6" data-path="map.html"><a href="map.html#rgdal-and-geojsonio-to-read-shapefiles-and-.geojson-files"><i class="fa fa-check"></i><b>12.1.6</b> Rgdal and Geojsonio to read Shapefiles and .geojson Files</a></li>
+<li class="chapter" data-level="12.1.7" data-path="map.html"><a href="map.html#read-it-with-rgdal"><i class="fa fa-check"></i><b>12.1.7</b> Read it with Rgdal</a></li>
+<li class="chapter" data-level="12.1.8" data-path="map.html"><a href="map.html#plot-it-with-base-r"><i class="fa fa-check"></i><b>12.1.8</b> Plot it with Base R</a></li>
+<li class="chapter" data-level="12.1.9" data-path="map.html"><a href="map.html#plot-it-with-ggplot2"><i class="fa fa-check"></i><b>12.1.9</b> Plot it with ggplot2</a></li>
+<li class="chapter" data-level="12.1.10" data-path="map.html"><a href="map.html#open-and-plot-geojson-files-in-r"><i class="fa fa-check"></i><b>12.1.10</b> Open and Plot Geojson files in R</a></li>
+<li class="chapter" data-level="12.1.11" data-path="map.html"><a href="map.html#plot-it-with-base-r-1"><i class="fa fa-check"></i><b>12.1.11</b> Plot it with Base R</a></li>
+<li class="chapter" data-level="12.1.12" data-path="map.html"><a href="map.html#plot-it-with-ggplot2-1"><i class="fa fa-check"></i><b>12.1.12</b> Plot it with ggplot2</a></li>
+<li class="chapter" data-level="12.1.13" data-path="map.html"><a href="map.html#geospatial-data-manipulation"><i class="fa fa-check"></i><b>12.1.13</b> Geospatial Data Manipulation</a></li>
+<li class="chapter" data-level="12.1.14" data-path="map.html"><a href="map.html#simplify-geospatial-object"><i class="fa fa-check"></i><b>12.1.14</b> Simplify Geospatial Object</a></li>
+<li class="chapter" data-level="12.1.15" data-path="map.html"><a href="map.html#compute-region-centroid"><i class="fa fa-check"></i><b>12.1.15</b> Compute Region Centroid</a></li>
+</ul></li>
+<li class="chapter" data-level="12.2" data-path="map.html"><a href="map.html#choropleth-maps"><i class="fa fa-check"></i><b>12.2</b> Choropleth Maps</a>
+<ul>
+<li class="chapter" data-level="12.2.1" data-path="map.html"><a href="map.html#choropleth-map-with-r"><i class="fa fa-check"></i><b>12.2.1</b> Choropleth Map with R</a></li>
+<li class="chapter" data-level="12.2.2" data-path="map.html"><a href="map.html#visualize-the-numeric-variable"><i class="fa fa-check"></i><b>12.2.2</b> Visualize the Numeric Variable</a></li>
+<li class="chapter" data-level="12.2.3" data-path="map.html"><a href="map.html#build-the-choropleth"><i class="fa fa-check"></i><b>12.2.3</b> Build the Choropleth</a></li>
+<li class="chapter" data-level="12.2.4" data-path="map.html"><a href="map.html#interactive-choropleth-map-with-r-and-leaflet"><i class="fa fa-check"></i><b>12.2.4</b> Interactive Choropleth Map with R and leaflet</a></li>
+<li class="chapter" data-level="12.2.5" data-path="map.html"><a href="map.html#default-choropleth"><i class="fa fa-check"></i><b>12.2.5</b> Default Choropleth</a></li>
+<li class="chapter" data-level="12.2.6" data-path="map.html"><a href="map.html#visualize-the-numeric-variable-1"><i class="fa fa-check"></i><b>12.2.6</b> Visualize the Numeric Variable</a></li>
+<li class="chapter" data-level="12.2.7" data-path="map.html"><a href="map.html#change-color-scale"><i class="fa fa-check"></i><b>12.2.7</b> Change Color Scale</a></li>
+<li class="chapter" data-level="12.2.8" data-path="map.html"><a href="map.html#customizied-leaflet-choropleth-map"><i class="fa fa-check"></i><b>12.2.8</b> Customizied leaflet Choropleth Map</a></li>
+<li class="chapter" data-level="12.2.9" data-path="map.html"><a href="map.html#basic-choropleth-map-with-the-cartography-package"><i class="fa fa-check"></i><b>12.2.9</b> Basic Choropleth Map with the Cartography Package</a></li>
+<li class="chapter" data-level="12.2.10" data-path="map.html"><a href="map.html#data-provided-in-a-shape-file"><i class="fa fa-check"></i><b>12.2.10</b> Data provided in a Shape File</a></li>
+<li class="chapter" data-level="12.2.11" data-path="map.html"><a href="map.html#customized-choropleth-map-with-the-cartography-package"><i class="fa fa-check"></i><b>12.2.11</b> Customized Choropleth Map with the Cartography Package</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="map.html"><a href="map.html#hexbin-maps"><i class="fa fa-check"></i><b>12.3</b> Hexbin Maps</a>
+<ul>
+<li class="chapter" data-level="12.3.1" data-path="map.html"><a href="map.html#hexbin-map-in-r-example-with-us-states"><i class="fa fa-check"></i><b>12.3.1</b> Hexbin Map in R: Example with US states</a></li>
+<li class="chapter" data-level="12.3.2" data-path="map.html"><a href="map.html#ggplot2-and-state-name"><i class="fa fa-check"></i><b>12.3.2</b> Ggplot2 and State Name</a></li>
+<li class="chapter" data-level="12.3.3" data-path="map.html"><a href="map.html#basic-choropleth"><i class="fa fa-check"></i><b>12.3.3</b> Basic Choropleth</a></li>
+<li class="chapter" data-level="12.3.4" data-path="map.html"><a href="map.html#customized-hexbin-choropleth-map"><i class="fa fa-check"></i><b>12.3.4</b> Customized hexbin choropleth map</a></li>
+<li class="chapter" data-level="12.3.5" data-path="map.html"><a href="map.html#hexbin-map-for-2d-density-visualization"><i class="fa fa-check"></i><b>12.3.5</b> Hexbin Map for 2D Density Visualization</a></li>
+<li class="chapter" data-level="12.3.6" data-path="map.html"><a href="map.html#hexbin-maps-1"><i class="fa fa-check"></i><b>12.3.6</b> Hexbin Maps</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="map.html"><a href="map.html#cartogram"><i class="fa fa-check"></i><b>12.4</b> Cartogram</a>
+<ul>
+<li class="chapter" data-level="12.4.1" data-path="map.html"><a href="map.html#basic-cartogram-with-r"><i class="fa fa-check"></i><b>12.4.1</b> Basic Cartogram with R</a></li>
+<li class="chapter" data-level="12.4.2" data-path="map.html"><a href="map.html#distort-country-size-with-cartogram"><i class="fa fa-check"></i><b>12.4.2</b> Distort Country Size with Cartogram</a></li>
+<li class="chapter" data-level="12.4.3" data-path="map.html"><a href="map.html#cartogram-and-choropleth"><i class="fa fa-check"></i><b>12.4.3</b> Cartogram and Choropleth</a></li>
+<li class="chapter" data-level="12.4.4" data-path="correlation.html"><a href="correlation.html#make-it-pretty"><i class="fa fa-check"></i><b>12.4.4</b> Make it Pretty</a></li>
+<li class="chapter" data-level="12.4.5" data-path="map.html"><a href="map.html#basic-cartogram-with-r-1"><i class="fa fa-check"></i><b>12.4.5</b> Basic Cartogram with R</a></li>
+</ul></li>
+<li class="chapter" data-level="12.5" data-path="map.html"><a href="map.html#connection-map"><i class="fa fa-check"></i><b>12.5</b> Connection Map</a>
+<ul>
+<li class="chapter" data-level="12.5.1" data-path="map.html"><a href="map.html#how-to-draw-connecting-routes-on-map-with-r"><i class="fa fa-check"></i><b>12.5.1</b> How to Draw Connecting Routes on Map with R</a></li>
+<li class="chapter" data-level="12.5.2" data-path="map.html"><a href="map.html#add-3-cities"><i class="fa fa-check"></i><b>12.5.2</b> Add 3 Cities</a></li>
+<li class="chapter" data-level="12.5.3" data-path="map.html"><a href="map.html#show-connection-between-cities"><i class="fa fa-check"></i><b>12.5.3</b> Show Connection between Cities</a></li>
+<li class="chapter" data-level="12.5.4" data-path="map.html"><a href="map.html#correcting-gcintermediate"><i class="fa fa-check"></i><b>12.5.4</b> Correcting gcIntermediate</a></li>
+<li class="chapter" data-level="12.5.5" data-path="map.html"><a href="map.html#apply-it-to-several-pairs-of-cities"><i class="fa fa-check"></i><b>12.5.5</b> Apply it to Several Pairs of Cities</a></li>
+<li class="chapter" data-level="12.5.6" data-path="map.html"><a href="map.html#an-alternative-using-the-greatcircle-function"><i class="fa fa-check"></i><b>12.5.6</b> An Alternative using the greatCircle Function</a></li>
+<li class="chapter" data-level="12.5.7" data-path="map.html"><a href="map.html#visualizing-geographic-connections"><i class="fa fa-check"></i><b>12.5.7</b> Visualizing Geographic Connections</a></li>
+<li class="chapter" data-level="12.5.8" data-path="map.html"><a href="map.html#showing-few-connections-on-a-map"><i class="fa fa-check"></i><b>12.5.8</b> Showing Few Connections on a Map</a></li>
+<li class="chapter" data-level="12.5.9" data-path="map.html"><a href="map.html#showing-many-connections-on-a-map"><i class="fa fa-check"></i><b>12.5.9</b> Showing Many Connections on a Map</a></li>
+<li class="chapter" data-level="12.5.10" data-path="map.html"><a href="map.html#bubble-map"><i class="fa fa-check"></i><b>12.5.10</b> Bubble Map</a></li>
+<li class="chapter" data-level="12.5.11" data-path="map.html"><a href="map.html#use-leaflet-control-widget"><i class="fa fa-check"></i><b>12.5.11</b> Use leaflet control widget</a></li>
+<li class="chapter" data-level="12.5.12" data-path="map.html"><a href="map.html#interactive-earthquake-bubble-map-with-r-and-leaflet"><i class="fa fa-check"></i><b>12.5.12</b> Interactive Earthquake Bubble Map with R and leaflet</a></li>
+<li class="chapter" data-level="12.5.13" data-path="map.html"><a href="map.html#bubble-map-with-ggplot2"><i class="fa fa-check"></i><b>12.5.13</b> Bubble map with ggplot2</a></li>
+<li class="chapter" data-level="12.5.14" data-path="map.html"><a href="map.html#basic-scatterplot-map"><i class="fa fa-check"></i><b>12.5.14</b> Basic Scatterplot Map</a></li>
+<li class="chapter" data-level="12.5.15" data-path="map.html"><a href="map.html#basic-bubble-map"><i class="fa fa-check"></i><b>12.5.15</b> Basic Bubble Map</a></li>
+<li class="chapter" data-level="12.5.16" data-path="map.html"><a href="map.html#customized-bubble-map"><i class="fa fa-check"></i><b>12.5.16</b> Customized Bubble Map</a></li>
+<li class="chapter" data-level="12.5.17" data-path="map.html"><a href="map.html#interactive-bubble-map-with-plotly"><i class="fa fa-check"></i><b>12.5.17</b> Interactive Bubble Map with Plotly</a></li>
+<li class="chapter" data-level="12.5.18" data-path="map.html"><a href="map.html#proportional-symbol-map-with-the-cartography-package"><i class="fa fa-check"></i><b>12.5.18</b> Proportional Symbol Map with the Cartography Package</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://www.worldcapitalis.com" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R Gallery Book</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="applications" class="section level1" number="5">
+<h1><span class="header-section-number">Chapter 5</span> Applications</h1>
+<p>Some <em>significant</em> applications are demonstrated in this chapter.</p>
+<div id="example-one" class="section level2" number="5.1">
+<h2><span class="header-section-number">5.1</span> Example one</h2>
+</div>
+<div id="example-two" class="section level2" number="5.2">
+<h2><span class="header-section-number">5.2</span> Example two</h2>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="methods.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="final-words.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["r-graph.pdf", "r-graph.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

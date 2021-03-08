@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 12 Make the graph ! | R Gallery Book</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 12 Make the graph ! | R Gallery Book" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 12 Make the graph ! | R Gallery Book" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Kyle W. Brown" />
+
+
+<meta name="date" content="2021-01-19" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="vector-color-red-if-setosa-grey-otherwise-.html"/>
+
+<script src="libs/header-attrs-2.6/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">R Gallery Book</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Prerequisites</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
+<li class="chapter" data-level="3" data-path="literature.html"><a href="literature.html"><i class="fa fa-check"></i><b>3</b> Literature</a></li>
+<li class="chapter" data-level="4" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>4</b> Methods</a></li>
+<li class="chapter" data-level="5" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>5</b> Applications</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="applications.html"><a href="applications.html#example-one"><i class="fa fa-check"></i><b>5.1</b> Example one</a></li>
+<li class="chapter" data-level="5.2" data-path="applications.html"><a href="applications.html#example-two"><i class="fa fa-check"></i><b>5.2</b> Example two</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>6</b> Final Words</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="7" data-path="distributions.html"><a href="distributions.html"><i class="fa fa-check"></i><b>7</b> Distributions</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="distributions.html"><a href="distributions.html#violin"><i class="fa fa-check"></i><b>7.1</b> Violin</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="distributions.html"><a href="distributions.html#base-r-violin-plot"><i class="fa fa-check"></i><b>7.1.1</b> Base R Violin Plot</a></li>
+<li class="chapter" data-level="7.1.2" data-path="distributions.html"><a href="distributions.html#basic-ggplot-violin-plot"><i class="fa fa-check"></i><b>7.1.2</b> Basic ggplot Violin Plot</a></li>
+<li class="chapter" data-level="7.1.3" data-path="distributions.html"><a href="distributions.html#note-on-input-format"><i class="fa fa-check"></i><b>7.1.3</b> Note on Input Format</a></li>
+<li class="chapter" data-level="7.1.4" data-path="distributions.html"><a href="distributions.html#from-wide-format"><i class="fa fa-check"></i><b>7.1.4</b> From Wide Format</a></li>
+<li class="chapter" data-level="7.1.5" data-path="distributions.html"><a href="distributions.html#reorder-a-variable-with-ggplot2"><i class="fa fa-check"></i><b>7.1.5</b> Reorder a variable with ggplot2</a></li>
+<li class="chapter" data-level="7.1.6" data-path="distributions.html"><a href="distributions.html#method-1-the-forecats-library"><i class="fa fa-check"></i><b>7.1.6</b> Method 1: the Forecats library</a></li>
+<li class="chapter" data-level="7.1.7" data-path="distributions.html"><a href="distributions.html#method-2-using-dplyr-only"><i class="fa fa-check"></i><b>7.1.7</b> Method 2: Using Dplyr Only</a></li>
+<li class="chapter" data-level="7.1.8" data-path="distributions.html"><a href="distributions.html#method-3-the-reorder-function-of-base-r"><i class="fa fa-check"></i><b>7.1.8</b> Method 3: the reorder() Function of Base R</a></li>
+<li class="chapter" data-level="7.1.9" data-path="distributions.html"><a href="distributions.html#horizontal-violin-plot-with-ggplot2"><i class="fa fa-check"></i><b>7.1.9</b> Horizontal Violin Plot with ggplot2</a></li>
+<li class="chapter" data-level="7.1.10" data-path="distributions.html"><a href="distributions.html#violin-plot-with-included-boxplot-and-sample-size-in-ggplot2"><i class="fa fa-check"></i><b>7.1.10</b> Violin Plot with included Boxplot and Sample Size in ggplot2</a></li>
+<li class="chapter" data-level="7.1.11" data-path="distributions.html"><a href="distributions.html#grouped-violin-chart-with-ggplot2"><i class="fa fa-check"></i><b>7.1.11</b> Grouped Violin Chart with ggplot2</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="distributions.html"><a href="distributions.html#density"><i class="fa fa-check"></i><b>7.2</b> Density</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="distributions.html"><a href="distributions.html#basic-density-chart-with-ggplot2"><i class="fa fa-check"></i><b>7.2.1</b> Basic density chart with ggplot2</a></li>
+<li class="chapter" data-level="7.2.2" data-path="distributions.html"><a href="distributions.html#custom-with-theme_ipsum"><i class="fa fa-check"></i><b>7.2.2</b> Custom with theme_ipsum</a></li>
+<li class="chapter" data-level="7.2.3" data-path="distributions.html"><a href="distributions.html#mirror-density-chart-with-ggplot2"><i class="fa fa-check"></i><b>7.2.3</b> Mirror Density Chart with ggplot2</a></li>
+<li class="chapter" data-level="7.2.4" data-path="distributions.html"><a href="distributions.html#density-with-geom_density"><i class="fa fa-check"></i><b>7.2.4</b> Density with geom_density</a></li>
+<li class="chapter" data-level="7.2.5" data-path="distributions.html"><a href="distributions.html#histogram-with-geom_histogram"><i class="fa fa-check"></i><b>7.2.5</b> Histogram with geom_histogram</a></li>
+<li class="chapter" data-level="7.2.6" data-path="distributions.html"><a href="distributions.html#density-chart-with-several-groups"><i class="fa fa-check"></i><b>7.2.6</b> Density Chart with Several Groups</a></li>
+<li class="chapter" data-level="7.2.7" data-path="distributions.html"><a href="distributions.html#multi-density-chart"><i class="fa fa-check"></i><b>7.2.7</b> Multi density chart</a></li>
+<li class="chapter" data-level="7.2.8" data-path="distributions.html"><a href="distributions.html#small-multiple-with-facet_wrap"><i class="fa fa-check"></i><b>7.2.8</b> Small Multiple with facet_wrap()</a></li>
+<li class="chapter" data-level="7.2.9" data-path="distributions.html"><a href="distributions.html#stacked-density-chart"><i class="fa fa-check"></i><b>7.2.9</b> Stacked Density Chart</a></li>
+<li class="chapter" data-level="7.2.10" data-path="distributions.html"><a href="distributions.html#marginal-distribution-with-ggplot2-and-ggextra"><i class="fa fa-check"></i><b>7.2.10</b> Marginal distribution with ggplot2 and ggExtra</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="distributions.html"><a href="distributions.html#histogram"><i class="fa fa-check"></i><b>7.3</b> Histogram</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="distributions.html"><a href="distributions.html#ggplot2"><i class="fa fa-check"></i><b>7.3.1</b> ggplot2</a></li>
+<li class="chapter" data-level="7.3.2" data-path="distributions.html"><a href="distributions.html#basic-histogram-with-ggplot2"><i class="fa fa-check"></i><b>7.3.2</b> Basic histogram with ggplot2</a></li>
+<li class="chapter" data-level="7.3.3" data-path="distributions.html"><a href="distributions.html#basic-histogram-with-geom_histogram"><i class="fa fa-check"></i><b>7.3.3</b> Basic histogram with geom_histogram</a></li>
+<li class="chapter" data-level="7.3.4" data-path="distributions.html"><a href="distributions.html#control-bin-size-with-binwidth"><i class="fa fa-check"></i><b>7.3.4</b> Control Bin Size with Binwidth</a></li>
+<li class="chapter" data-level="7.3.5" data-path="distributions.html"><a href="distributions.html#histogram-with-several-groups---ggplot2"><i class="fa fa-check"></i><b>7.3.5</b> Histogram with Several Groups - GGPLOT2</a></li>
+<li class="chapter" data-level="7.3.6" data-path="distributions.html"><a href="distributions.html#using-small-multiple"><i class="fa fa-check"></i><b>7.3.6</b> Using Small Multiple</a></li>
+<li class="chapter" data-level="7.3.7" data-path="distributions.html"><a href="distributions.html#base-r"><i class="fa fa-check"></i><b>7.3.7</b> Base R</a></li>
+<li class="chapter" data-level="7.3.8" data-path="distributions.html"><a href="distributions.html#two-histograms-with-melt-colors"><i class="fa fa-check"></i><b>7.3.8</b> Two Histograms with Melt Colors</a></li>
+<li class="chapter" data-level="7.3.9" data-path="distributions.html"><a href="distributions.html#boxplot-on-top-of-histogram"><i class="fa fa-check"></i><b>7.3.9</b> Boxplot on top of Histogram</a></li>
+<li class="chapter" data-level="7.3.10" data-path="distributions.html"><a href="distributions.html#histogram-with-colored-tail"><i class="fa fa-check"></i><b>7.3.10</b> Histogram with Colored Tail</a></li>
+<li class="chapter" data-level="7.3.11" data-path="distributions.html"><a href="distributions.html#mirrored-histogram-in-base-r"><i class="fa fa-check"></i><b>7.3.11</b> Mirrored Histogram in Base R</a></li>
+<li class="chapter" data-level="7.3.12" data-path="distributions.html"><a href="distributions.html#histogram-without-border"><i class="fa fa-check"></i><b>7.3.12</b> Histogram without Border</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="distributions.html"><a href="distributions.html#boxplot"><i class="fa fa-check"></i><b>7.4</b> Boxplot</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="distributions.html"><a href="distributions.html#ggplot2-1"><i class="fa fa-check"></i><b>7.4.1</b> Ggplot2</a></li>
+<li class="chapter" data-level="7.4.2" data-path="distributions.html"><a href="distributions.html#ggplot2-boxplot-parameters"><i class="fa fa-check"></i><b>7.4.2</b> Ggplot2 Boxplot Parameters</a></li>
+<li class="chapter" data-level="7.4.3" data-path="distributions.html"><a href="distributions.html#control-ggplot2-boxplot-colors"><i class="fa fa-check"></i><b>7.4.3</b> Control ggplot2 Boxplot Colors</a></li>
+<li class="chapter" data-level="7.4.4" data-path="distributions.html"><a href="distributions.html#highlighting-a-group"><i class="fa fa-check"></i><b>7.4.4</b> Highlighting a Group</a></li>
+<li class="chapter" data-level="7.4.5" data-path="distributions.html"><a href="distributions.html#grouped-boxplot"><i class="fa fa-check"></i><b>7.4.5</b> Grouped Boxplot</a></li>
+<li class="chapter" data-level="7.4.6" data-path="distributions.html"><a href="distributions.html#using-small-multiple-1"><i class="fa fa-check"></i><b>7.4.6</b> Using Small Multiple</a></li>
+<li class="chapter" data-level="7.4.7" data-path="distributions.html"><a href="distributions.html#ggplot2-boxplot-with-variable-width"><i class="fa fa-check"></i><b>7.4.7</b> Ggplot2 Boxplot with Variable Width</a></li>
+<li class="chapter" data-level="7.4.8" data-path="distributions.html"><a href="distributions.html#ggplot2-boxplot-from-continuous-variable"><i class="fa fa-check"></i><b>7.4.8</b> Ggplot2 Boxplot from Continuous Variable</a></li>
+<li class="chapter" data-level="7.4.9" data-path="distributions.html"><a href="distributions.html#ggplot2-boxplot-with-mean-value"><i class="fa fa-check"></i><b>7.4.9</b> Ggplot2 Boxplot with Mean Value</a></li>
+<li class="chapter" data-level="7.4.10" data-path="distributions.html"><a href="distributions.html#basic-r"><i class="fa fa-check"></i><b>7.4.10</b> Basic R</a></li>
+<li class="chapter" data-level="7.4.11" data-path="distributions.html"><a href="distributions.html#basic-r-x-axis-labels-on-several-lines"><i class="fa fa-check"></i><b>7.4.11</b> Basic R: X Axis Labels on Several Lines</a></li>
+<li class="chapter" data-level="7.4.12" data-path="distributions.html"><a href="distributions.html#boxplot-with-jitter-in-base-r"><i class="fa fa-check"></i><b>7.4.12</b> Boxplot with Jitter in Base R</a></li>
+<li class="chapter" data-level="7.4.13" data-path="distributions.html"><a href="distributions.html#ordering-boxplots-in-base-r"><i class="fa fa-check"></i><b>7.4.13</b> Ordering Boxplots in Base R</a></li>
+<li class="chapter" data-level="7.4.14" data-path="distributions.html"><a href="distributions.html#give-a-specific-order"><i class="fa fa-check"></i><b>7.4.14</b> Give a Specific Order</a></li>
+<li class="chapter" data-level="7.4.15" data-path="distributions.html"><a href="distributions.html#grouped-and-ordered-boxplot"><i class="fa fa-check"></i><b>7.4.15</b> Grouped and Ordered Boxplot</a></li>
+<li class="chapter" data-level="7.4.16" data-path="distributions.html"><a href="distributions.html#add-text-over-boxplot-in-base-r"><i class="fa fa-check"></i><b>7.4.16</b> Add Text over Boxplot in Base R</a></li>
+<li class="chapter" data-level="7.4.17" data-path="distributions.html"><a href="distributions.html#tukey-test-and-boxplot-in-r"><i class="fa fa-check"></i><b>7.4.17</b> Tukey Test and Boxplot in R</a></li>
+<li class="chapter" data-level="7.4.18" data-path="distributions.html"><a href="distributions.html#tukey-test-results"><i class="fa fa-check"></i><b>7.4.18</b> Tukey Test Results</a></li>
+<li class="chapter" data-level="7.4.19" data-path="distributions.html"><a href="distributions.html#control-box-type-with-the-bty-option"><i class="fa fa-check"></i><b>7.4.19</b> Control Box Type with the bty Option</a></li>
+<li class="chapter" data-level="7.4.20" data-path="distributions.html"><a href="distributions.html#split-base-r-plot-window-with-layout"><i class="fa fa-check"></i><b>7.4.20</b> Split Base R Plot Window with layout()</a></li>
+<li class="chapter" data-level="7.4.21" data-path="distributions.html"><a href="distributions.html#subdivide-second-row"><i class="fa fa-check"></i><b>7.4.21</b> Subdivide Second Row</a></li>
+<li class="chapter" data-level="7.4.22" data-path="distributions.html"><a href="distributions.html#custom-proportions"><i class="fa fa-check"></i><b>7.4.22</b> Custom Proportions</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="distributions.html"><a href="distributions.html#ridgeline-chart"><i class="fa fa-check"></i><b>7.5</b> Ridgeline Chart</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="distributions.html"><a href="distributions.html#basic-ridgeline-plot"><i class="fa fa-check"></i><b>7.5.1</b> Basic Ridgeline Plot</a></li>
+<li class="chapter" data-level="7.5.2" data-path="distributions.html"><a href="distributions.html#shape-variation"><i class="fa fa-check"></i><b>7.5.2</b> Shape Variation</a></li>
+<li class="chapter" data-level="7.5.3" data-path="distributions.html"><a href="distributions.html#color-relative-to-numeric-value"><i class="fa fa-check"></i><b>7.5.3</b> Color Relative to Numeric Value</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="correlation.html"><a href="correlation.html"><i class="fa fa-check"></i><b>8</b> Correlation</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="correlation.html"><a href="correlation.html#scatterplot"><i class="fa fa-check"></i><b>8.1</b> Scatterplot</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="correlation.html"><a href="correlation.html#basic-scatterplot-in-base-r"><i class="fa fa-check"></i><b>8.1.1</b> Basic Scatterplot in Base R</a></li>
+<li class="chapter" data-level="8.1.2" data-path="correlation.html"><a href="correlation.html#customizations"><i class="fa fa-check"></i><b>8.1.2</b> Customizations</a></li>
+<li class="chapter" data-level="8.1.3" data-path="correlation.html"><a href="correlation.html#map-a-variable-to-marker-feature-in-ggplot2-scatterplot"><i class="fa fa-check"></i><b>8.1.3</b> Map a Variable to Marker Feature in <code>ggplot2</code> Scatterplot</a></li>
+<li class="chapter" data-level="8.1.4" data-path="correlation.html"><a href="correlation.html#works-with-any-aesthetics"><i class="fa fa-check"></i><b>8.1.4</b> Works with any Aesthetics</a></li>
+<li class="chapter" data-level="8.1.5" data-path="correlation.html"><a href="correlation.html#mapping-to-several-features"><i class="fa fa-check"></i><b>8.1.5</b> Mapping to Several Features</a></li>
+<li class="chapter" data-level="8.1.6" data-path="correlation.html"><a href="correlation.html#add-text-labels-with-ggplot2"><i class="fa fa-check"></i><b>8.1.6</b> Add Text Labels with ggplot2</a></li>
+<li class="chapter" data-level="8.1.7" data-path="correlation.html"><a href="correlation.html#add-labels-with-geom_label"><i class="fa fa-check"></i><b>8.1.7</b> Add Labels with <code>geom_label()</code></a></li>
+<li class="chapter" data-level="8.1.8" data-path="correlation.html"><a href="correlation.html#add-one-text-label-only"><i class="fa fa-check"></i><b>8.1.8</b> Add One Text Label Only</a></li>
+<li class="chapter" data-level="8.1.9" data-path="correlation.html"><a href="correlation.html#add-labels-for-a-selection-of-marker"><i class="fa fa-check"></i><b>8.1.9</b> Add Labels for a Selection of Marker</a></li>
+<li class="chapter" data-level="8.1.10" data-path="correlation.html"><a href="correlation.html#ggplot2-scatterplot-with-rug"><i class="fa fa-check"></i><b>8.1.10</b> Ggplot2 Scatterplot with Rug</a></li>
+<li class="chapter" data-level="8.1.11" data-path="distributions.html"><a href="distributions.html#marginal-distribution-with-ggplot2-and-ggextra"><i class="fa fa-check"></i><b>8.1.11</b> Marginal Distribution with Ggplot2 and ggExtra</a></li>
+<li class="chapter" data-level="8.1.12" data-path="distributions.html"><a href="distributions.html#more-customization"><i class="fa fa-check"></i><b>8.1.12</b> More Customization</a></li>
+<li class="chapter" data-level="8.1.13" data-path="correlation.html"><a href="correlation.html#linear-model-and-confidence-interval-in-ggplot2"><i class="fa fa-check"></i><b>8.1.13</b> Linear Model and Confidence Interval in ggplot2</a></li>
+<li class="chapter" data-level="8.1.14" data-path="correlation.html"><a href="correlation.html#using-base-r"><i class="fa fa-check"></i><b>8.1.14</b> Using Base R</a></li>
+<li class="chapter" data-level="8.1.15" data-path="correlation.html"><a href="correlation.html#scatterplot-with-polynomial-curve-fitting"><i class="fa fa-check"></i><b>8.1.15</b> Scatterplot with Polynomial Curve Fitting</a></li>
+<li class="chapter" data-level="8.1.16" data-path="correlation.html"><a href="correlation.html#polynomial-curve-fitting-and-confidence-interval"><i class="fa fa-check"></i><b>8.1.16</b> Polynomial Curve Fitting and Confidence Interval</a></li>
+<li class="chapter" data-level="8.1.17" data-path="correlation.html"><a href="correlation.html#lattice-xy-plot-function"><i class="fa fa-check"></i><b>8.1.17</b> Lattice XY Plot Function</a></li>
+<li class="chapter" data-level="8.1.18" data-path="correlation.html"><a href="correlation.html#correlation-between-discrete-variable"><i class="fa fa-check"></i><b>8.1.18</b> Correlation between Discrete Variable</a></li>
+<li class="chapter" data-level="8.1.19" data-path="correlation.html"><a href="correlation.html#use-mtext-to-write-text-in-margin"><i class="fa fa-check"></i><b>8.1.19</b> Use mtext() to Write Text in Margin</a></li>
+<li class="chapter" data-level="8.1.20" data-path="correlation.html"><a href="correlation.html#customizations-2"><i class="fa fa-check"></i><b>8.1.20</b> Customizations</a></li>
+<li class="chapter" data-level="8.1.21" data-path="correlation.html"><a href="correlation.html#the-split_screen-function-of-r"><i class="fa fa-check"></i><b>8.1.21</b> The split_screen() Function of R</a></li>
+<li class="chapter" data-level="8.1.22" data-path="correlation.html"><a href="correlation.html#use-par-mfrow-to-split-screen"><i class="fa fa-check"></i><b>8.1.22</b> Use par mfrow to Split Screen</a></li>
+<li class="chapter" data-level="8.1.23" data-path="correlation.html"><a href="correlation.html#base-r-graph-parameters-a-cheatsheet."><i class="fa fa-check"></i><b>8.1.23</b> Base R Graph Parameters: A Cheatsheet.</a></li>
+<li class="chapter" data-level="8.1.24" data-path="correlation.html"><a href="correlation.html#special-use-case-manhattan-plots"><i class="fa fa-check"></i><b>8.1.24</b> SPECIAL USE CASE: MANHATTAN PLOTS</a></li>
+<li class="chapter" data-level="8.1.25" data-path="correlation.html"><a href="correlation.html#highly-customizable-with-ggplot2"><i class="fa fa-check"></i><b>8.1.25</b> Highly Customizable with ggplot2</a></li>
+<li class="chapter" data-level="8.1.26" data-path="correlation.html"><a href="correlation.html#switch-to-an-interactive-version-with-plotly"><i class="fa fa-check"></i><b>8.1.26</b> Switch to an Interactive Version with Plotly</a></li>
+<li class="chapter" data-level="8.1.27" data-path="correlation.html"><a href="correlation.html#circular-version-with-cmplot"><i class="fa fa-check"></i><b>8.1.27</b> Circular Version with CMplot</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="correlation.html"><a href="correlation.html#heatmap"><i class="fa fa-check"></i><b>8.2</b> Heatmap</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="correlation.html"><a href="correlation.html#normalization"><i class="fa fa-check"></i><b>8.2.1</b> Normalization</a></li>
+<li class="chapter" data-level="8.2.2" data-path="correlation.html"><a href="correlation.html#dendrogram-and-reordering"><i class="fa fa-check"></i><b>8.2.2</b> Dendrogram and Reordering</a></li>
+<li class="chapter" data-level="8.2.3" data-path="correlation.html"><a href="correlation.html#color-palette"><i class="fa fa-check"></i><b>8.2.3</b> Color Palette</a></li>
+<li class="chapter" data-level="8.2.4" data-path="correlation.html"><a href="correlation.html#custom-layout"><i class="fa fa-check"></i><b>8.2.4</b> Custom Layout</a></li>
+<li class="chapter" data-level="8.2.5" data-path="correlation.html"><a href="correlation.html#add-color-beside-heatmap"><i class="fa fa-check"></i><b>8.2.5</b> Add Color beside Heatmap</a></li>
+<li class="chapter" data-level="8.2.6" data-path="correlation.html"><a href="correlation.html#using-geom_title-from-ggplot2"><i class="fa fa-check"></i><b>8.2.6</b> Using geom_title() from Ggplot2</a></li>
+<li class="chapter" data-level="8.2.7" data-path="correlation.html"><a href="correlation.html#ggplot2-heatmap"><i class="fa fa-check"></i><b>8.2.7</b> Ggplot2 Heatmap</a></li>
+<li class="chapter" data-level="8.2.8" data-path="correlation.html"><a href="correlation.html#control-color-palette"><i class="fa fa-check"></i><b>8.2.8</b> Control Color Palette</a></li>
+<li class="chapter" data-level="8.2.9" data-path="correlation.html"><a href="correlation.html#from-wide-input-format"><i class="fa fa-check"></i><b>8.2.9</b> From Wide Input Format</a></li>
+<li class="chapter" data-level="8.2.10" data-path="correlation.html"><a href="correlation.html#turn-it-interactive-with-plotly"><i class="fa fa-check"></i><b>8.2.10</b> Turn it Interactive with Plotly</a></li>
+<li class="chapter" data-level="8.2.11" data-path="correlation.html"><a href="correlation.html#interactive-heatmaps-from-r"><i class="fa fa-check"></i><b>8.2.11</b> Interactive Heatmaps from R</a></li>
+<li class="chapter" data-level="8.2.12" data-path="correlation.html"><a href="correlation.html#heatmap-for-time-series"><i class="fa fa-check"></i><b>8.2.12</b> Heatmap for Time Series</a></li>
+<li class="chapter" data-level="8.2.13" data-path="correlation.html"><a href="correlation.html#using-the-levelplot-function-of-lattice"><i class="fa fa-check"></i><b>8.2.13</b> Using the levelplot() Function of Lattice</a></li>
+<li class="chapter" data-level="8.2.14" data-path="correlation.html"><a href="correlation.html#from-wide-input-matrix"><i class="fa fa-check"></i><b>8.2.14</b> From Wide Input Matrix</a></li>
+<li class="chapter" data-level="8.2.15" data-path="correlation.html"><a href="correlation.html#flip-and-reorder-axis"><i class="fa fa-check"></i><b>8.2.15</b> Flip and Reorder Axis</a></li>
+<li class="chapter" data-level="8.2.16" data-path="correlation.html"><a href="correlation.html#custom-colors"><i class="fa fa-check"></i><b>8.2.16</b> Custom Colors</a></li>
+<li class="chapter" data-level="8.2.17" data-path="correlation.html"><a href="correlation.html#heatmap-with-smoothing---latticeextra"><i class="fa fa-check"></i><b>8.2.17</b> Heatmap with Smoothing - LatticeExtra</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="correlation.html"><a href="correlation.html#correlogram"><i class="fa fa-check"></i><b>8.3</b> Correlogram</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="correlation.html"><a href="correlation.html#visualize-correlation-with-ggcorr"><i class="fa fa-check"></i><b>8.3.1</b> Visualize Correlation with ggcorr()</a></li>
+<li class="chapter" data-level="8.3.2" data-path="correlation.html"><a href="correlation.html#split-by-group"><i class="fa fa-check"></i><b>8.3.2</b> Split by Group</a></li>
+<li class="chapter" data-level="8.3.3" data-path="correlation.html"><a href="correlation.html#using-the-corrgram-package"><i class="fa fa-check"></i><b>8.3.3</b> Using the Corrgram Package</a></li>
+<li class="chapter" data-level="8.3.4" data-path="correlation.html"><a href="correlation.html#visualize-correlation-with-ggcorr-1"><i class="fa fa-check"></i><b>8.3.4</b> Visualize Correlation with ggcorr()</a></li>
+<li class="chapter" data-level="8.3.5" data-path="correlation.html"><a href="correlation.html#split-by-group-1"><i class="fa fa-check"></i><b>8.3.5</b> Split by Group</a></li>
+<li class="chapter" data-level="8.3.6" data-path="correlation.html"><a href="correlation.html#change-plot-types"><i class="fa fa-check"></i><b>8.3.6</b> Change plot types</a></li>
+<li class="chapter" data-level="8.3.7" data-path="correlation.html"><a href="correlation.html#other-methods"><i class="fa fa-check"></i><b>8.3.7</b> Other Methods</a></li>
+<li class="chapter" data-level="8.3.8" data-path="correlation.html"><a href="correlation.html#basic-scatterplot-matrix"><i class="fa fa-check"></i><b>8.3.8</b> Basic Scatterplot Matrix</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="correlation.html"><a href="correlation.html#bubble-plot"><i class="fa fa-check"></i><b>8.4</b> Bubble Plot</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="correlation.html"><a href="correlation.html#most-basic-bubble-chart-with-geom_point"><i class="fa fa-check"></i><b>8.4.1</b> Most Basic bubble Chart with geom_point()</a></li>
+<li class="chapter" data-level="8.4.2" data-path="correlation.html"><a href="correlation.html#control-circle-size-with-scale_size"><i class="fa fa-check"></i><b>8.4.2</b> Control Circle Size with scale_size()</a></li>
+<li class="chapter" data-level="8.4.3" data-path="correlation.html"><a href="correlation.html#add-a-fourth-dimension-color"><i class="fa fa-check"></i><b>8.4.3</b> Add a Fourth Dimension: Color</a></li>
+<li class="chapter" data-level="8.4.4" data-path="correlation.html"><a href="correlation.html#make-it-pretty"><i class="fa fa-check"></i><b>8.4.4</b> Make it Pretty</a></li>
+<li class="chapter" data-level="8.4.5" data-path="correlation.html"><a href="correlation.html#interactive-version"><i class="fa fa-check"></i><b>8.4.5</b> Interactive Version</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="correlation.html"><a href="correlation.html#connected-scatterplot"><i class="fa fa-check"></i><b>8.5</b> Connected Scatterplot</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="correlation.html"><a href="correlation.html#connected-scatterplot-with-r-and-ggplot2"><i class="fa fa-check"></i><b>8.5.1</b> Connected Scatterplot with R and Ggplot2</a></li>
+<li class="chapter" data-level="8.5.2" data-path="correlation.html"><a href="correlation.html#customize-the-connected-scatterplot"><i class="fa fa-check"></i><b>8.5.2</b> Customize the Connected Scatterplot</a></li>
+<li class="chapter" data-level="8.5.3" data-path="correlation.html"><a href="correlation.html#connected-scatterplot-to-show-an-evolution"><i class="fa fa-check"></i><b>8.5.3</b> Connected Scatterplot to show an Evolution</a></li>
+<li class="chapter" data-level="8.5.4" data-path="correlation.html"><a href="correlation.html#connected-scatterplot-for-time-series"><i class="fa fa-check"></i><b>8.5.4</b> Connected Scatterplot for Time Series</a></li>
+<li class="chapter" data-level="8.5.5" data-path="correlation.html"><a href="correlation.html#connected-scatterplot-using-base-r"><i class="fa fa-check"></i><b>8.5.5</b> Connected Scatterplot using Base R</a></li>
+<li class="chapter" data-level="8.5.6" data-path="correlation.html"><a href="correlation.html#manage-dates-data-with-base-r"><i class="fa fa-check"></i><b>8.5.6</b> Manage Dates Data with Base R</a></li>
+<li class="chapter" data-level="8.5.7" data-path="correlation.html"><a href="correlation.html#switch-to-date-format"><i class="fa fa-check"></i><b>8.5.7</b> Switch to Date Format</a></li>
+<li class="chapter" data-level="8.5.8" data-path="correlation.html"><a href="correlation.html#base-r-graph-parameters-cheatsheet"><i class="fa fa-check"></i><b>8.5.8</b> Base R Graph Parameters: Cheatsheet</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="correlation.html"><a href="correlation.html#density-2d"><i class="fa fa-check"></i><b>8.6</b> Density 2D</a>
+<ul>
+<li class="chapter" data-level="8.6.1" data-path="correlation.html"><a href="correlation.html#the-issue-with-geom_point"><i class="fa fa-check"></i><b>8.6.1</b> The Issue with geom_point()</a></li>
+<li class="chapter" data-level="8.6.2" data-path="correlation.html"><a href="correlation.html#d-histogram-with-geom_bin2d"><i class="fa fa-check"></i><b>8.6.2</b> 2d Histogram with geom_bin2d()</a></li>
+<li class="chapter" data-level="8.6.3" data-path="correlation.html"><a href="correlation.html#hexbin-chart-with-geom_hex"><i class="fa fa-check"></i><b>8.6.3</b> Hexbin Chart with geom_hex()</a></li>
+<li class="chapter" data-level="8.6.4" data-path="correlation.html"><a href="correlation.html#d-distribution-with-geom_density_2d-or-stat_density_2d"><i class="fa fa-check"></i><b>8.6.4</b> 2d Distribution with geom_density_2d or stat_density_2d</a></li>
+<li class="chapter" data-level="8.6.5" data-path="correlation.html"><a href="correlation.html#customize-the-color-palette"><i class="fa fa-check"></i><b>8.6.5</b> Customize the Color Palette</a></li>
+<li class="chapter" data-level="8.6.6" data-path="correlation.html"><a href="correlation.html#hexbin-chart-with-the-hexbin-package"><i class="fa fa-check"></i><b>8.6.6</b> Hexbin Chart with the Hexbin Package</a></li>
+<li class="chapter" data-level="8.6.7" data-path="correlation.html"><a href="correlation.html#hexbin-chart-and-scatterplot-with-ggplot2"><i class="fa fa-check"></i><b>8.6.7</b> Hexbin Chart and Scatterplot with Ggplot2</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="ranking.html"><a href="ranking.html"><i class="fa fa-check"></i><b>9</b> Ranking</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="ranking.html"><a href="ranking.html#barplot"><i class="fa fa-check"></i><b>9.1</b> Barplot</a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="ranking.html"><a href="ranking.html#basic-barplot-with-ggplot2"><i class="fa fa-check"></i><b>9.1.1</b> Basic Barplot with Ggplot2</a></li>
+<li class="chapter" data-level="9.1.2" data-path="ranking.html"><a href="ranking.html#control-bar-color"><i class="fa fa-check"></i><b>9.1.2</b> Control Bar Color</a></li>
+<li class="chapter" data-level="9.1.3" data-path="ranking.html"><a href="ranking.html#horizontal-barplot-with-coord_flip"><i class="fa fa-check"></i><b>9.1.3</b> Horizontal Barplot with <code>coord_flip()</code></a></li>
+<li class="chapter" data-level="9.1.4" data-path="ranking.html"><a href="ranking.html#control-bar-width-with-width"><i class="fa fa-check"></i><b>9.1.4</b> Control Bar Width with Width</a></li>
+<li class="chapter" data-level="9.1.5" data-path="distributions.html"><a href="distributions.html#reorder-a-variable-with-ggplot2"><i class="fa fa-check"></i><b>9.1.5</b> Reorder a Variable with Ggplot2</a></li>
+<li class="chapter" data-level="9.1.6" data-path="distributions.html"><a href="distributions.html#method-1-the-forecats-library"><i class="fa fa-check"></i><b>9.1.6</b> Method 1: the Forecats Library</a></li>
+<li class="chapter" data-level="9.1.7" data-path="distributions.html"><a href="distributions.html#method-2-using-dplyr-only"><i class="fa fa-check"></i><b>9.1.7</b> Method 2: Using Dplyr Only</a></li>
+<li class="chapter" data-level="9.1.8" data-path="ranking.html"><a href="ranking.html#method-3-the-reorder-function-of-base"><i class="fa fa-check"></i><b>9.1.8</b> Method 3: the <code>reorder()</code> Function of Base</a></li>
+<li class="chapter" data-level="9.1.9" data-path="ranking.html"><a href="ranking.html#barplot-with-variable-width---ggplot2"><i class="fa fa-check"></i><b>9.1.9</b> Barplot with Variable Width - Ggplot2</a></li>
+<li class="chapter" data-level="9.1.10" data-path="ranking.html"><a href="ranking.html#barplot-with-error-bars"><i class="fa fa-check"></i><b>9.1.10</b> Barplot with Error Bars</a></li>
+<li class="chapter" data-level="9.1.11" data-path="ranking.html"><a href="ranking.html#customization"><i class="fa fa-check"></i><b>9.1.11</b> Customization</a></li>
+<li class="chapter" data-level="9.1.12" data-path="ranking.html"><a href="ranking.html#basic-r-and-the-barplot-function"><i class="fa fa-check"></i><b>9.1.12</b> Basic R and the <code>barplot()</code> Function</a></li>
+<li class="chapter" data-level="9.1.13" data-path="ranking.html"><a href="ranking.html#custom-color"><i class="fa fa-check"></i><b>9.1.13</b> Custom Color</a></li>
+<li class="chapter" data-level="9.1.14" data-path="ranking.html"><a href="ranking.html#title-axis-label-custom-limits"><i class="fa fa-check"></i><b>9.1.14</b> Title, Axis label, Custom Limits</a></li>
+<li class="chapter" data-level="9.1.15" data-path="ranking.html"><a href="ranking.html#horizontal-barplot"><i class="fa fa-check"></i><b>9.1.15</b> Horizontal Barplot</a></li>
+<li class="chapter" data-level="9.1.16" data-path="ranking.html"><a href="ranking.html#bar-width-space-between-bars"><i class="fa fa-check"></i><b>9.1.16</b> Bar Width &amp; Space between Bars</a></li>
+<li class="chapter" data-level="9.1.17" data-path="ranking.html"><a href="ranking.html#barplot-texture"><i class="fa fa-check"></i><b>9.1.17</b> Barplot Texture</a></li>
+<li class="chapter" data-level="9.1.18" data-path="ranking.html"><a href="ranking.html#advanced-r-barplot-customization"><i class="fa fa-check"></i><b>9.1.18</b> Advanced R Barplot Customization</a></li>
+<li class="chapter" data-level="9.1.19" data-path="ranking.html"><a href="ranking.html#axis-labels-orientation-with-las"><i class="fa fa-check"></i><b>9.1.19</b> Axis Labels Orientation with <code>las()</code></a></li>
+<li class="chapter" data-level="9.1.20" data-path="ranking.html"><a href="ranking.html#change-group-labels-with-names.arg"><i class="fa fa-check"></i><b>9.1.20</b> Change Group Labels with <strong>names.arg</strong></a></li>
+<li class="chapter" data-level="9.1.21" data-path="ranking.html"><a href="ranking.html#axis-labels-axis-title-style"><i class="fa fa-check"></i><b>9.1.21</b> Axis Labels &amp; Axis Title Style</a></li>
+<li class="chapter" data-level="9.1.22" data-path="ranking.html"><a href="ranking.html#increase-margin-size"><i class="fa fa-check"></i><b>9.1.22</b> Increase Margin Size</a></li>
+<li class="chapter" data-level="9.1.23" data-path="ranking.html"><a href="ranking.html#barplot-with-error-bars-1"><i class="fa fa-check"></i><b>9.1.23</b> Barplot with Error Bars</a></li>
+<li class="chapter" data-level="9.1.24" data-path="ranking.html"><a href="ranking.html#customization-1"><i class="fa fa-check"></i><b>9.1.24</b> Customization</a></li>
+<li class="chapter" data-level="9.1.25" data-path="ranking.html"><a href="ranking.html#standard-deviation-standard-error-or-confidence-interval"><i class="fa fa-check"></i><b>9.1.25</b> Standard Deviation, Standard Error or Confidence Interval?</a></li>
+<li class="chapter" data-level="9.1.26" data-path="ranking.html"><a href="ranking.html#basic-r-arrows-function"><i class="fa fa-check"></i><b>9.1.26</b> Basic R: <code>arrows()</code> Function</a></li>
+<li class="chapter" data-level="9.1.27" data-path="ranking.html"><a href="ranking.html#barplot-with-number-of-observation"><i class="fa fa-check"></i><b>9.1.27</b> Barplot with Number of Observation</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="ranking.html"><a href="ranking.html#radar-chart"><i class="fa fa-check"></i><b>9.2</b> Radar Chart</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="ranking.html"><a href="ranking.html#one-group-only---fmsb-library"><i class="fa fa-check"></i><b>9.2.1</b> One Group Only - FMSB Library</a></li>
+<li class="chapter" data-level="9.2.2" data-path="ranking.html"><a href="ranking.html#customization-2"><i class="fa fa-check"></i><b>9.2.2</b> Customization</a></li>
+<li class="chapter" data-level="9.2.3" data-path="ranking.html"><a href="ranking.html#several-groups"><i class="fa fa-check"></i><b>9.2.3</b> Several Groups</a></li>
+<li class="chapter" data-level="9.2.4" data-path="ranking.html"><a href="ranking.html#customization-3"><i class="fa fa-check"></i><b>9.2.4</b> Customization</a></li>
+<li class="chapter" data-level="9.2.5" data-path="ranking.html"><a href="ranking.html#about-axis-limits"><i class="fa fa-check"></i><b>9.2.5</b> About Axis Limits</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="ranking.html"><a href="ranking.html#wordcloud"><i class="fa fa-check"></i><b>9.3</b> Wordcloud</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="ranking.html"><a href="ranking.html#wordcloud2"><i class="fa fa-check"></i><b>9.3.1</b> Wordcloud2</a></li>
+<li class="chapter" data-level="9.3.2" data-path="ranking.html"><a href="ranking.html#the-wordcloud2-library"><i class="fa fa-check"></i><b>9.3.2</b> The <strong>Wordcloud2</strong> Library</a></li>
+<li class="chapter" data-level="9.3.3" data-path="ranking.html"><a href="ranking.html#color-background-color"><i class="fa fa-check"></i><b>9.3.3</b> Color &amp; Background Color</a></li>
+<li class="chapter" data-level="9.3.4" data-path="ranking.html"><a href="ranking.html#shape"><i class="fa fa-check"></i><b>9.3.4</b> Shape</a></li>
+<li class="chapter" data-level="9.3.5" data-path="ranking.html"><a href="ranking.html#word-orientation"><i class="fa fa-check"></i><b>9.3.5</b> Word Orientation</a></li>
+<li class="chapter" data-level="9.3.6" data-path="ranking.html"><a href="ranking.html#chinese-version"><i class="fa fa-check"></i><b>9.3.6</b> Chinese Version</a></li>
+<li class="chapter" data-level="9.3.7" data-path="ranking.html"><a href="ranking.html#use-letter-or-text-as-shape"><i class="fa fa-check"></i><b>9.3.7</b> Use Letter or Text as Shape</a></li>
+<li class="chapter" data-level="9.3.8" data-path="ranking.html"><a href="ranking.html#export-the-wordcloud"><i class="fa fa-check"></i><b>9.3.8</b> Export the Wordcloud</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="ranking.html"><a href="ranking.html#parallel-coordinates-chart"><i class="fa fa-check"></i><b>9.4</b> Parallel Coordinates Chart</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="ranking.html"><a href="ranking.html#parallel-coordinates-chart-with-ggally"><i class="fa fa-check"></i><b>9.4.1</b> Parallel Coordinates Chart with ggally</a></li>
+<li class="chapter" data-level="9.4.2" data-path="ranking.html"><a href="ranking.html#custom-color-theme-general-appearance"><i class="fa fa-check"></i><b>9.4.2</b> Custom Color, Theme, General Appearance</a></li>
+<li class="chapter" data-level="9.4.3" data-path="ranking.html"><a href="ranking.html#scaling"><i class="fa fa-check"></i><b>9.4.3</b> Scaling</a></li>
+<li class="chapter" data-level="9.4.4" data-path="ranking.html"><a href="ranking.html#highlight-a-group"><i class="fa fa-check"></i><b>9.4.4</b> Highlight a Group</a></li>
+<li class="chapter" data-level="9.4.5" data-path="ranking.html"><a href="ranking.html#parallel-chart-with-the-mass-library"><i class="fa fa-check"></i><b>9.4.5</b> Parallel Chart with the <code>MASS</code> Library</a></li>
+<li class="chapter" data-level="9.4.6" data-path="ranking.html"><a href="ranking.html#reorder-variables"><i class="fa fa-check"></i><b>9.4.6</b> Reorder Variables</a></li>
+<li class="chapter" data-level="9.4.7" data-path="ranking.html"><a href="ranking.html#highlight-a-group-1"><i class="fa fa-check"></i><b>9.4.7</b> Highlight a Group</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="lets-use-the-iris-dataset-as-an-example.html"><a href="lets-use-the-iris-dataset-as-an-example.html"><i class="fa fa-check"></i><b>10</b> Let’s use the Iris dataset as an example</a></li>
+<li class="chapter" data-level="11" data-path="vector-color-red-if-setosa-grey-otherwise-.html"><a href="vector-color-red-if-setosa-grey-otherwise-.html"><i class="fa fa-check"></i><b>11</b> Vector color: red if Setosa, grey otherwise.</a></li>
+<li class="chapter" data-level="12" data-path="make-the-graph.html"><a href="make-the-graph.html"><i class="fa fa-check"></i><b>12</b> Make the graph !</a>
+<ul>
+<li class="chapter" data-level="12.0.1" data-path="make-the-graph.html"><a href="make-the-graph.html#from-1-numeric-and-1-categorical-variable"><i class="fa fa-check"></i><b>12.0.1</b> From 1 Numeric and 1 Categorical Variable</a></li>
+<li class="chapter" data-level="12.0.2" data-path="make-the-graph.html"><a href="make-the-graph.html#custom-lollipop-chart"><i class="fa fa-check"></i><b>12.0.2</b> Custom Lollipop Chart</a></li>
+<li class="chapter" data-level="12.0.3" data-path="make-the-graph.html"><a href="make-the-graph.html#stem"><i class="fa fa-check"></i><b>12.0.3</b> Stem</a></li>
+<li class="chapter" data-level="12.0.4" data-path="make-the-graph.html"><a href="make-the-graph.html#general-appearance-with-theme"><i class="fa fa-check"></i><b>12.0.4</b> General Appearance with theme()</a></li>
+<li class="chapter" data-level="12.0.5" data-path="make-the-graph.html"><a href="make-the-graph.html#horizontal-version"><i class="fa fa-check"></i><b>12.0.5</b> Horizontal Version</a></li>
+<li class="chapter" data-level="12.0.6" data-path="make-the-graph.html"><a href="make-the-graph.html#baseline"><i class="fa fa-check"></i><b>12.0.6</b> Baseline</a></li>
+<li class="chapter" data-level="12.0.7" data-path="make-the-graph.html"><a href="make-the-graph.html#lollipop-chart-with-2-groups"><i class="fa fa-check"></i><b>12.0.7</b> Lollipop Chart with 2 Groups</a></li>
+<li class="chapter" data-level="12.0.8" data-path="make-the-graph.html"><a href="make-the-graph.html#highlight-a-group-in-a-lollipop-chart"><i class="fa fa-check"></i><b>12.0.8</b> Highlight a Group in a Lollipop Chart</a></li>
+<li class="chapter" data-level="12.0.9" data-path="make-the-graph.html"><a href="make-the-graph.html#lollipop-chart-with-conditional-color"><i class="fa fa-check"></i><b>12.0.9</b> Lollipop Chart with Conditional Color</a></li>
+<li class="chapter" data-level="12.1" data-path="make-the-graph.html"><a href="make-the-graph.html#circular-barplot"><i class="fa fa-check"></i><b>12.1</b> Circular Barplot</a>
+<ul>
+<li class="chapter" data-level="12.1.1" data-path="make-the-graph.html"><a href="make-the-graph.html#most-basic-circular-barplot"><i class="fa fa-check"></i><b>12.1.1</b> Most Basic Circular Barplot</a></li>
+<li class="chapter" data-level="12.1.2" data-path="make-the-graph.html"><a href="make-the-graph.html#add-labels-to-circular-barplot"><i class="fa fa-check"></i><b>12.1.2</b> Add Labels to Circular Barplot</a></li>
+<li class="chapter" data-level="12.1.3" data-path="make-the-graph.html"><a href="make-the-graph.html#circular-barplot-with-groups"><i class="fa fa-check"></i><b>12.1.3</b> Circular Barplot with Groups</a></li>
+<li class="chapter" data-level="12.1.4" data-path="make-the-graph.html"><a href="make-the-graph.html#space-between-groups"><i class="fa fa-check"></i><b>12.1.4</b> Space between Groups</a></li>
+<li class="chapter" data-level="12.1.5" data-path="make-the-graph.html"><a href="make-the-graph.html#order-bars"><i class="fa fa-check"></i><b>12.1.5</b> Order Bars</a></li>
+<li class="chapter" data-level="12.1.6" data-path="make-the-graph.html"><a href="make-the-graph.html#circular-barchart-customization"><i class="fa fa-check"></i><b>12.1.6</b> Circular Barchart Customization</a></li>
+<li class="chapter" data-level="12.1.7" data-path="make-the-graph.html"><a href="make-the-graph.html#circular-stacked-barplot"><i class="fa fa-check"></i><b>12.1.7</b> Circular Stacked Barplot</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://www.worldcapitalis.com" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R Gallery Book</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="make-the-graph" class="section level1" number="12">
+<h1><span class="header-section-number">Chapter 12</span> Make the graph !</h1>
+<p>parcoord(iris[,c(1,3,4,2)] , col=isSetosa )</p>
+<pre><code>
+## Lollipop Plot
+
+--- 
+
+A [lollipop plot](https://www.data-to-viz.com/graph/lollipop.html) is basically a [barplot](https://www.r-graph-gallery.com/barplot.html), where the bar is transformed in a line and a dot. It shows the relationship between a numeric and a categorical variable. Lollipop charts can be created using ggplot2: the trick is to combine geom_point() for the dots with geom_segment() for the stems. See this basic example to see how to proceed.
+
+### Most Basic Lollipop Plot
+
+How to build a very basic lollipop chart with R and ggplot2. This post how to use geom_point() and geom_segment() based on different input formats.
+
+#### From 2 Numeric Variables
+
+A lollipop plot is very close from both scatterplots and barplots.
+
+Thus, 2 types of input format work to build it:
+
+* 2 numeric values like for a scatterplot
+* one numeric and one categorical variable like for the barplot.
+
+In any case, a lollipop is built using geom_point() for the circle, and geom_segment() for the stem.
+
+
+```r
+# Libraries
+library(ggplot2)
+
+# Create data
+data &lt;- data.frame(x=seq(1,30), y=abs(rnorm(30)))
+ 
+# Plot
+ggplot(data, aes(x=x, y=y)) +
+  geom_point() + 
+  geom_segment( aes(x=x, xend=x, y=0, yend=y))</code></pre>
+<p><img src="r-graph_files/figure-html/lollipop-chart-1.png" width="672" /></p>
+<div id="from-1-numeric-and-1-categorical-variable" class="section level3" number="12.0.1">
+<h3><span class="header-section-number">12.0.1</span> From 1 Numeric and 1 Categorical Variable</h3>
+<p>The code works pretty much the same way, but it is important to note that the X axis can represent a categorical variable as well. In this case, the lollipop chart is a good replacement of the barplot.</p>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="make-the-graph.html#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Libraries</span></span>
+<span id="cb77-2"><a href="make-the-graph.html#cb77-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb77-3"><a href="make-the-graph.html#cb77-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-4"><a href="make-the-graph.html#cb77-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create data</span></span>
+<span id="cb77-5"><a href="make-the-graph.html#cb77-5" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb77-6"><a href="make-the-graph.html#cb77-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">x=</span>LETTERS[<span class="dv">1</span><span class="sc">:</span><span class="dv">26</span>], </span>
+<span id="cb77-7"><a href="make-the-graph.html#cb77-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">y=</span><span class="fu">abs</span>(<span class="fu">rnorm</span>(<span class="dv">26</span>))</span>
+<span id="cb77-8"><a href="make-the-graph.html#cb77-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb77-9"><a href="make-the-graph.html#cb77-9" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb77-10"><a href="make-the-graph.html#cb77-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb77-11"><a href="make-the-graph.html#cb77-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>y)) <span class="sc">+</span></span>
+<span id="cb77-12"><a href="make-the-graph.html#cb77-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb77-13"><a href="make-the-graph.html#cb77-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>( <span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">xend=</span>x, <span class="at">y=</span><span class="dv">0</span>, <span class="at">yend=</span>y))</span></code></pre></div>
+<p><img src="r-graph_files/figure-html/lollipop-chart-numeric-categorial-1.png" width="672" /></p>
+</div>
+<div id="custom-lollipop-chart" class="section level3" number="12.0.2">
+<h3><span class="header-section-number">12.0.2</span> Custom Lollipop Chart</h3>
+<p>A lollipop chart is constituted of a circle (made with geom_point()) and a segment (made with geom_segment()). This page explains how to customize the chart appearance with R and ggplot2.</p>
+<div id="marker" class="section level4" number="12.0.2.1">
+<h4><span class="header-section-number">12.0.2.1</span> Marker</h4>
+<p>A lollipop plot is constituted of a marker and a stem. You can customize the marker as usual with ggplot2:</p>
+<ul>
+<li>size, color</li>
+<li>alpha â transparency</li>
+<li>shape â see list of available shape here</li>
+<li>stroke and fill â only for shapes that have stroke, like the 21</li>
+</ul>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="make-the-graph.html#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Library</span></span>
+<span id="cb78-2"><a href="make-the-graph.html#cb78-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb78-3"><a href="make-the-graph.html#cb78-3" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb78-4"><a href="make-the-graph.html#cb78-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create data</span></span>
+<span id="cb78-5"><a href="make-the-graph.html#cb78-5" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb78-6"><a href="make-the-graph.html#cb78-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">x=</span>LETTERS[<span class="dv">1</span><span class="sc">:</span><span class="dv">26</span>],</span>
+<span id="cb78-7"><a href="make-the-graph.html#cb78-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">y=</span><span class="fu">abs</span>(<span class="fu">rnorm</span>(<span class="dv">26</span>))</span>
+<span id="cb78-8"><a href="make-the-graph.html#cb78-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb78-9"><a href="make-the-graph.html#cb78-9" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb78-10"><a href="make-the-graph.html#cb78-10" aria-hidden="true" tabindex="-1"></a><span class="co"># plot</span></span>
+<span id="cb78-11"><a href="make-the-graph.html#cb78-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>y)) <span class="sc">+</span></span>
+<span id="cb78-12"><a href="make-the-graph.html#cb78-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>( <span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">xend=</span>x, <span class="at">y=</span><span class="dv">0</span>, <span class="at">yend=</span>y)) <span class="sc">+</span></span>
+<span id="cb78-13"><a href="make-the-graph.html#cb78-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>( <span class="at">size=</span><span class="dv">5</span>, <span class="at">color=</span><span class="st">&quot;red&quot;</span>, <span class="at">fill=</span><span class="fu">alpha</span>(<span class="st">&quot;orange&quot;</span>, <span class="fl">0.3</span>), <span class="at">alpha=</span><span class="fl">0.7</span>, <span class="at">shape=</span><span class="dv">21</span>, <span class="at">stroke=</span><span class="dv">2</span>) </span></code></pre></div>
+<p><img src="r-graph_files/figure-html/lollipop-chart-custom-1.png" width="672" /></p>
+</div>
+</div>
+<div id="stem" class="section level3" number="12.0.3">
+<h3><span class="header-section-number">12.0.3</span> Stem</h3>
+<p>The stem is built using geom_segment() and can be customized as well:</p>
+<ul>
+<li>size, color</li>
+<li>linetype â can be an integer (see list), a word like dotted, dashed, dotdash and more (type help(linetype))</li>
+</ul>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="make-the-graph.html#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Libraries</span></span>
+<span id="cb79-2"><a href="make-the-graph.html#cb79-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb79-3"><a href="make-the-graph.html#cb79-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-4"><a href="make-the-graph.html#cb79-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create data</span></span>
+<span id="cb79-5"><a href="make-the-graph.html#cb79-5" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb79-6"><a href="make-the-graph.html#cb79-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">x=</span>LETTERS[<span class="dv">1</span><span class="sc">:</span><span class="dv">26</span>],</span>
+<span id="cb79-7"><a href="make-the-graph.html#cb79-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">y=</span><span class="fu">abs</span>(<span class="fu">rnorm</span>(<span class="dv">26</span>))</span>
+<span id="cb79-8"><a href="make-the-graph.html#cb79-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb79-9"><a href="make-the-graph.html#cb79-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-10"><a href="make-the-graph.html#cb79-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb79-11"><a href="make-the-graph.html#cb79-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>y)) <span class="sc">+</span></span>
+<span id="cb79-12"><a href="make-the-graph.html#cb79-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>( <span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">xend=</span>x, <span class="at">y=</span><span class="dv">0</span>, <span class="at">yend=</span>y) , <span class="at">size=</span><span class="dv">1</span>, <span class="at">color=</span><span class="st">&quot;blue&quot;</span>, <span class="at">linetype=</span><span class="st">&quot;dotdash&quot;</span> ) <span class="sc">+</span></span>
+<span id="cb79-13"><a href="make-the-graph.html#cb79-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="r-graph_files/figure-html/stem-plot-ggplot-1.png" width="672" /></p>
+</div>
+<div id="general-appearance-with-theme" class="section level3" number="12.0.4">
+<h3><span class="header-section-number">12.0.4</span> General Appearance with theme()</h3>
+<p>As usual, you can customize the general appearance of the chart using the theme() function.</p>
+<p>Note: another solution is to use the pre-built theme_ipsum() offered in the hrbrthemes package.</p>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="make-the-graph.html#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create data</span></span>
+<span id="cb80-2"><a href="make-the-graph.html#cb80-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb80-3"><a href="make-the-graph.html#cb80-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">x=</span>LETTERS[<span class="dv">1</span><span class="sc">:</span><span class="dv">26</span>],</span>
+<span id="cb80-4"><a href="make-the-graph.html#cb80-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">y=</span><span class="fu">abs</span>(<span class="fu">rnorm</span>(<span class="dv">26</span>))</span>
+<span id="cb80-5"><a href="make-the-graph.html#cb80-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb80-6"><a href="make-the-graph.html#cb80-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb80-7"><a href="make-the-graph.html#cb80-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb80-8"><a href="make-the-graph.html#cb80-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>y)) <span class="sc">+</span></span>
+<span id="cb80-9"><a href="make-the-graph.html#cb80-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>( <span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">xend=</span>x, <span class="at">y=</span><span class="dv">0</span>, <span class="at">yend=</span>y), <span class="at">color=</span><span class="st">&quot;grey&quot;</span>) <span class="sc">+</span></span>
+<span id="cb80-10"><a href="make-the-graph.html#cb80-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>( <span class="at">color=</span><span class="st">&quot;orange&quot;</span>, <span class="at">size=</span><span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb80-11"><a href="make-the-graph.html#cb80-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
+<span id="cb80-12"><a href="make-the-graph.html#cb80-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb80-13"><a href="make-the-graph.html#cb80-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb80-14"><a href="make-the-graph.html#cb80-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.border =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb80-15"><a href="make-the-graph.html#cb80-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>()</span>
+<span id="cb80-16"><a href="make-the-graph.html#cb80-16" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb80-17"><a href="make-the-graph.html#cb80-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;&quot;</span>) <span class="sc">+</span></span>
+<span id="cb80-18"><a href="make-the-graph.html#cb80-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Value of Y&quot;</span>)</span></code></pre></div>
+<p><img src="r-graph_files/figure-html/lollipop-chart-general-apperence-1.png" width="672" /></p>
+</div>
+<div id="horizontal-version" class="section level3" number="12.0.5">
+<h3><span class="header-section-number">12.0.5</span> Horizontal Version</h3>
+<p>It is pretty straightforward to flip the chart using the coord_flip() function.</p>
+<p>It makes sense to do so if you have long labels â they will be much easier to read.</p>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="make-the-graph.html#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Libraries</span></span>
+<span id="cb81-2"><a href="make-the-graph.html#cb81-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb81-3"><a href="make-the-graph.html#cb81-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb81-4"><a href="make-the-graph.html#cb81-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create data</span></span>
+<span id="cb81-5"><a href="make-the-graph.html#cb81-5" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb81-6"><a href="make-the-graph.html#cb81-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">x=</span>LETTERS[<span class="dv">1</span><span class="sc">:</span><span class="dv">26</span>],</span>
+<span id="cb81-7"><a href="make-the-graph.html#cb81-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">y=</span><span class="fu">abs</span>(<span class="fu">rnorm</span>(<span class="dv">26</span>))</span>
+<span id="cb81-8"><a href="make-the-graph.html#cb81-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb81-9"><a href="make-the-graph.html#cb81-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb81-10"><a href="make-the-graph.html#cb81-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Horizontal version</span></span>
+<span id="cb81-11"><a href="make-the-graph.html#cb81-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>y)) <span class="sc">+</span></span>
+<span id="cb81-12"><a href="make-the-graph.html#cb81-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>( <span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">xend=</span>x, <span class="at">y=</span><span class="dv">0</span>, <span class="at">yend=</span>y), <span class="at">color=</span><span class="st">&quot;skyblue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb81-13"><a href="make-the-graph.html#cb81-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>( <span class="at">color=</span><span class="st">&quot;blue&quot;</span>, <span class="at">size=</span><span class="dv">4</span>, <span class="at">alpha=</span><span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb81-14"><a href="make-the-graph.html#cb81-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
+<span id="cb81-15"><a href="make-the-graph.html#cb81-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb81-16"><a href="make-the-graph.html#cb81-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb81-17"><a href="make-the-graph.html#cb81-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.major.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb81-18"><a href="make-the-graph.html#cb81-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.border =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb81-19"><a href="make-the-graph.html#cb81-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.ticks.y =</span> <span class="fu">element_blank</span>()</span>
+<span id="cb81-20"><a href="make-the-graph.html#cb81-20" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<p><img src="r-graph_files/figure-html/lollipop-chart-horizontal-1.png" width="672" /></p>
+</div>
+<div id="baseline" class="section level3" number="12.0.6">
+<h3><span class="header-section-number">12.0.6</span> Baseline</h3>
+<p>Lastly, you can easily change the baseline of the chart. It gives more insight to the figure if there is a specific threshold in the data that interests you.</p>
+<p>You just have to change the y argument in the geom_segment() call.</p>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="make-the-graph.html#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Libraries</span></span>
+<span id="cb82-2"><a href="make-the-graph.html#cb82-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb82-3"><a href="make-the-graph.html#cb82-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-4"><a href="make-the-graph.html#cb82-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create data</span></span>
+<span id="cb82-5"><a href="make-the-graph.html#cb82-5" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb82-6"><a href="make-the-graph.html#cb82-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">x=</span>LETTERS[<span class="dv">1</span><span class="sc">:</span><span class="dv">26</span>],</span>
+<span id="cb82-7"><a href="make-the-graph.html#cb82-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">y=</span><span class="fu">abs</span>(<span class="fu">rnorm</span>(<span class="dv">26</span>))</span>
+<span id="cb82-8"><a href="make-the-graph.html#cb82-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb82-9"><a href="make-the-graph.html#cb82-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-10"><a href="make-the-graph.html#cb82-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Change baseline</span></span>
+<span id="cb82-11"><a href="make-the-graph.html#cb82-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>y)) <span class="sc">+</span></span>
+<span id="cb82-12"><a href="make-the-graph.html#cb82-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>( <span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">xend=</span>x, <span class="at">y=</span><span class="dv">1</span>, <span class="at">yend=</span>y), <span class="at">color=</span><span class="st">&quot;grey&quot;</span>) <span class="sc">+</span></span>
+<span id="cb82-13"><a href="make-the-graph.html#cb82-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>( <span class="at">color=</span><span class="st">&quot;orange&quot;</span>, <span class="at">size=</span><span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb82-14"><a href="make-the-graph.html#cb82-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
+<span id="cb82-15"><a href="make-the-graph.html#cb82-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb82-16"><a href="make-the-graph.html#cb82-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb82-17"><a href="make-the-graph.html#cb82-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.border =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb82-18"><a href="make-the-graph.html#cb82-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>()</span>
+<span id="cb82-19"><a href="make-the-graph.html#cb82-19" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb82-20"><a href="make-the-graph.html#cb82-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;&quot;</span>) <span class="sc">+</span></span>
+<span id="cb82-21"><a href="make-the-graph.html#cb82-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Value of Y&quot;</span>)</span></code></pre></div>
+<p><img src="r-graph_files/figure-html/lollipop-chart-baseline-1.png" width="672" /></p>
+</div>
+<div id="lollipop-chart-with-2-groups" class="section level3" number="12.0.7">
+<h3><span class="header-section-number">12.0.7</span> Lollipop Chart with 2 Groups</h3>
+<p>A lollipop chart can be used to compare 2 categories, linking them with a segment to stress out their difference. This post explains how to do it with R and ggplot2. Lollipop plots can be very appropriate when it comes to compare 2 values for several entities. For each entity, one point is drawn for each variable, with a different color. Their difference is then highlighted using a segment. This type of visualisation is also called Cleveland dot plots.</p>
+<p>As usual, it is advised to order your individuals by mean, median, or group difference to give even more insight to the figure.</p>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="make-the-graph.html#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Library</span></span>
+<span id="cb83-2"><a href="make-the-graph.html#cb83-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb83-3"><a href="make-the-graph.html#cb83-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb83-4"><a href="make-the-graph.html#cb83-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(hrbrthemes)</span>
+<span id="cb83-5"><a href="make-the-graph.html#cb83-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb83-6"><a href="make-the-graph.html#cb83-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Create data</span></span>
+<span id="cb83-7"><a href="make-the-graph.html#cb83-7" aria-hidden="true" tabindex="-1"></a>value1 <span class="ot">&lt;-</span> <span class="fu">abs</span>(<span class="fu">rnorm</span>(<span class="dv">26</span>))<span class="sc">*</span><span class="dv">2</span></span>
+<span id="cb83-8"><a href="make-the-graph.html#cb83-8" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb83-9"><a href="make-the-graph.html#cb83-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">x=</span>LETTERS[<span class="dv">1</span><span class="sc">:</span><span class="dv">26</span>], </span>
+<span id="cb83-10"><a href="make-the-graph.html#cb83-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">value1=</span>value1, </span>
+<span id="cb83-11"><a href="make-the-graph.html#cb83-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">value2=</span>value1<span class="sc">+</span><span class="dv">1</span><span class="sc">+</span><span class="fu">rnorm</span>(<span class="dv">26</span>, <span class="at">sd=</span><span class="dv">1</span>) </span>
+<span id="cb83-12"><a href="make-the-graph.html#cb83-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb83-13"><a href="make-the-graph.html#cb83-13" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb83-14"><a href="make-the-graph.html#cb83-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Reorder data using average? Learn more about reordering in chart #267</span></span>
+<span id="cb83-15"><a href="make-the-graph.html#cb83-15" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> </span>
+<span id="cb83-16"><a href="make-the-graph.html#cb83-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowwise</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb83-17"><a href="make-the-graph.html#cb83-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>( <span class="at">mymean =</span> <span class="fu">mean</span>(<span class="fu">c</span>(value1,value2) )) <span class="sc">%&gt;%</span> </span>
+<span id="cb83-18"><a href="make-the-graph.html#cb83-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(mymean) <span class="sc">%&gt;%</span> </span>
+<span id="cb83-19"><a href="make-the-graph.html#cb83-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">x=</span><span class="fu">factor</span>(x, x))</span>
+<span id="cb83-20"><a href="make-the-graph.html#cb83-20" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb83-21"><a href="make-the-graph.html#cb83-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb83-22"><a href="make-the-graph.html#cb83-22" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data) <span class="sc">+</span></span>
+<span id="cb83-23"><a href="make-the-graph.html#cb83-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>( <span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">xend=</span>x, <span class="at">y=</span>value1, <span class="at">yend=</span>value2), <span class="at">color=</span><span class="st">&quot;grey&quot;</span>) <span class="sc">+</span></span>
+<span id="cb83-24"><a href="make-the-graph.html#cb83-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>( <span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>value1), <span class="at">color=</span><span class="fu">rgb</span>(<span class="fl">0.2</span>,<span class="fl">0.7</span>,<span class="fl">0.1</span>,<span class="fl">0.5</span>), <span class="at">size=</span><span class="dv">3</span> ) <span class="sc">+</span></span>
+<span id="cb83-25"><a href="make-the-graph.html#cb83-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>( <span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>value2), <span class="at">color=</span><span class="fu">rgb</span>(<span class="fl">0.7</span>,<span class="fl">0.2</span>,<span class="fl">0.1</span>,<span class="fl">0.5</span>), <span class="at">size=</span><span class="dv">3</span> ) <span class="sc">+</span></span>
+<span id="cb83-26"><a href="make-the-graph.html#cb83-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()<span class="sc">+</span></span>
+<span id="cb83-27"><a href="make-the-graph.html#cb83-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ipsum</span>() <span class="sc">+</span></span>
+<span id="cb83-28"><a href="make-the-graph.html#cb83-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb83-29"><a href="make-the-graph.html#cb83-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>,</span>
+<span id="cb83-30"><a href="make-the-graph.html#cb83-30" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb83-31"><a href="make-the-graph.html#cb83-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;&quot;</span>) <span class="sc">+</span></span>
+<span id="cb83-32"><a href="make-the-graph.html#cb83-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Value of Y&quot;</span>)</span></code></pre></div>
+<p><img src="r-graph_files/figure-html/lollipop-chart-two-groups-1.png" width="672" /></p>
+</div>
+<div id="highlight-a-group-in-a-lollipop-chart" class="section level3" number="12.0.8">
+<h3><span class="header-section-number">12.0.8</span> Highlight a Group in a Lollipop Chart</h3>
+<p>This post describes how to build a lollipop chart with R and ggplot2. It shows how to highlight one or several groups of interest to convey your message more efficiently.</p>
+<p>Annotation is key in data visualization: it allows the reader to focus on the main message you want to convey. If one or a few groups specifically interest you, it is a good practice to highlight them on the plot. Your reader will understand quicker what the story behind the chart is. To do so, you can use an ifelse statement to change size, color, alpha or any other aesthetics. Moreover, it is even more insightful to add text annotation directly on the chart.</p>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="make-the-graph.html#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Library</span></span>
+<span id="cb84-2"><a href="make-the-graph.html#cb84-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb84-3"><a href="make-the-graph.html#cb84-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb84-4"><a href="make-the-graph.html#cb84-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(hrbrthemes)</span>
+<span id="cb84-5"><a href="make-the-graph.html#cb84-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-6"><a href="make-the-graph.html#cb84-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Create data</span></span>
+<span id="cb84-7"><a href="make-the-graph.html#cb84-7" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1000</span>)</span>
+<span id="cb84-8"><a href="make-the-graph.html#cb84-8" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb84-9"><a href="make-the-graph.html#cb84-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">x=</span>LETTERS[<span class="dv">1</span><span class="sc">:</span><span class="dv">26</span>], </span>
+<span id="cb84-10"><a href="make-the-graph.html#cb84-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">y=</span><span class="fu">abs</span>(<span class="fu">rnorm</span>(<span class="dv">26</span>))</span>
+<span id="cb84-11"><a href="make-the-graph.html#cb84-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb84-12"><a href="make-the-graph.html#cb84-12" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb84-13"><a href="make-the-graph.html#cb84-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Reorder the data</span></span>
+<span id="cb84-14"><a href="make-the-graph.html#cb84-14" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb84-15"><a href="make-the-graph.html#cb84-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(y) <span class="sc">%&gt;%</span></span>
+<span id="cb84-16"><a href="make-the-graph.html#cb84-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">x=</span><span class="fu">factor</span>(x,x))</span>
+<span id="cb84-17"><a href="make-the-graph.html#cb84-17" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb84-18"><a href="make-the-graph.html#cb84-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb84-19"><a href="make-the-graph.html#cb84-19" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>y)) <span class="sc">+</span></span>
+<span id="cb84-20"><a href="make-the-graph.html#cb84-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>( <span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">xend=</span>x, <span class="at">y=</span><span class="dv">0</span>, <span class="at">yend=</span>y ), <span class="at">color=</span><span class="fu">ifelse</span>(data<span class="sc">$</span>x <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;D&quot;</span>), <span class="st">&quot;orange&quot;</span>, <span class="st">&quot;grey&quot;</span>), <span class="at">size=</span><span class="fu">ifelse</span>(data<span class="sc">$</span>x <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;D&quot;</span>), <span class="fl">1.3</span>, <span class="fl">0.7</span>) ) <span class="sc">+</span></span>
+<span id="cb84-21"><a href="make-the-graph.html#cb84-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>( <span class="at">color=</span><span class="fu">ifelse</span>(data<span class="sc">$</span>x <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;D&quot;</span>), <span class="st">&quot;orange&quot;</span>, <span class="st">&quot;grey&quot;</span>), <span class="at">size=</span><span class="fu">ifelse</span>(data<span class="sc">$</span>x <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;D&quot;</span>), <span class="dv">5</span>, <span class="dv">2</span>) ) <span class="sc">+</span></span>
+<span id="cb84-22"><a href="make-the-graph.html#cb84-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ipsum</span>() <span class="sc">+</span></span>
+<span id="cb84-23"><a href="make-the-graph.html#cb84-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb84-24"><a href="make-the-graph.html#cb84-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb84-25"><a href="make-the-graph.html#cb84-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position=</span><span class="st">&quot;none&quot;</span></span>
+<span id="cb84-26"><a href="make-the-graph.html#cb84-26" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb84-27"><a href="make-the-graph.html#cb84-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;&quot;</span>) <span class="sc">+</span></span>
+<span id="cb84-28"><a href="make-the-graph.html#cb84-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Value of Y&quot;</span>) <span class="sc">+</span></span>
+<span id="cb84-29"><a href="make-the-graph.html#cb84-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;How did groups A and D perform?&quot;</span>)</span>
+<span id="cb84-30"><a href="make-the-graph.html#cb84-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-31"><a href="make-the-graph.html#cb84-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Add annotation</span></span>
+<span id="cb84-32"><a href="make-the-graph.html#cb84-32" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x=</span><span class="fu">grep</span>(<span class="st">&quot;D&quot;</span>, data<span class="sc">$</span>x), <span class="at">y=</span>data<span class="sc">$</span>y[<span class="fu">which</span>(data<span class="sc">$</span>x<span class="sc">==</span><span class="st">&quot;D&quot;</span>)]<span class="sc">*</span><span class="fl">1.2</span>, </span>
+<span id="cb84-33"><a href="make-the-graph.html#cb84-33" aria-hidden="true" tabindex="-1"></a>           <span class="at">label=</span><span class="st">&quot;Group D is very impressive&quot;</span>, </span>
+<span id="cb84-34"><a href="make-the-graph.html#cb84-34" aria-hidden="true" tabindex="-1"></a>           <span class="at">color=</span><span class="st">&quot;orange&quot;</span>, <span class="at">size=</span><span class="dv">4</span> , <span class="at">angle=</span><span class="dv">0</span>, <span class="at">fontface=</span><span class="st">&quot;bold&quot;</span>, <span class="at">hjust=</span><span class="dv">0</span>) <span class="sc">+</span> </span>
+<span id="cb84-35"><a href="make-the-graph.html#cb84-35" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb84-36"><a href="make-the-graph.html#cb84-36" aria-hidden="true" tabindex="-1"></a>    <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x =</span> <span class="fu">grep</span>(<span class="st">&quot;A&quot;</span>, data<span class="sc">$</span>x), <span class="at">y =</span> data<span class="sc">$</span>y[<span class="fu">which</span>(data<span class="sc">$</span>x<span class="sc">==</span><span class="st">&quot;A&quot;</span>)]<span class="sc">*</span><span class="fl">1.2</span>, </span>
+<span id="cb84-37"><a href="make-the-graph.html#cb84-37" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="fu">paste</span>(<span class="st">&quot;Group A is not too bad</span><span class="sc">\n</span><span class="st"> (val=&quot;</span>,data<span class="sc">$</span>y[<span class="fu">which</span>(data<span class="sc">$</span>x<span class="sc">==</span><span class="st">&quot;A&quot;</span>)] <span class="sc">%&gt;%</span> <span class="fu">round</span>(<span class="dv">2</span>),<span class="st">&quot;)&quot;</span>,<span class="at">sep=</span><span class="st">&quot;&quot;</span> ) , </span>
+<span id="cb84-38"><a href="make-the-graph.html#cb84-38" aria-hidden="true" tabindex="-1"></a>           <span class="at">color=</span><span class="st">&quot;orange&quot;</span>, <span class="at">size=</span><span class="dv">4</span> , <span class="at">angle=</span><span class="dv">0</span>, <span class="at">fontface=</span><span class="st">&quot;bold&quot;</span>, <span class="at">hjust=</span><span class="dv">0</span>) </span></code></pre></div>
+<p><img src="r-graph_files/figure-html/lollipop-chart-highlight-group-1.png" width="672" /></p>
+</div>
+<div id="lollipop-chart-with-conditional-color" class="section level3" number="12.0.9">
+<h3><span class="header-section-number">12.0.9</span> Lollipop Chart with Conditional Color</h3>
+<p>If your lollipop plot goes on both side of an interesting threshold, you probably want to change the color of its components conditionally. Here is how using R and ggplot2.</p>
+<div id="marker-1" class="section level4" number="12.0.9.1">
+<h4><span class="header-section-number">12.0.9.1</span> Marker</h4>
+<p>Here is the process to use conditional color on your <code>ggplot2</code> chart:</p>
+<ul>
+<li>Add a new column to your dataframe specifying if you are over or under the threshold (use an <code>ifelse</code> statement).</li>
+<li>Give this column to the color aesthetic.</li>
+</ul>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="make-the-graph.html#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="co"># library</span></span>
+<span id="cb85-2"><a href="make-the-graph.html#cb85-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb85-3"><a href="make-the-graph.html#cb85-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb85-4"><a href="make-the-graph.html#cb85-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-5"><a href="make-the-graph.html#cb85-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Create data (this takes more sense with a numerical X axis)</span></span>
+<span id="cb85-6"><a href="make-the-graph.html#cb85-6" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">2</span><span class="sc">*</span>pi, <span class="at">length.out=</span><span class="dv">100</span>)</span>
+<span id="cb85-7"><a href="make-the-graph.html#cb85-7" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb85-8"><a href="make-the-graph.html#cb85-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">x=</span>x, </span>
+<span id="cb85-9"><a href="make-the-graph.html#cb85-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">y=</span><span class="fu">sin</span>(x) <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="at">sd=</span><span class="fl">0.2</span>)</span>
+<span id="cb85-10"><a href="make-the-graph.html#cb85-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb85-11"><a href="make-the-graph.html#cb85-11" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb85-12"><a href="make-the-graph.html#cb85-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Add a column with your condition for the color</span></span>
+<span id="cb85-13"><a href="make-the-graph.html#cb85-13" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> </span>
+<span id="cb85-14"><a href="make-the-graph.html#cb85-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">mycolor =</span> <span class="fu">ifelse</span>(y<span class="sc">&gt;</span><span class="dv">0</span>, <span class="st">&quot;type1&quot;</span>, <span class="st">&quot;type2&quot;</span>))</span>
+<span id="cb85-15"><a href="make-the-graph.html#cb85-15" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb85-16"><a href="make-the-graph.html#cb85-16" aria-hidden="true" tabindex="-1"></a><span class="co"># plot</span></span>
+<span id="cb85-17"><a href="make-the-graph.html#cb85-17" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>y)) <span class="sc">+</span></span>
+<span id="cb85-18"><a href="make-the-graph.html#cb85-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>( <span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">xend=</span>x, <span class="at">y=</span><span class="dv">0</span>, <span class="at">yend=</span>y, <span class="at">color=</span>mycolor), <span class="at">size=</span><span class="fl">1.3</span>, <span class="at">alpha=</span><span class="fl">0.9</span>) <span class="sc">+</span></span>
+<span id="cb85-19"><a href="make-the-graph.html#cb85-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
+<span id="cb85-20"><a href="make-the-graph.html#cb85-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb85-21"><a href="make-the-graph.html#cb85-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>,</span>
+<span id="cb85-22"><a href="make-the-graph.html#cb85-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.border =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb85-23"><a href="make-the-graph.html#cb85-23" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb85-24"><a href="make-the-graph.html#cb85-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;&quot;</span>) <span class="sc">+</span></span>
+<span id="cb85-25"><a href="make-the-graph.html#cb85-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Value of Y&quot;</span>)</span></code></pre></div>
+<p><img src="r-graph_files/figure-html/lollipop-chart-conditional-color-1.png" width="672" /></p>
+</div>
+</div>
+<div id="circular-barplot" class="section level2" number="12.1">
+<h2><span class="header-section-number">12.1</span> Circular Barplot</h2>
+<hr />
+<p>This is the <a href="https://www.data-to-viz.com/graph/circularbarplot.html">circular barplot</a> section of the gallery, a variation of the well known <a href="https://www.r-graph-gallery.com/barplot.html">barplot</a>. Note that even if visually appealing, circular barplot must be used with care since groups <a href="https://www.data-to-viz.com/graph/circularbarplot.html">do not share the same Y axis</a>. It is very adapted for cyclical data though. Visit <a href="https://www.data-to-viz.com/graph/circularbarplot.html">data-to-viz.com</a> for more info.</p>
+<p>Here is a set of examples leading to a proper circular barplot, step by step. The first most basic circular barchart shows how to use coord_polar() to make the barchart circular. Next examples describe the next steps to get a proper figure: gap between groups, labels and customization.</p>
+<div id="most-basic-circular-barplot" class="section level3" number="12.1.1">
+<h3><span class="header-section-number">12.1.1</span> Most Basic Circular Barplot</h3>
+<p>A circular barplot is a barplot where bars are displayed along a circle instead of a line. This post explains how to build a basic version with R and ggplot2. It provides the reproducible code and explain how the <code>coord_polar()</code> function works.</p>
+<p>A circular barplot is a barplot where bars are displayed along a circle instead of a line. The input dataset is the same than for a barplot: we need one numeric value per group (one group = one bar). (See more explanation in the barplot section).</p>
+<p>Basically, the method is the same than to do a classic barplot. At the end, we call <code>coord_polar()</code> to make the chart circular. Note that the <code>ylim()</code> argument is really important. If it starts at <strong>0</strong>, the bars will start from the centre of the circle. If you provide a negative value, a white circle space will appear!</p>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="make-the-graph.html#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Libraries</span></span>
+<span id="cb86-2"><a href="make-the-graph.html#cb86-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb86-3"><a href="make-the-graph.html#cb86-3" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb86-4"><a href="make-the-graph.html#cb86-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create dataset</span></span>
+<span id="cb86-5"><a href="make-the-graph.html#cb86-5" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb86-6"><a href="make-the-graph.html#cb86-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">id=</span><span class="fu">seq</span>(<span class="dv">1</span>,<span class="dv">60</span>),</span>
+<span id="cb86-7"><a href="make-the-graph.html#cb86-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">individual=</span><span class="fu">paste</span>( <span class="st">&quot;Mister &quot;</span>, <span class="fu">seq</span>(<span class="dv">1</span>,<span class="dv">60</span>), <span class="at">sep=</span><span class="st">&quot;&quot;</span>),</span>
+<span id="cb86-8"><a href="make-the-graph.html#cb86-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">value=</span><span class="fu">sample</span>( <span class="fu">seq</span>(<span class="dv">10</span>,<span class="dv">100</span>), <span class="dv">60</span>, <span class="at">replace=</span>T)</span>
+<span id="cb86-9"><a href="make-the-graph.html#cb86-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb86-10"><a href="make-the-graph.html#cb86-10" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb86-11"><a href="make-the-graph.html#cb86-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Make the plot</span></span>
+<span id="cb86-12"><a href="make-the-graph.html#cb86-12" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">as.factor</span>(id), <span class="at">y=</span>value)) <span class="sc">+</span>       <span class="co"># Note that id is a factor. If x is numeric, there is some space between the first bar</span></span>
+<span id="cb86-13"><a href="make-the-graph.html#cb86-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb86-14"><a href="make-the-graph.html#cb86-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># This add the bars with a blue color</span></span>
+<span id="cb86-15"><a href="make-the-graph.html#cb86-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>, <span class="at">fill=</span><span class="fu">alpha</span>(<span class="st">&quot;blue&quot;</span>, <span class="fl">0.3</span>)) <span class="sc">+</span></span>
+<span id="cb86-16"><a href="make-the-graph.html#cb86-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb86-17"><a href="make-the-graph.html#cb86-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Limits of the plot = very important. The negative value controls the size of the inner circle, the positive one is useful to add size over each bar</span></span>
+<span id="cb86-18"><a href="make-the-graph.html#cb86-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="sc">-</span><span class="dv">100</span>,<span class="dv">120</span>) <span class="sc">+</span></span>
+<span id="cb86-19"><a href="make-the-graph.html#cb86-19" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb86-20"><a href="make-the-graph.html#cb86-20" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Custom the theme: no axis title and no cartesian grid</span></span>
+<span id="cb86-21"><a href="make-the-graph.html#cb86-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb86-22"><a href="make-the-graph.html#cb86-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb86-23"><a href="make-the-graph.html#cb86-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb86-24"><a href="make-the-graph.html#cb86-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb86-25"><a href="make-the-graph.html#cb86-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb86-26"><a href="make-the-graph.html#cb86-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.margin =</span> <span class="fu">unit</span>(<span class="fu">rep</span>(<span class="sc">-</span><span class="dv">2</span>,<span class="dv">4</span>), <span class="st">&quot;cm&quot;</span>)     <span class="co"># This remove unnecessary margin around plot</span></span>
+<span id="cb86-27"><a href="make-the-graph.html#cb86-27" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb86-28"><a href="make-the-graph.html#cb86-28" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb86-29"><a href="make-the-graph.html#cb86-29" aria-hidden="true" tabindex="-1"></a>  <span class="co"># This makes the coordinate polar instead of cartesian.</span></span>
+<span id="cb86-30"><a href="make-the-graph.html#cb86-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_polar</span>(<span class="at">start =</span> <span class="dv">0</span>)</span>
+<span id="cb86-31"><a href="make-the-graph.html#cb86-31" aria-hidden="true" tabindex="-1"></a>p</span></code></pre></div>
+<p><img src="r-graph_files/figure-html/circular-barplot-1.png" width="672" /></p>
+</div>
+<div id="add-labels-to-circular-barplot" class="section level3" number="12.1.2">
+<h3><span class="header-section-number">12.1.2</span> Add Labels to Circular Barplot</h3>
+<p>This post explains how to add labels on a ggplot2 circular barchart, on top of each bar. It follows the previous most basic circular barchart.</p>
+<p>Here I suggest a method to add label at the top of each bar, using the same angle that the central part of the bar. In the code below, a short section creates a dataframe with the feature of each label, that we can then call in <code>geom_text()</code>.</p>
+<p>Note that labels are always in an angle that allows to read them easily, what requires a 180 degrees flip for some of them.</p>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="make-the-graph.html#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Libraries</span></span>
+<span id="cb87-2"><a href="make-the-graph.html#cb87-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb87-3"><a href="make-the-graph.html#cb87-3" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb87-4"><a href="make-the-graph.html#cb87-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create dataset</span></span>
+<span id="cb87-5"><a href="make-the-graph.html#cb87-5" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb87-6"><a href="make-the-graph.html#cb87-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">id=</span><span class="fu">seq</span>(<span class="dv">1</span>,<span class="dv">60</span>),</span>
+<span id="cb87-7"><a href="make-the-graph.html#cb87-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">individual=</span><span class="fu">paste</span>( <span class="st">&quot;Mister &quot;</span>, <span class="fu">seq</span>(<span class="dv">1</span>,<span class="dv">60</span>), <span class="at">sep=</span><span class="st">&quot;&quot;</span>),</span>
+<span id="cb87-8"><a href="make-the-graph.html#cb87-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">value=</span><span class="fu">sample</span>( <span class="fu">seq</span>(<span class="dv">10</span>,<span class="dv">100</span>), <span class="dv">60</span>, <span class="at">replace=</span>T)</span>
+<span id="cb87-9"><a href="make-the-graph.html#cb87-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb87-10"><a href="make-the-graph.html#cb87-10" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb87-11"><a href="make-the-graph.html#cb87-11" aria-hidden="true" tabindex="-1"></a><span class="co"># ----- This section prepare a dataframe for labels ---- #</span></span>
+<span id="cb87-12"><a href="make-the-graph.html#cb87-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the name and the y position of each label</span></span>
+<span id="cb87-13"><a href="make-the-graph.html#cb87-13" aria-hidden="true" tabindex="-1"></a>label_data <span class="ot">&lt;-</span> data</span>
+<span id="cb87-14"><a href="make-the-graph.html#cb87-14" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb87-15"><a href="make-the-graph.html#cb87-15" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate the ANGLE of the labels</span></span>
+<span id="cb87-16"><a href="make-the-graph.html#cb87-16" aria-hidden="true" tabindex="-1"></a>number_of_bar <span class="ot">&lt;-</span> <span class="fu">nrow</span>(label_data)</span>
+<span id="cb87-17"><a href="make-the-graph.html#cb87-17" aria-hidden="true" tabindex="-1"></a>angle <span class="ot">&lt;-</span>  <span class="dv">90</span> <span class="sc">-</span> <span class="dv">360</span> <span class="sc">*</span> (label_data<span class="sc">$</span>id<span class="fl">-0.5</span>) <span class="sc">/</span>number_of_bar     <span class="co"># I substract 0.5 because the letter must have the angle of the center of the bars. Not extreme right(1) or extreme left (0)</span></span>
+<span id="cb87-18"><a href="make-the-graph.html#cb87-18" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb87-19"><a href="make-the-graph.html#cb87-19" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate the alignment of labels: right or left</span></span>
+<span id="cb87-20"><a href="make-the-graph.html#cb87-20" aria-hidden="true" tabindex="-1"></a><span class="co"># If I am on the left part of the plot, my labels have currently an angle &lt; -90</span></span>
+<span id="cb87-21"><a href="make-the-graph.html#cb87-21" aria-hidden="true" tabindex="-1"></a>label_data<span class="sc">$</span>hjust<span class="ot">&lt;-</span><span class="fu">ifelse</span>( angle <span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">90</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb87-22"><a href="make-the-graph.html#cb87-22" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb87-23"><a href="make-the-graph.html#cb87-23" aria-hidden="true" tabindex="-1"></a><span class="co"># flip angle BY to make them readable</span></span>
+<span id="cb87-24"><a href="make-the-graph.html#cb87-24" aria-hidden="true" tabindex="-1"></a>label_data<span class="sc">$</span>angle<span class="ot">&lt;-</span><span class="fu">ifelse</span>(angle <span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">90</span>, angle<span class="sc">+</span><span class="dv">180</span>, angle)</span>
+<span id="cb87-25"><a href="make-the-graph.html#cb87-25" aria-hidden="true" tabindex="-1"></a><span class="co"># ----- ------------------------------------------- ---- #</span></span>
+<span id="cb87-26"><a href="make-the-graph.html#cb87-26" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb87-27"><a href="make-the-graph.html#cb87-27" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb87-28"><a href="make-the-graph.html#cb87-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Start the plot</span></span>
+<span id="cb87-29"><a href="make-the-graph.html#cb87-29" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">as.factor</span>(id), <span class="at">y=</span>value)) <span class="sc">+</span>       <span class="co"># Note that id is a factor. If x is numeric, there is some space between the first bar</span></span>
+<span id="cb87-30"><a href="make-the-graph.html#cb87-30" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb87-31"><a href="make-the-graph.html#cb87-31" aria-hidden="true" tabindex="-1"></a>  <span class="co"># This add the bars with a blue color</span></span>
+<span id="cb87-32"><a href="make-the-graph.html#cb87-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>, <span class="at">fill=</span><span class="fu">alpha</span>(<span class="st">&quot;skyblue&quot;</span>, <span class="fl">0.7</span>)) <span class="sc">+</span></span>
+<span id="cb87-33"><a href="make-the-graph.html#cb87-33" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb87-34"><a href="make-the-graph.html#cb87-34" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Limits of the plot = very important. The negative value controls the size of the inner circle, the positive one is useful to add size over each bar</span></span>
+<span id="cb87-35"><a href="make-the-graph.html#cb87-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="sc">-</span><span class="dv">100</span>,<span class="dv">120</span>) <span class="sc">+</span></span>
+<span id="cb87-36"><a href="make-the-graph.html#cb87-36" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb87-37"><a href="make-the-graph.html#cb87-37" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Custom the theme: no axis title and no cartesian grid</span></span>
+<span id="cb87-38"><a href="make-the-graph.html#cb87-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb87-39"><a href="make-the-graph.html#cb87-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb87-40"><a href="make-the-graph.html#cb87-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb87-41"><a href="make-the-graph.html#cb87-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb87-42"><a href="make-the-graph.html#cb87-42" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb87-43"><a href="make-the-graph.html#cb87-43" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.margin =</span> <span class="fu">unit</span>(<span class="fu">rep</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">4</span>), <span class="st">&quot;cm&quot;</span>)      <span class="co"># Adjust the margin to make in sort labels are not truncated!</span></span>
+<span id="cb87-44"><a href="make-the-graph.html#cb87-44" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb87-45"><a href="make-the-graph.html#cb87-45" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb87-46"><a href="make-the-graph.html#cb87-46" aria-hidden="true" tabindex="-1"></a>  <span class="co"># This makes the coordinate polar instead of cartesian.</span></span>
+<span id="cb87-47"><a href="make-the-graph.html#cb87-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_polar</span>(<span class="at">start =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb87-48"><a href="make-the-graph.html#cb87-48" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb87-49"><a href="make-the-graph.html#cb87-49" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add the labels, using the label_data dataframe that we have created before</span></span>
+<span id="cb87-50"><a href="make-the-graph.html#cb87-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">data=</span>label_data, <span class="fu">aes</span>(<span class="at">x=</span>id, <span class="at">y=</span>value<span class="sc">+</span><span class="dv">10</span>, <span class="at">label=</span>individual, <span class="at">hjust=</span>hjust), <span class="at">color=</span><span class="st">&quot;black&quot;</span>, <span class="at">fontface=</span><span class="st">&quot;bold&quot;</span>,<span class="at">alpha=</span><span class="fl">0.6</span>, <span class="at">size=</span><span class="fl">2.5</span>, <span class="at">angle=</span> label_data<span class="sc">$</span>angle, <span class="at">inherit.aes =</span> <span class="cn">FALSE</span> ) </span>
+<span id="cb87-51"><a href="make-the-graph.html#cb87-51" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb87-52"><a href="make-the-graph.html#cb87-52" aria-hidden="true" tabindex="-1"></a>p</span></code></pre></div>
+<p><img src="r-graph_files/figure-html/circular-barplot-labels-1.png" width="672" /></p>
+</div>
+<div id="circular-barplot-with-groups" class="section level3" number="12.1.3">
+<h3><span class="header-section-number">12.1.3</span> Circular Barplot with Groups</h3>
+<p>This post explains how to build a circular barchart with groups. A gap is added between groups to highlight them. Bars are labeled, group names are annotated</p>
+<div id="add-a-gap-in-the-circle" class="section level4" number="12.1.3.1">
+<h4><span class="header-section-number">12.1.3.1</span> Add a Gap in the Circle</h4>
+<p>A circular barplot is a barplot where bars are displayed along a circle instead of a line. This page aims to teach you how to make a circular barplot with groups.</p>
+<p>The first step is to build a circular barplot with a break in the circle. Actually, I just added a few empty lines at the end of the initial data frame:</p>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="make-the-graph.html#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="co"># library</span></span>
+<span id="cb88-2"><a href="make-the-graph.html#cb88-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb88-3"><a href="make-the-graph.html#cb88-3" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb88-4"><a href="make-the-graph.html#cb88-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create dataset</span></span>
+<span id="cb88-5"><a href="make-the-graph.html#cb88-5" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb88-6"><a href="make-the-graph.html#cb88-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">individual=</span><span class="fu">paste</span>( <span class="st">&quot;Mister &quot;</span>, <span class="fu">seq</span>(<span class="dv">1</span>,<span class="dv">60</span>), <span class="at">sep=</span><span class="st">&quot;&quot;</span>),</span>
+<span id="cb88-7"><a href="make-the-graph.html#cb88-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">value=</span><span class="fu">sample</span>( <span class="fu">seq</span>(<span class="dv">10</span>,<span class="dv">100</span>), <span class="dv">60</span>, <span class="at">replace=</span>T)</span>
+<span id="cb88-8"><a href="make-the-graph.html#cb88-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb88-9"><a href="make-the-graph.html#cb88-9" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb88-10"><a href="make-the-graph.html#cb88-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Set a number of &#39;empty bar&#39;</span></span>
+<span id="cb88-11"><a href="make-the-graph.html#cb88-11" aria-hidden="true" tabindex="-1"></a>empty_bar <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb88-12"><a href="make-the-graph.html#cb88-12" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb88-13"><a href="make-the-graph.html#cb88-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Add lines to the initial dataset</span></span>
+<span id="cb88-14"><a href="make-the-graph.html#cb88-14" aria-hidden="true" tabindex="-1"></a>to_add <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="cn">NA</span>, empty_bar, <span class="fu">ncol</span>(data))</span>
+<span id="cb88-15"><a href="make-the-graph.html#cb88-15" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(to_add) <span class="ot">&lt;-</span> <span class="fu">colnames</span>(data)</span>
+<span id="cb88-16"><a href="make-the-graph.html#cb88-16" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">rbind</span>(data, to_add)</span>
+<span id="cb88-17"><a href="make-the-graph.html#cb88-17" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>id <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="fu">nrow</span>(data))</span>
+<span id="cb88-18"><a href="make-the-graph.html#cb88-18" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb88-19"><a href="make-the-graph.html#cb88-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the name and the y position of each label</span></span>
+<span id="cb88-20"><a href="make-the-graph.html#cb88-20" aria-hidden="true" tabindex="-1"></a>label_data <span class="ot">&lt;-</span> data</span>
+<span id="cb88-21"><a href="make-the-graph.html#cb88-21" aria-hidden="true" tabindex="-1"></a>number_of_bar <span class="ot">&lt;-</span> <span class="fu">nrow</span>(label_data)</span>
+<span id="cb88-22"><a href="make-the-graph.html#cb88-22" aria-hidden="true" tabindex="-1"></a>angle <span class="ot">&lt;-</span> <span class="dv">90</span> <span class="sc">-</span> <span class="dv">360</span> <span class="sc">*</span> (label_data<span class="sc">$</span>id<span class="fl">-0.5</span>) <span class="sc">/</span>number_of_bar     <span class="co"># I substract 0.5 because the letter must have the angle of the center of the bars. Not extreme right(1) or extreme left (0)</span></span>
+<span id="cb88-23"><a href="make-the-graph.html#cb88-23" aria-hidden="true" tabindex="-1"></a>label_data<span class="sc">$</span>hjust <span class="ot">&lt;-</span> <span class="fu">ifelse</span>( angle <span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">90</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb88-24"><a href="make-the-graph.html#cb88-24" aria-hidden="true" tabindex="-1"></a>label_data<span class="sc">$</span>angle <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(angle <span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">90</span>, angle<span class="sc">+</span><span class="dv">180</span>, angle)</span>
+<span id="cb88-25"><a href="make-the-graph.html#cb88-25" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb88-26"><a href="make-the-graph.html#cb88-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Make the plot</span></span>
+<span id="cb88-27"><a href="make-the-graph.html#cb88-27" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">as.factor</span>(id), <span class="at">y=</span>value)) <span class="sc">+</span>       <span class="co"># Note that id is a factor. If x is numeric, there is some space between the first bar</span></span>
+<span id="cb88-28"><a href="make-the-graph.html#cb88-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>, <span class="at">fill=</span><span class="fu">alpha</span>(<span class="st">&quot;green&quot;</span>, <span class="fl">0.3</span>)) <span class="sc">+</span></span>
+<span id="cb88-29"><a href="make-the-graph.html#cb88-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="sc">-</span><span class="dv">100</span>,<span class="dv">120</span>) <span class="sc">+</span></span>
+<span id="cb88-30"><a href="make-the-graph.html#cb88-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb88-31"><a href="make-the-graph.html#cb88-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb88-32"><a href="make-the-graph.html#cb88-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb88-33"><a href="make-the-graph.html#cb88-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb88-34"><a href="make-the-graph.html#cb88-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb88-35"><a href="make-the-graph.html#cb88-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.margin =</span> <span class="fu">unit</span>(<span class="fu">rep</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">4</span>), <span class="st">&quot;cm&quot;</span>) </span>
+<span id="cb88-36"><a href="make-the-graph.html#cb88-36" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb88-37"><a href="make-the-graph.html#cb88-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_polar</span>(<span class="at">start =</span> <span class="dv">0</span>) <span class="sc">+</span> </span>
+<span id="cb88-38"><a href="make-the-graph.html#cb88-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">data=</span>label_data, <span class="fu">aes</span>(<span class="at">x=</span>id, <span class="at">y=</span>value<span class="sc">+</span><span class="dv">10</span>, <span class="at">label=</span>individual, <span class="at">hjust=</span>hjust), <span class="at">color=</span><span class="st">&quot;black&quot;</span>, <span class="at">fontface=</span><span class="st">&quot;bold&quot;</span>,<span class="at">alpha=</span><span class="fl">0.6</span>, <span class="at">size=</span><span class="fl">2.5</span>, <span class="at">angle=</span> label_data<span class="sc">$</span>angle, <span class="at">inherit.aes =</span> <span class="cn">FALSE</span> ) </span>
+<span id="cb88-39"><a href="make-the-graph.html#cb88-39" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb88-40"><a href="make-the-graph.html#cb88-40" aria-hidden="true" tabindex="-1"></a>p</span></code></pre></div>
+<p><img src="r-graph_files/figure-html/circular-barplot-groups-1.png" width="672" /></p>
+</div>
+</div>
+<div id="space-between-groups" class="section level3" number="12.1.4">
+<h3><span class="header-section-number">12.1.4</span> Space between Groups</h3>
+<p>This concept can now be used to add space between each group of the dataset. Added <strong><em>n</em></strong> lines with only NA at the bottom of each group.</p>
+<p>This chart is far more insightful since it allows one to quickly compare the different groups, and to compare the value of items within each group.</p>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="make-the-graph.html#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="co"># library</span></span>
+<span id="cb89-2"><a href="make-the-graph.html#cb89-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb89-3"><a href="make-the-graph.html#cb89-3" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb89-4"><a href="make-the-graph.html#cb89-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create dataset</span></span>
+<span id="cb89-5"><a href="make-the-graph.html#cb89-5" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb89-6"><a href="make-the-graph.html#cb89-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">individual=</span><span class="fu">paste</span>( <span class="st">&quot;Mister &quot;</span>, <span class="fu">seq</span>(<span class="dv">1</span>,<span class="dv">60</span>), <span class="at">sep=</span><span class="st">&quot;&quot;</span>),</span>
+<span id="cb89-7"><a href="make-the-graph.html#cb89-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">group=</span><span class="fu">c</span>( <span class="fu">rep</span>(<span class="st">&#39;A&#39;</span>, <span class="dv">10</span>), <span class="fu">rep</span>(<span class="st">&#39;B&#39;</span>, <span class="dv">30</span>), <span class="fu">rep</span>(<span class="st">&#39;C&#39;</span>, <span class="dv">14</span>), <span class="fu">rep</span>(<span class="st">&#39;D&#39;</span>, <span class="dv">6</span>)) ,</span>
+<span id="cb89-8"><a href="make-the-graph.html#cb89-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">value=</span><span class="fu">sample</span>( <span class="fu">seq</span>(<span class="dv">10</span>,<span class="dv">100</span>), <span class="dv">60</span>, <span class="at">replace=</span>T)</span>
+<span id="cb89-9"><a href="make-the-graph.html#cb89-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb89-10"><a href="make-the-graph.html#cb89-10" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb89-11"><a href="make-the-graph.html#cb89-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Set a number of &#39;empty bar&#39; to add at the end of each group</span></span>
+<span id="cb89-12"><a href="make-the-graph.html#cb89-12" aria-hidden="true" tabindex="-1"></a>empty_bar <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb89-13"><a href="make-the-graph.html#cb89-13" aria-hidden="true" tabindex="-1"></a>to_add <span class="ot">&lt;-</span> <span class="fu">data.frame</span>( <span class="fu">matrix</span>(<span class="cn">NA</span>, empty_bar<span class="sc">*</span><span class="fu">nlevels</span>(data<span class="sc">$</span>group), <span class="fu">ncol</span>(data)) )</span>
+<span id="cb89-14"><a href="make-the-graph.html#cb89-14" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(to_add) <span class="ot">&lt;-</span> <span class="fu">colnames</span>(data)</span>
+<span id="cb89-15"><a href="make-the-graph.html#cb89-15" aria-hidden="true" tabindex="-1"></a>to_add<span class="sc">$</span>group <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">levels</span>(data<span class="sc">$</span>group), <span class="at">each=</span>empty_bar)</span>
+<span id="cb89-16"><a href="make-the-graph.html#cb89-16" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">rbind</span>(data, to_add)</span>
+<span id="cb89-17"><a href="make-the-graph.html#cb89-17" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(group)</span>
+<span id="cb89-18"><a href="make-the-graph.html#cb89-18" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>id <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="fu">nrow</span>(data))</span>
+<span id="cb89-19"><a href="make-the-graph.html#cb89-19" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb89-20"><a href="make-the-graph.html#cb89-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the name and the y position of each label</span></span>
+<span id="cb89-21"><a href="make-the-graph.html#cb89-21" aria-hidden="true" tabindex="-1"></a>label_data <span class="ot">&lt;-</span> data</span>
+<span id="cb89-22"><a href="make-the-graph.html#cb89-22" aria-hidden="true" tabindex="-1"></a>number_of_bar <span class="ot">&lt;-</span> <span class="fu">nrow</span>(label_data)</span>
+<span id="cb89-23"><a href="make-the-graph.html#cb89-23" aria-hidden="true" tabindex="-1"></a>angle <span class="ot">&lt;-</span> <span class="dv">90</span> <span class="sc">-</span> <span class="dv">360</span> <span class="sc">*</span> (label_data<span class="sc">$</span>id<span class="fl">-0.5</span>) <span class="sc">/</span>number_of_bar     <span class="co"># I substract 0.5 because the letter must have the angle of the center of the bars. Not extreme right(1) or extreme left (0)</span></span>
+<span id="cb89-24"><a href="make-the-graph.html#cb89-24" aria-hidden="true" tabindex="-1"></a>label_data<span class="sc">$</span>hjust <span class="ot">&lt;-</span> <span class="fu">ifelse</span>( angle <span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">90</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb89-25"><a href="make-the-graph.html#cb89-25" aria-hidden="true" tabindex="-1"></a>label_data<span class="sc">$</span>angle <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(angle <span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">90</span>, angle<span class="sc">+</span><span class="dv">180</span>, angle)</span>
+<span id="cb89-26"><a href="make-the-graph.html#cb89-26" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb89-27"><a href="make-the-graph.html#cb89-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Make the plot</span></span>
+<span id="cb89-28"><a href="make-the-graph.html#cb89-28" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">as.factor</span>(id), <span class="at">y=</span>value, <span class="at">fill=</span>group)) <span class="sc">+</span>       <span class="co"># Note that id is a factor. If x is numeric, there is some space between the first bar</span></span>
+<span id="cb89-29"><a href="make-the-graph.html#cb89-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>, <span class="at">alpha=</span><span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb89-30"><a href="make-the-graph.html#cb89-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="sc">-</span><span class="dv">100</span>,<span class="dv">120</span>) <span class="sc">+</span></span>
+<span id="cb89-31"><a href="make-the-graph.html#cb89-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb89-32"><a href="make-the-graph.html#cb89-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb89-33"><a href="make-the-graph.html#cb89-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>,</span>
+<span id="cb89-34"><a href="make-the-graph.html#cb89-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb89-35"><a href="make-the-graph.html#cb89-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb89-36"><a href="make-the-graph.html#cb89-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb89-37"><a href="make-the-graph.html#cb89-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.margin =</span> <span class="fu">unit</span>(<span class="fu">rep</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">4</span>), <span class="st">&quot;cm&quot;</span>) </span>
+<span id="cb89-38"><a href="make-the-graph.html#cb89-38" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb89-39"><a href="make-the-graph.html#cb89-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_polar</span>() <span class="sc">+</span> </span>
+<span id="cb89-40"><a href="make-the-graph.html#cb89-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">data=</span>label_data, <span class="fu">aes</span>(<span class="at">x=</span>id, <span class="at">y=</span>value<span class="sc">+</span><span class="dv">10</span>, <span class="at">label=</span>individual, <span class="at">hjust=</span>hjust), <span class="at">color=</span><span class="st">&quot;black&quot;</span>, <span class="at">fontface=</span><span class="st">&quot;bold&quot;</span>,<span class="at">alpha=</span><span class="fl">0.6</span>, <span class="at">size=</span><span class="fl">2.5</span>, <span class="at">angle=</span> label_data<span class="sc">$</span>angle, <span class="at">inherit.aes =</span> <span class="cn">FALSE</span> ) </span>
+<span id="cb89-41"><a href="make-the-graph.html#cb89-41" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb89-42"><a href="make-the-graph.html#cb89-42" aria-hidden="true" tabindex="-1"></a>p</span></code></pre></div>
+<p><img src="r-graph_files/figure-html/circular-barplot-space-between-groups-1.png" width="672" /></p>
+</div>
+<div id="order-bars" class="section level3" number="12.1.5">
+<h3><span class="header-section-number">12.1.5</span> Order Bars</h3>
+<p>Here observations are sorted by bar height within each group. It can be useful if your goal is to understand what are the highest / lowest observations within and across groups.</p>
+<p>The method used to order groups in ggplot2 is extensively described in this dedicated page. Basically, you just have to add the following piece of code right after the data frame creation:</p>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="make-the-graph.html#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Order data:</span></span>
+<span id="cb90-2"><a href="make-the-graph.html#cb90-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">=</span> data <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(group, value)</span></code></pre></div>
+</div>
+<div id="circular-barchart-customization" class="section level3" number="12.1.6">
+<h3><span class="header-section-number">12.1.6</span> Circular Barchart Customization</h3>
+<p>Last but not least, it is highly advisable to add some customisation to your chart. Here we add group names (A, B, C and D), and we add a scale to help compare the sizes of the bars.</p>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="make-the-graph.html#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="co"># library</span></span>
+<span id="cb91-2"><a href="make-the-graph.html#cb91-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb91-3"><a href="make-the-graph.html#cb91-3" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb91-4"><a href="make-the-graph.html#cb91-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create dataset</span></span>
+<span id="cb91-5"><a href="make-the-graph.html#cb91-5" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb91-6"><a href="make-the-graph.html#cb91-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">individual=</span><span class="fu">paste</span>( <span class="st">&quot;Mister &quot;</span>, <span class="fu">seq</span>(<span class="dv">1</span>,<span class="dv">60</span>), <span class="at">sep=</span><span class="st">&quot;&quot;</span>),</span>
+<span id="cb91-7"><a href="make-the-graph.html#cb91-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">group=</span><span class="fu">c</span>( <span class="fu">rep</span>(<span class="st">&#39;A&#39;</span>, <span class="dv">10</span>), <span class="fu">rep</span>(<span class="st">&#39;B&#39;</span>, <span class="dv">30</span>), <span class="fu">rep</span>(<span class="st">&#39;C&#39;</span>, <span class="dv">14</span>), <span class="fu">rep</span>(<span class="st">&#39;D&#39;</span>, <span class="dv">6</span>)) ,</span>
+<span id="cb91-8"><a href="make-the-graph.html#cb91-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">value=</span><span class="fu">sample</span>( <span class="fu">seq</span>(<span class="dv">10</span>,<span class="dv">100</span>), <span class="dv">60</span>, <span class="at">replace=</span>T)</span>
+<span id="cb91-9"><a href="make-the-graph.html#cb91-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb91-10"><a href="make-the-graph.html#cb91-10" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb91-11"><a href="make-the-graph.html#cb91-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Set a number of &#39;empty bar&#39; to add at the end of each group</span></span>
+<span id="cb91-12"><a href="make-the-graph.html#cb91-12" aria-hidden="true" tabindex="-1"></a>empty_bar <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb91-13"><a href="make-the-graph.html#cb91-13" aria-hidden="true" tabindex="-1"></a>to_add <span class="ot">&lt;-</span> <span class="fu">data.frame</span>( <span class="fu">matrix</span>(<span class="cn">NA</span>, empty_bar<span class="sc">*</span><span class="fu">nlevels</span>(data<span class="sc">$</span>group), <span class="fu">ncol</span>(data)) )</span>
+<span id="cb91-14"><a href="make-the-graph.html#cb91-14" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(to_add) <span class="ot">&lt;-</span> <span class="fu">colnames</span>(data)</span>
+<span id="cb91-15"><a href="make-the-graph.html#cb91-15" aria-hidden="true" tabindex="-1"></a>to_add<span class="sc">$</span>group <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">levels</span>(data<span class="sc">$</span>group), <span class="at">each=</span>empty_bar)</span>
+<span id="cb91-16"><a href="make-the-graph.html#cb91-16" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">rbind</span>(data, to_add)</span>
+<span id="cb91-17"><a href="make-the-graph.html#cb91-17" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(group)</span>
+<span id="cb91-18"><a href="make-the-graph.html#cb91-18" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>id <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="fu">nrow</span>(data))</span>
+<span id="cb91-19"><a href="make-the-graph.html#cb91-19" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb91-20"><a href="make-the-graph.html#cb91-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the name and the y position of each label</span></span>
+<span id="cb91-21"><a href="make-the-graph.html#cb91-21" aria-hidden="true" tabindex="-1"></a>label_data <span class="ot">&lt;-</span> data</span>
+<span id="cb91-22"><a href="make-the-graph.html#cb91-22" aria-hidden="true" tabindex="-1"></a>number_of_bar <span class="ot">&lt;-</span> <span class="fu">nrow</span>(label_data)</span>
+<span id="cb91-23"><a href="make-the-graph.html#cb91-23" aria-hidden="true" tabindex="-1"></a>angle <span class="ot">&lt;-</span> <span class="dv">90</span> <span class="sc">-</span> <span class="dv">360</span> <span class="sc">*</span> (label_data<span class="sc">$</span>id<span class="fl">-0.5</span>) <span class="sc">/</span>number_of_bar     <span class="co"># I substract 0.5 because the letter must have the angle of the center of the bars. Not extreme right(1) or extreme left (0)</span></span>
+<span id="cb91-24"><a href="make-the-graph.html#cb91-24" aria-hidden="true" tabindex="-1"></a>label_data<span class="sc">$</span>hjust <span class="ot">&lt;-</span> <span class="fu">ifelse</span>( angle <span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">90</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb91-25"><a href="make-the-graph.html#cb91-25" aria-hidden="true" tabindex="-1"></a>label_data<span class="sc">$</span>angle <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(angle <span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">90</span>, angle<span class="sc">+</span><span class="dv">180</span>, angle)</span>
+<span id="cb91-26"><a href="make-the-graph.html#cb91-26" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb91-27"><a href="make-the-graph.html#cb91-27" aria-hidden="true" tabindex="-1"></a><span class="co"># prepare a data frame for base lines</span></span>
+<span id="cb91-28"><a href="make-the-graph.html#cb91-28" aria-hidden="true" tabindex="-1"></a>base_data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> </span>
+<span id="cb91-29"><a href="make-the-graph.html#cb91-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(group) <span class="sc">%&gt;%</span> </span>
+<span id="cb91-30"><a href="make-the-graph.html#cb91-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">start=</span><span class="fu">min</span>(id), <span class="at">end=</span><span class="fu">max</span>(id) <span class="sc">-</span> empty_bar) <span class="sc">%&gt;%</span> </span>
+<span id="cb91-31"><a href="make-the-graph.html#cb91-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowwise</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb91-32"><a href="make-the-graph.html#cb91-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">title=</span><span class="fu">mean</span>(<span class="fu">c</span>(start, end)))</span>
+<span id="cb91-33"><a href="make-the-graph.html#cb91-33" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb91-34"><a href="make-the-graph.html#cb91-34" aria-hidden="true" tabindex="-1"></a><span class="co"># prepare a data frame for grid (scales)</span></span>
+<span id="cb91-35"><a href="make-the-graph.html#cb91-35" aria-hidden="true" tabindex="-1"></a>grid_data <span class="ot">&lt;-</span> base_data</span>
+<span id="cb91-36"><a href="make-the-graph.html#cb91-36" aria-hidden="true" tabindex="-1"></a>grid_data<span class="sc">$</span>end <span class="ot">&lt;-</span> grid_data<span class="sc">$</span>end[ <span class="fu">c</span>( <span class="fu">nrow</span>(grid_data), <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(grid_data)<span class="sc">-</span><span class="dv">1</span>)] <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb91-37"><a href="make-the-graph.html#cb91-37" aria-hidden="true" tabindex="-1"></a>grid_data<span class="sc">$</span>start <span class="ot">&lt;-</span> grid_data<span class="sc">$</span>start <span class="sc">-</span> <span class="dv">1</span></span>
+<span id="cb91-38"><a href="make-the-graph.html#cb91-38" aria-hidden="true" tabindex="-1"></a>grid_data <span class="ot">&lt;-</span> grid_data[<span class="sc">-</span><span class="dv">1</span>,]</span>
+<span id="cb91-39"><a href="make-the-graph.html#cb91-39" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb91-40"><a href="make-the-graph.html#cb91-40" aria-hidden="true" tabindex="-1"></a><span class="co"># Make the plot</span></span>
+<span id="cb91-41"><a href="make-the-graph.html#cb91-41" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">as.factor</span>(id), <span class="at">y=</span>value, <span class="at">fill=</span>group)) <span class="sc">+</span>       <span class="co"># Note that id is a factor. If x is numeric, there is some space between the first bar</span></span>
+<span id="cb91-42"><a href="make-the-graph.html#cb91-42" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb91-43"><a href="make-the-graph.html#cb91-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">as.factor</span>(id), <span class="at">y=</span>value, <span class="at">fill=</span>group), <span class="at">stat=</span><span class="st">&quot;identity&quot;</span>, <span class="at">alpha=</span><span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb91-44"><a href="make-the-graph.html#cb91-44" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb91-45"><a href="make-the-graph.html#cb91-45" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add a val=100/75/50/25 lines. I do it at the beginning to make sur barplots are OVER it.</span></span>
+<span id="cb91-46"><a href="make-the-graph.html#cb91-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="at">data=</span>grid_data, <span class="fu">aes</span>(<span class="at">x =</span> end, <span class="at">y =</span> <span class="dv">80</span>, <span class="at">xend =</span> start, <span class="at">yend =</span> <span class="dv">80</span>), <span class="at">colour =</span> <span class="st">&quot;grey&quot;</span>, <span class="at">alpha=</span><span class="dv">1</span>, <span class="at">size=</span><span class="fl">0.3</span> , <span class="at">inherit.aes =</span> <span class="cn">FALSE</span> ) <span class="sc">+</span></span>
+<span id="cb91-47"><a href="make-the-graph.html#cb91-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="at">data=</span>grid_data, <span class="fu">aes</span>(<span class="at">x =</span> end, <span class="at">y =</span> <span class="dv">60</span>, <span class="at">xend =</span> start, <span class="at">yend =</span> <span class="dv">60</span>), <span class="at">colour =</span> <span class="st">&quot;grey&quot;</span>, <span class="at">alpha=</span><span class="dv">1</span>, <span class="at">size=</span><span class="fl">0.3</span> , <span class="at">inherit.aes =</span> <span class="cn">FALSE</span> ) <span class="sc">+</span></span>
+<span id="cb91-48"><a href="make-the-graph.html#cb91-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="at">data=</span>grid_data, <span class="fu">aes</span>(<span class="at">x =</span> end, <span class="at">y =</span> <span class="dv">40</span>, <span class="at">xend =</span> start, <span class="at">yend =</span> <span class="dv">40</span>), <span class="at">colour =</span> <span class="st">&quot;grey&quot;</span>, <span class="at">alpha=</span><span class="dv">1</span>, <span class="at">size=</span><span class="fl">0.3</span> , <span class="at">inherit.aes =</span> <span class="cn">FALSE</span> ) <span class="sc">+</span></span>
+<span id="cb91-49"><a href="make-the-graph.html#cb91-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="at">data=</span>grid_data, <span class="fu">aes</span>(<span class="at">x =</span> end, <span class="at">y =</span> <span class="dv">20</span>, <span class="at">xend =</span> start, <span class="at">yend =</span> <span class="dv">20</span>), <span class="at">colour =</span> <span class="st">&quot;grey&quot;</span>, <span class="at">alpha=</span><span class="dv">1</span>, <span class="at">size=</span><span class="fl">0.3</span> , <span class="at">inherit.aes =</span> <span class="cn">FALSE</span> ) <span class="sc">+</span></span>
+<span id="cb91-50"><a href="make-the-graph.html#cb91-50" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb91-51"><a href="make-the-graph.html#cb91-51" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add text showing the value of each 100/75/50/25 lines</span></span>
+<span id="cb91-52"><a href="make-the-graph.html#cb91-52" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x =</span> <span class="fu">rep</span>(<span class="fu">max</span>(data<span class="sc">$</span>id),<span class="dv">4</span>), <span class="at">y =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">40</span>, <span class="dv">60</span>, <span class="dv">80</span>), <span class="at">label =</span> <span class="fu">c</span>(<span class="st">&quot;20&quot;</span>, <span class="st">&quot;40&quot;</span>, <span class="st">&quot;60&quot;</span>, <span class="st">&quot;80&quot;</span>) , <span class="at">color=</span><span class="st">&quot;grey&quot;</span>, <span class="at">size=</span><span class="dv">3</span> , <span class="at">angle=</span><span class="dv">0</span>, <span class="at">fontface=</span><span class="st">&quot;bold&quot;</span>, <span class="at">hjust=</span><span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb91-53"><a href="make-the-graph.html#cb91-53" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb91-54"><a href="make-the-graph.html#cb91-54" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">as.factor</span>(id), <span class="at">y=</span>value, <span class="at">fill=</span>group), <span class="at">stat=</span><span class="st">&quot;identity&quot;</span>, <span class="at">alpha=</span><span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb91-55"><a href="make-the-graph.html#cb91-55" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="sc">-</span><span class="dv">100</span>,<span class="dv">120</span>) <span class="sc">+</span></span>
+<span id="cb91-56"><a href="make-the-graph.html#cb91-56" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb91-57"><a href="make-the-graph.html#cb91-57" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb91-58"><a href="make-the-graph.html#cb91-58" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>,</span>
+<span id="cb91-59"><a href="make-the-graph.html#cb91-59" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb91-60"><a href="make-the-graph.html#cb91-60" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb91-61"><a href="make-the-graph.html#cb91-61" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb91-62"><a href="make-the-graph.html#cb91-62" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.margin =</span> <span class="fu">unit</span>(<span class="fu">rep</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">4</span>), <span class="st">&quot;cm&quot;</span>) </span>
+<span id="cb91-63"><a href="make-the-graph.html#cb91-63" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb91-64"><a href="make-the-graph.html#cb91-64" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_polar</span>() <span class="sc">+</span> </span>
+<span id="cb91-65"><a href="make-the-graph.html#cb91-65" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">data=</span>label_data, <span class="fu">aes</span>(<span class="at">x=</span>id, <span class="at">y=</span>value<span class="sc">+</span><span class="dv">10</span>, <span class="at">label=</span>individual, <span class="at">hjust=</span>hjust), <span class="at">color=</span><span class="st">&quot;black&quot;</span>, <span class="at">fontface=</span><span class="st">&quot;bold&quot;</span>,<span class="at">alpha=</span><span class="fl">0.6</span>, <span class="at">size=</span><span class="fl">2.5</span>, <span class="at">angle=</span> label_data<span class="sc">$</span>angle, <span class="at">inherit.aes =</span> <span class="cn">FALSE</span> ) <span class="sc">+</span></span>
+<span id="cb91-66"><a href="make-the-graph.html#cb91-66" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb91-67"><a href="make-the-graph.html#cb91-67" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add base line information</span></span>
+<span id="cb91-68"><a href="make-the-graph.html#cb91-68" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="at">data=</span>base_data, <span class="fu">aes</span>(<span class="at">x =</span> start, <span class="at">y =</span> <span class="sc">-</span><span class="dv">5</span>, <span class="at">xend =</span> end, <span class="at">yend =</span> <span class="sc">-</span><span class="dv">5</span>), <span class="at">colour =</span> <span class="st">&quot;black&quot;</span>, <span class="at">alpha=</span><span class="fl">0.8</span>, <span class="at">size=</span><span class="fl">0.6</span> , <span class="at">inherit.aes =</span> <span class="cn">FALSE</span> )  <span class="sc">+</span></span>
+<span id="cb91-69"><a href="make-the-graph.html#cb91-69" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">data=</span>base_data, <span class="fu">aes</span>(<span class="at">x =</span> title, <span class="at">y =</span> <span class="sc">-</span><span class="dv">18</span>, <span class="at">label=</span>group), <span class="at">hjust=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>), <span class="at">colour =</span> <span class="st">&quot;black&quot;</span>, <span class="at">alpha=</span><span class="fl">0.8</span>, <span class="at">size=</span><span class="dv">4</span>, <span class="at">fontface=</span><span class="st">&quot;bold&quot;</span>, <span class="at">inherit.aes =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb91-70"><a href="make-the-graph.html#cb91-70" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb91-71"><a href="make-the-graph.html#cb91-71" aria-hidden="true" tabindex="-1"></a>p</span></code></pre></div>
+<p><img src="r-graph_files/figure-html/circular-barplot-customization-1.png" width="672" /></p>
+</div>
+<div id="circular-stacked-barplot" class="section level3" number="12.1.7">
+<h3><span class="header-section-number">12.1.7</span> Circular Stacked Barplot</h3>
+<p>A circular barplot is a barplot where bars are displayed along a circle instead of a line. This page aims to teach you how to make a grouped and stacked circular barplot with R and ggplot2.</p>
+<p>A circular barplot is a barplot where bars are displayed along a circle instead of a line. This page aims to teach you how to make a grouped and stacked circular barplot.</p>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="make-the-graph.html#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="co"># library</span></span>
+<span id="cb92-2"><a href="make-the-graph.html#cb92-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb92-3"><a href="make-the-graph.html#cb92-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(viridis)</span>
+<span id="cb92-4"><a href="make-the-graph.html#cb92-4" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb92-5"><a href="make-the-graph.html#cb92-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Create dataset</span></span>
+<span id="cb92-6"><a href="make-the-graph.html#cb92-6" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb92-7"><a href="make-the-graph.html#cb92-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">individual=</span><span class="fu">paste</span>( <span class="st">&quot;Mister &quot;</span>, <span class="fu">seq</span>(<span class="dv">1</span>,<span class="dv">60</span>), <span class="at">sep=</span><span class="st">&quot;&quot;</span>),</span>
+<span id="cb92-8"><a href="make-the-graph.html#cb92-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">group=</span><span class="fu">c</span>( <span class="fu">rep</span>(<span class="st">&#39;A&#39;</span>, <span class="dv">10</span>), <span class="fu">rep</span>(<span class="st">&#39;B&#39;</span>, <span class="dv">30</span>), <span class="fu">rep</span>(<span class="st">&#39;C&#39;</span>, <span class="dv">14</span>), <span class="fu">rep</span>(<span class="st">&#39;D&#39;</span>, <span class="dv">6</span>)) ,</span>
+<span id="cb92-9"><a href="make-the-graph.html#cb92-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">value1=</span><span class="fu">sample</span>( <span class="fu">seq</span>(<span class="dv">10</span>,<span class="dv">100</span>), <span class="dv">60</span>, <span class="at">replace=</span>T),</span>
+<span id="cb92-10"><a href="make-the-graph.html#cb92-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">value2=</span><span class="fu">sample</span>( <span class="fu">seq</span>(<span class="dv">10</span>,<span class="dv">100</span>), <span class="dv">60</span>, <span class="at">replace=</span>T),</span>
+<span id="cb92-11"><a href="make-the-graph.html#cb92-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">value3=</span><span class="fu">sample</span>( <span class="fu">seq</span>(<span class="dv">10</span>,<span class="dv">100</span>), <span class="dv">60</span>, <span class="at">replace=</span>T)</span>
+<span id="cb92-12"><a href="make-the-graph.html#cb92-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb92-13"><a href="make-the-graph.html#cb92-13" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb92-14"><a href="make-the-graph.html#cb92-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Transform data in a tidy format (long format)</span></span>
+<span id="cb92-15"><a href="make-the-graph.html#cb92-15" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> <span class="fu">gather</span>(<span class="at">key =</span> <span class="st">&quot;observation&quot;</span>, <span class="at">value=</span><span class="st">&quot;value&quot;</span>, <span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)) </span>
+<span id="cb92-16"><a href="make-the-graph.html#cb92-16" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb92-17"><a href="make-the-graph.html#cb92-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Set a number of &#39;empty bar&#39; to add at the end of each group</span></span>
+<span id="cb92-18"><a href="make-the-graph.html#cb92-18" aria-hidden="true" tabindex="-1"></a>empty_bar <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb92-19"><a href="make-the-graph.html#cb92-19" aria-hidden="true" tabindex="-1"></a>nObsType <span class="ot">&lt;-</span> <span class="fu">nlevels</span>(<span class="fu">as.factor</span>(data<span class="sc">$</span>observation))</span>
+<span id="cb92-20"><a href="make-the-graph.html#cb92-20" aria-hidden="true" tabindex="-1"></a>to_add <span class="ot">&lt;-</span> <span class="fu">data.frame</span>( <span class="fu">matrix</span>(<span class="cn">NA</span>, empty_bar<span class="sc">*</span><span class="fu">nlevels</span>(data<span class="sc">$</span>group)<span class="sc">*</span>nObsType, <span class="fu">ncol</span>(data)) )</span>
+<span id="cb92-21"><a href="make-the-graph.html#cb92-21" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(to_add) <span class="ot">&lt;-</span> <span class="fu">colnames</span>(data)</span>
+<span id="cb92-22"><a href="make-the-graph.html#cb92-22" aria-hidden="true" tabindex="-1"></a>to_add<span class="sc">$</span>group <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">levels</span>(data<span class="sc">$</span>group), <span class="at">each=</span>empty_bar<span class="sc">*</span>nObsType )</span>
+<span id="cb92-23"><a href="make-the-graph.html#cb92-23" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">rbind</span>(data, to_add)</span>
+<span id="cb92-24"><a href="make-the-graph.html#cb92-24" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(group, individual)</span>
+<span id="cb92-25"><a href="make-the-graph.html#cb92-25" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>id <span class="ot">&lt;-</span> <span class="fu">rep</span>( <span class="fu">seq</span>(<span class="dv">1</span>, <span class="fu">nrow</span>(data)<span class="sc">/</span>nObsType) , <span class="at">each=</span>nObsType)</span>
+<span id="cb92-26"><a href="make-the-graph.html#cb92-26" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb92-27"><a href="make-the-graph.html#cb92-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the name and the y position of each label</span></span>
+<span id="cb92-28"><a href="make-the-graph.html#cb92-28" aria-hidden="true" tabindex="-1"></a>label_data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(id, individual) <span class="sc">%&gt;%</span> <span class="fu">summarize</span>(<span class="at">tot=</span><span class="fu">sum</span>(value))</span>
+<span id="cb92-29"><a href="make-the-graph.html#cb92-29" aria-hidden="true" tabindex="-1"></a>number_of_bar <span class="ot">&lt;-</span> <span class="fu">nrow</span>(label_data)</span>
+<span id="cb92-30"><a href="make-the-graph.html#cb92-30" aria-hidden="true" tabindex="-1"></a>angle <span class="ot">&lt;-</span> <span class="dv">90</span> <span class="sc">-</span> <span class="dv">360</span> <span class="sc">*</span> (label_data<span class="sc">$</span>id<span class="fl">-0.5</span>) <span class="sc">/</span>number_of_bar     <span class="co"># I substract 0.5 because the letter must have the angle of the center of the bars. Not extreme right(1) or extreme left (0)</span></span>
+<span id="cb92-31"><a href="make-the-graph.html#cb92-31" aria-hidden="true" tabindex="-1"></a>label_data<span class="sc">$</span>hjust <span class="ot">&lt;-</span> <span class="fu">ifelse</span>( angle <span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">90</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb92-32"><a href="make-the-graph.html#cb92-32" aria-hidden="true" tabindex="-1"></a>label_data<span class="sc">$</span>angle <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(angle <span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">90</span>, angle<span class="sc">+</span><span class="dv">180</span>, angle)</span>
+<span id="cb92-33"><a href="make-the-graph.html#cb92-33" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb92-34"><a href="make-the-graph.html#cb92-34" aria-hidden="true" tabindex="-1"></a><span class="co"># prepare a data frame for base lines</span></span>
+<span id="cb92-35"><a href="make-the-graph.html#cb92-35" aria-hidden="true" tabindex="-1"></a>base_data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> </span>
+<span id="cb92-36"><a href="make-the-graph.html#cb92-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(group) <span class="sc">%&gt;%</span> </span>
+<span id="cb92-37"><a href="make-the-graph.html#cb92-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">start=</span><span class="fu">min</span>(id), <span class="at">end=</span><span class="fu">max</span>(id) <span class="sc">-</span> empty_bar) <span class="sc">%&gt;%</span> </span>
+<span id="cb92-38"><a href="make-the-graph.html#cb92-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowwise</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb92-39"><a href="make-the-graph.html#cb92-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">title=</span><span class="fu">mean</span>(<span class="fu">c</span>(start, end)))</span>
+<span id="cb92-40"><a href="make-the-graph.html#cb92-40" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb92-41"><a href="make-the-graph.html#cb92-41" aria-hidden="true" tabindex="-1"></a><span class="co"># prepare a data frame for grid (scales)</span></span>
+<span id="cb92-42"><a href="make-the-graph.html#cb92-42" aria-hidden="true" tabindex="-1"></a>grid_data <span class="ot">&lt;-</span> base_data</span>
+<span id="cb92-43"><a href="make-the-graph.html#cb92-43" aria-hidden="true" tabindex="-1"></a>grid_data<span class="sc">$</span>end <span class="ot">&lt;-</span> grid_data<span class="sc">$</span>end[ <span class="fu">c</span>( <span class="fu">nrow</span>(grid_data), <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(grid_data)<span class="sc">-</span><span class="dv">1</span>)] <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb92-44"><a href="make-the-graph.html#cb92-44" aria-hidden="true" tabindex="-1"></a>grid_data<span class="sc">$</span>start <span class="ot">&lt;-</span> grid_data<span class="sc">$</span>start <span class="sc">-</span> <span class="dv">1</span></span>
+<span id="cb92-45"><a href="make-the-graph.html#cb92-45" aria-hidden="true" tabindex="-1"></a>grid_data <span class="ot">&lt;-</span> grid_data[<span class="sc">-</span><span class="dv">1</span>,]</span>
+<span id="cb92-46"><a href="make-the-graph.html#cb92-46" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb92-47"><a href="make-the-graph.html#cb92-47" aria-hidden="true" tabindex="-1"></a><span class="co"># Make the plot</span></span>
+<span id="cb92-48"><a href="make-the-graph.html#cb92-48" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data) <span class="sc">+</span>      </span>
+<span id="cb92-49"><a href="make-the-graph.html#cb92-49" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb92-50"><a href="make-the-graph.html#cb92-50" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add the stacked bar</span></span>
+<span id="cb92-51"><a href="make-the-graph.html#cb92-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">as.factor</span>(id), <span class="at">y=</span>value, <span class="at">fill=</span>observation), <span class="at">stat=</span><span class="st">&quot;identity&quot;</span>, <span class="at">alpha=</span><span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb92-52"><a href="make-the-graph.html#cb92-52" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis</span>(<span class="at">discrete=</span><span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb92-53"><a href="make-the-graph.html#cb92-53" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb92-54"><a href="make-the-graph.html#cb92-54" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add a val=100/75/50/25 lines. I do it at the beginning to make sur barplots are OVER it.</span></span>
+<span id="cb92-55"><a href="make-the-graph.html#cb92-55" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="at">data=</span>grid_data, <span class="fu">aes</span>(<span class="at">x =</span> end, <span class="at">y =</span> <span class="dv">0</span>, <span class="at">xend =</span> start, <span class="at">yend =</span> <span class="dv">0</span>), <span class="at">colour =</span> <span class="st">&quot;grey&quot;</span>, <span class="at">alpha=</span><span class="dv">1</span>, <span class="at">size=</span><span class="fl">0.3</span> , <span class="at">inherit.aes =</span> <span class="cn">FALSE</span> ) <span class="sc">+</span></span>
+<span id="cb92-56"><a href="make-the-graph.html#cb92-56" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="at">data=</span>grid_data, <span class="fu">aes</span>(<span class="at">x =</span> end, <span class="at">y =</span> <span class="dv">50</span>, <span class="at">xend =</span> start, <span class="at">yend =</span> <span class="dv">50</span>), <span class="at">colour =</span> <span class="st">&quot;grey&quot;</span>, <span class="at">alpha=</span><span class="dv">1</span>, <span class="at">size=</span><span class="fl">0.3</span> , <span class="at">inherit.aes =</span> <span class="cn">FALSE</span> ) <span class="sc">+</span></span>
+<span id="cb92-57"><a href="make-the-graph.html#cb92-57" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="at">data=</span>grid_data, <span class="fu">aes</span>(<span class="at">x =</span> end, <span class="at">y =</span> <span class="dv">100</span>, <span class="at">xend =</span> start, <span class="at">yend =</span> <span class="dv">100</span>), <span class="at">colour =</span> <span class="st">&quot;grey&quot;</span>, <span class="at">alpha=</span><span class="dv">1</span>, <span class="at">size=</span><span class="fl">0.3</span> , <span class="at">inherit.aes =</span> <span class="cn">FALSE</span> ) <span class="sc">+</span></span>
+<span id="cb92-58"><a href="make-the-graph.html#cb92-58" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="at">data=</span>grid_data, <span class="fu">aes</span>(<span class="at">x =</span> end, <span class="at">y =</span> <span class="dv">150</span>, <span class="at">xend =</span> start, <span class="at">yend =</span> <span class="dv">150</span>), <span class="at">colour =</span> <span class="st">&quot;grey&quot;</span>, <span class="at">alpha=</span><span class="dv">1</span>, <span class="at">size=</span><span class="fl">0.3</span> , <span class="at">inherit.aes =</span> <span class="cn">FALSE</span> ) <span class="sc">+</span></span>
+<span id="cb92-59"><a href="make-the-graph.html#cb92-59" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="at">data=</span>grid_data, <span class="fu">aes</span>(<span class="at">x =</span> end, <span class="at">y =</span> <span class="dv">200</span>, <span class="at">xend =</span> start, <span class="at">yend =</span> <span class="dv">200</span>), <span class="at">colour =</span> <span class="st">&quot;grey&quot;</span>, <span class="at">alpha=</span><span class="dv">1</span>, <span class="at">size=</span><span class="fl">0.3</span> , <span class="at">inherit.aes =</span> <span class="cn">FALSE</span> ) <span class="sc">+</span></span>
+<span id="cb92-60"><a href="make-the-graph.html#cb92-60" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb92-61"><a href="make-the-graph.html#cb92-61" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add text showing the value of each 100/75/50/25 lines</span></span>
+<span id="cb92-62"><a href="make-the-graph.html#cb92-62" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x =</span> <span class="fu">rep</span>(<span class="fu">max</span>(data<span class="sc">$</span>id),<span class="dv">5</span>), <span class="at">y =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">50</span>, <span class="dv">100</span>, <span class="dv">150</span>, <span class="dv">200</span>), <span class="at">label =</span> <span class="fu">c</span>(<span class="st">&quot;0&quot;</span>, <span class="st">&quot;50&quot;</span>, <span class="st">&quot;100&quot;</span>, <span class="st">&quot;150&quot;</span>, <span class="st">&quot;200&quot;</span>) , <span class="at">color=</span><span class="st">&quot;grey&quot;</span>, <span class="at">size=</span><span class="dv">6</span> , <span class="at">angle=</span><span class="dv">0</span>, <span class="at">fontface=</span><span class="st">&quot;bold&quot;</span>, <span class="at">hjust=</span><span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb92-63"><a href="make-the-graph.html#cb92-63" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb92-64"><a href="make-the-graph.html#cb92-64" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="sc">-</span><span class="dv">150</span>,<span class="fu">max</span>(label_data<span class="sc">$</span>tot, <span class="at">na.rm=</span>T)) <span class="sc">+</span></span>
+<span id="cb92-65"><a href="make-the-graph.html#cb92-65" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb92-66"><a href="make-the-graph.html#cb92-66" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb92-67"><a href="make-the-graph.html#cb92-67" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>,</span>
+<span id="cb92-68"><a href="make-the-graph.html#cb92-68" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb92-69"><a href="make-the-graph.html#cb92-69" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb92-70"><a href="make-the-graph.html#cb92-70" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb92-71"><a href="make-the-graph.html#cb92-71" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.margin =</span> <span class="fu">unit</span>(<span class="fu">rep</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">4</span>), <span class="st">&quot;cm&quot;</span>) </span>
+<span id="cb92-72"><a href="make-the-graph.html#cb92-72" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb92-73"><a href="make-the-graph.html#cb92-73" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_polar</span>() <span class="sc">+</span></span>
+<span id="cb92-74"><a href="make-the-graph.html#cb92-74" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb92-75"><a href="make-the-graph.html#cb92-75" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add labels on top of each bar</span></span>
+<span id="cb92-76"><a href="make-the-graph.html#cb92-76" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">data=</span>label_data, <span class="fu">aes</span>(<span class="at">x=</span>id, <span class="at">y=</span>tot<span class="sc">+</span><span class="dv">10</span>, <span class="at">label=</span>individual, <span class="at">hjust=</span>hjust), <span class="at">color=</span><span class="st">&quot;black&quot;</span>, <span class="at">fontface=</span><span class="st">&quot;bold&quot;</span>,<span class="at">alpha=</span><span class="fl">0.6</span>, <span class="at">size=</span><span class="dv">5</span>, <span class="at">angle=</span> label_data<span class="sc">$</span>angle, <span class="at">inherit.aes =</span> <span class="cn">FALSE</span> ) <span class="sc">+</span></span>
+<span id="cb92-77"><a href="make-the-graph.html#cb92-77" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb92-78"><a href="make-the-graph.html#cb92-78" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add base line information</span></span>
+<span id="cb92-79"><a href="make-the-graph.html#cb92-79" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="at">data=</span>base_data, <span class="fu">aes</span>(<span class="at">x =</span> start, <span class="at">y =</span> <span class="sc">-</span><span class="dv">5</span>, <span class="at">xend =</span> end, <span class="at">yend =</span> <span class="sc">-</span><span class="dv">5</span>), <span class="at">colour =</span> <span class="st">&quot;black&quot;</span>, <span class="at">alpha=</span><span class="fl">0.8</span>, <span class="at">size=</span><span class="fl">0.6</span> , <span class="at">inherit.aes =</span> <span class="cn">FALSE</span> )  <span class="sc">+</span></span>
+<span id="cb92-80"><a href="make-the-graph.html#cb92-80" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">data=</span>base_data, <span class="fu">aes</span>(<span class="at">x =</span> title, <span class="at">y =</span> <span class="sc">-</span><span class="dv">18</span>, <span class="at">label=</span>group), <span class="at">hjust=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>), <span class="at">colour =</span> <span class="st">&quot;black&quot;</span>, <span class="at">alpha=</span><span class="fl">0.8</span>, <span class="at">size=</span><span class="dv">4</span>, <span class="at">fontface=</span><span class="st">&quot;bold&quot;</span>, <span class="at">inherit.aes =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb92-81"><a href="make-the-graph.html#cb92-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb92-82"><a href="make-the-graph.html#cb92-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb92-83"><a href="make-the-graph.html#cb92-83" aria-hidden="true" tabindex="-1"></a><span class="co"># Save at png</span></span>
+<span id="cb92-84"><a href="make-the-graph.html#cb92-84" aria-hidden="true" tabindex="-1"></a><span class="co">#ggsave(p, file=&quot;output.png&quot;, width=10, height=10)</span></span></code></pre></div>
+
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-xie2015" class="csl-entry">
+Xie, Yihui. 2015. <em>Dynamic Documents with <span>R</span> and Knitr</em>. 2nd ed. Boca Raton, Florida: Chapman; Hall/CRC. <a href="http://yihui.org/knitr/">http://yihui.org/knitr/</a>.
+</div>
+<div id="ref-R-bookdown" class="csl-entry">
+———. 2020. <em>Bookdown: Authoring Books and Technical Documents with r Markdown</em>. <a href="https://CRAN.R-project.org/package=bookdown">https://CRAN.R-project.org/package=bookdown</a>.
+</div>
+</div>
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="vector-color-red-if-setosa-grey-otherwise-.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["r-graph.pdf", "r-graph.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
