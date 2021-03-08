@@ -14,6 +14,7 @@ Welcome to the R Gallery Book, a complete guide to the [R Graph Gallery](https:/
 </p>
 
 <p align="justify">
+  
 While this book was created to encapsulate the entire [R Graph Gallery](https://www.r-graph-gallery.com/) website into one readable source, another purpose is serving as introductory level into data visualization using [R programming language](https://www.r-project.org/about.html).
 </p>
 
