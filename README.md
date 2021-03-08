@@ -3,7 +3,7 @@
 <br>
 
 
-<p align="center"> 
+<p align="justify"> 
 Welcome the R Gallery Book, a complete guide to the [R Graph Gallery](https://www.r-graph-gallery.com/) website. This book is taken directly from R graph gallery with careful detail in reproducing plots and completing ideas. This is a collection of plots, graphs, diagrams, etc., using R programming language.  This was combined into one single reading collection of updated R gallery plots and graphs.  
 </p>
 
