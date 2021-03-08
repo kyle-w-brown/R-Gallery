@@ -9,5 +9,5 @@ Welcome the R Gallery Book, a complete guide to the [R Graph Gallery](https://ww
 <br>
 
 <p align="center"> 
-<img src="https://raw.githubusercontent.com/kyle-w-brown/R-Gallery/main/images/r-gallery.PNG" width="85%">
+<img src="https://github.com/kyle-w-brown/R-Gallery-Book-test/blob/main/images/r-gallery.PNG?raw=true" width="85%">
 </p>
