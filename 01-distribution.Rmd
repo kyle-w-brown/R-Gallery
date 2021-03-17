@@ -6,883 +6,6 @@
 knitr::include_graphics("https://www.r-graph-gallery.com/294-basic-ridgeline-plot_files/figure-html/unnamed-chunk-5-1.png")
 ```
 
-## Violin
-
----
-
-[Violin plots](https://www.data-to-viz.com/graph/violin.html) allow to visualize the distribution of a numeric variable for one or several groups. They are very well adapted for large dataset, as stated in [data-to-viz.com](https://www.data-to-viz.com/graph/violin.html). Since group labels need to be read, it makes sense to build an horizontal version: labels become much more readable. This document provide an R implementation using ggplot2 and Base R.
-
-
-### Base R Violin Plot
-
-Violin plots are useful to compare the distribution of several groups. Ggplot2 provides a great way to build them, but the vioplot library is an alternative in case you don't want to use the tidyverse.
-
-The Vioplot library builds the violin plot as a boxplot with a rotated kernel density plot on each side. If you want to represent several groups, the trick is to use the with function as demonstrated below.
-
-```{r base-r-violion-plot-two, message=FALSE, warning=FALSE}
-# Load the vioplot library
-library(vioplot)
- 
-# Create data
-treatment <- c(rep("A", 40) , rep("B", 40) , rep("C", 40) )
-value <- c( sample(2:5, 40 , replace=T) , sample(c(1:5,12:17), 40 , replace=T), sample(1:7, 40 , replace=T) )
-data <- data.frame(treatment,value)
- 
-# Draw the plot
-with(data , vioplot( 
-  value[treatment=="A"] , value[treatment=="B"], value[treatment=="C"],  
-  col=rgb(0.1,0.4,0.7,0.7) , names=c("A","B","C") 
-))
-```
-
-### Basic ggplot Violin Plot
-
-Building a **violin plot** with `ggplot2` is pretty straightforward thanks to the dedicated `geom_violin()` function.
-
-```{r basic-ggplot-violion-plot, message=FALSE, warning=FALSE}
-# Library
-library(ggplot2)
-# create a dataset
-data <- data.frame(
-  name=c( rep("A",500), rep("B",500), rep("B",500), rep("C",20), rep('D', 100)  ),
-  value=c( rnorm(500, 10, 5), rnorm(500, 13, 1), rnorm(500, 18, 1), rnorm(20, 25, 4), rnorm(100, 12, 1) )
-)
-# Most basic violin chart
-p <- ggplot(data, aes(x=name, y=value, fill=name)) + # fill=name allow to automatically dedicate a color for each group
-  geom_violin()
-p
-```
-
-
-### Note on Input Format
-
-Ggplot2 expects input data to be in a long format: each row is dedicated to one observation. Your input needs 2 column:
-
-* A categorical variable for the X axis: Needs to be have the class `factor`.
-* A numeric variable for the Y axis: Needs to have the class `numeric`.
-
-#### From Long Format
-
-You already have the good format. It's going to be a breeze to plot it with `geom_violin()` as follow:
-
-```{r violion-plot-note-input-format, message=FALSE, warning=FALSE}
-# Library
-library(ggplot2)
-library(dplyr)
-# Create data
-data <- data.frame(
-  name=c( rep("A",500), rep("B",500), rep("B",500), rep("C",20), rep('D', 100)  ),
-  value=c( rnorm(500, 10, 5), rnorm(500, 13, 1), rnorm(500, 18, 1), rnorm(20, 25, 4), rnorm(100, 12, 1) ) %>% round(2)
-)
-head(data)
-```
-
-
-
-```{r violion-plot-basic, message=FALSE, warning=FALSE}
-# Basic violin
-ggplot(data, aes(x=name, y=value, fill=name)) + 
-  geom_violin()
-```
-
-### From Wide Format
-
-In this case we need to reformat the input. This is possible thanks to the `gather()` function of the tidyr library that is part of the tidyverse.
-
-```{r violion-plot-wide-format-data, warning=FALSE, message=FALSE}
-# Let's use the iris dataset as an example:
-data_wide <- iris[ , 1:4]
-head(data_wide)
-```
-
-```{r violion-plot-wide-format-plot, message=FALSE, warning=FALSE}
-library(tidyr)
-library(ggplot2)
-library(dplyr)
-data_wide %>% 
-  gather(key="MesureType", value="Val") %>%
-  ggplot( aes(x=MesureType, y=Val, fill=MesureType)) +
-    geom_violin()
-```
-
-
-### Reorder a variable with `ggplot2`
-  
-Reordering groups in a `ggplot2` chart can be a struggle. This is due to the fact that ggplot2 takes into account the order of the `factor` levels, not the order you observe in your data frame. You can sort your input data frame with `sort()` or `arrange()`, it will never have any impact on your ggplot2 output.
-
-This section explains how to reorder the level of your factor through several examples. Examples are based on 2 dummy datasets:
-
-```{r violin-plot-reorder-variable-ggplot, message=FALSE, warning=FALSE}  
-# Library
-library(ggplot2)
-library(dplyr)
-# Dataset 1: one value per group
-data <- data.frame(
-  name=c("north","south","south-east","north-west","south-west","north-east","west","east"),
-  val=sample(seq(1,10), 8 )
-)
-# Dataset 2: several values per group (natively provided in R)
-# mpg
-```
-
-### Method 1: the `forcats` library
-
-The [Forecats library](https://github.com/tidyverse/forcats) is a library from the `tidyverse` especially made to handle factors in R. It provides a suite of useful tools that solve common problems with factors. `The fact_reorder()` function allows to reorder the factor. The `fact_reorder()` function allows to reorder the factor (`data$name` for example) following the value of another column (`data$val` here).
-
-```{r, echo=TRUE, message=FALSE, warning=FALSE}
-# load the library
-library(forcats)
-# Reorder following the value of another column:
-data %>%
-  mutate(name = fct_reorder(name, val)) %>%
-  ggplot( aes(x=name, y=val)) +
-  geom_bar(stat="identity", fill="#f68060", alpha=.6, width=.4) +
-  coord_flip() +
-  xlab("") +
-  theme_bw()
-```
-
-![](https://www.r-graph-gallery.com/267-reorder-a-variable-in-ggplot2_files/figure-html/unnamed-chunk-2-1.png)
-
-```{r violin-plot-reverse-side, message=FALSE, warning=FALSE}
-# Reverse side
-data %>%
-  mutate(name = fct_reorder(name, desc(val))) %>%
-  ggplot( aes(x=name, y=val)) +
-  geom_bar(stat="identity", fill="#f68060", alpha=.6, width=.4) +
-  coord_flip() +
-  xlab("") +
-  theme_bw()
-```
-
-
-If you have several values per level of your factor, you can specify which function to apply to determine the order. The default is to use the median, but you can use the number of data points per group to make the classification:
-
-```{r several-values-per-level-factor, message=FALSE, warning=FALSE}
-# Using median
-mpg %>%
-  mutate(class = fct_reorder(class, hwy, .fun='median')) %>%
-  ggplot( aes(x=reorder(class, hwy), y=hwy, fill=class)) + 
-  geom_boxplot() +
-  xlab("class") +
-  theme(legend.position="none") +
-  xlab("")
-```
-
-
-```{r using-number-of-observations, message=FALSE, warning=FALSE}
-# Using number of observation per group
-mpg %>%
-  mutate(class = fct_reorder(class, hwy, .fun='length' )) %>%
-  ggplot( aes(x=class, y=hwy, fill=class)) + 
-  geom_boxplot() +
-  xlab("class") +
-  theme(legend.position="none") +
-  xlab("") +
-  xlab("")
-```
-
-The last common operation is to provide a specific order to your levels, using the `fct_relevel()` function as follow:
-  
-```{r specific-order-levels, message=FALSE, warning=FALSE}
-# Reorder following a precise order
-p <- data %>%
-  mutate(name = fct_relevel(name, 
-                            "north", "north-east", "east", 
-                            "south-east", "south", "south-west", 
-                            "west", "north-west")) %>%
-  ggplot( aes(x=name, y=val)) +
-  geom_bar(stat="identity") +
-  xlab("")
-p
-```
-
-### Method 2: Using Dplyr Only
-
-The `mutate()` function of `dplyr` allows to create a new variable or modify an existing one. It is possible to use it to recreate a factor with a specific order. Here are 2 examples:
-  
-* The first use `arrange()` to sort your data frame, and reorder the factor following this desired order.
-* The second specifies a custom order for the factor giving the levels one by one.
-
-```r
-data %>%
-  arrange(val) %>%    # First sort by val. This sort the dataframe but NOT the factor levels
-  mutate(name=factor(name, levels=name)) %>%   # This trick update the factor levels
-  ggplot( aes(x=name, y=val)) +
-  geom_segment( aes(xend=name, yend=0)) +
-  geom_point( size=4, color="orange") +
-  coord_flip() +
-  theme_bw() +
-  xlab("")
-```
-
-![](https://www.r-graph-gallery.com/267-reorder-a-variable-in-ggplot2_files/figure-html/unnamed-chunk-6-1.png)
-
-```r
-data %>%
-  arrange(val) %>%
-  mutate(name = factor(name, levels=c("north", "north-east", "east", "south-east", "south", "south-west", "west", "north-west"))) %>%
-  ggplot( aes(x=name, y=val)) +
-  geom_segment( aes(xend=name, yend=0)) +
-  geom_point( size=4, color="orange") +
-  theme_bw() +
-  xlab("")
-```
-![](https://www.r-graph-gallery.com/267-reorder-a-variable-in-ggplot2_files/figure-html/unnamed-chunk-6-2.png)
-
-### Method 3: the `reorder()` Function of Base R
-
-In case your an unconditional user of R, here is how to control the order using the `reorder()` function inside a `with()` call:
-  
-```{r reorder-base-r, message=FALSE, warning=FALSE}
-# reorder is close to order, but is made to change the order of the factor levels.
-mpg$class = with(mpg, reorder(class, hwy, median))
-p <- mpg %>%
-  ggplot( aes(x=class, y=hwy, fill=class)) + 
-  geom_violin() +
-  xlab("class") +
-  theme(legend.position="none") +
-  xlab("")
-p
-```
-
-### Horizontal Violin Plot with `ggplot2`
-
-Building a [violin plot](https://www.r-graph-gallery.com/violin.html) with `ggplot2` is pretty straightforward thanks to the dedicated `geom_violin()` function. Here, calling `coord_flip()` allows to flip X and Y axis and thus get a horizontal version of the chart. Moreover, note the use of the `theme_ipsum` of the `hrbrthemes` library that improves general appearance.
-
-```{r horiztonal-violin-ggplot, message=FALSE, warning=FALSE}
-# Libraries
-library(ggplot2)
-library(dplyr)
-library(tidyr)
-library(forcats)
-library(hrbrthemes)
-library(viridis)
-# Load dataset from github
-data <- read.table("https://raw.githubusercontent.com/zonination/perceptions/master/probly.csv", header=TRUE, sep=",")
-# Data is at wide format, we need to make it 'tidy' or 'long'
-data <- data %>% 
-  gather(key="text", value="value") %>%
-  mutate(text = gsub("\\.", " ",text)) %>%
-  mutate(value = round(as.numeric(value),0)) %>%
-  filter(text %in% c("Almost Certainly","Very Good Chance","We Believe","Likely","About Even", "Little Chance", "Chances Are Slight", "Almost No Chance"))
-# Plot
-p <- data %>%
-  mutate(text = fct_reorder(text, value)) %>% # Reorder data
-  ggplot( aes(x=text, y=value, fill=text, color=text)) +
-  geom_violin(width=2.1, size=0.2) +
-  scale_fill_viridis(discrete=TRUE) +
-  scale_color_viridis(discrete=TRUE) +
-  theme_ipsum() +
-  theme(
-    legend.position="none"
-  ) +
-  coord_flip() + # This switch X and Y axis and allows to get the horizontal version
-  xlab("") +
-  ylab("Assigned Probability (%)")
-p
-```
-
-
-### Violin Plot with included Boxplot and Sample Size in ggplot2
-
-It can be handy to include a [boxplot](https://www.r-graph-gallery.com/boxplot.html) in the [violin plot](https://www.r-graph-gallery.com/violin%20plot) to see both the distribution of the data and its summary statistics. Moreover, adding sample size of each group on the X axis is often a necessary step. Here is how to do it with `R` and [ggplot2](https://www.r-graph-gallery.com/ggplot2-package.html).
-
-Building a [violin plot](https://www.r-graph-gallery.com/violin.html) with ggplot2 is pretty straightforward thanks to the dedicated `geom_violin()` function. It is possible to use `geom_boxplot()` with a small `width` in addition to display a boxplot that provides summary statistics.
-
-Moreover, note a small trick that allows to provide sample size of each group on the X axis: a new column called `myaxis` is created and is then used for the X axis.
-
-
-```{r horiztonal-violin-boxplot-ggplot, message=FALSE, warning=FALSE}
-# Libraries
-library(ggplot2)
-library(dplyr)
-library(hrbrthemes)
-library(viridis)
-# create a dataset
-data <- data.frame(
-  name=c( rep("A",500), rep("B",500), rep("B",500), rep("C",20), rep('D', 100)  ),
-  value=c( rnorm(500, 10, 5), rnorm(500, 13, 1), rnorm(500, 18, 1), rnorm(20, 25, 4), rnorm(100, 12, 1) )
-)
-# sample size
-sample_size = data %>% group_by(name) %>% summarize(num=n())
-# Plot
-data %>%
-  left_join(sample_size) %>%
-  mutate(myaxis = paste0(name, "\n", "n=", num)) %>%
-  ggplot( aes(x=myaxis, y=value, fill=name)) +
-  geom_violin(width=1.4) +
-  geom_boxplot(width=0.1, color="grey", alpha=0.2) +
-  scale_fill_viridis(discrete = TRUE) +
-  theme_ipsum() +
-  theme(
-    legend.position="none",
-    plot.title = element_text(size=11)
-  ) +
-  ggtitle("A Violin wrapping a boxplot") +
-  xlab("")
-```
-
-### Grouped Violin Chart with ggplot2
-
-This is an extension of the classic [violin plot](https://www.r-graph-gallery.com/violin%20plot.html). Here, data are organized in groups and subgroups, allowing to build a grouped violin chart. Chart is implemented using `R` and the [ggplot2 library](https://www.r-graph-gallery.com/ggplot2-package.html).
-
-A grouped [violin plot](https://www.r-graph-gallery.com/violin.html) displays the distribution of a numeric variable for groups and subgroups. Here, groups are days of the week, and subgroups are Males and Females. Ggplot2 allows this kind of representation thanks to the `position="dodge"` option of the `geom_violin()` function. Groups must be provided to `x`, subgroups must be provided to `fill`.
-
-```{r grouped-violin-ggplot, message=FALSE, warning=FALSE}
-# Libraries
-library(ggplot2)
-library(dplyr)
-library(forcats)
-library(hrbrthemes)
-library(viridis)
-# Load dataset from github
-data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/10_OneNumSevCatSubgroupsSevObs.csv", header=T, sep=",") %>%
-  mutate(tip = round(tip/total_bill*100, 1))
-# Grouped
-data %>%
-  mutate(day = fct_reorder(day, tip)) %>%
-  mutate(day = factor(day, levels=c("Thur", "Fri", "Sat", "Sun"))) %>%
-  ggplot(aes(fill=sex, y=tip, x=day)) + 
-  geom_violin(position="dodge", alpha=0.5, outlier.colour="transparent") +
-  scale_fill_viridis(discrete=T, name="") +
-  theme_ipsum()  +
-  xlab("") +
-  ylab("Tip (%)") +
-  ylim(0,40)
-```
-
-
-## Density
-
----
-
-Welcome in the [density plot](https://www.data-to-viz.com/graph/density.html) section of the gallery. If you want to know more about this kind of chart, visit [data-to-viz.com](https://www.data-to-viz.com/graph/density.html). A density plot shows the distribution of a numeric variable. In ggplot2, the `geom_density()` function takes care of the kernel density estimation and plot the results. A common task in dataviz is to compare the distribution of several groups. 
-
-### Basic density chart with ggplot2
-
-A [density plot](https://www.data-to-viz.com/graph/density.html) is a representation of the distribution of a numeric variable. It is a smoothed version of the [histogram](https://www.r-graph-gallery.com/histogram.html) and is used in the same kind of situation. Here is a basic example built with the [ggplot2](https://www.r-graph-gallery.com/ggplot2-package.html) library. 
-
-Density plots are built in ggplot2 thanks to the `geom_density` geom. Only one numeric variable is need as input.
-
-```r
-# Libraries
-library(ggplot2)
-library(dplyr)
-# Load dataset from github
-data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/1_OneNum.csv", header=TRUE)
-# Make the histogram
-data %>%
-  filter( price<300 ) %>%
-  ggplot( aes(x=price)) +
-    geom_density(fill="#69b3a2", color="#e9ecef", alpha=0.8)
-```
-
-![](https://www.r-graph-gallery.com/21-distribution-plot-using-ggplot2_files/figure-html/unnamed-chunk-1-1.png)
-
-### Custom with `theme_ipsum`
-
-The `hrbrthemes` package offer a set of pre-built themes for your charts. I am personnaly a big fan of the `theme_ipsum`: easy to use and makes your chart look more professional:
-
-```r
-# Libraries
-library(ggplot2)
-library(dplyr)
-library(hrbrthemes)
-# Load dataset from github
-data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/1_OneNum.csv", header=TRUE)
-# Make the histogram
-data %>%
-  filter( price<300 ) %>%
-  ggplot( aes(x=price)) +
-    geom_density(fill="#69b3a2", color="#e9ecef", alpha=0.8) +
-    ggtitle("Night price distribution of Airbnb appartements") +
-    theme_ipsum()
-```
-
-![](https://www.r-graph-gallery.com/21-distribution-plot-using-ggplot2_files/figure-html/unnamed-chunk-3-1.png)
-
-### Mirror Density Chart with ggplot2
-
-A [density plot](https://www.data-to-viz.com/graph/density.html) is a representation of the distribution of a numeric variable. Comparing the distribution of 2 variables is a common challenge that can be tackled with the mirror density chart: 2 [density charts](https://www.r-graph-gallery.com/density-plot.html) are put face to face what allows to efficiently compare them. Here is how to build it with [ggplot2](https://www.r-graph-gallery.com/ggplot2-package.html) library.
-
-### Density with `geom_density`
-
-A density chart is built thanks to the `geom_density` geom of ggplot2 (see a [basic example](https://www.r-graph-gallery.com/21-distribution-plot-using-ggplot2.html)). It is possible to plot this density upside down by specifying `y = -..density..`. It is advised to use `geom_label` to indicate variable names.
-
-```{r, echo=TRUE, message=FALSE, warning=FALSE} 
-# Libraries
-library(ggplot2)
-library(hrbrthemes)
-# Dummy data
-data <- data.frame(
-  var1 = rnorm(1000),
-  var2 = rnorm(1000, mean=2)
-)
-# Chart
-p <- ggplot(data, aes(x=x) ) +
-  # Top
-  geom_density( aes(x = var1, y = ..density..), fill="#69b3a2" ) +
-  geom_label( aes(x=4.5, y=0.25, label="variable1"), color="#69b3a2") +
-  # Bottom
-  geom_density( aes(x = var2, y = -..density..), fill= "#404080") +
-  geom_label( aes(x=4.5, y=-0.25, label="variable2"), color="#404080") +
-  theme_ipsum() +
-  xlab("value of x")
-p
-```
-![](https://www.r-graph-gallery.com/density_mirror_ggplot2_files/figure-html/unnamed-chunk-2-1.png)
-
-### Histogram with `geom_histogram`
-
-Of course it is possible to apply exactly the same technique using `geom_histogram` instead of `geom_density` to get a mirror histogram:
-
-```{r histogram-density-chart-ggplot, message=FALSE, warning=FALSE}
-# Chart
-p <- ggplot(data, aes(x=x) ) +
-  geom_histogram( aes(x = var1, y = ..density..), fill="#69b3a2" ) +
-  geom_label( aes(x=4.5, y=0.25, label="variable1"), color="#69b3a2") +
-  geom_histogram( aes(x = var2, y = -..density..), fill= "#404080") +
-  geom_label( aes(x=4.5, y=-0.25, label="variable2"), color="#404080") +
-  theme_ipsum() +
-  xlab("value of x")
-p
-```
-
-### Density Chart with Several Groups
-
-A [density plot](https://www.data-to-viz.com/graph/density.html) is a representation of the distribution of a numeric variable. Comparing the distribution of several variables with density charts is possible. Here are a few examples with their [ggplot2](https://www.r-graph-gallery.com/ggplot2-package.html) implementation.
-
-### Multi density chart
-
-A multi density chart is a [density chart](https://www.r-graph-gallery.com/density-plot.html) where several groups are represented. It allows to compare their distribution. The issue with this kind of chart is that it gets easily <u>cluttered</u>: groups overlap each other and the figure gets unreadable.
-
-An easy workaround is to use <u>transparency</u>. However, it won't solve the issue completely and is is often better to consider the examples suggested further in this document.
-
-```{r, echo=TRUE, message=FALSE, warning=FALSE}
-# Libraries
-library(ggplot2)
-library(hrbrthemes)
-library(dplyr)
-library(tidyr)
-library(viridis)
-# The diamonds dataset is natively available with R.
-# Without transparency (left)
-p1 <- ggplot(data=diamonds, aes(x=price, group=cut, fill=cut)) +
-    geom_density(adjust=1.5) +
-    theme_ipsum()
-p1
-```
-![](https://www.r-graph-gallery.com/135-stacked-density-graph_files/figure-html/unnamed-chunk-2-1.png)
-
-```r
-# With transparency (right)
-p2 <- ggplot(data=diamonds, aes(x=price, group=cut, fill=cut)) +
-    geom_density(adjust=1.5, alpha=.4) +
-    theme_ipsum()
-p2
-```
-![](https://www.r-graph-gallery.com/135-stacked-density-graph_files/figure-html/unnamed-chunk-2-2.png)
-
-Here is an example with [another dataset](https://www.data-to-viz.com/story/OneNumOneCatSeveralObs.html) where it works much better. Groups have very distinct distribution, it is easy to spot them even if on the same chart. Note that it is much better to add group name next to their distribution instead of having a legend beside the chart.
-
-```r 
-# Load dataset from github
-data <- read.table("https://raw.githubusercontent.com/zonination/perceptions/master/probly.csv", header=TRUE, sep=",")
-data <- data %>%
-  gather(key="text", value="value") %>%
-  mutate(text = gsub("\\.", " ",text)) %>%
-  mutate(value = round(as.numeric(value),0))
-# A dataframe for annotations
-annot <- data.frame(
-  text = c("Almost No Chance", "About Even", "Probable", "Almost Certainly"),
-  x = c(5, 53, 65, 79),
-  y = c(0.15, 0.4, 0.06, 0.1)
-)
-# Plot
-data %>%
-  filter(text %in% c("Almost No Chance", "About Even", "Probable", "Almost Certainly")) %>%
-  ggplot( aes(x=value, color=text, fill=text)) +
-    geom_density(alpha=0.6) +
-    scale_fill_viridis(discrete=TRUE) +
-    scale_color_viridis(discrete=TRUE) +
-    geom_text( data=annot, aes(x=x, y=y, label=text, color=text), hjust=0, size=4.5) +
-    theme_ipsum() +
-    theme(
-      legend.position="none"
-    ) +
-    ylab("") +
-    xlab("Assigned Probability (%)")
-```
-![](https://www.r-graph-gallery.com/135-stacked-density-graph_files/figure-html/unnamed-chunk-3-1.png)
-
-
-### Small Multiple with `facet_wrap()`
-
-Using small multiple is often the best option in my opinion. Distribution of each group gets easy to read, and comparing groups is still possible if they share the same X axis boundaries.
-
-```r
-# Using Small multiple
-ggplot(data=diamonds, aes(x=price, group=cut, fill=cut)) +
-    geom_density(adjust=1.5) +
-    theme_ipsum() +
-    facet_wrap(~cut) +
-    theme(
-      legend.position="none",
-      panel.spacing = unit(0.1, "lines"),
-      axis.ticks.x=element_blank()
-    )
-```
-![](https://www.r-graph-gallery.com/135-stacked-density-graph_files/figure-html/unnamed-chunk-4-1.png)
-
-### Stacked Density Chart
-
-Another solution is to <u>stack</u> the groups. This allows to see what group is the most frequent for a given value, but it makes it hard to understand the distribution of a group that is not on the bottom of the chart.
-
-Visit [data to viz](https://www.data-to-viz.com/caveat/stacking.html) for a complete explanation on this matter.
-
-```{r stacked-density-chart-ggplot, message=FALSE, warning=FALSE}
-# Stacked density plot:
-p <- ggplot(data=diamonds, aes(x=price, group=cut, fill=cut)) +
-    geom_density(adjust=1.5, position="fill") +
-    theme_ipsum()
-p
-```
-
-### Marginal distribution with ggplot2 and ggExtra
-
-This section explains how to add marginal distributions to the X and Y axis of a ggplot2 scatterplot. It can be done using histogram, boxplot or density plot using the ggExtra library.
-
-#### Basic use of `ggMarginal()`
-
-Here are 3 examples of marginal distribution added on X and Y axis of a scatterplot. The `ggExtra` library makes it a breeze thanks to the `ggMarginal()` function. Three main types of distribution are available: [histogram](https://www.r-graph-gallery.com/histogram.html), [density](https://www.r-graph-gallery.com/density-plot.html) and [boxplot](https://www.r-graph-gallery.com/boxplot.html).
-
-```r
-# library
-library(ggplot2)
-library(ggExtra)
- 
-# The mtcars dataset is proposed in R
-head(mtcars)
- 
-# classic plot :
-p <- ggplot(mtcars, aes(x=wt, y=mpg, color=cyl, size=cyl)) +
-      geom_point() +
-      theme(legend.position="none")
-# with marginal histogram
-p1 <- ggMarginal(p, type="histogram")
-# marginal density
-p2 <- ggMarginal(p, type="density")
-# marginal boxplot
-p3 <- ggMarginal(p, type="boxplot")
-```
-
-
-```r
-p1
-```
-
-![](https://www.r-graph-gallery.com/277-marginal-histogram-for-ggplot2_files/figure-html/unnamed-chunk-1-1.png)
-
-```r
-p2
-```
-
-![](https://www.r-graph-gallery.com/277-marginal-histogram-for-ggplot2_files/figure-html/unnamed-chunk-2-1.png)
-
-```r
-p3
-```
-
-![](https://www.r-graph-gallery.com/277-marginal-histogram-for-ggplot2_files/figure-html/unnamed-chunk-3-1.png)
-
-
-#### More Customization
-
-Three additional examples to show possible customization:
-
-* Change marginal plot size with `size`.
-* Custom marginal plot appearance with all usual parameters.
-* Show only one marginal plot with `margins = 'x'` or `margins = 'y'`.
-
-```r
-# library
-library(ggplot2)
-library(ggExtra)
- 
-# The mtcars dataset is proposed in R
-head(mtcars)
- 
-# classic plot :
-p <- ggplot(mtcars, aes(x=wt, y=mpg, color=cyl, size=cyl)) +
-      geom_point() +
-      theme(legend.position="none")
- 
-# Set relative size of marginal plots (main plot 10x bigger than marginals)
-p1 <- ggMarginal(p, type="histogram", size=10)
- 
-# Custom marginal plots:
-p2 <- ggMarginal(p, type="histogram", fill = "slateblue", xparams = list(  bins=10))
- 
-# Show only marginal plot for x axis
-p3 <- ggMarginal(p, margins = 'x', color="purple", size=4)
-```
-
-```r
-p1
-```
-
-![](https://www.r-graph-gallery.com/277-marginal-histogram-for-ggplot2_files/figure-html/unnamed-chunk-4-1.png)
-
-```r
-p2
-```
-
-![](https://www.r-graph-gallery.com/277-marginal-histogram-for-ggplot2_files/figure-html/unnamed-chunk-5-1.png)
-
-```r
-p3
-```
-
-![](https://www.r-graph-gallery.com/277-marginal-histogram-for-ggplot2_files/figure-html/unnamed-chunk-6-1.png)
-
-## Histogram
-
----
-
-Welcome to the [histogram](https://www.data-to-viz.com/graph/histogram.html) section of the R graph gallery. If you want to know more about this kind of chart, visit [data-to-viz.com](https://www.data-to-viz.com/graph/histogram.html). If you're looking for a simple way to implement it in R, pick an example below.
-
-### GGPLOT2
-
-Histograms can be built with `ggplot2` thanks to the `geom_histogram()` function. It requires only 1 numeric variable as input. This function automatically cut the variable in bins and count the number of data point per bin. Remember to try [different bin size](https://www.r-graph-gallery.com/220-basic-ggplot2-histogram.html#binSize) using the `binwidth` argument.
-
-### Basic histogram with ggplot2
-
-A [histogram](https://www.data-to-viz.com/graph/histogram.html) is a representation of the distribution of a numeric variable. This document explains how to build it with R and the [ggplot2 package](https://www.r-graph-gallery.com/ggplot2-package.html). You can find more examples in the histogram section.
-
-### Basic Histogram with `geom_histogram`
-
-It is relatively straightforward to build a histogram with `ggplot2` thanks to the `geom_histogram()` function. Only one numeric variable is needed in the input. Note that a warning message is triggered with this code: we need to take care of the bin width as explained in the next section.
-
-```r
-# library
-library(ggplot2)
- 
-# dataset:
-data=data.frame(value=rnorm(100))
-# basic histogram
-p <- ggplot(data, aes(x=value)) + 
-  geom_histogram()
-p
-```
-
-![](https://www.r-graph-gallery.com/220-basic-ggplot2-histogram_files/figure-html/unnamed-chunk-2-1.png)
-
-### Control Bin Size with `binwidth`
-
-A histogram takes as input a numeric variable and cuts it into several bins. Playing with the bin size is a very important step, since its value can have a big impact on the histogram appearance and thus on the message you're trying to convey. This concept is explained in depth in [data-to-viz](https://www.data-to-viz.com/caveat/bin_size.html).
-
-Ggplot2 makes it a breeze to change the bin size thanks to the `binwidth` argument of the `geom_histogram` function. See below the impact it can have on the output.
-
-```r
-# Libraries
-library(tidyverse)
-library(hrbrthemes)
-# Load dataset from github
-data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/1_OneNum.csv", header=TRUE)
-# plot
-p <- data %>%
-  filter( price<300 ) %>%
-  ggplot( aes(x=price)) +
-    geom_histogram( binwidth=3, fill="#69b3a2", color="#e9ecef", alpha=0.9) +
-    ggtitle("Bin size = 3") +
-    theme_ipsum() +
-    theme(
-      plot.title = element_text(size=15)
-    )
-p
-```
-
-![](https://www.r-graph-gallery.com/220-basic-ggplot2-histogram_files/figure-html/unnamed-chunk-4-2.png)
-
-### Histogram with Several Groups - ggplot2
-
-A [histogram](https://www.data-to-viz.com/graph/histogram.html) displays the distribution of a numeric variable. A common task is to compare this distribution through several groups. This document explains how to do so using R and [ggplot2](https://www.r-graph-gallery.com/ggplot2-package.html).
-
-#### Several Histograms on the Same Axis
-
-If the number of group or variable you have is relatively low, you can display all of them on the same axis, using a bit of transparency to make sure you do not hide any data.
-
-<u>Note</u>: with 2 groups, you can also build a [mirror histogram](https://www.r-graph-gallery.com/density_mirror_ggplot2.html)
-
-```r
-# library
-library(ggplot2)
-library(dplyr)
-library(hrbrthemes)
-# Build dataset with different distributions
-data <- data.frame(
-  type = c( rep("variable 1", 1000), rep("variable 2", 1000) ),
-  value = c( rnorm(1000), rnorm(1000, mean=4) )
-)
-# Represent it
-p <- data %>%
-  ggplot( aes(x=value, fill=type)) +
-    geom_histogram( color="#e9ecef", alpha=0.6, position = 'identity') +
-    scale_fill_manual(values=c("#69b3a2", "#404080")) +
-    theme_ipsum() +
-    labs(fill="")
-p
-```
-![](https://www.r-graph-gallery.com/histogram_several_group_files/figure-html/unnamed-chunk-2-1.png)
-
-### Using Small Multiple
-
-If the number of group you need to represent is high, drawing them on the same axis often results in a <u>cluttered</u> and unreadable figure.
-
-A good workaround is to use <u>small multiple</u> where each group is represented in a fraction of the plot window, making the figure easy to read. This is pretty easy to build thanks to the `facet_wrap()` function of ggplot2.
-
-<u>Note</u>: read more about the dataset used in this example [here](https://www.data-to-viz.com/story/OneNumOneCatSeveralObs.html).
-
-```{r histogram-small-multiple-ggplot, message=FALSE, warning=FALSE}
-# Libraries
-library(tidyverse)
-library(hrbrthemes)
-library(viridis)
-library(forcats)
-# Load dataset from github
-data <- read.table("https://raw.githubusercontent.com/zonination/perceptions/master/probly.csv", header=TRUE, sep=",")
-data <- data %>%
-  gather(key="text", value="value") %>%
-  mutate(text = gsub("\\.", " ",text)) %>%
-  mutate(value = round(as.numeric(value),0))
-# plot
-p <- data %>%
-  mutate(text = fct_reorder(text, value)) %>%
-  ggplot( aes(x=value, color=text, fill=text)) +
-    geom_histogram(alpha=0.6, binwidth = 5) +
-    scale_fill_viridis(discrete=TRUE) +
-    scale_color_viridis(discrete=TRUE) +
-    theme_ipsum() +
-    theme(
-      legend.position="none",
-      panel.spacing = unit(0.1, "lines"),
-      strip.text.x = element_text(size = 8)
-    ) +
-    xlab("") +
-    ylab("Assigned Probability (%)") +
-    facet_wrap(~text)
-p
-```
-
-### Base R
-
-Of course it is possible to build high quality histograms without ggplot2 or the tidyverse. Here are a few examples illustrating how to proceed.
-
-### Two Histograms with Melt Colors
-
-A [histogram](https://www.data-to-viz.com/graph/histogram.html) displays the distribution of a numeric variable. This sections explains how to plot 2 histograms on the same axis in Basic R, without any package.
-
-[Histograms](https://www.r-graph-gallery.com/histogram.html) are commonly used in data analysis to observe distribution of variables. A common task in data visualization is to compare the distribution of 2 variables simultaneously.
-
-Here is a tip to plot 2 histograms together (using the `add` function) with transparency (using the [rgb](https://stat.ethz.ch/R-manual/R-devel/library/grDevices/html/rgb.html) function) to keep information when shapes overlap.
-
-```{r histogram-base-r-melt-colors, message=FALSE, warning=FALSE}
-#Create data
-set.seed(1)
-Ixos=rnorm(4000 , 120 , 30)     
-Primadur=rnorm(4000 , 200 , 30) 
- 
-# First distribution
-hist(Ixos, breaks=30, xlim=c(0,300), col=rgb(1,0,0,0.5), xlab="height", 
-     ylab="nbr of plants", main="distribution of height of 2 durum wheat varieties" )
-# Second with add=T to plot on top
-hist(Primadur, breaks=30, xlim=c(0,300), col=rgb(0,0,1,0.5), add=T)
-# Add legend
-legend("topright", legend=c("Ixos","Primadur"), col=c(rgb(1,0,0,0.5), 
-     rgb(0,0,1,0.5)), pt.cex=2, pch=15 )
-par(
-  mfrow=c(1,2),
-  mar=c(4,4,1,0)
-)
-hist(Ixos, breaks=30 , xlim=c(0,300) , col=rgb(1,0,0,0.5) , xlab="height" , ylab="nbr of plants" , main="" )
-hist(Primadur, breaks=30 , xlim=c(0,300) , col=rgb(0,0,1,0.5) , xlab="height" , ylab="" , main="")
-```
-
-
-### Boxplot on top of Histogram
-
-This example illustrates how to split the plotting window in base R thanks to the `layout function`. Contrary to the `par(mfrow=...)` solution, `layout()` allows greater control of panel parts.
-
-Here a [boxplot](https://www.r-graph-gallery.com/boxplot.html) is added on top of the [histogram](https://www.r-graph-gallery.com/histogram.html), allowing to quickly observe summary statistics of the distribution.
-
-```r
-# Create data 
-my_variable=c(rnorm(1000 , 0 , 2) , rnorm(1000 , 9 , 2))
- 
-# Layout to split the screen
-layout(mat = matrix(c(1,2),2,1, byrow=TRUE),  height = c(1,8))
- 
-# Draw the boxplot and the histogram 
-par(mar=c(0, 3.1, 1.1, 2.1))
-boxplot(my_variable , horizontal=TRUE , ylim=c(-10,20), xaxt="n" , col=rgb(0.8,0.8,0,0.5) , frame=F)
-par(mar=c(4, 3.1, 1.1, 2.1))
-hist(my_variable , breaks=40 , col=rgb(0.2,0.8,0.5,0.5) , border=F , main="" , xlab="value of the variable", xlim=c(-10,20))
-```
-![](https://www.r-graph-gallery.com/82-boxplot-on-top-of-histogram_files/figure-html/unnamed-chunk-1-1.png)
-
-### Histogram with Colored Tail
-
-This example demonstrates how to color parts of the [histogram](https://www.r-graph-gallery.com/histogram.html). First of all, the `hist` function must be called without plotting the result using the `plot=F` option. It allows to store the position of each bin in an object (`my_hist` here).
-
-Those bin borders are now available in the `$breaks` slot of the object, what allows to build a color vector using `ifelse` statements. Finally, this color vector can be used in a `plot` call.
-
-```{r histogram-base-r-colored-tail, message=FALSE, warning=FALSE}
-# Create data
-my_variable=rnorm(2000, 0 , 10)
- 
-# Calculate histogram, but do not draw it
-my_hist=hist(my_variable , breaks=40  , plot=F)
- 
-# Color vector
-my_color= ifelse(my_hist$breaks < -10, rgb(0.2,0.8,0.5,0.5) , ifelse (my_hist$breaks >=10, "purple", rgb(0.2,0.2,0.2,0.2) ))
- 
-# Final plot
-plot(my_hist, col=my_color , border=F , main="" , xlab="value of the variable", xlim=c(-40,40) )
-```
-
-### Mirrored Histogram in Base R
-
-The mirrored histogram allows to compare the distribution of 2 variables.
-
-First split the screen with the `par(mfrow())` command. The top histogram needs a `xaxt="n"` statement to discard its X axis. For the second one, inverse the values of the `ylim` argument to flip it upside down. Use the `margin` command to adjust the position of the 2 charts.
-
-```{r histogram-base-r-mirrored, message=FALSE, warning=FALSE}
-#Create Data
-x1 = rnorm(100)
-x2 = rnorm(100)+rep(2,100)
-par(mfrow=c(2,1))
- 
-#Make the plot
-par(mar=c(0,5,3,3))
-hist(x1 , main="" , xlim=c(-2,5), ylab="Frequency for x1", xlab="", ylim=c(0,25) , xaxt="n", las=1 , col="slateblue1", breaks=10)
-par(mar=c(5,5,0,3))
-hist(x2 , main="" , xlim=c(-2,5), ylab="Frequency for x2", xlab="Value of my variable", ylim=c(25,0) , las=1 , col="tomato3"  , breaks=10)
-```
-
-
-### Histogram without Border
-
-This sections explains how to get rid of histograms border in Basic R. It is purely about appearance preferences. Basically, you just need to add `border=F` to the `hist` function to remove the border of histogram bars.
-
-```{r histogram-base-r-without-border, message=FALSE, warning=FALSE}
-# Create data 
-my_variable=c(rnorm(1000 , 0 , 2) , rnorm(1000 , 9 , 2))
- 
-# Draw the histogram with border=F
-hist(my_variable , breaks=40 , col=rgb(0.2,0.8,0.5,0.5) , border=F , main="")
-```
-
 ## Boxplot
 
 ---
@@ -1614,6 +737,538 @@ boxplot(b , xlab="b" , col=rgb(0.4,0.2,0.3,0.5) , las=2)
 
 ![](https://www.r-graph-gallery.com/75-split-screen-with-layout_files/figure-html/unnamed-chunk-7-1.png)
 
+
+## Density
+
+---
+
+Welcome in the [density plot](https://www.data-to-viz.com/graph/density.html) section of the gallery. If you want to know more about this kind of chart, visit [data-to-viz.com](https://www.data-to-viz.com/graph/density.html). A density plot shows the distribution of a numeric variable. In ggplot2, the `geom_density()` function takes care of the kernel density estimation and plot the results. A common task in dataviz is to compare the distribution of several groups. 
+
+### Basic density chart with ggplot2
+
+A [density plot](https://www.data-to-viz.com/graph/density.html) is a representation of the distribution of a numeric variable. It is a smoothed version of the [histogram](https://www.r-graph-gallery.com/histogram.html) and is used in the same kind of situation. Here is a basic example built with the [ggplot2](https://www.r-graph-gallery.com/ggplot2-package.html) library. 
+
+Density plots are built in ggplot2 thanks to the `geom_density` geom. Only one numeric variable is need as input.
+
+```r
+# Libraries
+library(ggplot2)
+library(dplyr)
+# Load dataset from github
+data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/1_OneNum.csv", header=TRUE)
+# Make the histogram
+data %>%
+  filter( price<300 ) %>%
+  ggplot( aes(x=price)) +
+    geom_density(fill="#69b3a2", color="#e9ecef", alpha=0.8)
+```
+
+![](https://www.r-graph-gallery.com/21-distribution-plot-using-ggplot2_files/figure-html/unnamed-chunk-1-1.png)
+
+### Custom with `theme_ipsum`
+
+The `hrbrthemes` package offer a set of pre-built themes for your charts. I am personnaly a big fan of the `theme_ipsum`: easy to use and makes your chart look more professional:
+
+```r
+# Libraries
+library(ggplot2)
+library(dplyr)
+library(hrbrthemes)
+# Load dataset from github
+data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/1_OneNum.csv", header=TRUE)
+# Make the histogram
+data %>%
+  filter( price<300 ) %>%
+  ggplot( aes(x=price)) +
+    geom_density(fill="#69b3a2", color="#e9ecef", alpha=0.8) +
+    ggtitle("Night price distribution of Airbnb appartements") +
+    theme_ipsum()
+```
+
+![](https://www.r-graph-gallery.com/21-distribution-plot-using-ggplot2_files/figure-html/unnamed-chunk-3-1.png)
+
+### Mirror Density Chart with ggplot2
+
+A [density plot](https://www.data-to-viz.com/graph/density.html) is a representation of the distribution of a numeric variable. Comparing the distribution of 2 variables is a common challenge that can be tackled with the mirror density chart: 2 [density charts](https://www.r-graph-gallery.com/density-plot.html) are put face to face what allows to efficiently compare them. Here is how to build it with [ggplot2](https://www.r-graph-gallery.com/ggplot2-package.html) library.
+
+### Density with `geom_density`
+
+A density chart is built thanks to the `geom_density` geom of ggplot2 (see a [basic example](https://www.r-graph-gallery.com/21-distribution-plot-using-ggplot2.html)). It is possible to plot this density upside down by specifying `y = -..density..`. It is advised to use `geom_label` to indicate variable names.
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE} 
+# Libraries
+library(ggplot2)
+library(hrbrthemes)
+# Dummy data
+data <- data.frame(
+  var1 = rnorm(1000),
+  var2 = rnorm(1000, mean=2)
+)
+# Chart
+p <- ggplot(data, aes(x=x) ) +
+  # Top
+  geom_density( aes(x = var1, y = ..density..), fill="#69b3a2" ) +
+  geom_label( aes(x=4.5, y=0.25, label="variable1"), color="#69b3a2") +
+  # Bottom
+  geom_density( aes(x = var2, y = -..density..), fill= "#404080") +
+  geom_label( aes(x=4.5, y=-0.25, label="variable2"), color="#404080") +
+  theme_ipsum() +
+  xlab("value of x")
+p
+```
+![](https://www.r-graph-gallery.com/density_mirror_ggplot2_files/figure-html/unnamed-chunk-2-1.png)
+
+### Histogram with `geom_histogram`
+
+Of course it is possible to apply exactly the same technique using `geom_histogram` instead of `geom_density` to get a mirror histogram:
+
+```{r histogram-density-chart-ggplot, message=FALSE, warning=FALSE}
+# Chart
+p <- ggplot(data, aes(x=x) ) +
+  geom_histogram( aes(x = var1, y = ..density..), fill="#69b3a2" ) +
+  geom_label( aes(x=4.5, y=0.25, label="variable1"), color="#69b3a2") +
+  geom_histogram( aes(x = var2, y = -..density..), fill= "#404080") +
+  geom_label( aes(x=4.5, y=-0.25, label="variable2"), color="#404080") +
+  theme_ipsum() +
+  xlab("value of x")
+p
+```
+
+### Density Chart with Several Groups
+
+A [density plot](https://www.data-to-viz.com/graph/density.html) is a representation of the distribution of a numeric variable. Comparing the distribution of several variables with density charts is possible. Here are a few examples with their [ggplot2](https://www.r-graph-gallery.com/ggplot2-package.html) implementation.
+
+### Multi density chart
+
+A multi density chart is a [density chart](https://www.r-graph-gallery.com/density-plot.html) where several groups are represented. It allows to compare their distribution. The issue with this kind of chart is that it gets easily <u>cluttered</u>: groups overlap each other and the figure gets unreadable.
+
+An easy workaround is to use <u>transparency</u>. However, it won't solve the issue completely and is is often better to consider the examples suggested further in this document.
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+# Libraries
+library(ggplot2)
+library(hrbrthemes)
+library(dplyr)
+library(tidyr)
+library(viridis)
+# The diamonds dataset is natively available with R.
+# Without transparency (left)
+p1 <- ggplot(data=diamonds, aes(x=price, group=cut, fill=cut)) +
+    geom_density(adjust=1.5) +
+    theme_ipsum()
+p1
+```
+![](https://www.r-graph-gallery.com/135-stacked-density-graph_files/figure-html/unnamed-chunk-2-1.png)
+
+```r
+# With transparency (right)
+p2 <- ggplot(data=diamonds, aes(x=price, group=cut, fill=cut)) +
+    geom_density(adjust=1.5, alpha=.4) +
+    theme_ipsum()
+p2
+```
+![](https://www.r-graph-gallery.com/135-stacked-density-graph_files/figure-html/unnamed-chunk-2-2.png)
+
+Here is an example with [another dataset](https://www.data-to-viz.com/story/OneNumOneCatSeveralObs.html) where it works much better. Groups have very distinct distribution, it is easy to spot them even if on the same chart. Note that it is much better to add group name next to their distribution instead of having a legend beside the chart.
+
+```r 
+# Load dataset from github
+data <- read.table("https://raw.githubusercontent.com/zonination/perceptions/master/probly.csv", header=TRUE, sep=",")
+data <- data %>%
+  gather(key="text", value="value") %>%
+  mutate(text = gsub("\\.", " ",text)) %>%
+  mutate(value = round(as.numeric(value),0))
+# A dataframe for annotations
+annot <- data.frame(
+  text = c("Almost No Chance", "About Even", "Probable", "Almost Certainly"),
+  x = c(5, 53, 65, 79),
+  y = c(0.15, 0.4, 0.06, 0.1)
+)
+# Plot
+data %>%
+  filter(text %in% c("Almost No Chance", "About Even", "Probable", "Almost Certainly")) %>%
+  ggplot( aes(x=value, color=text, fill=text)) +
+    geom_density(alpha=0.6) +
+    scale_fill_viridis(discrete=TRUE) +
+    scale_color_viridis(discrete=TRUE) +
+    geom_text( data=annot, aes(x=x, y=y, label=text, color=text), hjust=0, size=4.5) +
+    theme_ipsum() +
+    theme(
+      legend.position="none"
+    ) +
+    ylab("") +
+    xlab("Assigned Probability (%)")
+```
+![](https://www.r-graph-gallery.com/135-stacked-density-graph_files/figure-html/unnamed-chunk-3-1.png)
+
+
+### Small Multiple with `facet_wrap()`
+
+Using small multiple is often the best option in my opinion. Distribution of each group gets easy to read, and comparing groups is still possible if they share the same X axis boundaries.
+
+```r
+# Using Small multiple
+ggplot(data=diamonds, aes(x=price, group=cut, fill=cut)) +
+    geom_density(adjust=1.5) +
+    theme_ipsum() +
+    facet_wrap(~cut) +
+    theme(
+      legend.position="none",
+      panel.spacing = unit(0.1, "lines"),
+      axis.ticks.x=element_blank()
+    )
+```
+![](https://www.r-graph-gallery.com/135-stacked-density-graph_files/figure-html/unnamed-chunk-4-1.png)
+
+### Stacked Density Chart
+
+Another solution is to <u>stack</u> the groups. This allows to see what group is the most frequent for a given value, but it makes it hard to understand the distribution of a group that is not on the bottom of the chart.
+
+Visit [data to viz](https://www.data-to-viz.com/caveat/stacking.html) for a complete explanation on this matter.
+
+```{r stacked-density-chart-ggplot, message=FALSE, warning=FALSE}
+# Stacked density plot:
+p <- ggplot(data=diamonds, aes(x=price, group=cut, fill=cut)) +
+    geom_density(adjust=1.5, position="fill") +
+    theme_ipsum()
+p
+```
+
+### Marginal distribution with ggplot2 and ggExtra
+
+This section explains how to add marginal distributions to the X and Y axis of a ggplot2 scatterplot. It can be done using histogram, boxplot or density plot using the ggExtra library.
+
+#### Basic use of `ggMarginal()`
+
+Here are 3 examples of marginal distribution added on X and Y axis of a scatterplot. The `ggExtra` library makes it a breeze thanks to the `ggMarginal()` function. Three main types of distribution are available: [histogram](https://www.r-graph-gallery.com/histogram.html), [density](https://www.r-graph-gallery.com/density-plot.html) and [boxplot](https://www.r-graph-gallery.com/boxplot.html).
+
+```r
+# library
+library(ggplot2)
+library(ggExtra)
+ 
+# The mtcars dataset is proposed in R
+head(mtcars)
+ 
+# classic plot :
+p <- ggplot(mtcars, aes(x=wt, y=mpg, color=cyl, size=cyl)) +
+      geom_point() +
+      theme(legend.position="none")
+# with marginal histogram
+p1 <- ggMarginal(p, type="histogram")
+# marginal density
+p2 <- ggMarginal(p, type="density")
+# marginal boxplot
+p3 <- ggMarginal(p, type="boxplot")
+```
+
+
+```r
+p1
+```
+
+![](https://www.r-graph-gallery.com/277-marginal-histogram-for-ggplot2_files/figure-html/unnamed-chunk-1-1.png)
+
+```r
+p2
+```
+
+![](https://www.r-graph-gallery.com/277-marginal-histogram-for-ggplot2_files/figure-html/unnamed-chunk-2-1.png)
+
+```r
+p3
+```
+
+![](https://www.r-graph-gallery.com/277-marginal-histogram-for-ggplot2_files/figure-html/unnamed-chunk-3-1.png)
+
+
+#### More Customization
+
+Three additional examples to show possible customization:
+
+* Change marginal plot size with `size`.
+* Custom marginal plot appearance with all usual parameters.
+* Show only one marginal plot with `margins = 'x'` or `margins = 'y'`.
+
+```r
+# library
+library(ggplot2)
+library(ggExtra)
+ 
+# The mtcars dataset is proposed in R
+head(mtcars)
+ 
+# classic plot :
+p <- ggplot(mtcars, aes(x=wt, y=mpg, color=cyl, size=cyl)) +
+      geom_point() +
+      theme(legend.position="none")
+ 
+# Set relative size of marginal plots (main plot 10x bigger than marginals)
+p1 <- ggMarginal(p, type="histogram", size=10)
+ 
+# Custom marginal plots:
+p2 <- ggMarginal(p, type="histogram", fill = "slateblue", xparams = list(  bins=10))
+ 
+# Show only marginal plot for x axis
+p3 <- ggMarginal(p, margins = 'x', color="purple", size=4)
+```
+
+```r
+p1
+```
+
+![](https://www.r-graph-gallery.com/277-marginal-histogram-for-ggplot2_files/figure-html/unnamed-chunk-4-1.png)
+
+```r
+p2
+```
+
+![](https://www.r-graph-gallery.com/277-marginal-histogram-for-ggplot2_files/figure-html/unnamed-chunk-5-1.png)
+
+```r
+p3
+```
+
+![](https://www.r-graph-gallery.com/277-marginal-histogram-for-ggplot2_files/figure-html/unnamed-chunk-6-1.png)
+
+## Histogram
+
+---
+
+Welcome to the [histogram](https://www.data-to-viz.com/graph/histogram.html) section of the R graph gallery. If you want to know more about this kind of chart, visit [data-to-viz.com](https://www.data-to-viz.com/graph/histogram.html). If you're looking for a simple way to implement it in R, pick an example below.
+
+### GGPLOT2
+
+Histograms can be built with `ggplot2` thanks to the `geom_histogram()` function. It requires only 1 numeric variable as input. This function automatically cut the variable in bins and count the number of data point per bin. Remember to try [different bin size](https://www.r-graph-gallery.com/220-basic-ggplot2-histogram.html#binSize) using the `binwidth` argument.
+
+### Basic histogram with ggplot2
+
+A [histogram](https://www.data-to-viz.com/graph/histogram.html) is a representation of the distribution of a numeric variable. This document explains how to build it with R and the [ggplot2 package](https://www.r-graph-gallery.com/ggplot2-package.html). You can find more examples in the histogram section.
+
+### Basic Histogram with `geom_histogram`
+
+It is relatively straightforward to build a histogram with `ggplot2` thanks to the `geom_histogram()` function. Only one numeric variable is needed in the input. Note that a warning message is triggered with this code: we need to take care of the bin width as explained in the next section.
+
+```r
+# library
+library(ggplot2)
+ 
+# dataset:
+data=data.frame(value=rnorm(100))
+# basic histogram
+p <- ggplot(data, aes(x=value)) + 
+  geom_histogram()
+p
+```
+
+![](https://www.r-graph-gallery.com/220-basic-ggplot2-histogram_files/figure-html/unnamed-chunk-2-1.png)
+
+### Control Bin Size with `binwidth`
+
+A histogram takes as input a numeric variable and cuts it into several bins. Playing with the bin size is a very important step, since its value can have a big impact on the histogram appearance and thus on the message you're trying to convey. This concept is explained in depth in [data-to-viz](https://www.data-to-viz.com/caveat/bin_size.html).
+
+Ggplot2 makes it a breeze to change the bin size thanks to the `binwidth` argument of the `geom_histogram` function. See below the impact it can have on the output.
+
+```r
+# Libraries
+library(tidyverse)
+library(hrbrthemes)
+# Load dataset from github
+data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/1_OneNum.csv", header=TRUE)
+# plot
+p <- data %>%
+  filter( price<300 ) %>%
+  ggplot( aes(x=price)) +
+    geom_histogram( binwidth=3, fill="#69b3a2", color="#e9ecef", alpha=0.9) +
+    ggtitle("Bin size = 3") +
+    theme_ipsum() +
+    theme(
+      plot.title = element_text(size=15)
+    )
+p
+```
+
+![](https://www.r-graph-gallery.com/220-basic-ggplot2-histogram_files/figure-html/unnamed-chunk-4-2.png)
+
+### Histogram with Several Groups - ggplot2
+
+A [histogram](https://www.data-to-viz.com/graph/histogram.html) displays the distribution of a numeric variable. A common task is to compare this distribution through several groups. This document explains how to do so using R and [ggplot2](https://www.r-graph-gallery.com/ggplot2-package.html).
+
+#### Several Histograms on the Same Axis
+
+If the number of group or variable you have is relatively low, you can display all of them on the same axis, using a bit of transparency to make sure you do not hide any data.
+
+<u>Note</u>: with 2 groups, you can also build a [mirror histogram](https://www.r-graph-gallery.com/density_mirror_ggplot2.html)
+
+```r
+# library
+library(ggplot2)
+library(dplyr)
+library(hrbrthemes)
+# Build dataset with different distributions
+data <- data.frame(
+  type = c( rep("variable 1", 1000), rep("variable 2", 1000) ),
+  value = c( rnorm(1000), rnorm(1000, mean=4) )
+)
+# Represent it
+p <- data %>%
+  ggplot( aes(x=value, fill=type)) +
+    geom_histogram( color="#e9ecef", alpha=0.6, position = 'identity') +
+    scale_fill_manual(values=c("#69b3a2", "#404080")) +
+    theme_ipsum() +
+    labs(fill="")
+p
+```
+![](https://www.r-graph-gallery.com/histogram_several_group_files/figure-html/unnamed-chunk-2-1.png)
+
+### Using Small Multiple
+
+If the number of group you need to represent is high, drawing them on the same axis often results in a <u>cluttered</u> and unreadable figure.
+
+A good workaround is to use <u>small multiple</u> where each group is represented in a fraction of the plot window, making the figure easy to read. This is pretty easy to build thanks to the `facet_wrap()` function of ggplot2.
+
+<u>Note</u>: read more about the dataset used in this example [here](https://www.data-to-viz.com/story/OneNumOneCatSeveralObs.html).
+
+```{r histogram-small-multiple-ggplot, message=FALSE, warning=FALSE}
+# Libraries
+library(tidyverse)
+library(hrbrthemes)
+library(viridis)
+library(forcats)
+# Load dataset from github
+data <- read.table("https://raw.githubusercontent.com/zonination/perceptions/master/probly.csv", header=TRUE, sep=",")
+data <- data %>%
+  gather(key="text", value="value") %>%
+  mutate(text = gsub("\\.", " ",text)) %>%
+  mutate(value = round(as.numeric(value),0))
+# plot
+p <- data %>%
+  mutate(text = fct_reorder(text, value)) %>%
+  ggplot( aes(x=value, color=text, fill=text)) +
+    geom_histogram(alpha=0.6, binwidth = 5) +
+    scale_fill_viridis(discrete=TRUE) +
+    scale_color_viridis(discrete=TRUE) +
+    theme_ipsum() +
+    theme(
+      legend.position="none",
+      panel.spacing = unit(0.1, "lines"),
+      strip.text.x = element_text(size = 8)
+    ) +
+    xlab("") +
+    ylab("Assigned Probability (%)") +
+    facet_wrap(~text)
+p
+```
+
+### Base R
+
+Of course it is possible to build high quality histograms without ggplot2 or the tidyverse. Here are a few examples illustrating how to proceed.
+
+### Two Histograms with Melt Colors
+
+A [histogram](https://www.data-to-viz.com/graph/histogram.html) displays the distribution of a numeric variable. This sections explains how to plot 2 histograms on the same axis in Basic R, without any package.
+
+[Histograms](https://www.r-graph-gallery.com/histogram.html) are commonly used in data analysis to observe distribution of variables. A common task in data visualization is to compare the distribution of 2 variables simultaneously.
+
+Here is a tip to plot 2 histograms together (using the `add` function) with transparency (using the [rgb](https://stat.ethz.ch/R-manual/R-devel/library/grDevices/html/rgb.html) function) to keep information when shapes overlap.
+
+```{r histogram-base-r-melt-colors, message=FALSE, warning=FALSE}
+#Create data
+set.seed(1)
+Ixos=rnorm(4000 , 120 , 30)     
+Primadur=rnorm(4000 , 200 , 30) 
+ 
+# First distribution
+hist(Ixos, breaks=30, xlim=c(0,300), col=rgb(1,0,0,0.5), xlab="height", 
+     ylab="nbr of plants", main="distribution of height of 2 durum wheat varieties" )
+# Second with add=T to plot on top
+hist(Primadur, breaks=30, xlim=c(0,300), col=rgb(0,0,1,0.5), add=T)
+# Add legend
+legend("topright", legend=c("Ixos","Primadur"), col=c(rgb(1,0,0,0.5), 
+     rgb(0,0,1,0.5)), pt.cex=2, pch=15 )
+par(
+  mfrow=c(1,2),
+  mar=c(4,4,1,0)
+)
+hist(Ixos, breaks=30 , xlim=c(0,300) , col=rgb(1,0,0,0.5) , xlab="height" , ylab="nbr of plants" , main="" )
+hist(Primadur, breaks=30 , xlim=c(0,300) , col=rgb(0,0,1,0.5) , xlab="height" , ylab="" , main="")
+```
+
+
+### Boxplot on top of Histogram
+
+This example illustrates how to split the plotting window in base R thanks to the `layout function`. Contrary to the `par(mfrow=...)` solution, `layout()` allows greater control of panel parts.
+
+Here a [boxplot](https://www.r-graph-gallery.com/boxplot.html) is added on top of the [histogram](https://www.r-graph-gallery.com/histogram.html), allowing to quickly observe summary statistics of the distribution.
+
+```r
+# Create data 
+my_variable=c(rnorm(1000 , 0 , 2) , rnorm(1000 , 9 , 2))
+ 
+# Layout to split the screen
+layout(mat = matrix(c(1,2),2,1, byrow=TRUE),  height = c(1,8))
+ 
+# Draw the boxplot and the histogram 
+par(mar=c(0, 3.1, 1.1, 2.1))
+boxplot(my_variable , horizontal=TRUE , ylim=c(-10,20), xaxt="n" , col=rgb(0.8,0.8,0,0.5) , frame=F)
+par(mar=c(4, 3.1, 1.1, 2.1))
+hist(my_variable , breaks=40 , col=rgb(0.2,0.8,0.5,0.5) , border=F , main="" , xlab="value of the variable", xlim=c(-10,20))
+```
+![](https://www.r-graph-gallery.com/82-boxplot-on-top-of-histogram_files/figure-html/unnamed-chunk-1-1.png)
+
+### Histogram with Colored Tail
+
+This example demonstrates how to color parts of the [histogram](https://www.r-graph-gallery.com/histogram.html). First of all, the `hist` function must be called without plotting the result using the `plot=F` option. It allows to store the position of each bin in an object (`my_hist` here).
+
+Those bin borders are now available in the `$breaks` slot of the object, what allows to build a color vector using `ifelse` statements. Finally, this color vector can be used in a `plot` call.
+
+```{r histogram-base-r-colored-tail, message=FALSE, warning=FALSE}
+# Create data
+my_variable=rnorm(2000, 0 , 10)
+ 
+# Calculate histogram, but do not draw it
+my_hist=hist(my_variable , breaks=40  , plot=F)
+ 
+# Color vector
+my_color= ifelse(my_hist$breaks < -10, rgb(0.2,0.8,0.5,0.5) , ifelse (my_hist$breaks >=10, "purple", rgb(0.2,0.2,0.2,0.2) ))
+ 
+# Final plot
+plot(my_hist, col=my_color , border=F , main="" , xlab="value of the variable", xlim=c(-40,40) )
+```
+
+### Mirrored Histogram in Base R
+
+The mirrored histogram allows to compare the distribution of 2 variables.
+
+First split the screen with the `par(mfrow())` command. The top histogram needs a `xaxt="n"` statement to discard its X axis. For the second one, inverse the values of the `ylim` argument to flip it upside down. Use the `margin` command to adjust the position of the 2 charts.
+
+```{r histogram-base-r-mirrored, message=FALSE, warning=FALSE}
+#Create Data
+x1 = rnorm(100)
+x2 = rnorm(100)+rep(2,100)
+par(mfrow=c(2,1))
+ 
+#Make the plot
+par(mar=c(0,5,3,3))
+hist(x1 , main="" , xlim=c(-2,5), ylab="Frequency for x1", xlab="", ylim=c(0,25) , xaxt="n", las=1 , col="slateblue1", breaks=10)
+par(mar=c(5,5,0,3))
+hist(x2 , main="" , xlim=c(-2,5), ylab="Frequency for x2", xlab="Value of my variable", ylim=c(25,0) , las=1 , col="tomato3"  , breaks=10)
+```
+
+
+### Histogram without Border
+
+This sections explains how to get rid of histograms border in Basic R. It is purely about appearance preferences. Basically, you just need to add `border=F` to the `hist` function to remove the border of histogram bars.
+
+```{r histogram-base-r-without-border, message=FALSE, warning=FALSE}
+# Create data 
+my_variable=c(rnorm(1000 , 0 , 2) , rnorm(1000 , 9 , 2))
+ 
+# Draw the histogram with border=F
+hist(my_variable , breaks=40 , col=rgb(0.2,0.8,0.5,0.5) , border=F , main="")
+```
+
+
 ## Ridgeline Chart
 
 ---
@@ -1702,4 +1357,350 @@ ggplot(lincoln_weather, aes(x = `Mean Temperature [F]`, y = `Month`, fill = ..x.
       panel.spacing = unit(0.1, "lines"),
       strip.text.x = element_text(size = 8)
     )
+```
+
+## Violin
+
+---
+
+[Violin plots](https://www.data-to-viz.com/graph/violin.html) allow to visualize the distribution of a numeric variable for one or several groups. They are very well adapted for large dataset, as stated in [data-to-viz.com](https://www.data-to-viz.com/graph/violin.html). Since group labels need to be read, it makes sense to build an horizontal version: labels become much more readable. This document provide an R implementation using ggplot2 and Base R.
+
+
+### Base R Violin Plot
+
+Violin plots are useful to compare the distribution of several groups. Ggplot2 provides a great way to build them, but the vioplot library is an alternative in case you don't want to use the tidyverse.
+
+The Vioplot library builds the violin plot as a boxplot with a rotated kernel density plot on each side. If you want to represent several groups, the trick is to use the with function as demonstrated below.
+
+```{r base-r-violion-plot-two, message=FALSE, warning=FALSE}
+# Load the vioplot library
+library(vioplot)
+ 
+# Create data
+treatment <- c(rep("A", 40) , rep("B", 40) , rep("C", 40) )
+value <- c( sample(2:5, 40 , replace=T) , sample(c(1:5,12:17), 40 , replace=T), sample(1:7, 40 , replace=T) )
+data <- data.frame(treatment,value)
+ 
+# Draw the plot
+with(data , vioplot( 
+  value[treatment=="A"] , value[treatment=="B"], value[treatment=="C"],  
+  col=rgb(0.1,0.4,0.7,0.7) , names=c("A","B","C") 
+))
+```
+
+### Basic ggplot Violin Plot
+
+Building a **violin plot** with `ggplot2` is pretty straightforward thanks to the dedicated `geom_violin()` function.
+
+```{r basic-ggplot-violion-plot, message=FALSE, warning=FALSE}
+# Library
+library(ggplot2)
+# create a dataset
+data <- data.frame(
+  name=c( rep("A",500), rep("B",500), rep("B",500), rep("C",20), rep('D', 100)  ),
+  value=c( rnorm(500, 10, 5), rnorm(500, 13, 1), rnorm(500, 18, 1), rnorm(20, 25, 4), rnorm(100, 12, 1) )
+)
+# Most basic violin chart
+p <- ggplot(data, aes(x=name, y=value, fill=name)) + # fill=name allow to automatically dedicate a color for each group
+  geom_violin()
+p
+```
+
+
+### Note on Input Format
+
+Ggplot2 expects input data to be in a long format: each row is dedicated to one observation. Your input needs 2 column:
+
+* A categorical variable for the X axis: Needs to be have the class `factor`.
+* A numeric variable for the Y axis: Needs to have the class `numeric`.
+
+#### From Long Format
+
+You already have the good format. It's going to be a breeze to plot it with `geom_violin()` as follow:
+
+```{r violion-plot-note-input-format, message=FALSE, warning=FALSE}
+# Library
+library(ggplot2)
+library(dplyr)
+# Create data
+data <- data.frame(
+  name=c( rep("A",500), rep("B",500), rep("B",500), rep("C",20), rep('D', 100)  ),
+  value=c( rnorm(500, 10, 5), rnorm(500, 13, 1), rnorm(500, 18, 1), rnorm(20, 25, 4), rnorm(100, 12, 1) ) %>% round(2)
+)
+head(data)
+```
+
+
+
+```{r violion-plot-basic, message=FALSE, warning=FALSE}
+# Basic violin
+ggplot(data, aes(x=name, y=value, fill=name)) + 
+  geom_violin()
+```
+
+### From Wide Format
+
+In this case we need to reformat the input. This is possible thanks to the `gather()` function of the tidyr library that is part of the tidyverse.
+
+```{r violion-plot-wide-format-data, warning=FALSE, message=FALSE}
+# Let's use the iris dataset as an example:
+data_wide <- iris[ , 1:4]
+head(data_wide)
+```
+
+```{r violion-plot-wide-format-plot, message=FALSE, warning=FALSE}
+library(tidyr)
+library(ggplot2)
+library(dplyr)
+data_wide %>% 
+  gather(key="MesureType", value="Val") %>%
+  ggplot( aes(x=MesureType, y=Val, fill=MesureType)) +
+    geom_violin()
+```
+
+
+### Reorder a variable with `ggplot2`
+  
+Reordering groups in a `ggplot2` chart can be a struggle. This is due to the fact that ggplot2 takes into account the order of the `factor` levels, not the order you observe in your data frame. You can sort your input data frame with `sort()` or `arrange()`, it will never have any impact on your ggplot2 output.
+
+This section explains how to reorder the level of your factor through several examples. Examples are based on 2 dummy datasets:
+
+```{r violin-plot-reorder-variable-ggplot, message=FALSE, warning=FALSE}  
+# Library
+library(ggplot2)
+library(dplyr)
+# Dataset 1: one value per group
+data <- data.frame(
+  name=c("north","south","south-east","north-west","south-west","north-east","west","east"),
+  val=sample(seq(1,10), 8 )
+)
+# Dataset 2: several values per group (natively provided in R)
+# mpg
+```
+
+### Method 1: the `forcats` library
+
+The [Forecats library](https://github.com/tidyverse/forcats) is a library from the `tidyverse` especially made to handle factors in R. It provides a suite of useful tools that solve common problems with factors. `The fact_reorder()` function allows to reorder the factor. The `fact_reorder()` function allows to reorder the factor (`data$name` for example) following the value of another column (`data$val` here).
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+# load the library
+library(forcats)
+# Reorder following the value of another column:
+data %>%
+  mutate(name = fct_reorder(name, val)) %>%
+  ggplot( aes(x=name, y=val)) +
+  geom_bar(stat="identity", fill="#f68060", alpha=.6, width=.4) +
+  coord_flip() +
+  xlab("") +
+  theme_bw()
+```
+
+![](https://www.r-graph-gallery.com/267-reorder-a-variable-in-ggplot2_files/figure-html/unnamed-chunk-2-1.png)
+
+```{r violin-plot-reverse-side, message=FALSE, warning=FALSE}
+# Reverse side
+data %>%
+  mutate(name = fct_reorder(name, desc(val))) %>%
+  ggplot( aes(x=name, y=val)) +
+  geom_bar(stat="identity", fill="#f68060", alpha=.6, width=.4) +
+  coord_flip() +
+  xlab("") +
+  theme_bw()
+```
+
+
+If you have several values per level of your factor, you can specify which function to apply to determine the order. The default is to use the median, but you can use the number of data points per group to make the classification:
+
+```{r several-values-per-level-factor, message=FALSE, warning=FALSE}
+# Using median
+mpg %>%
+  mutate(class = fct_reorder(class, hwy, .fun='median')) %>%
+  ggplot( aes(x=reorder(class, hwy), y=hwy, fill=class)) + 
+  geom_boxplot() +
+  xlab("class") +
+  theme(legend.position="none") +
+  xlab("")
+```
+
+
+```{r using-number-of-observations, message=FALSE, warning=FALSE}
+# Using number of observation per group
+mpg %>%
+  mutate(class = fct_reorder(class, hwy, .fun='length' )) %>%
+  ggplot( aes(x=class, y=hwy, fill=class)) + 
+  geom_boxplot() +
+  xlab("class") +
+  theme(legend.position="none") +
+  xlab("") +
+  xlab("")
+```
+
+The last common operation is to provide a specific order to your levels, using the `fct_relevel()` function as follow:
+  
+```{r specific-order-levels, message=FALSE, warning=FALSE}
+# Reorder following a precise order
+p <- data %>%
+  mutate(name = fct_relevel(name, 
+                            "north", "north-east", "east", 
+                            "south-east", "south", "south-west", 
+                            "west", "north-west")) %>%
+  ggplot( aes(x=name, y=val)) +
+  geom_bar(stat="identity") +
+  xlab("")
+p
+```
+
+### Method 2: Using Dplyr Only
+
+The `mutate()` function of `dplyr` allows to create a new variable or modify an existing one. It is possible to use it to recreate a factor with a specific order. Here are 2 examples:
+  
+* The first use `arrange()` to sort your data frame, and reorder the factor following this desired order.
+* The second specifies a custom order for the factor giving the levels one by one.
+
+```r
+data %>%
+  arrange(val) %>%    # First sort by val. This sort the dataframe but NOT the factor levels
+  mutate(name=factor(name, levels=name)) %>%   # This trick update the factor levels
+  ggplot( aes(x=name, y=val)) +
+  geom_segment( aes(xend=name, yend=0)) +
+  geom_point( size=4, color="orange") +
+  coord_flip() +
+  theme_bw() +
+  xlab("")
+```
+
+![](https://www.r-graph-gallery.com/267-reorder-a-variable-in-ggplot2_files/figure-html/unnamed-chunk-6-1.png)
+
+```r
+data %>%
+  arrange(val) %>%
+  mutate(name = factor(name, levels=c("north", "north-east", "east", "south-east", "south", "south-west", "west", "north-west"))) %>%
+  ggplot( aes(x=name, y=val)) +
+  geom_segment( aes(xend=name, yend=0)) +
+  geom_point( size=4, color="orange") +
+  theme_bw() +
+  xlab("")
+```
+![](https://www.r-graph-gallery.com/267-reorder-a-variable-in-ggplot2_files/figure-html/unnamed-chunk-6-2.png)
+
+### Method 3: the `reorder()` Function of Base R
+
+In case your an unconditional user of R, here is how to control the order using the `reorder()` function inside a `with()` call:
+  
+```{r reorder-base-r, message=FALSE, warning=FALSE}
+# reorder is close to order, but is made to change the order of the factor levels.
+mpg$class = with(mpg, reorder(class, hwy, median))
+p <- mpg %>%
+  ggplot( aes(x=class, y=hwy, fill=class)) + 
+  geom_violin() +
+  xlab("class") +
+  theme(legend.position="none") +
+  xlab("")
+p
+```
+
+### Horizontal Violin Plot with `ggplot2`
+
+Building a [violin plot](https://www.r-graph-gallery.com/violin.html) with `ggplot2` is pretty straightforward thanks to the dedicated `geom_violin()` function. Here, calling `coord_flip()` allows to flip X and Y axis and thus get a horizontal version of the chart. Moreover, note the use of the `theme_ipsum` of the `hrbrthemes` library that improves general appearance.
+
+```{r horiztonal-violin-ggplot, message=FALSE, warning=FALSE}
+# Libraries
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(forcats)
+library(hrbrthemes)
+library(viridis)
+# Load dataset from github
+data <- read.table("https://raw.githubusercontent.com/zonination/perceptions/master/probly.csv", header=TRUE, sep=",")
+# Data is at wide format, we need to make it 'tidy' or 'long'
+data <- data %>% 
+  gather(key="text", value="value") %>%
+  mutate(text = gsub("\\.", " ",text)) %>%
+  mutate(value = round(as.numeric(value),0)) %>%
+  filter(text %in% c("Almost Certainly","Very Good Chance","We Believe","Likely","About Even", "Little Chance", "Chances Are Slight", "Almost No Chance"))
+# Plot
+p <- data %>%
+  mutate(text = fct_reorder(text, value)) %>% # Reorder data
+  ggplot( aes(x=text, y=value, fill=text, color=text)) +
+  geom_violin(width=2.1, size=0.2) +
+  scale_fill_viridis(discrete=TRUE) +
+  scale_color_viridis(discrete=TRUE) +
+  theme_ipsum() +
+  theme(
+    legend.position="none"
+  ) +
+  coord_flip() + # This switch X and Y axis and allows to get the horizontal version
+  xlab("") +
+  ylab("Assigned Probability (%)")
+p
+```
+
+
+### Violin Plot with included Boxplot and Sample Size in ggplot2
+
+It can be handy to include a [boxplot](https://www.r-graph-gallery.com/boxplot.html) in the [violin plot](https://www.r-graph-gallery.com/violin%20plot) to see both the distribution of the data and its summary statistics. Moreover, adding sample size of each group on the X axis is often a necessary step. Here is how to do it with `R` and [ggplot2](https://www.r-graph-gallery.com/ggplot2-package.html).
+
+Building a [violin plot](https://www.r-graph-gallery.com/violin.html) with ggplot2 is pretty straightforward thanks to the dedicated `geom_violin()` function. It is possible to use `geom_boxplot()` with a small `width` in addition to display a boxplot that provides summary statistics.
+
+Moreover, note a small trick that allows to provide sample size of each group on the X axis: a new column called `myaxis` is created and is then used for the X axis.
+
+
+```{r horiztonal-violin-boxplot-ggplot, message=FALSE, warning=FALSE}
+# Libraries
+library(ggplot2)
+library(dplyr)
+library(hrbrthemes)
+library(viridis)
+# create a dataset
+data <- data.frame(
+  name=c( rep("A",500), rep("B",500), rep("B",500), rep("C",20), rep('D', 100)  ),
+  value=c( rnorm(500, 10, 5), rnorm(500, 13, 1), rnorm(500, 18, 1), rnorm(20, 25, 4), rnorm(100, 12, 1) )
+)
+# sample size
+sample_size = data %>% group_by(name) %>% summarize(num=n())
+# Plot
+data %>%
+  left_join(sample_size) %>%
+  mutate(myaxis = paste0(name, "\n", "n=", num)) %>%
+  ggplot( aes(x=myaxis, y=value, fill=name)) +
+  geom_violin(width=1.4) +
+  geom_boxplot(width=0.1, color="grey", alpha=0.2) +
+  scale_fill_viridis(discrete = TRUE) +
+  theme_ipsum() +
+  theme(
+    legend.position="none",
+    plot.title = element_text(size=11)
+  ) +
+  ggtitle("A Violin wrapping a boxplot") +
+  xlab("")
+```
+
+### Grouped Violin Chart with ggplot2
+
+This is an extension of the classic [violin plot](https://www.r-graph-gallery.com/violin%20plot.html). Here, data are organized in groups and subgroups, allowing to build a grouped violin chart. Chart is implemented using `R` and the [ggplot2 library](https://www.r-graph-gallery.com/ggplot2-package.html).
+
+A grouped [violin plot](https://www.r-graph-gallery.com/violin.html) displays the distribution of a numeric variable for groups and subgroups. Here, groups are days of the week, and subgroups are Males and Females. Ggplot2 allows this kind of representation thanks to the `position="dodge"` option of the `geom_violin()` function. Groups must be provided to `x`, subgroups must be provided to `fill`.
+
+```{r grouped-violin-ggplot, message=FALSE, warning=FALSE}
+# Libraries
+library(ggplot2)
+library(dplyr)
+library(forcats)
+library(hrbrthemes)
+library(viridis)
+# Load dataset from github
+data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/10_OneNumSevCatSubgroupsSevObs.csv", header=T, sep=",") %>%
+  mutate(tip = round(tip/total_bill*100, 1))
+# Grouped
+data %>%
+  mutate(day = fct_reorder(day, tip)) %>%
+  mutate(day = factor(day, levels=c("Thur", "Fri", "Sat", "Sun"))) %>%
+  ggplot(aes(fill=sex, y=tip, x=day)) + 
+  geom_violin(position="dodge", alpha=0.5, outlier.colour="transparent") +
+  scale_fill_viridis(discrete=T, name="") +
+  theme_ipsum()  +
+  xlab("") +
+  ylab("Tip (%)") +
+  ylim(0,40)
 ```

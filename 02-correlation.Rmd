@@ -7,6 +7,726 @@ knitr::include_graphics("https://www.r-graph-gallery.com/215-the-heatmap-functio
 ```
 
 
+## Bubble Plot
+
+---
+
+A [bubble plot](https://www.data-to-viz.com/graph/bubble.html) is a [scatter plot](https://www.r-graph-gallery.com/scatterplot.html) with a third numeric variable mapped to circle size. This page describes several methods to build one with R. 
+
+#### A Bubble Chart is a Scatterplot
+
+A bubble chart is basically a [scatterplot](https://www.r-graph-gallery.com/scatterplot.html) with a third numeric variable used for circle size. Thus, remember all the tips described in the [scatterplot section](https://www.r-graph-gallery.com/scatterplot.html) also apply here.
+
+#### Step by Step with `ggplot2`
+
+`ggplot2` allows to create bubble chart thanks to the `geom_point()` function. Next examples will lead you through the process step by step:
+
+### Most Basic bubble Chart with `geom_point()`
+
+A [bubble plot](https://www.r-graph-gallery.com/bubble-chart.html) is a [scatterplot](https://www.r-graph-gallery.com/scatterplot.html) where a third dimension is added: the value of an additional numeric variable is represented through the size of the dots. (source: [data-to-viz](https://www.data-to-viz.com/graph/bubble.html)).
+
+With [ggplot2](https://www.r-graph-gallery.com/ggplot2-package.html), bubble chart are built thanks to the `geom_point()` function. At least three variable must be provided to `aes()`: **x**, **y** and **size**. The legend will automatically be built by ggplot2.
+
+Here, the relationship between life expectancy (`y`) and gdp per capita (`x`) of world countries is represented. The population of each country is represented through circle size.
+
+```{r bubble-plot-correlation-ggplot, echo=TRUE, message=FALSE, warning=FALSE}
+# Libraries
+library(ggplot2)
+library(dplyr)
+# The dataset is provided in the gapminder library
+library(gapminder)
+data <- gapminder %>% filter(year=="2007") %>% dplyr::select(-year)
+# Most basic bubble plot
+ggplot(data, aes(x=gdpPercap, y=lifeExp, size = pop)) +
+    geom_point(alpha=0.7)
+```
+
+### Control Circle Size with `scale_size()`
+
+The first thing we need to improve on the previous chart is the bubble size. `scale_size()` allows to set the size of the smallest and the biggest circles using the `range` argument. Note that you can customize the legend name with `name`.
+
+<u>Note</u>: circles often overlap. To avoid having big circles on top of the chart you have to reorder your dataset first, as in the code below.
+ 
+<u>ToDo</u>: give more details about how to map a numeric variable to circle size. Use of `scale_radius`, `scale_size` and `scale_size_area`. [See this post](https://www.data-to-viz.com/caveat/radius_or_area.html).
+
+```{r bubble-plot-correlation-ggplot-control-circle-size, echo=TRUE, message=FALSE, warning=FALSE}
+# Libraries
+library(ggplot2)
+library(dplyr)
+# The dataset is provided in the gapminder library
+library(gapminder)
+data <- gapminder %>% filter(year=="2007") %>% dplyr::select(-year)
+# Most basic bubble plot
+data %>%
+  arrange(desc(pop)) %>%
+  mutate(country = factor(country, country)) %>%
+  ggplot(aes(x=gdpPercap, y=lifeExp, size = pop)) +
+    geom_point(alpha=0.5) +
+    scale_size(range = c(.1, 24), name="Population (M)")
+```
+
+### Add a Fourth Dimension: Color
+
+If you have one more variable in your dataset, why not showing it using circle color? Here, the continent of each country is used to control circle color:
+
+```{r bubble-plot-correlation-ggplot-color-fourth-dimension, echo=TRUE, message=FALSE, warning=FALSE}
+# Libraries
+library(ggplot2)
+library(dplyr)
+# The dataset is provided in the gapminder library
+library(gapminder)
+data <- gapminder %>% filter(year=="2007") %>% dplyr::select(-year)
+# Most basic bubble plot
+data %>%
+  arrange(desc(pop)) %>%
+  mutate(country = factor(country, country)) %>%
+  ggplot(aes(x=gdpPercap, y=lifeExp, size=pop, color=continent)) +
+    geom_point(alpha=0.5) +
+    scale_size(range = c(.1, 24), name="Population (M)")
+```
+
+### Make it Pretty
+
+A few classic improvement:
+
+* Use of the `viridis` package for nice color palette.
+* Use of `theme_ipsum()` of the `hrbrthemes` package.
+* Custom axis titles with `xlab` and `ylab`.
+* Add stroke to circle: change `shape` to 21 and specify `color` (stroke) and `fill`.
+
+```{r bubble-plot-correlation-ggplot-improvements, echo=TRUE, message=FALSE, warning=FALSE}
+# Libraries
+library(ggplot2)
+library(dplyr)
+library(hrbrthemes)
+library(viridis)
+# The dataset is provided in the gapminder library
+library(gapminder)
+data <- gapminder %>% filter(year=="2007") %>% dplyr::select(-year)
+# Most basic bubble plot
+data %>%
+  arrange(desc(pop)) %>%
+  mutate(country = factor(country, country)) %>%
+  ggplot(aes(x=gdpPercap, y=lifeExp, size=pop, fill=continent)) +
+    geom_point(alpha=0.5, shape=21, color="black") +
+    scale_size(range = c(.1, 24), name="Population (M)") +
+    scale_fill_viridis(discrete=TRUE, guide=FALSE, option="A") +
+    theme_ipsum() +
+    theme(legend.position="bottom") +
+    ylab("Life Expectancy") +
+    xlab("Gdp per Capita") +
+    theme(legend.position = "none")
+```
+
+### Interactive Version
+
+Here is an interactive bubble chart built in R, thanks to the `ggplotly()` function of the `plotly` library. Try to hover circles to get a tooltip, or select an area of interest for zooming. Double click to reinitialize.
+
+#### Interactive Bubble Chart
+
+This section explains how to build an interactive [bubble chart](https://www.r-graph-gallery.com/bubble-chart.html) with R, using `ggplot2` and the `ggplotly()` function of the plotly package.
+
+#### Most Basic Bubble Chart with `geom_point()`
+
+This section follows the previous [step by step description](https://www.r-graph-gallery.com/320-the-basis-of-bubble-plot.html) of building [bubble chart](https://www.r-graph-gallery.com/bubble-chart.html) with [ggplot2](https://www.r-graph-gallery.com/ggplot2-package.html).
+
+The idea is to turn the chart interactive:
+
+* You can zoom by selecting an area of interest
+* Hover a circle to get information about it
+* Export to png
+* Slide axis
+* Double click to re-initialize.
+
+This is done thanks to the `ggplotly()` function of the `plotly` package that turn any ggplot2 chart object interactive. Note the little trick to custom the tooltip content.
+
+```{r bubble-plot-correlation-ggplot-interactive, echo=TRUE, message=FALSE, warning=FALSE}
+# Libraries
+library(ggplot2)
+library(dplyr)
+library(plotly)
+library(viridis)
+library(hrbrthemes)
+# The dataset is provided in the gapminder library
+library(gapminder)
+data <- gapminder %>% filter(year=="2007") %>% dplyr::select(-year)
+# Interactive version
+p <- data %>%
+  mutate(gdpPercap=round(gdpPercap,0)) %>%
+  mutate(pop=round(pop/1000000,2)) %>%
+  mutate(lifeExp=round(lifeExp,1)) %>%
+  
+  # Reorder countries to having big bubbles on top
+  arrange(desc(pop)) %>%
+  mutate(country = factor(country, country)) %>%
+  
+  # prepare text for tooltip
+  mutate(text = paste("Country: ", country, "\nPopulation (M): ", pop, "\nLife Expectancy: ", lifeExp, "\nGdp per capita: ", gdpPercap, sep="")) %>%
+  
+  # Classic ggplot
+  ggplot( aes(x=gdpPercap, y=lifeExp, size = pop, color = continent, text=text)) +
+    geom_point(alpha=0.7) +
+    scale_size(range = c(1.4, 19), name="Population (M)") +
+    scale_color_viridis(discrete=TRUE, guide=FALSE) +
+    theme_ipsum() +
+    theme(legend.position="none")
+# turn ggplot interactive with plotly
+pp <- ggplotly(p, tooltip="text")
+pp
+# save the widget
+# library(htmlwidgets)
+# saveWidget(pp, file=paste0( getwd(), "/HtmlWidget/ggplotlyBubblechart.html"))
+```
+
+## Connected Scatterplot
+
+---
+
+Welcome to the [connected scatterplot](https://www.data-to-viz.com/graph/connectedscatter.html) section of the gallery. If you want to know more about this kind of chart, visit [data-to-viz.com](https://www.data-to-viz.com/graph/connectedscatter.html). If you're looking for a simple way to implement it in R and `ggplot2`, pick an example below.
+
+### Connected Scatterplot with R and Ggplot2
+
+This section explains how to build a basic [connected scatterplot](https://www.r-graph-gallery.com/connected-scatterplot.html) with R and [ggplot2](https://www.r-graph-gallery.com/ggplot2-package.html). It provides several reproducible examples with explanation and R code.
+
+#### Most Basic Connected Scatterplot: `geom_point()` and `geom_line()`
+
+A [connected scatterplot](https://www.r-graph-gallery.com/connected-scatterplot.html) is basically a hybrid between a [scatterplot](https://www.r-graph-gallery.com/scatterplot.html) and a line plot. Thus, you just have to add a `geom_point()` on top of the `geom_line()` to build it.
+
+```r
+# Libraries
+library(ggplot2)
+library(dplyr)
+# Load dataset from github
+data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/3_TwoNumOrdered.csv", header=T)
+data$date <- as.Date(data$date)
+# Plot
+data %>%
+  tail(10) %>%
+  ggplot( aes(x=date, y=value)) +
+    geom_line() +
+    geom_point()
+```
+
+![](https://www.r-graph-gallery.com/connected_scatterplot_ggplot2_files/figure-html/thecode-1.png)
+
+### Customize the Connected Scatterplot
+
+Custom the general theme with the `theme_ipsum()` function of the hrbrthemes package. Add a title with `ggtitle()`. Custom circle and line with arguments like `shape`, `size`, `color` and more.
+
+```r
+# Libraries
+library(ggplot2)
+library(dplyr)
+library(hrbrthemes)
+# Load dataset from github
+data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/3_TwoNumOrdered.csv", header=T)
+data$date <- as.Date(data$date)
+# Plot
+data %>%
+  tail(10) %>%
+  ggplot( aes(x=date, y=value)) +
+    geom_line( color="grey") +
+    geom_point(shape=21, color="black", fill="#69b3a2", size=6) +
+    theme_ipsum() +
+    ggtitle("Evolution of bitcoin price")
+```
+
+![](https://www.r-graph-gallery.com/connected_scatterplot_ggplot2_files/figure-html/thecode2-1.png)
+
+### Connected Scatterplot to show an Evolution
+
+The [connected scatterplot](https://www.r-graph-gallery.com/connected-scatter.html) can also be a powerfull technique to tell a story about the evolution of 2 variables. Let???s consider a dataset composed of 3 columns:
+
+* Year
+* Number of baby born called Amanda this year
+* Number of baby born called Ashley
+
+The scatterplot beside allows to understand the evolution of these 2 names. Note that the code is pretty different in this case. `geom_segment()` is used of `geom_line()`. This is because `geom_line()` automatically sort data points depending on their X position to link them.
+
+
+```r
+# Libraries
+library(ggplot2)
+library(dplyr)
+library(babynames)
+library(ggrepel)
+library(tidyr)
+# data
+data <- babynames %>% 
+  filter(name %in% c("Ashley", "Amanda")) %>%
+  filter(sex=="F") %>%
+  filter(year>1970) %>%
+  dplyr::select(year, name, n) %>%
+  spread(key = name, value=n, -1)
+# plot
+data %>% 
+  ggplot(aes(x=Amanda, y=Ashley, label=year)) +
+     geom_point() +
+     geom_segment(aes(
+                    xend=c(tail(Amanda, n=-1), NA), 
+                    yend=c(tail(Ashley, n=-1), NA)
+                  )
+      ) 
+```
+
+<center>
+  ![](https://www.r-graph-gallery.com/connected_scatterplot_ggplot2_files/figure-html/thecode3-1.png){width=75%}
+</center>
+
+It makes sense to add arrows and labels to guide the reader in the chart:
+
+```r
+# data
+data <- babynames %>% 
+  filter(name %in% c("Ashley", "Amanda")) %>%
+  filter(sex=="F") %>%
+  filter(year>1970) %>%
+  dplyr::select(year, name, n) %>%
+  spread(key = name, value=n, -1)
+# Select a few date to label the chart
+tmp_date <- data %>% sample_frac(0.3)
+# plot 
+data %>% 
+  ggplot(aes(x=Amanda, y=Ashley, label=year)) +
+     geom_point(color="#69b3a2") +
+     geom_text_repel(data=tmp_date) +
+     geom_segment(color="#69b3a2", 
+                  aes(
+                    xend=c(tail(Amanda, n=-1), NA), 
+                    yend=c(tail(Ashley, n=-1), NA)
+                  ),
+                  arrow=arrow(length=unit(0.3,"cm"))
+      ) +
+      theme_ipsum()
+```
+
+
+<center>
+  ![](https://www.r-graph-gallery.com/connected_scatterplot_ggplot2_files/figure-html/thecode4-1.png){width=75%}
+</center>
+
+### Connected Scatterplot for `Time Series`
+
+Connected scatterplots are often used for [time series](https://www.r-graph-gallery.com/time-series.html). Remember the R graph gallery offers a dedicated section, with heaps of examples. For instance, here is an interactive chart made with the [dygraphs](https://www.r-graph-gallery.com/time-series.html) library.
+
+```r
+# Library
+library(dygraphs)
+library(xts)          # To make the convertion data-frame / xts format
+library(tidyverse)
+library(lubridate)
+ 
+# Read the data (hosted on the gallery website)
+data <- read.table("https://python-graph-gallery.com/wp-content/uploads/bike.csv", header=T, sep=",") %>% head(300)
+# Check type of variable
+# str(data)
+ 
+# Since my time is currently a factor, I have to convert it to a date-time format!
+data$datetime <- ymd_hms(data$datetime)
+ 
+# Then you can create the xts necessary to use dygraph
+don <- xts(x = data$count, order.by = data$datetime)
+# Finally the plot
+p <- dygraph(don) %>%
+  dyOptions(labelsUTC = TRUE, fillGraph=TRUE, fillAlpha=0.1, drawGrid = FALSE, colors="#D8AE5A") %>%
+  dyRangeSelector() %>%
+  dyCrosshair(direction = "vertical") %>%
+  dyHighlight(highlightCircleSize = 5, highlightSeriesBackgroundAlpha = 0.2, hideOnMouseOut = FALSE)  %>%
+  dyRoller(rollPeriod = 1)
+# save the widget
+# library(htmlwidgets)
+# saveWidget(p, file=paste0( getwd(), "/HtmlWidget/dygraphs318.html"))
+```
+
+
+<center>
+```{r correlation-dygraphs318, echo=FALSE}
+htmltools::tags$iframe(title = "My embedded document", src = "evolutionHtml/dygraphs318.html", height="400px", width = "100%")
+```
+</center>
+
+### Connected Scatterplot using Base R
+
+Basic R also allows to build connected scatterplot thanks to the `line()` function. You just need to use the `b` option of the `type` argument. See examples below.
+
+#### Add a Legend to a Base R Chart
+ 
+This section explains how to add a legend to a chart made with base R, using the `legend()` function. It provides several reproducible examples with explanation and `R` code. It is done using the `legend()` function. The main arguments are:
+
+This page aims to explain how to add a legend to a plot made in base R. It is done using the `legend()` function. The main arguments are:
+
+* `legend`: names to display
+* `bty`: type of box around the legend. See [graph #73](https://www.r-graph-gallery.com/73-box-style-with-the-bty-function.html)
+* `horiz`: legend in column or in row
+* `col`: symbol color
+* `pch`: symbol type. See [graph #6](https://www.r-graph-gallery.com/6-graph-parameters-reminder.html)
+* `pt.cex`: symbol size
+* `cex`: text size
+* `text.col`: text color
+* `topright`: legend position: `bottomright`, `bottom`, `bottomleft`, `left`, `topleft`, `top`, `topright`, `right`, `center`
+* `inset`: % (from 0 to 1) to draw the legend away from x and y axis
+
+You can also give the `X` and `Y` coordinate of the legend: `legend(3, 5, ...)`
+
+Note that an equivalent page exist concerning [legends with ggplot2](https://www.r-graph-gallery.com/239-custom-layout-legend-ggplot2.html).
+
+```r
+# Create data:
+a=c(1:5)
+b=c(5,3,4,5,5)
+c=c(4,5,4,3,1)
+ 
+# Make a basic graph
+plot( b~a , type="b" , bty="l" , xlab="value of a" , ylab="value of b" , col=rgb(0.2,0.4,0.1,0.7) , lwd=3 , pch=17 , ylim=c(1,5) )
+lines(c ~a , col=rgb(0.8,0.4,0.1,0.7) , lwd=3 , pch=19 , type="b" )
+ 
+# Add a legend
+legend("bottomleft", 
+  legend = c("Group 1", "Group 2"), 
+  col = c(rgb(0.2,0.4,0.1,0.7), 
+  rgb(0.8,0.4,0.1,0.7)), 
+  pch = c(17,19), 
+  bty = "n", 
+  pt.cex = 2, 
+  cex = 1.2, 
+  text.col = "black", 
+  horiz = F , 
+  inset = c(0.1, 0.1))
+```
+
+![](https://www.r-graph-gallery.com/119-add-a-legend-to-a-plot_files/figure-html/thecode-1.png)
+
+### Manage Dates Data with Base R
+
+This section explains how to deal with date data in base R. It takes a [connected scatterplot](https://www.r-graph-gallery.com/connected-scatterplot.html) as an example and display several options to deal with dates. 
+
+#### Important note about the `lubridate()` library.
+
+I strongly advise to have a look to the `lubridate()` library. It allows to easily manipulate the date format, and is very powerful in conjunction with [ggplot2](https://www.r-graph-gallery.com/ggplot2-package.html). Have a look to the [time series section](https://www.r-graph-gallery.com/time-series.html) of the gallery.
+
+##### Is your date recognized as a date?
+
+R offers a special data type for dates. It is important to use it since it will make the creation of charts lot easier. The `str()` function allows to check the type of each column. In the example beside, the `date` column is recognized as a factor.
+
+```{r manage-dates-data-base-r, echo=TRUE, message=FALSE, warning=FALSE}
+# Create data
+set.seed(124)
+date <- paste(   "2015/03/" , sample(seq(1,31),6) , sep="")
+value <- sample(seq(1,100) , 6)
+data <- data.frame(date,value)
+# Date and time are recognized as factor:
+str(data)
+```
+
+#### Why it Matters
+
+The issue is that your plot is gonna be very disappointing if the date is not recognized properly, as shown beside
+
+```{r manage-dates-data-base-r-two, echo=TRUE, message=FALSE, warning=FALSE}
+# Create data
+set.seed(124)
+date <- paste("2015/03/" , sample(seq(1,31),6) , sep="")
+value <- sample(seq(1,100) , 6)
+data <- data.frame(date,value)
+# Date and time are recognized as factor:
+str(data)
+```
+
+
+### Switch to Date Format
+
+You can use the `as.Date()` function to specify that a column is at the date format. Now, with a bit of customization, we can get a nice [connected scatterplot](https://www.r-graph-gallery.com/connected-scatterplot.html) from our data:
+
+```{r switch-dates-format-correlation, echo=TRUE, message=FALSE, warning=FALSE}
+# Create data
+set.seed(124)
+date <- paste(   "2015/03/" , sample(seq(1,31),6) , sep="")
+value <- sample(seq(1,100) , 6)
+data <- data.frame(date,value)
+# Let's change the date to the "date" format:
+data$date <- as.Date(data$date)
+ 
+# So we can sort the table:
+data <- data[order(data$date) , ]
+ 
+# Easy to make it better now:
+plot(data$value~data$date , type="b" , lwd=3 , col=rgb(0.1,0.7,0.1,0.8) , ylab="value of ..." , xlab="date" , bty="l" , pch=20 , cex=4)
+abline(h=seq(0,100,10) , col="grey", lwd=0.8)
+```
+
+### Base R Graph Parameters: Cheatsheet
+
+This section aims to remind the options offered to customize a graph in base R. Understand in a sec how to use `lwd`, `pch`, `type`, `lty`, `cex`, and more. Base R offers many option to customize the chart appearance. 
+
+Basically everthing is double with those few options:
+
+* `cex`: shape size
+* `lwd`: line width
+* `col`: control colors
+* `lty`: line type
+* `pch`: marker shape
+* `type`: link between dots
+
+<u>Note</u>: visit the cheatsheet section for more.
+
+```{r base-r-parameters, echo=TRUE, message=FALSE, warning=FALSE}
+# initialization
+par(mar=c(3,3,3,3))
+num <- 0 ; 
+num1 <- 0
+plot(0,0 , xlim=c(0,21) , ylim=c(0.5,6.5), col="white" , yaxt="n" , ylab="" , xlab="")
+ 
+#fill the graph
+for (i in seq(1,20)){
+  points(i,1 , pch=i , cex=3)
+  points(i,2 , col=i , pch=16 , cex=3)
+  points(i,3 , col="black" , pch=16 , cex=i*0.25)
+  
+  #lty
+  if(i %in% c(seq(1,18,3))){
+        num=num+1
+    points(c(i,i+2), c(4,4) , col="black" , lty=num , type="l" , lwd=2)
+        text(i+1.1 , 4.15 , num)
+        }
+  
+  #type and lwd 
+  if(i %in% c(seq(1,20,5))){
+    num1=num1+1
+    points(c(i,i+1,i+2,i+3), c(5,5,5,5) , col="black"  , type=c("p","l","b","o")[num1] , lwd=2)
+    text(i+1.1 , 5.2 , c("p","l","b","o")[num1] )
+    points(c(i,i+1,i+2,i+3), c(6,6,6,6) , col="black"  , type="l",  lwd=num1)
+    text(i+1.1 , 6.2 , num1 )
+ 
+    }
+  }
+ 
+#add axis
+axis(2, at = c(1,2,3,4,5,6), labels = c("pch" , "col" , "cex" , "lty", "type" , "lwd" ), 
+     tick = TRUE, col = "black", las = 1, cex.axis = 0.8)
+```
+
+## Density 2D
+
+---
+
+A [2D density chart](https://www.data-to-viz.com/graph/density2d.html) displays the relationship between 2 numeric variables. One is represented on the X axis, the other on the Y axis, like for a [scatterplot](https://www.r-graph-gallery.com/scatterplot.html). Then, the number of observations within a particular area of the 2D space is counted and represented by a color gradient. Several types of 2d density chart exist:
+
+#### 2d Histogram with `geom_bin2d()`
+
+This is the two dimension version of the classic [histogram](https://www.r-graph-gallery.com/histogram.html). The plot area is split in a multitude of small squares, the number of points in each square is represented by its color.
+
+### The Issue with `geom_point()`
+
+A 2d density plot is useful to study the relationship between 2 numeric variables if you have a huge number of points. To avoid overlapping (as in the scatterplot beside), it divides the plot area in a multitude of small fragment and represents the number of points in this fragment. There are several types of 2d density plots. Each has its proper ggplot2 function. This section describes all of them.
+
+```r
+# Library
+library(tidyverse)
+ 
+# Data
+a <- data.frame( x=rnorm(20000, 10, 1.9), y=rnorm(20000, 10, 1.2) )
+b <- data.frame( x=rnorm(20000, 14.5, 1.9), y=rnorm(20000, 14.5, 1.9) )
+c <- data.frame( x=rnorm(20000, 9.5, 1.9), y=rnorm(20000, 15.5, 1.9) )
+data <- rbind(a,b,c)
+ 
+ 
+# Basic scatterplot
+ggplot(data, aes(x=x, y=y) ) +
+  geom_point()# 2d histogram with default option
+ggplot(data, aes(x=x, y=y) ) +
+  geom_bin2d() +
+  theme_bw()
+ 
+```
+
+![](https://www.r-graph-gallery.com/2d-density-plot-with-ggplot2_files/figure-html/thecode-1.png)
+
+### 2d Histogram with `geom_bin2d()`
+
+This is the two dimension version of the classic [histogram](https://www.r-graph-gallery.com/histogram.html). The plot area is split in a multitude of small squares, the number of points in each square is represented by its color.
+
+For 2d histogram, the plot area is divided in a multitude of squares. (It is a 2d version of the classic histogram). It is called using the `geom_bin_2d()` function. This function offers a bins argument that controls the number of `bins` you want to display.
+
+<u>Note</u>: If you're not convinced about the importance of the `bins` option, read this.
+
+```r
+# 2d histogram with default option
+ggplot(data, aes(x=x, y=y) ) +
+  geom_bin2d() +
+  theme_bw()
+```
+
+![](https://www.r-graph-gallery.com/2d-density-plot-with-ggplot2_files/figure-html/thecode2-1.png)
+
+```r
+# Bin size control + color palette
+ggplot(data, aes(x=x, y=y) ) +
+  geom_bin2d(bins = 70) +
+  scale_fill_continuous(type = "viridis") +
+  theme_bw()
+```
+
+![](https://www.r-graph-gallery.com/2d-density-plot-with-ggplot2_files/figure-html/thecode2-2.png)
+
+### Hexbin Chart with `geom_hex()`
+
+Another alternative is to divide the plot area in a multitude of hexagons: it is thus called a hexbin chart, and is made using the `geom_hex()` function.
+
+This function provides the `bins` argument as well, to control the number of division per axis.
+
+```r
+# Hexbin chart with default option
+ggplot(data, aes(x=x, y=y) ) +
+  geom_hex() +
+  theme_bw()
+```
+
+![](https://www.r-graph-gallery.com/2d-density-plot-with-ggplot2_files/figure-html/thecode3-1.png)
+
+```r
+# Bin size control + color palette
+ggplot(data, aes(x=x, y=y) ) +
+  geom_hex(bins = 70) +
+  scale_fill_continuous(type = "viridis") +
+  theme_bw()
+```
+
+![](https://www.r-graph-gallery.com/2d-density-plot-with-ggplot2_files/figure-html/thecode3-2.png)
+
+### 2d Distribution with `geom_density_2d` or `stat_density_2d`
+
+As you can plot a [density chart](https://www.r-graph-gallery.com/density-plot.html) instead of a [histogram](https://www.r-graph-gallery.com/histogram.html), it is possible to compute a 2d density and represent it. Several possibilities are offered by `ggplot2`: you can show the contour of the distribution, or the area, or use the `raster` function:
+
+```r
+# Show the contour only
+ggplot(data, aes(x=x, y=y) ) +
+  geom_density_2d()
+```
+
+![](https://www.r-graph-gallery.com/2d-density-plot-with-ggplot2_files/figure-html/thecode4-1.png)
+
+```r
+# Show the area only
+ggplot(data, aes(x=x, y=y) ) +
+  stat_density_2d(aes(fill = ..level..), geom = "polygon")
+```
+
+![](https://www.r-graph-gallery.com/2d-density-plot-with-ggplot2_files/figure-html/thecode4-2.png)
+
+```r
+# Area + contour
+ggplot(data, aes(x=x, y=y) ) +
+  stat_density_2d(aes(fill = ..level..), geom = "polygon", colour="white")
+```
+
+![](https://www.r-graph-gallery.com/2d-density-plot-with-ggplot2_files/figure-html/thecode4-3.png)
+
+```r
+# Using raster
+ggplot(data, aes(x=x, y=y) ) +
+  stat_density_2d(aes(fill = ..density..), geom = "raster", contour = FALSE) +
+  scale_x_continuous(expand = c(0, 0)) +
+  scale_y_continuous(expand = c(0, 0)) +
+  theme(
+    legend.position='none'
+  )
+```
+
+![](https://www.r-graph-gallery.com/2d-density-plot-with-ggplot2_files/figure-html/thecode4-4.png)
+
+### Customize the Color Palette
+
+Whatever you use a 2d histogram, a hexbin chart or a 2d distribution, you can and should custom the colour of your chart. Here is a suggestion using the `scale_fill_distiller()` function. You can see other methods in the [ggplot2 section](https://www.r-graph-gallery.com/ggplot2-package.html) of the gallery.
+
+```r 
+# Call the palette with a number
+ggplot(data, aes(x=x, y=y) ) +
+  stat_density_2d(aes(fill = ..density..), geom = "raster", contour = FALSE) +
+  scale_fill_distiller(palette=4, direction=-1) +
+  scale_x_continuous(expand = c(0, 0)) +
+  scale_y_continuous(expand = c(0, 0)) +
+  theme(
+    legend.position='none'
+  )
+```
+
+![](https://www.r-graph-gallery.com/2d-density-plot-with-ggplot2_files/figure-html/thecode5-1.png)
+
+```r
+# The direction argument allows to reverse the palette
+ggplot(data, aes(x=x, y=y) ) +
+  stat_density_2d(aes(fill = ..density..), geom = "raster", contour = FALSE) +
+  scale_fill_distiller(palette=4, direction=1) +
+  scale_x_continuous(expand = c(0, 0)) +
+  scale_y_continuous(expand = c(0, 0)) +
+  theme(
+    legend.position='none'
+  )
+```
+
+![](https://www.r-graph-gallery.com/2d-density-plot-with-ggplot2_files/figure-html/thecode5-2.png)
+
+```r
+# You can also call the palette using a name.
+ggplot(data, aes(x=x, y=y) ) +
+  stat_density_2d(aes(fill = ..density..), geom = "raster", contour = FALSE) +
+  scale_fill_distiller(palette= "Spectral", direction=1) +
+  scale_x_continuous(expand = c(0, 0)) +
+  scale_y_continuous(expand = c(0, 0)) +
+  theme(
+    legend.position='none'
+  )
+```
+
+![](https://www.r-graph-gallery.com/2d-density-plot-with-ggplot2_files/figure-html/thecode5-3.png)
+
+### Hexbin Chart with the Hexbin Package
+ 
+This section explains how to build a hexbin chart with R using the `hexbin` package. Hexbin chart is a [2d density chart](https://www.r-graph-gallery.com/2d-density-chart.html), allowing to visualize the relationship between 2 numeric variables.
+
+[Scatterplots](https://www.r-graph-gallery.com/scatterplot.html) can get very hard to interpret when displaying large datasets, as points inevitably overplot and can't be individually discerned.
+
+Binning can be though of as a two-dimensional [histogram](https://www.r-graph-gallery.com/histogram.html), where shades of the bins take the place of the heights of the bars. This technique is computed in the `hexbin` package.
+
+This example has been published by [Myles Harrison](http://www.everydayanalytics.ca/2014/09/5-ways-to-do-2d-histograms-in-r.html) on R-bloggers.
+
+```r
+# Packages
+library(hexbin)
+library(RColorBrewer)
+ 
+# Create data
+x <- rnorm(mean=1.5, 5000)
+y <- rnorm(mean=1.6, 5000)
+ 
+# Make the plot
+bin<-hexbin(x, y, xbins=40)
+my_colors=colorRampPalette(rev(brewer.pal(11,'Spectral')))
+plot(bin, main="" , colramp=my_colors , legend=F ) 
+```
+<center>
+  ![](https://www.r-graph-gallery.com/100-high-density-scatterplot-with-binning_files/figure-html/thecode-1.png){width=75%}
+</center>
+### Hexbin Chart and Scatterplot with Ggplot2
+
+This section explains how to build a hexbin chart with a [scatterplot](https://www.r-graph-gallery.com/scatterplot.html) on top using R and [ggplot2](https://www.r-graph-gallery.com/ggplot2-package.html). It is an addition to the page about [2d density plot with ggplot2](https://www.r-graph-gallery.com/2d-density-plot-with-ggplot2.html). 
+
+This plot extends the concepts described in the [2d density chart with ggplot2](https://www.r-graph-gallery.com/2d-density-plot-with-ggplot2.html) document. It simply illustrates that a [scatterplot](https://www.r-graph-gallery.com/scatterplot.html) can be added on top of the 2d density chart.
+
+Thanks [Christian Jacob](http://chrisk91.me/) for this submission.
+
+```{r hexbin-correlation-scatterplot-ggplot, echo=TRUE, message=FALSE, warning=FALSE}
+# library
+library(ggplot2) 
+# data
+sample_data <- data.frame(x_values = 1:100 + rnorm(100,sd=20), y_values = 1:100 + rnorm(100,sd=27)) 
+#plot
+ggplot(sample_data, aes(x_values, y_values)) +
+  stat_density2d(geom="tile", aes(fill = ..density..), contour = FALSE) + 
+  geom_point(colour = "white")
+```
+
+
 ## Scatterplot
 
 ---
@@ -2078,722 +2798,3 @@ scatterplotMatrix(~mpg+disp+drat|cyl, data=data ,
 ```
 
 ![](https://www.r-graph-gallery.com/99-scatterplot-matrix-car-package_files/figure-html/thecode-1.png)
-
-## Bubble Plot
-
----
-
-A [bubble plot](https://www.data-to-viz.com/graph/bubble.html) is a [scatter plot](https://www.r-graph-gallery.com/scatterplot.html) with a third numeric variable mapped to circle size. This page describes several methods to build one with R. 
-
-#### A Bubble Chart is a Scatterplot
-
-A bubble chart is basically a [scatterplot](https://www.r-graph-gallery.com/scatterplot.html) with a third numeric variable used for circle size. Thus, remember all the tips described in the [scatterplot section](https://www.r-graph-gallery.com/scatterplot.html) also apply here.
-
-#### Step by Step with `ggplot2`
-
-`ggplot2` allows to create bubble chart thanks to the `geom_point()` function. Next examples will lead you through the process step by step:
-
-### Most Basic bubble Chart with `geom_point()`
-
-A [bubble plot](https://www.r-graph-gallery.com/bubble-chart.html) is a [scatterplot](https://www.r-graph-gallery.com/scatterplot.html) where a third dimension is added: the value of an additional numeric variable is represented through the size of the dots. (source: [data-to-viz](https://www.data-to-viz.com/graph/bubble.html)).
-
-With [ggplot2](https://www.r-graph-gallery.com/ggplot2-package.html), bubble chart are built thanks to the `geom_point()` function. At least three variable must be provided to `aes()`: **x**, **y** and **size**. The legend will automatically be built by ggplot2.
-
-Here, the relationship between life expectancy (`y`) and gdp per capita (`x`) of world countries is represented. The population of each country is represented through circle size.
-
-```{r bubble-plot-correlation-ggplot, echo=TRUE, message=FALSE, warning=FALSE}
-# Libraries
-library(ggplot2)
-library(dplyr)
-# The dataset is provided in the gapminder library
-library(gapminder)
-data <- gapminder %>% filter(year=="2007") %>% dplyr::select(-year)
-# Most basic bubble plot
-ggplot(data, aes(x=gdpPercap, y=lifeExp, size = pop)) +
-    geom_point(alpha=0.7)
-```
-
-### Control Circle Size with `scale_size()`
-
-The first thing we need to improve on the previous chart is the bubble size. `scale_size()` allows to set the size of the smallest and the biggest circles using the `range` argument. Note that you can customize the legend name with `name`.
-
-<u>Note</u>: circles often overlap. To avoid having big circles on top of the chart you have to reorder your dataset first, as in the code below.
- 
-<u>ToDo</u>: give more details about how to map a numeric variable to circle size. Use of `scale_radius`, `scale_size` and `scale_size_area`. [See this post](https://www.data-to-viz.com/caveat/radius_or_area.html).
-
-```{r bubble-plot-correlation-ggplot-control-circle-size, echo=TRUE, message=FALSE, warning=FALSE}
-# Libraries
-library(ggplot2)
-library(dplyr)
-# The dataset is provided in the gapminder library
-library(gapminder)
-data <- gapminder %>% filter(year=="2007") %>% dplyr::select(-year)
-# Most basic bubble plot
-data %>%
-  arrange(desc(pop)) %>%
-  mutate(country = factor(country, country)) %>%
-  ggplot(aes(x=gdpPercap, y=lifeExp, size = pop)) +
-    geom_point(alpha=0.5) +
-    scale_size(range = c(.1, 24), name="Population (M)")
-```
-
-### Add a Fourth Dimension: Color
-
-If you have one more variable in your dataset, why not showing it using circle color? Here, the continent of each country is used to control circle color:
-
-```{r bubble-plot-correlation-ggplot-color-fourth-dimension, echo=TRUE, message=FALSE, warning=FALSE}
-# Libraries
-library(ggplot2)
-library(dplyr)
-# The dataset is provided in the gapminder library
-library(gapminder)
-data <- gapminder %>% filter(year=="2007") %>% dplyr::select(-year)
-# Most basic bubble plot
-data %>%
-  arrange(desc(pop)) %>%
-  mutate(country = factor(country, country)) %>%
-  ggplot(aes(x=gdpPercap, y=lifeExp, size=pop, color=continent)) +
-    geom_point(alpha=0.5) +
-    scale_size(range = c(.1, 24), name="Population (M)")
-```
-
-### Make it Pretty
-
-A few classic improvement:
-
-* Use of the `viridis` package for nice color palette.
-* Use of `theme_ipsum()` of the `hrbrthemes` package.
-* Custom axis titles with `xlab` and `ylab`.
-* Add stroke to circle: change `shape` to 21 and specify `color` (stroke) and `fill`.
-
-```{r bubble-plot-correlation-ggplot-improvements, echo=TRUE, message=FALSE, warning=FALSE}
-# Libraries
-library(ggplot2)
-library(dplyr)
-library(hrbrthemes)
-library(viridis)
-# The dataset is provided in the gapminder library
-library(gapminder)
-data <- gapminder %>% filter(year=="2007") %>% dplyr::select(-year)
-# Most basic bubble plot
-data %>%
-  arrange(desc(pop)) %>%
-  mutate(country = factor(country, country)) %>%
-  ggplot(aes(x=gdpPercap, y=lifeExp, size=pop, fill=continent)) +
-    geom_point(alpha=0.5, shape=21, color="black") +
-    scale_size(range = c(.1, 24), name="Population (M)") +
-    scale_fill_viridis(discrete=TRUE, guide=FALSE, option="A") +
-    theme_ipsum() +
-    theme(legend.position="bottom") +
-    ylab("Life Expectancy") +
-    xlab("Gdp per Capita") +
-    theme(legend.position = "none")
-```
-
-### Interactive Version
-
-Here is an interactive bubble chart built in R, thanks to the `ggplotly()` function of the `plotly` library. Try to hover circles to get a tooltip, or select an area of interest for zooming. Double click to reinitialize.
-
-#### Interactive Bubble Chart
-
-This section explains how to build an interactive [bubble chart](https://www.r-graph-gallery.com/bubble-chart.html) with R, using `ggplot2` and the `ggplotly()` function of the plotly package.
-
-#### Most Basic Bubble Chart with `geom_point()`
-
-This section follows the previous [step by step description](https://www.r-graph-gallery.com/320-the-basis-of-bubble-plot.html) of building [bubble chart](https://www.r-graph-gallery.com/bubble-chart.html) with [ggplot2](https://www.r-graph-gallery.com/ggplot2-package.html).
-
-The idea is to turn the chart interactive:
-
-* You can zoom by selecting an area of interest
-* Hover a circle to get information about it
-* Export to png
-* Slide axis
-* Double click to re-initialize.
-
-This is done thanks to the `ggplotly()` function of the `plotly` package that turn any ggplot2 chart object interactive. Note the little trick to custom the tooltip content.
-
-```{r bubble-plot-correlation-ggplot-interactive, echo=TRUE, message=FALSE, warning=FALSE}
-# Libraries
-library(ggplot2)
-library(dplyr)
-library(plotly)
-library(viridis)
-library(hrbrthemes)
-# The dataset is provided in the gapminder library
-library(gapminder)
-data <- gapminder %>% filter(year=="2007") %>% dplyr::select(-year)
-# Interactive version
-p <- data %>%
-  mutate(gdpPercap=round(gdpPercap,0)) %>%
-  mutate(pop=round(pop/1000000,2)) %>%
-  mutate(lifeExp=round(lifeExp,1)) %>%
-  
-  # Reorder countries to having big bubbles on top
-  arrange(desc(pop)) %>%
-  mutate(country = factor(country, country)) %>%
-  
-  # prepare text for tooltip
-  mutate(text = paste("Country: ", country, "\nPopulation (M): ", pop, "\nLife Expectancy: ", lifeExp, "\nGdp per capita: ", gdpPercap, sep="")) %>%
-  
-  # Classic ggplot
-  ggplot( aes(x=gdpPercap, y=lifeExp, size = pop, color = continent, text=text)) +
-    geom_point(alpha=0.7) +
-    scale_size(range = c(1.4, 19), name="Population (M)") +
-    scale_color_viridis(discrete=TRUE, guide=FALSE) +
-    theme_ipsum() +
-    theme(legend.position="none")
-# turn ggplot interactive with plotly
-pp <- ggplotly(p, tooltip="text")
-pp
-# save the widget
-# library(htmlwidgets)
-# saveWidget(pp, file=paste0( getwd(), "/HtmlWidget/ggplotlyBubblechart.html"))
-```
-
-## Connected Scatterplot
-
----
-
-Welcome to the [connected scatterplot](https://www.data-to-viz.com/graph/connectedscatter.html) section of the gallery. If you want to know more about this kind of chart, visit [data-to-viz.com](https://www.data-to-viz.com/graph/connectedscatter.html). If you're looking for a simple way to implement it in R and `ggplot2`, pick an example below.
-
-### Connected Scatterplot with R and Ggplot2
-
-This section explains how to build a basic [connected scatterplot](https://www.r-graph-gallery.com/connected-scatterplot.html) with R and [ggplot2](https://www.r-graph-gallery.com/ggplot2-package.html). It provides several reproducible examples with explanation and R code.
-
-#### Most Basic Connected Scatterplot: `geom_point()` and `geom_line()`
-
-A [connected scatterplot](https://www.r-graph-gallery.com/connected-scatterplot.html) is basically a hybrid between a [scatterplot](https://www.r-graph-gallery.com/scatterplot.html) and a line plot. Thus, you just have to add a `geom_point()` on top of the `geom_line()` to build it.
-
-```r
-# Libraries
-library(ggplot2)
-library(dplyr)
-# Load dataset from github
-data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/3_TwoNumOrdered.csv", header=T)
-data$date <- as.Date(data$date)
-# Plot
-data %>%
-  tail(10) %>%
-  ggplot( aes(x=date, y=value)) +
-    geom_line() +
-    geom_point()
-```
-
-![](https://www.r-graph-gallery.com/connected_scatterplot_ggplot2_files/figure-html/thecode-1.png)
-
-### Customize the Connected Scatterplot
-
-Custom the general theme with the `theme_ipsum()` function of the hrbrthemes package. Add a title with `ggtitle()`. Custom circle and line with arguments like `shape`, `size`, `color` and more.
-
-```r
-# Libraries
-library(ggplot2)
-library(dplyr)
-library(hrbrthemes)
-# Load dataset from github
-data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/3_TwoNumOrdered.csv", header=T)
-data$date <- as.Date(data$date)
-# Plot
-data %>%
-  tail(10) %>%
-  ggplot( aes(x=date, y=value)) +
-    geom_line( color="grey") +
-    geom_point(shape=21, color="black", fill="#69b3a2", size=6) +
-    theme_ipsum() +
-    ggtitle("Evolution of bitcoin price")
-```
-
-![](https://www.r-graph-gallery.com/connected_scatterplot_ggplot2_files/figure-html/thecode2-1.png)
-
-### Connected Scatterplot to show an Evolution
-
-The [connected scatterplot](https://www.r-graph-gallery.com/connected-scatter.html) can also be a powerfull technique to tell a story about the evolution of 2 variables. Let???s consider a dataset composed of 3 columns:
-
-* Year
-* Number of baby born called Amanda this year
-* Number of baby born called Ashley
-
-The scatterplot beside allows to understand the evolution of these 2 names. Note that the code is pretty different in this case. `geom_segment()` is used of `geom_line()`. This is because `geom_line()` automatically sort data points depending on their X position to link them.
-
-
-```r
-# Libraries
-library(ggplot2)
-library(dplyr)
-library(babynames)
-library(ggrepel)
-library(tidyr)
-# data
-data <- babynames %>% 
-  filter(name %in% c("Ashley", "Amanda")) %>%
-  filter(sex=="F") %>%
-  filter(year>1970) %>%
-  dplyr::select(year, name, n) %>%
-  spread(key = name, value=n, -1)
-# plot
-data %>% 
-  ggplot(aes(x=Amanda, y=Ashley, label=year)) +
-     geom_point() +
-     geom_segment(aes(
-                    xend=c(tail(Amanda, n=-1), NA), 
-                    yend=c(tail(Ashley, n=-1), NA)
-                  )
-      ) 
-```
-
-<center>
-  ![](https://www.r-graph-gallery.com/connected_scatterplot_ggplot2_files/figure-html/thecode3-1.png){width=75%}
-</center>
-
-It makes sense to add arrows and labels to guide the reader in the chart:
-
-```r
-# data
-data <- babynames %>% 
-  filter(name %in% c("Ashley", "Amanda")) %>%
-  filter(sex=="F") %>%
-  filter(year>1970) %>%
-  dplyr::select(year, name, n) %>%
-  spread(key = name, value=n, -1)
-# Select a few date to label the chart
-tmp_date <- data %>% sample_frac(0.3)
-# plot 
-data %>% 
-  ggplot(aes(x=Amanda, y=Ashley, label=year)) +
-     geom_point(color="#69b3a2") +
-     geom_text_repel(data=tmp_date) +
-     geom_segment(color="#69b3a2", 
-                  aes(
-                    xend=c(tail(Amanda, n=-1), NA), 
-                    yend=c(tail(Ashley, n=-1), NA)
-                  ),
-                  arrow=arrow(length=unit(0.3,"cm"))
-      ) +
-      theme_ipsum()
-```
-
-
-<center>
-  ![](https://www.r-graph-gallery.com/connected_scatterplot_ggplot2_files/figure-html/thecode4-1.png){width=75%}
-</center>
-
-### Connected Scatterplot for `Time Series`
-
-Connected scatterplots are often used for [time series](https://www.r-graph-gallery.com/time-series.html). Remember the R graph gallery offers a dedicated section, with heaps of examples. For instance, here is an interactive chart made with the [dygraphs](https://www.r-graph-gallery.com/time-series.html) library.
-
-```r
-# Library
-library(dygraphs)
-library(xts)          # To make the convertion data-frame / xts format
-library(tidyverse)
-library(lubridate)
- 
-# Read the data (hosted on the gallery website)
-data <- read.table("https://python-graph-gallery.com/wp-content/uploads/bike.csv", header=T, sep=",") %>% head(300)
-# Check type of variable
-# str(data)
- 
-# Since my time is currently a factor, I have to convert it to a date-time format!
-data$datetime <- ymd_hms(data$datetime)
- 
-# Then you can create the xts necessary to use dygraph
-don <- xts(x = data$count, order.by = data$datetime)
-# Finally the plot
-p <- dygraph(don) %>%
-  dyOptions(labelsUTC = TRUE, fillGraph=TRUE, fillAlpha=0.1, drawGrid = FALSE, colors="#D8AE5A") %>%
-  dyRangeSelector() %>%
-  dyCrosshair(direction = "vertical") %>%
-  dyHighlight(highlightCircleSize = 5, highlightSeriesBackgroundAlpha = 0.2, hideOnMouseOut = FALSE)  %>%
-  dyRoller(rollPeriod = 1)
-# save the widget
-# library(htmlwidgets)
-# saveWidget(p, file=paste0( getwd(), "/HtmlWidget/dygraphs318.html"))
-```
-
-
-<center>
-```{r correlation-dygraphs318, echo=FALSE}
-htmltools::tags$iframe(title = "My embedded document", src = "evolutionHtml/dygraphs318.html", height="400px", width = "100%")
-```
-</center>
-
-### Connected Scatterplot using Base R
-
-Basic R also allows to build connected scatterplot thanks to the `line()` function. You just need to use the `b` option of the `type` argument. See examples below.
-
-#### Add a Legend to a Base R Chart
- 
-This section explains how to add a legend to a chart made with base R, using the `legend()` function. It provides several reproducible examples with explanation and `R` code. It is done using the `legend()` function. The main arguments are:
-
-This page aims to explain how to add a legend to a plot made in base R. It is done using the `legend()` function. The main arguments are:
-
-* `legend`: names to display
-* `bty`: type of box around the legend. See [graph #73](https://www.r-graph-gallery.com/73-box-style-with-the-bty-function.html)
-* `horiz`: legend in column or in row
-* `col`: symbol color
-* `pch`: symbol type. See [graph #6](https://www.r-graph-gallery.com/6-graph-parameters-reminder.html)
-* `pt.cex`: symbol size
-* `cex`: text size
-* `text.col`: text color
-* `topright`: legend position: `bottomright`, `bottom`, `bottomleft`, `left`, `topleft`, `top`, `topright`, `right`, `center`
-* `inset`: % (from 0 to 1) to draw the legend away from x and y axis
-
-You can also give the `X` and `Y` coordinate of the legend: `legend(3, 5, ...)`
-
-Note that an equivalent page exist concerning [legends with ggplot2](https://www.r-graph-gallery.com/239-custom-layout-legend-ggplot2.html).
-
-```r
-# Create data:
-a=c(1:5)
-b=c(5,3,4,5,5)
-c=c(4,5,4,3,1)
- 
-# Make a basic graph
-plot( b~a , type="b" , bty="l" , xlab="value of a" , ylab="value of b" , col=rgb(0.2,0.4,0.1,0.7) , lwd=3 , pch=17 , ylim=c(1,5) )
-lines(c ~a , col=rgb(0.8,0.4,0.1,0.7) , lwd=3 , pch=19 , type="b" )
- 
-# Add a legend
-legend("bottomleft", 
-  legend = c("Group 1", "Group 2"), 
-  col = c(rgb(0.2,0.4,0.1,0.7), 
-  rgb(0.8,0.4,0.1,0.7)), 
-  pch = c(17,19), 
-  bty = "n", 
-  pt.cex = 2, 
-  cex = 1.2, 
-  text.col = "black", 
-  horiz = F , 
-  inset = c(0.1, 0.1))
-```
-
-![](https://www.r-graph-gallery.com/119-add-a-legend-to-a-plot_files/figure-html/thecode-1.png)
-
-### Manage Dates Data with Base R
-
-This section explains how to deal with date data in base R. It takes a [connected scatterplot](https://www.r-graph-gallery.com/connected-scatterplot.html) as an example and display several options to deal with dates. 
-
-#### Important note about the `lubridate()` library.
-
-I strongly advise to have a look to the `lubridate()` library. It allows to easily manipulate the date format, and is very powerful in conjunction with [ggplot2](https://www.r-graph-gallery.com/ggplot2-package.html). Have a look to the [time series section](https://www.r-graph-gallery.com/time-series.html) of the gallery.
-
-##### Is your date recognized as a date?
-
-R offers a special data type for dates. It is important to use it since it will make the creation of charts lot easier. The `str()` function allows to check the type of each column. In the example beside, the `date` column is recognized as a factor.
-
-```{r manage-dates-data-base-r, echo=TRUE, message=FALSE, warning=FALSE}
-# Create data
-set.seed(124)
-date <- paste(   "2015/03/" , sample(seq(1,31),6) , sep="")
-value <- sample(seq(1,100) , 6)
-data <- data.frame(date,value)
-# Date and time are recognized as factor:
-str(data)
-```
-
-#### Why it Matters
-
-The issue is that your plot is gonna be very disappointing if the date is not recognized properly, as shown beside
-
-```{r manage-dates-data-base-r-two, echo=TRUE, message=FALSE, warning=FALSE}
-# Create data
-set.seed(124)
-date <- paste("2015/03/" , sample(seq(1,31),6) , sep="")
-value <- sample(seq(1,100) , 6)
-data <- data.frame(date,value)
-# Date and time are recognized as factor:
-str(data)
-```
-
-
-### Switch to Date Format
-
-You can use the `as.Date()` function to specify that a column is at the date format. Now, with a bit of customization, we can get a nice [connected scatterplot](https://www.r-graph-gallery.com/connected-scatterplot.html) from our data:
-
-```{r switch-dates-format-correlation, echo=TRUE, message=FALSE, warning=FALSE}
-# Create data
-set.seed(124)
-date <- paste(   "2015/03/" , sample(seq(1,31),6) , sep="")
-value <- sample(seq(1,100) , 6)
-data <- data.frame(date,value)
-# Let's change the date to the "date" format:
-data$date <- as.Date(data$date)
- 
-# So we can sort the table:
-data <- data[order(data$date) , ]
- 
-# Easy to make it better now:
-plot(data$value~data$date , type="b" , lwd=3 , col=rgb(0.1,0.7,0.1,0.8) , ylab="value of ..." , xlab="date" , bty="l" , pch=20 , cex=4)
-abline(h=seq(0,100,10) , col="grey", lwd=0.8)
-```
-
-### Base R Graph Parameters: Cheatsheet
-
-This section aims to remind the options offered to customize a graph in base R. Understand in a sec how to use `lwd`, `pch`, `type`, `lty`, `cex`, and more. Base R offers many option to customize the chart appearance. 
-
-Basically everthing is double with those few options:
-
-* `cex`: shape size
-* `lwd`: line width
-* `col`: control colors
-* `lty`: line type
-* `pch`: marker shape
-* `type`: link between dots
-
-<u>Note</u>: visit the cheatsheet section for more.
-
-```{r base-r-parameters, echo=TRUE, message=FALSE, warning=FALSE}
-# initialization
-par(mar=c(3,3,3,3))
-num <- 0 ; 
-num1 <- 0
-plot(0,0 , xlim=c(0,21) , ylim=c(0.5,6.5), col="white" , yaxt="n" , ylab="" , xlab="")
- 
-#fill the graph
-for (i in seq(1,20)){
-  points(i,1 , pch=i , cex=3)
-  points(i,2 , col=i , pch=16 , cex=3)
-  points(i,3 , col="black" , pch=16 , cex=i*0.25)
-  
-  #lty
-  if(i %in% c(seq(1,18,3))){
-        num=num+1
-    points(c(i,i+2), c(4,4) , col="black" , lty=num , type="l" , lwd=2)
-        text(i+1.1 , 4.15 , num)
-        }
-  
-  #type and lwd 
-  if(i %in% c(seq(1,20,5))){
-    num1=num1+1
-    points(c(i,i+1,i+2,i+3), c(5,5,5,5) , col="black"  , type=c("p","l","b","o")[num1] , lwd=2)
-    text(i+1.1 , 5.2 , c("p","l","b","o")[num1] )
-    points(c(i,i+1,i+2,i+3), c(6,6,6,6) , col="black"  , type="l",  lwd=num1)
-    text(i+1.1 , 6.2 , num1 )
- 
-    }
-  }
- 
-#add axis
-axis(2, at = c(1,2,3,4,5,6), labels = c("pch" , "col" , "cex" , "lty", "type" , "lwd" ), 
-     tick = TRUE, col = "black", las = 1, cex.axis = 0.8)
-```
-
-## Density 2D
-
----
-
-A [2D density chart](https://www.data-to-viz.com/graph/density2d.html) displays the relationship between 2 numeric variables. One is represented on the X axis, the other on the Y axis, like for a [scatterplot](https://www.r-graph-gallery.com/scatterplot.html). Then, the number of observations within a particular area of the 2D space is counted and represented by a color gradient. Several types of 2d density chart exist:
-
-#### 2d Histogram with `geom_bin2d()`
-
-This is the two dimension version of the classic [histogram](https://www.r-graph-gallery.com/histogram.html). The plot area is split in a multitude of small squares, the number of points in each square is represented by its color.
-
-### The Issue with `geom_point()`
-
-A 2d density plot is useful to study the relationship between 2 numeric variables if you have a huge number of points. To avoid overlapping (as in the scatterplot beside), it divides the plot area in a multitude of small fragment and represents the number of points in this fragment. There are several types of 2d density plots. Each has its proper ggplot2 function. This section describes all of them.
-
-```r
-# Library
-library(tidyverse)
- 
-# Data
-a <- data.frame( x=rnorm(20000, 10, 1.9), y=rnorm(20000, 10, 1.2) )
-b <- data.frame( x=rnorm(20000, 14.5, 1.9), y=rnorm(20000, 14.5, 1.9) )
-c <- data.frame( x=rnorm(20000, 9.5, 1.9), y=rnorm(20000, 15.5, 1.9) )
-data <- rbind(a,b,c)
- 
- 
-# Basic scatterplot
-ggplot(data, aes(x=x, y=y) ) +
-  geom_point()# 2d histogram with default option
-ggplot(data, aes(x=x, y=y) ) +
-  geom_bin2d() +
-  theme_bw()
- 
-```
-
-![](https://www.r-graph-gallery.com/2d-density-plot-with-ggplot2_files/figure-html/thecode-1.png)
-
-### 2d Histogram with `geom_bin2d()`
-
-This is the two dimension version of the classic [histogram](https://www.r-graph-gallery.com/histogram.html). The plot area is split in a multitude of small squares, the number of points in each square is represented by its color.
-
-For 2d histogram, the plot area is divided in a multitude of squares. (It is a 2d version of the classic histogram). It is called using the `geom_bin_2d()` function. This function offers a bins argument that controls the number of `bins` you want to display.
-
-<u>Note</u>: If you're not convinced about the importance of the `bins` option, read this.
-
-```r
-# 2d histogram with default option
-ggplot(data, aes(x=x, y=y) ) +
-  geom_bin2d() +
-  theme_bw()
-```
-
-![](https://www.r-graph-gallery.com/2d-density-plot-with-ggplot2_files/figure-html/thecode2-1.png)
-
-```r
-# Bin size control + color palette
-ggplot(data, aes(x=x, y=y) ) +
-  geom_bin2d(bins = 70) +
-  scale_fill_continuous(type = "viridis") +
-  theme_bw()
-```
-
-![](https://www.r-graph-gallery.com/2d-density-plot-with-ggplot2_files/figure-html/thecode2-2.png)
-
-### Hexbin Chart with `geom_hex()`
-
-Another alternative is to divide the plot area in a multitude of hexagons: it is thus called a hexbin chart, and is made using the `geom_hex()` function.
-
-This function provides the `bins` argument as well, to control the number of division per axis.
-
-```r
-# Hexbin chart with default option
-ggplot(data, aes(x=x, y=y) ) +
-  geom_hex() +
-  theme_bw()
-```
-
-![](https://www.r-graph-gallery.com/2d-density-plot-with-ggplot2_files/figure-html/thecode3-1.png)
-
-```r
-# Bin size control + color palette
-ggplot(data, aes(x=x, y=y) ) +
-  geom_hex(bins = 70) +
-  scale_fill_continuous(type = "viridis") +
-  theme_bw()
-```
-
-![](https://www.r-graph-gallery.com/2d-density-plot-with-ggplot2_files/figure-html/thecode3-2.png)
-
-### 2d Distribution with `geom_density_2d` or `stat_density_2d`
-
-As you can plot a [density chart](https://www.r-graph-gallery.com/density-plot.html) instead of a [histogram](https://www.r-graph-gallery.com/histogram.html), it is possible to compute a 2d density and represent it. Several possibilities are offered by `ggplot2`: you can show the contour of the distribution, or the area, or use the `raster` function:
-
-```r
-# Show the contour only
-ggplot(data, aes(x=x, y=y) ) +
-  geom_density_2d()
-```
-
-![](https://www.r-graph-gallery.com/2d-density-plot-with-ggplot2_files/figure-html/thecode4-1.png)
-
-```r
-# Show the area only
-ggplot(data, aes(x=x, y=y) ) +
-  stat_density_2d(aes(fill = ..level..), geom = "polygon")
-```
-
-![](https://www.r-graph-gallery.com/2d-density-plot-with-ggplot2_files/figure-html/thecode4-2.png)
-
-```r
-# Area + contour
-ggplot(data, aes(x=x, y=y) ) +
-  stat_density_2d(aes(fill = ..level..), geom = "polygon", colour="white")
-```
-
-![](https://www.r-graph-gallery.com/2d-density-plot-with-ggplot2_files/figure-html/thecode4-3.png)
-
-```r
-# Using raster
-ggplot(data, aes(x=x, y=y) ) +
-  stat_density_2d(aes(fill = ..density..), geom = "raster", contour = FALSE) +
-  scale_x_continuous(expand = c(0, 0)) +
-  scale_y_continuous(expand = c(0, 0)) +
-  theme(
-    legend.position='none'
-  )
-```
-
-![](https://www.r-graph-gallery.com/2d-density-plot-with-ggplot2_files/figure-html/thecode4-4.png)
-
-### Customize the Color Palette
-
-Whatever you use a 2d histogram, a hexbin chart or a 2d distribution, you can and should custom the colour of your chart. Here is a suggestion using the `scale_fill_distiller()` function. You can see other methods in the [ggplot2 section](https://www.r-graph-gallery.com/ggplot2-package.html) of the gallery.
-
-```r 
-# Call the palette with a number
-ggplot(data, aes(x=x, y=y) ) +
-  stat_density_2d(aes(fill = ..density..), geom = "raster", contour = FALSE) +
-  scale_fill_distiller(palette=4, direction=-1) +
-  scale_x_continuous(expand = c(0, 0)) +
-  scale_y_continuous(expand = c(0, 0)) +
-  theme(
-    legend.position='none'
-  )
-```
-
-![](https://www.r-graph-gallery.com/2d-density-plot-with-ggplot2_files/figure-html/thecode5-1.png)
-
-```r
-# The direction argument allows to reverse the palette
-ggplot(data, aes(x=x, y=y) ) +
-  stat_density_2d(aes(fill = ..density..), geom = "raster", contour = FALSE) +
-  scale_fill_distiller(palette=4, direction=1) +
-  scale_x_continuous(expand = c(0, 0)) +
-  scale_y_continuous(expand = c(0, 0)) +
-  theme(
-    legend.position='none'
-  )
-```
-
-![](https://www.r-graph-gallery.com/2d-density-plot-with-ggplot2_files/figure-html/thecode5-2.png)
-
-```r
-# You can also call the palette using a name.
-ggplot(data, aes(x=x, y=y) ) +
-  stat_density_2d(aes(fill = ..density..), geom = "raster", contour = FALSE) +
-  scale_fill_distiller(palette= "Spectral", direction=1) +
-  scale_x_continuous(expand = c(0, 0)) +
-  scale_y_continuous(expand = c(0, 0)) +
-  theme(
-    legend.position='none'
-  )
-```
-
-![](https://www.r-graph-gallery.com/2d-density-plot-with-ggplot2_files/figure-html/thecode5-3.png)
-
-### Hexbin Chart with the Hexbin Package
- 
-This section explains how to build a hexbin chart with R using the `hexbin` package. Hexbin chart is a [2d density chart](https://www.r-graph-gallery.com/2d-density-chart.html), allowing to visualize the relationship between 2 numeric variables.
-
-[Scatterplots](https://www.r-graph-gallery.com/scatterplot.html) can get very hard to interpret when displaying large datasets, as points inevitably overplot and can't be individually discerned.
-
-Binning can be though of as a two-dimensional [histogram](https://www.r-graph-gallery.com/histogram.html), where shades of the bins take the place of the heights of the bars. This technique is computed in the `hexbin` package.
-
-This example has been published by [Myles Harrison](http://www.everydayanalytics.ca/2014/09/5-ways-to-do-2d-histograms-in-r.html) on R-bloggers.
-
-```r
-# Packages
-library(hexbin)
-library(RColorBrewer)
- 
-# Create data
-x <- rnorm(mean=1.5, 5000)
-y <- rnorm(mean=1.6, 5000)
- 
-# Make the plot
-bin<-hexbin(x, y, xbins=40)
-my_colors=colorRampPalette(rev(brewer.pal(11,'Spectral')))
-plot(bin, main="" , colramp=my_colors , legend=F ) 
-```
-<center>
-  ![](https://www.r-graph-gallery.com/100-high-density-scatterplot-with-binning_files/figure-html/thecode-1.png){width=75%}
-</center>
-### Hexbin Chart and Scatterplot with Ggplot2
-
-This section explains how to build a hexbin chart with a [scatterplot](https://www.r-graph-gallery.com/scatterplot.html) on top using R and [ggplot2](https://www.r-graph-gallery.com/ggplot2-package.html). It is an addition to the page about [2d density plot with ggplot2](https://www.r-graph-gallery.com/2d-density-plot-with-ggplot2.html). 
-
-This plot extends the concepts described in the [2d density chart with ggplot2](https://www.r-graph-gallery.com/2d-density-plot-with-ggplot2.html) document. It simply illustrates that a [scatterplot](https://www.r-graph-gallery.com/scatterplot.html) can be added on top of the 2d density chart.
-
-Thanks [Christian Jacob](http://chrisk91.me/) for this submission.
-
-```{r hexbin-correlation-scatterplot-ggplot, echo=TRUE, message=FALSE, warning=FALSE}
-# library
-library(ggplot2) 
-# data
-sample_data <- data.frame(x_values = 1:100 + rnorm(100,sd=20), y_values = 1:100 + rnorm(100,sd=27)) 
-#plot
-ggplot(sample_data, aes(x_values, y_values)) +
-  stat_density2d(geom="tile", aes(fill = ..density..), contour = FALSE) + 
-  geom_point(colour = "white")
-```

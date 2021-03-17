@@ -815,6 +815,1011 @@ legend("topleft", legend = c("Alone","with Himself","With other genotype" ) ,
      bty = "n", pch=20 , pt.cex = 2, cex = 0.8, horiz = FALSE, inset = c(0.05, 0.05))
 ```
 
+## Circular Barplot
+
+---
+
+This is the [circular barplot](https://www.data-to-viz.com/graph/circularbarplot.html) section of the gallery, a variation of the well known [barplot](https://www.r-graph-gallery.com/barplot.html). Note that even if visually appealing, circular barplot must be used with care since groups [do not share the same Y axis](https://www.data-to-viz.com/graph/circularbarplot.html). It is very adapted for cyclical data though. Visit [data-to-viz.com](https://www.data-to-viz.com/graph/circularbarplot.html) for more info.
+
+#### Step by Step
+
+Here is a set of examples leading to a proper circular barplot, step by step. The first [most basic circular barchart](https://www.r-graph-gallery.com/295-basic-circular-barplot.html) shows how to use `coord_polar()` to make the barchart circular. Next examples describe the next steps to get a proper figure: [gap](https://www.r-graph-gallery.com/297-circular-barplot-with-groups.html) between groups, [labels](https://www.r-graph-gallery.com/296-add-labels-to-circular-barplot.html) and customization.
+
+### Most Basic Circular Barplot
+
+A circular [barplot](https://www.r-graph-gallery.com/barplot.html) is a barplot where bars are displayed along a circle instead of a line. This section explains how to build a basic version with `R` and [ggplot2](https://www.r-graph-gallery.com/ggplot2-package.html). It provides the reproducible code and explain how the `coord_polar()` function works.
+
+A [circular barplot](https://www.r-graph-gallery.com/circular-barplot.html) is a [barplot](https://www.r-graph-gallery.com/barplot.html) where bars are displayed along a circle instead of a line. The input dataset is the same than for a barplot: we need one numeric value per group (one group = one bar). (See more explanation in the [barplot](https://www.r-graph-gallery.com/barplot.html) section).
+
+ 
+Basically, the method is the same than to do a classic barplot. At the end, we call `coord_polar()` to make the chart circular. Note that the `ylim()` argument is really important. If it starts at 0, the bars will start from the centre of the circle. If you provide a negative value, a white circle space will appear!
+
+This chart is not really insightful, go to the [next example](https://www.r-graph-gallery.com/296-add-labels-to-circular-barplot.html) to learn how to add labels!
+
+```r
+# Libraries
+library(tidyverse)
+ 
+# Create dataset
+data <- data.frame(
+  id=seq(1,60),
+  individual=paste( "Mister ", seq(1,60), sep=""),
+  value=sample( seq(10,100), 60, replace=T)
+)
+ 
+# Make the plot
+p <- ggplot(data, aes(x=as.factor(id), y=value)) +       # Note that id is a factor. If x is numeric, there is some space between the first bar
+  
+  # This add the bars with a blue color
+  geom_bar(stat="identity", fill=alpha("blue", 0.3)) +
+  
+  # Limits of the plot = very important. The negative value controls the size of the inner circle, the positive one is useful to add size over each bar
+  ylim(-100,120) +
+  
+  # Custom the theme: no axis title and no cartesian grid
+  theme_minimal() +
+  theme(
+    axis.text = element_blank(),
+    axis.title = element_blank(),
+    panel.grid = element_blank(),
+    plot.margin = unit(rep(-2,4), "cm")     # This remove unnecessary margin around plot
+  ) +
+  
+  # This makes the coordinate polar instead of cartesian.
+  coord_polar(start = 0)
+p
+```
+
+![](https://www.r-graph-gallery.com/295-basic-circular-barplot_files/figure-html/thecode-1.png)
+
+### Add Labels to Circular Barplot
+ 
+This section explains how to add labels on a [ggplot2](https://www.r-graph-gallery.com/ggplot2-package.html) circular barchart, on top of each bar. It follows the previous most basic circular barchart. 
+
+The [chart #295](https://www.r-graph-gallery.com/295-basic-circular-barplot.html) explains how to make a basic circular barplot. The next step is to add labels to each bar, to give insight to the graphic.
+
+
+Here I suggest a method to add label at the top of each bar, using the same angle that the central part of the bar. In the code below, a short section creates a dataframe with the feature of each label, that we can then call in `geom_text()`.
+
+Note that labels are always in an angle that allows to read them easily, what requires a 180 degrees flip for some of them.
+
+```r
+# Libraries
+library(tidyverse)
+ 
+# Create dataset
+data <- data.frame(
+  id=seq(1,60),
+  individual=paste( "Mister ", seq(1,60), sep=""),
+  value=sample( seq(10,100), 60, replace=T)
+)
+ 
+# ----- This section prepare a dataframe for labels ---- #
+# Get the name and the y position of each label
+label_data <- data
+ 
+# calculate the ANGLE of the labels
+number_of_bar <- nrow(label_data)
+angle <-  90 - 360 * (label_data$id-0.5) /number_of_bar     # I substract 0.5 because the letter must have the angle of the center of the bars. Not extreme right(1) or extreme left (0)
+ 
+# calculate the alignment of labels: right or left
+# If I am on the left part of the plot, my labels have currently an angle < -90
+label_data$hjust<-ifelse( angle < -90, 1, 0)
+ 
+# flip angle BY to make them readable
+label_data$angle<-ifelse(angle < -90, angle+180, angle)
+# ----- ------------------------------------------- ---- #
+ 
+ 
+# Start the plot
+p <- ggplot(data, aes(x=as.factor(id), y=value)) +       # Note that id is a factor. If x is numeric, there is some space between the first bar
+  
+  # This add the bars with a blue color
+  geom_bar(stat="identity", fill=alpha("skyblue", 0.7)) +
+  
+  # Limits of the plot = very important. The negative value controls the size of the inner circle, the positive one is useful to add size over each bar
+  ylim(-100,120) +
+  
+  # Custom the theme: no axis title and no cartesian grid
+  theme_minimal() +
+  theme(
+    axis.text = element_blank(),
+    axis.title = element_blank(),
+    panel.grid = element_blank(),
+    plot.margin = unit(rep(-1,4), "cm")      # Adjust the margin to make in sort labels are not truncated!
+  ) +
+  
+  # This makes the coordinate polar instead of cartesian.
+  coord_polar(start = 0) +
+  
+  # Add the labels, using the label_data dataframe that we have created before
+  geom_text(data=label_data, aes(x=id, y=value+10, label=individual, hjust=hjust), color="black", fontface="bold",alpha=0.6, size=2.5, angle= label_data$angle, inherit.aes = FALSE ) 
+ 
+p
+```
+
+![](https://www.r-graph-gallery.com/296-add-labels-to-circular-barplot_files/figure-html/thecode-1.png)
+
+### Circular Barplot with Groups
+ 
+This section explains how to build a [circular barchart](https://www.r-graph-gallery.com/circular-barplot.html) with groups. A gap is added between groups to highlight them. Bars are labeled, group names are annotated
+
+#### Add a Gap in the Circle
+
+A [circular barplot](https://www.r-graph-gallery.com/circular-barplot.html) is a [barplot](https://www.r-graph-gallery.com/barplot.html) where bars are displayed along a circle instead of a line. This page aims to teach you how to make a circular barplot with groups.
+
+Since this kind of chart is a bit tricky, I strongly advise to understand [graph #295](https://www.r-graph-gallery.com/295-basic-circular-barplot.html) and [#296](https://www.r-graph-gallery.com/296-add-labels-to-circular-barplot.html) that will teach you the basics.
+
+The first step is to build a circular barplot with a break in the circle. Actually, I just added a few empty lines at the end of the initial data frame:
+
+```r
+# library
+library(tidyverse)
+ 
+# Create dataset
+data <- data.frame(
+  individual=paste( "Mister ", seq(1,60), sep=""),
+  value=sample( seq(10,100), 60, replace=T)
+)
+ 
+# Set a number of 'empty bar'
+empty_bar <- 10
+ 
+# Add lines to the initial dataset
+to_add <- matrix(NA, empty_bar, ncol(data))
+colnames(to_add) <- colnames(data)
+data <- rbind(data, to_add)
+data$id <- seq(1, nrow(data))
+ 
+# Get the name and the y position of each label
+label_data <- data
+number_of_bar <- nrow(label_data)
+angle <- 90 - 360 * (label_data$id-0.5) /number_of_bar     # I substract 0.5 because the letter must have the angle of the center of the bars. Not extreme right(1) or extreme left (0)
+label_data$hjust <- ifelse( angle < -90, 1, 0)
+label_data$angle <- ifelse(angle < -90, angle+180, angle)
+ 
+# Make the plot
+p <- ggplot(data, aes(x=as.factor(id), y=value)) +       # Note that id is a factor. If x is numeric, there is some space between the first bar
+  geom_bar(stat="identity", fill=alpha("green", 0.3)) +
+  ylim(-100,120) +
+  theme_minimal() +
+  theme(
+    axis.text = element_blank(),
+    axis.title = element_blank(),
+    panel.grid = element_blank(),
+    plot.margin = unit(rep(-1,4), "cm") 
+  ) +
+  coord_polar(start = 0) + 
+  geom_text(data=label_data, aes(x=id, y=value+10, label=individual, hjust=hjust), color="black", fontface="bold",alpha=0.6, size=2.5, angle= label_data$angle, inherit.aes = FALSE ) 
+ 
+p
+```
+
+![](https://www.r-graph-gallery.com/297-circular-barplot-with-groups_files/figure-html/thecode-1.png)
+
+### Space between Groups
+
+This concept can now be used to add space between each group of the dataset. Added `n` lines with only `NA` at the bottom of each group.
+
+This chart is far more insightful since it allows one to quickly compare the different groups, and to compare the value of items within each group.
+
+```r
+# library
+library(tidyverse)
+ 
+# Create dataset
+data <- data.frame(
+  individual=paste( "Mister ", seq(1,60), sep=""),
+  group=c( rep('A', 10), rep('B', 30), rep('C', 14), rep('D', 6)) ,
+  value=sample( seq(10,100), 60, replace=T)
+)
+ 
+# Set a number of 'empty bar' to add at the end of each group
+empty_bar <- 4
+to_add <- data.frame( matrix(NA, empty_bar*nlevels(data$group), ncol(data)) )
+colnames(to_add) <- colnames(data)
+to_add$group <- rep(levels(data$group), each=empty_bar)
+data <- rbind(data, to_add)
+data <- data %>% arrange(group)
+data$id <- seq(1, nrow(data))
+ 
+# Get the name and the y position of each label
+label_data <- data
+number_of_bar <- nrow(label_data)
+angle <- 90 - 360 * (label_data$id-0.5) /number_of_bar     # I substract 0.5 because the letter must have the angle of the center of the bars. Not extreme right(1) or extreme left (0)
+label_data$hjust <- ifelse( angle < -90, 1, 0)
+label_data$angle <- ifelse(angle < -90, angle+180, angle)
+ 
+# Make the plot
+p <- ggplot(data, aes(x=as.factor(id), y=value, fill=group)) +       # Note that id is a factor. If x is numeric, there is some space between the first bar
+  geom_bar(stat="identity", alpha=0.5) +
+  ylim(-100,120) +
+  theme_minimal() +
+  theme(
+    legend.position = "none",
+    axis.text = element_blank(),
+    axis.title = element_blank(),
+    panel.grid = element_blank(),
+    plot.margin = unit(rep(-1,4), "cm") 
+  ) +
+  coord_polar() + 
+  geom_text(data=label_data, aes(x=id, y=value+10, label=individual, hjust=hjust), color="black", fontface="bold",alpha=0.6, size=2.5, angle= label_data$angle, inherit.aes = FALSE ) 
+ 
+p
+```
+
+![](https://www.r-graph-gallery.com/297-circular-barplot-with-groups_files/figure-html/thecode2-1.png)
+
+### Order Bars
+
+Here observations are sorted by bar height within each group. It can be useful if your goal is to understand what are the highest / lowest observations within and across groups.
+
+The method used to order groups in ggplot2 is extensively described in this [dedicated page](https://www.r-graph-gallery.com/267-reorder-a-variable-in-ggplot2.html). Basically, you just have to add the following piece of code right after the data frame creation:
+
+```r
+# Order data:
+data = data %>% arrange(group, value)
+```
+
+![](https://www.r-graph-gallery.com/297-circular-barplot-with-groups_files/figure-html/unnamed-chunk-1-1.png)
+
+### Circular Barchart Customization
+
+Last but not least, it is highly advisable to add some customisation to your chart. Here we add group names (A, B, C and D), and we add a scale to help compare the sizes of the bars. 
+
+```r
+# library
+library(tidyverse)
+ 
+# Create dataset
+data <- data.frame(
+  individual=paste( "Mister ", seq(1,60), sep=""),
+  group=c( rep('A', 10), rep('B', 30), rep('C', 14), rep('D', 6)) ,
+  value=sample( seq(10,100), 60, replace=T)
+)
+ 
+# Set a number of 'empty bar' to add at the end of each group
+empty_bar <- 3
+to_add <- data.frame( matrix(NA, empty_bar*nlevels(data$group), ncol(data)) )
+colnames(to_add) <- colnames(data)
+to_add$group <- rep(levels(data$group), each=empty_bar)
+data <- rbind(data, to_add)
+data <- data %>% arrange(group)
+data$id <- seq(1, nrow(data))
+ 
+# Get the name and the y position of each label
+label_data <- data
+number_of_bar <- nrow(label_data)
+angle <- 90 - 360 * (label_data$id-0.5) /number_of_bar     # I substract 0.5 because the letter must have the angle of the center of the bars. Not extreme right(1) or extreme left (0)
+label_data$hjust <- ifelse( angle < -90, 1, 0)
+label_data$angle <- ifelse(angle < -90, angle+180, angle)
+ 
+# prepare a data frame for base lines
+base_data <- data %>% 
+  group_by(group) %>% 
+  summarize(start=min(id), end=max(id) - empty_bar) %>% 
+  rowwise() %>% 
+  mutate(title=mean(c(start, end)))
+ 
+# prepare a data frame for grid (scales)
+grid_data <- base_data
+grid_data$end <- grid_data$end[ c( nrow(grid_data), 1:nrow(grid_data)-1)] + 1
+grid_data$start <- grid_data$start - 1
+grid_data <- grid_data[-1,]
+ 
+# Make the plot
+p <- ggplot(data, aes(x=as.factor(id), y=value, fill=group)) +       # Note that id is a factor. If x is numeric, there is some space between the first bar
+  
+  geom_bar(aes(x=as.factor(id), y=value, fill=group), stat="identity", alpha=0.5) +
+  
+  # Add a val=100/75/50/25 lines. I do it at the beginning to make sur barplots are OVER it.
+  geom_segment(data=grid_data, aes(x = end, y = 80, xend = start, yend = 80), colour = "grey", alpha=1, size=0.3 , inherit.aes = FALSE ) +
+  geom_segment(data=grid_data, aes(x = end, y = 60, xend = start, yend = 60), colour = "grey", alpha=1, size=0.3 , inherit.aes = FALSE ) +
+  geom_segment(data=grid_data, aes(x = end, y = 40, xend = start, yend = 40), colour = "grey", alpha=1, size=0.3 , inherit.aes = FALSE ) +
+  geom_segment(data=grid_data, aes(x = end, y = 20, xend = start, yend = 20), colour = "grey", alpha=1, size=0.3 , inherit.aes = FALSE ) +
+  
+  # Add text showing the value of each 100/75/50/25 lines
+  annotate("text", x = rep(max(data$id),4), y = c(20, 40, 60, 80), label = c("20", "40", "60", "80") , color="grey", size=3 , angle=0, fontface="bold", hjust=1) +
+  
+  geom_bar(aes(x=as.factor(id), y=value, fill=group), stat="identity", alpha=0.5) +
+  ylim(-100,120) +
+  theme_minimal() +
+  theme(
+    legend.position = "none",
+    axis.text = element_blank(),
+    axis.title = element_blank(),
+    panel.grid = element_blank(),
+    plot.margin = unit(rep(-1,4), "cm") 
+  ) +
+  coord_polar() + 
+  geom_text(data=label_data, aes(x=id, y=value+10, label=individual, hjust=hjust), color="black", fontface="bold",alpha=0.6, size=2.5, angle= label_data$angle, inherit.aes = FALSE ) +
+  
+  # Add base line information
+  geom_segment(data=base_data, aes(x = start, y = -5, xend = end, yend = -5), colour = "black", alpha=0.8, size=0.6 , inherit.aes = FALSE )  +
+  geom_text(data=base_data, aes(x = title, y = -18, label=group), hjust=c(1,1,0,0), colour = "black", alpha=0.8, size=4, fontface="bold", inherit.aes = FALSE)
+ 
+p
+```
+
+![](https://www.r-graph-gallery.com/297-circular-barplot-with-groups_files/figure-html/thecode4-1.png)
+
+### Circular Stacked Barplot
+
+A [circular barplot](https://www.r-graph-gallery.com/circular-barplot.html) is a [barplot](https://www.r-graph-gallery.com/barplot.html) where bars are displayed along a circle instead of a line. This page aims to teach you how to make a grouped and stacked circular barplot with `R` and `ggplot2`.
+
+A circular barplot is a barplot where bars are displayed along a circle instead of a line. This page aims to teach you how to make a grouped and stacked circular barplot. I highly recommend to visit graph [#295](https://www.r-graph-gallery.com/295-basic-circular-barplot.html), [#296](https://www.r-graph-gallery.com/296-add-labels-to-circular-barplot.html) and [#297](https://www.r-graph-gallery.com/297-circular-barplot-with-groups.html) Before diving into this code, which is a bit rough.
+
+I tried to add as many comments as possible in the code, and thus hope that the method is understandable. If it is not, please comment and ask supplementary explanations.
+
+You first need to understand how to make a [stacked barplot](https://www.r-graph-gallery.com/stacked-barplot.html) with ggplot2. Then understand how to properly add labels, calculating the good angles, flipping them if necessary, and adjusting their position. The trickiest part is probably the one allowing to add space between each group. All these steps are described one by one in the circular barchart [section](https://www.r-graph-gallery.com/circular-barplot.html).
+
+```r
+# library
+library(tidyverse)
+library(viridis)
+ 
+# Create dataset
+data <- data.frame(
+  individual=paste( "Mister ", seq(1,60), sep=""),
+  group=c( rep('A', 10), rep('B', 30), rep('C', 14), rep('D', 6)) ,
+  value1=sample( seq(10,100), 60, replace=T),
+  value2=sample( seq(10,100), 60, replace=T),
+  value3=sample( seq(10,100), 60, replace=T)
+)
+ 
+# Transform data in a tidy format (long format)
+data <- data %>% gather(key = "observation", value="value", -c(1,2)) 
+ 
+# Set a number of 'empty bar' to add at the end of each group
+empty_bar <- 2
+nObsType <- nlevels(as.factor(data$observation))
+to_add <- data.frame( matrix(NA, empty_bar*nlevels(data$group)*nObsType, ncol(data)) )
+colnames(to_add) <- colnames(data)
+to_add$group <- rep(levels(data$group), each=empty_bar*nObsType )
+data <- rbind(data, to_add)
+data <- data %>% arrange(group, individual)
+data$id <- rep( seq(1, nrow(data)/nObsType) , each=nObsType)
+ 
+# Get the name and the y position of each label
+label_data <- data %>% group_by(id, individual) %>% summarize(tot=sum(value))
+number_of_bar <- nrow(label_data)
+angle <- 90 - 360 * (label_data$id-0.5) /number_of_bar     # I substract 0.5 because the letter must have the angle of the center of the bars. Not extreme right(1) or extreme left (0)
+label_data$hjust <- ifelse( angle < -90, 1, 0)
+label_data$angle <- ifelse(angle < -90, angle+180, angle)
+ 
+# prepare a data frame for base lines
+base_data <- data %>% 
+  group_by(group) %>% 
+  summarize(start=min(id), end=max(id) - empty_bar) %>% 
+  rowwise() %>% 
+  mutate(title=mean(c(start, end)))
+ 
+# prepare a data frame for grid (scales)
+grid_data <- base_data
+grid_data$end <- grid_data$end[ c( nrow(grid_data), 1:nrow(grid_data)-1)] + 1
+grid_data$start <- grid_data$start - 1
+grid_data <- grid_data[-1,]
+ 
+# Make the plot
+p <- ggplot(data) +      
+  
+  # Add the stacked bar
+  geom_bar(aes(x=as.factor(id), y=value, fill=observation), stat="identity", alpha=0.5) +
+  scale_fill_viridis(discrete=TRUE) +
+  
+  # Add a val=100/75/50/25 lines. I do it at the beginning to make sur barplots are OVER it.
+  geom_segment(data=grid_data, aes(x = end, y = 0, xend = start, yend = 0), colour = "grey", alpha=1, size=0.3 , inherit.aes = FALSE ) +
+  geom_segment(data=grid_data, aes(x = end, y = 50, xend = start, yend = 50), colour = "grey", alpha=1, size=0.3 , inherit.aes = FALSE ) +
+  geom_segment(data=grid_data, aes(x = end, y = 100, xend = start, yend = 100), colour = "grey", alpha=1, size=0.3 , inherit.aes = FALSE ) +
+  geom_segment(data=grid_data, aes(x = end, y = 150, xend = start, yend = 150), colour = "grey", alpha=1, size=0.3 , inherit.aes = FALSE ) +
+  geom_segment(data=grid_data, aes(x = end, y = 200, xend = start, yend = 200), colour = "grey", alpha=1, size=0.3 , inherit.aes = FALSE ) +
+  
+  # Add text showing the value of each 100/75/50/25 lines
+  ggplot2::annotate("text", x = rep(max(data$id),5), y = c(0, 50, 100, 150, 200), label = c("0", "50", "100", "150", "200") , color="grey", size=6 , angle=0, fontface="bold", hjust=1) +
+  
+  ylim(-150,max(label_data$tot, na.rm=T)) +
+  theme_minimal() +
+  theme(
+    legend.position = "none",
+    axis.text = element_blank(),
+    axis.title = element_blank(),
+    panel.grid = element_blank(),
+    plot.margin = unit(rep(-1,4), "cm") 
+  ) +
+  coord_polar() +
+  
+  # Add labels on top of each bar
+  geom_text(data=label_data, aes(x=id, y=tot+10, label=individual, hjust=hjust), color="black", fontface="bold",alpha=0.6, size=5, angle= label_data$angle, inherit.aes = FALSE ) +
+  
+  # Add base line information
+  geom_segment(data=base_data, aes(x = start, y = -5, xend = end, yend = -5), colour = "black", alpha=0.8, size=0.6 , inherit.aes = FALSE )  +
+  geom_text(data=base_data, aes(x = title, y = -18, label=group), hjust=c(1,1,0,0), colour = "black", alpha=0.8, size=4, fontface="bold", inherit.aes = FALSE)
+# Save at png
+#ggsave(p, file="output.png", width=10, height=10)
+p
+```
+
+<center>
+  ![](https://www.r-graph-gallery.com/img/graph/299-circular-stacked-barplotBig.png){width=75%}
+</center>
+
+
+## Lollipop Plot
+
+--- 
+
+A [lollipop plot](https://www.data-to-viz.com/graph/lollipop.html) is basically a [barplot](https://www.r-graph-gallery.com/barplot.html), where the bar is transformed in a line and a dot. It shows the relationship between a numeric and a categorical variable. Lollipop charts can be created using ggplot2: the trick is to combine geom_point() for the dots with geom_segment() for the stems. See this basic example to see how to proceed.
+
+#### `GGPLOT2`
+
+Lollipop charts can be created using `ggplot2`: the trick is to combine `geom_point()` for the dots with `geom_segment()` for the stems. See this [basic example](https://www.r-graph-gallery.com/300-basic-lollipop-plot.html) to see how to proceed.
+
+
+### Most Basic Lollipop Plot
+
+How to build a very basic [lollipop chart](https://www.r-graph-gallery.com/lollipop-plot.html) with `R` and [ggplot2](https://www.r-graph-gallery.com/ggplot2-package.html). This section how to use `geom_point()` and `geom_segment()` based on different input formats.
+
+#### From 2 Numeric Variables
+
+A [lollipop plot](https://www.r-graph-gallery.com/lollipop-plot.html) is very close from both [scatterplots](https://www.r-graph-gallery.com/scatterplot.html) and [barplots](https://www.r-graph-gallery.com/barplot.html).
+
+Thus, 2 types of input format work to build it:
+
+* 2 numeric values like for a scatterplot
+* one numeric and one categorical variable like for the barplot.
+
+In any case, a lollipop is built using `geom_point()` for the circle, and `geom_segment()` for the stem.
+
+```{r lollipop-chart, echo=TRUE, message=FALSE, warning=FALSE}
+# Libraries
+library(ggplot2)
+# Create data
+data <- data.frame(x=seq(1,30), y=abs(rnorm(30)))
+ 
+# Plot
+ggplot(data, aes(x=x, y=y)) +
+  geom_point() + 
+  geom_segment( aes(x=x, xend=x, y=0, yend=y))
+```
+
+### From 1 Numeric and 1 Categorical Variable
+
+The code works pretty much the same way, but it is important to note that the X axis can represent a categorical variable as well. In this case, the lollipop chart is a good replacement of the [barplot](https://www.r-graph-gallery.com/barplot.html).
+
+```{r lollipop-chart-numeric-categorial, echo=TRUE, message=FALSE, warning=FALSE}
+# Libraries
+library(ggplot2)
+# Create data
+data <- data.frame(
+  x=LETTERS[1:26], 
+  y=abs(rnorm(26))
+)
+ 
+# Plot
+ggplot(data, aes(x=x, y=y)) +
+  geom_point() + 
+  geom_segment( aes(x=x, xend=x, y=0, yend=y))
+```
+
+### Custom Lollipop Chart
+
+A [lollipop chart](https://www.r-graph-gallery.com/lollipop-plot.html) is constituted of a circle (made with `geom_point()`) and a segment (made with `geom_segment()`). This page explains how to customize the chart appearance with `R` and `ggplot2`.
+
+#### Marker
+
+A [lollipop plot](https://www.r-graph-gallery.com/lollipop-plot.html) is constituted of a marker and a stem. You can customize the marker as usual with [ggplot2](https://www.r-graph-gallery.com/ggplot2-package.html):
+
+* `size`, `color`
+* `alpha` : transparency
+* `shape` : see list of available shape [here](https://www.r-graph-gallery.com/6-graph-parameters-reminder.html)
+* `stroke` and `fill` : only for shapes that have stroke, like the 21
+
+```{r lollipop-chart-custom, echo=TRUE, message=FALSE, warning=FALSE}
+# Library
+library(tidyverse)
+ 
+# Create data
+data <- data.frame(
+  x=LETTERS[1:26],
+  y=abs(rnorm(26))
+)
+ 
+# plot
+ggplot(data, aes(x=x, y=y)) +
+  geom_segment( aes(x=x, xend=x, y=0, yend=y)) +
+  geom_point( size=5, color="red", fill=alpha("orange", 0.3), alpha=0.7, shape=21, stroke=2) 
+```
+
+### Stem
+
+The stem is built using `geom_segment()` and can be customized as well:
+
+* `size`, `color`
+* `linetype`: can be an integer (see [list](https://www.r-graph-gallery.com/6-graph-parameters-reminder.html)), a word like `dotted`, `dashed`, `dotdash` and more (type `help(linetype)`)
+
+```{r stem-plot-ggplot, echo=TRUE, message=FALSE, warning=FALSE}
+# Libraries
+library(ggplot2)
+# Create data
+data <- data.frame(
+  x=LETTERS[1:26],
+  y=abs(rnorm(26))
+)
+# Plot
+ggplot(data, aes(x=x, y=y)) +
+  geom_segment( aes(x=x, xend=x, y=0, yend=y) , size=1, color="blue", linetype="dotdash" ) +
+  geom_point()
+```
+
+### General Appearance with `theme()`
+
+As usual, you can customize the general appearance of the chart using the `theme()` function.
+
+<u>Note</u>: another solution is to use the pre-built `theme_ipsum()` offered in the `hrbrthemes` package.
+
+```{r lollipop-chart-general-apperence, echo=TRUE, message=FALSE, warning=FALSE}
+# Create data
+data <- data.frame(
+  x=LETTERS[1:26],
+  y=abs(rnorm(26))
+)
+# Plot
+ggplot(data, aes(x=x, y=y)) +
+  geom_segment( aes(x=x, xend=x, y=0, yend=y), color="grey") +
+  geom_point( color="orange", size=4) +
+  theme_light() +
+  theme(
+    panel.grid.major.x = element_blank(),
+    panel.border = element_blank(),
+    axis.ticks.x = element_blank()
+  ) +
+  xlab("") +
+  ylab("Value of Y")
+```
+
+### Horizontal Version
+
+It is pretty straightforward to flip the chart using the `coord_flip()` function.
+
+It makes sense to do so if you have long labels  they will be much easier to read.
+
+```{r lollipop-chart-horizontal, echo=TRUE, message=FALSE, warning=FALSE}
+# Libraries
+library(ggplot2)
+# Create data
+data <- data.frame(
+  x=LETTERS[1:26],
+  y=abs(rnorm(26))
+)
+# Horizontal version
+ggplot(data, aes(x=x, y=y)) +
+  geom_segment( aes(x=x, xend=x, y=0, yend=y), color="skyblue") +
+  geom_point( color="blue", size=4, alpha=0.6) +
+  theme_light() +
+  coord_flip() +
+  theme(
+    panel.grid.major.y = element_blank(),
+    panel.border = element_blank(),
+    axis.ticks.y = element_blank()
+  )
+```
+
+### Baseline
+
+Lastly, you can easily change the baseline of the chart. It gives more insight to the figure if there is a specific threshold in the data that interests you.
+
+You just have to change the y argument in the `geom_segment()` call.
+
+```{r lollipop-chart-baseline, echo=TRUE, message=FALSE, warning=FALSE}
+# Libraries
+library(ggplot2)
+# Create data
+data <- data.frame(
+  x=LETTERS[1:26],
+  y=abs(rnorm(26))
+)
+# Change baseline
+ggplot(data, aes(x=x, y=y)) +
+  geom_segment( aes(x=x, xend=x, y=1, yend=y), color="grey") +
+  geom_point( color="orange", size=4) +
+  theme_light() +
+  theme(
+    panel.grid.major.x = element_blank(),
+    panel.border = element_blank(),
+    axis.ticks.x = element_blank()
+  ) +
+  xlab("") +
+  ylab("Value of Y")
+```
+
+### Lollipop Chart with 2 Groups
+
+A [lollipop chart](https://www.r-graph-gallery.com/lollipop-plot.html) can be used to compare 2 categories, linking them with a segment to stress out their difference. This section explains how to do it with `R` and [ggplot2](https://www.r-graph-gallery.com/ggplot2-package.html). 
+
+[Lollipop plots](https://www.r-graph-gallery.com/lollipop-plot.html) can be very appropriate when it comes to compare 2 values for several entities. For each entity, one point is drawn for each variable, with a different color. Their difference is then highlighted using a segment. This type of visualisation is also called [Cleveland dot plots](https://www.data-to-viz.com/graph/lollipop.html).
+ 
+As usual, it is advised to [order your individuals](https://www.r-graph-gallery.com/267-reorder-a-variable-in-ggplot2.html) by mean, median, or group difference to give even more insight to the figure.
+
+```{r lollipop-chart-two-groups, echo=TRUE, message=FALSE, warning=FALSE}
+# Library
+library(ggplot2)
+library(dplyr)
+library(hrbrthemes)
+# Create data
+value1 <- abs(rnorm(26))*2
+data <- data.frame(
+  x=LETTERS[1:26], 
+  value1=value1, 
+  value2=value1+1+rnorm(26, sd=1) 
+)
+ 
+# Reorder data using average? Learn more about reordering in chart #267
+data <- data %>% 
+  rowwise() %>% 
+  mutate( mymean = mean(c(value1,value2) )) %>% 
+  arrange(mymean) %>% 
+  mutate(x=factor(x, x))
+ 
+# Plot
+ggplot(data) +
+  geom_segment( aes(x=x, xend=x, y=value1, yend=value2), color="grey") +
+  geom_point( aes(x=x, y=value1), color=rgb(0.2,0.7,0.1,0.5), size=3 ) +
+  geom_point( aes(x=x, y=value2), color=rgb(0.7,0.2,0.1,0.5), size=3 ) +
+  coord_flip()+
+  theme_ipsum() +
+  theme(
+    legend.position = "none",
+  ) +
+  xlab("") +
+  ylab("Value of Y")
+```
+
+### Highlight a Group in a Lollipop Chart
+ 
+This section describes how to build a [lollipop chart](https://www.r-graph-gallery.com/lollipop-plot.html) with `R` and `ggplot2`. It shows how to highlight one or several groups of interest to convey your message more efficiently.
+
+[Annotation is key](https://www.data-to-viz.com/caveat/annotation.html) in data visualization: it allows the reader to focus on the main message you want to convey. If one or a few groups specifically interest you, it is a good practice to highlight them on the plot. Your reader will understand quicker what the story behind the chart is. 
+
+To do so, you can use an `ifelse` statement to change `size`, `color`, `alpha` or any other aesthetics. Moreover, it is even more insightful to add text annotation directly on the chart.
+
+Learn more about ggplot2 annotation [here](https://www.r-graph-gallery.com/233-add-annotations-on-ggplot2-chart.html) and more generally in the [ggplot2](https://www.r-graph-gallery.com/ggplot2-package.html) section.
+
+```{r lollipop-chart-highlight-group, echo=TRUE, message=FALSE, warning=FALSE}
+# Library
+library(ggplot2)
+library(dplyr)
+library(hrbrthemes)
+# Create data
+set.seed(1000)
+data <- data.frame(
+  x=LETTERS[1:26], 
+  y=abs(rnorm(26))
+)
+ 
+# Reorder the data
+data <- data %>%
+  arrange(y) %>%
+  mutate(x=factor(x,x))
+  
+# Plot
+p <- ggplot(data, aes(x=x, y=y)) +
+  geom_segment( aes(x=x, xend=x, y=0, yend=y ), color=ifelse(data$x %in% c("A","D"), "orange", "grey"), size=ifelse(data$x %in% c("A","D"), 1.3, 0.7) ) +
+  geom_point( color=ifelse(data$x %in% c("A","D"), "orange", "grey"), size=ifelse(data$x %in% c("A","D"), 5, 2) ) +
+  theme_ipsum() +
+  coord_flip() +
+  theme(
+    legend.position="none"
+  ) +
+  xlab("") +
+  ylab("Value of Y") +
+  ggtitle("How did groups A and D perform?")
+# Add annotation
+p + annotate("text", x=grep("D", data$x), y=data$y[which(data$x=="D")]*1.2, 
+           label="Group D is very impressive", 
+           color="orange", size=4 , angle=0, fontface="bold", hjust=0) + 
+  
+    annotate("text", x = grep("A", data$x), y = data$y[which(data$x=="A")]*1.2, 
+           label = paste("Group A is not too bad\n (val=",data$y[which(data$x=="A")] %>% round(2),")",sep="" ) , 
+           color="orange", size=4 , angle=0, fontface="bold", hjust=0) 
+```
+
+### Lollipop Chart with Conditional Color
+
+If your [lollipop plot](https://www.r-graph-gallery.com/lollipop-plot.html) goes on both side of an interesting threshold, you probably want to change the color of its components conditionally. Here is how using R and [ggplot2](https://www.r-graph-gallery.com/ggplot2-package.html).
+
+#### Marker
+
+Here is the process to use conditional color on your `ggplot2` chart:
+
+#### Marker
+
+Here is the process to use conditional color on your `ggplot2` chart:
+
+* Add a new column to your dataframe specifying if you are over or under the threshold (use an `ifelse` statement).
+* Give this column to the `color` aesthetic.
+
+```{r lollipop-chart-conditional-color, echo=TRUE, message=FALSE, warning=FALSE}
+# library
+library(ggplot2)
+library(dplyr)
+# Create data (this takes more sense with a numerical X axis)
+x <- seq(0, 2*pi, length.out=100)
+data <- data.frame(
+  x=x, 
+  y=sin(x) + rnorm(100, sd=0.2)
+)
+ 
+# Add a column with your condition for the color
+data <- data %>% 
+  mutate(mycolor = ifelse(y>0, "type1", "type2"))
+ 
+# plot
+ggplot(data, aes(x=x, y=y)) +
+  geom_segment( aes(x=x, xend=x, y=0, yend=y, color=mycolor), size=1.3, alpha=0.9) +
+  theme_light() +
+  theme(
+    legend.position = "none",
+    panel.border = element_blank(),
+  ) +
+  xlab("") +
+  ylab("Value of Y")
+```
+
+
+## Parallel Coordinates Chart
+
+---
+
+This is the [Parallel Coordinates chart](https://www.data-to-viz.com/graph/parallel.html) section of the gallery. If you want to know more about this kind of chart, visit [data-to-viz.com](https://www.data-to-viz.com/graph/parallel.html). If you're looking for a simple way to implement it in d3.js, pick an example below.
+
+#### Step by Step - The `ggally` Library
+
+The [ggally](https://github.com/ggobi/ggally) package is a ggplot2 extension that allows to build parallel coordinates charts thanks to the parcoord() function. It allows to beneficiate the grammar of graphics and all the usual ggplot2 customization.
+
+
+### Parallel Coordinates Chart with ggally
+ 
+`ggally` is a `ggplot2` extension. It allows to build [parallel coordinates charts](https://www.r-graph-gallery.com/parallel-plot.html) thanks to the `ggparcoord()` function. Check several reproducible examples in this section.
+
+
+#### Most Basic
+
+This is the most basic parallel coordinates chart you can build with `R`, the `ggally` packages and its `ggparcoord()` function. 
+
+The input dataset must be a data frame with several numeric variables, each being used as a vertical axis on the chart. Columns number of these variables are specified in the `columns` argument of the function.
+
+<u>Note</u>: Categoric variable is used to color lines, as specified in the `groupColumn` variable.
+
+```r
+# Libraries
+library(GGally)
+# Data set is provided by R natively
+data <- iris
+# Plot
+ggparcoord(data,
+    columns = 1:4, groupColumn = 5
+    )
+```
+
+![](https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode-1.png)
+
+### Custom Color, Theme, General Appearance
+
+This is pretty much the same chart as the previous one, except for the following customization's:
+
+* Color palette is improved thanks to the `viridis` package.
+* Title is added with `title`, and customized in theme.
+* Dots are added with `showPoints`.
+* Transparency is applied to lines with `alphaLines`.
+* `theme_ipsum()` is used for the general appearance.
+
+```r
+# Libraries
+library(hrbrthemes)
+library(GGally)
+library(viridis)
+# Data set is provided by R natively
+data <- iris
+# Plot
+ggparcoord(data,
+    columns = 1:4, groupColumn = 5, order = "anyClass",
+    showPoints = TRUE, 
+    title = "Parallel Coordinate Plot for the Iris Data",
+    alphaLines = 0.3
+    ) + 
+  scale_color_viridis(discrete=TRUE) +
+  theme_ipsum()+
+  theme(
+    plot.title = element_text(size=10)
+  )
+```
+
+![](https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode2-1.png)
+
+### Scaling
+
+Scaling transforms the raw data to a new scale that is common with other variables. It is a crucial step to compare variables that do not have the same unit, but can also help otherwise as shown in the example below.
+
+The `ggally` package offers a scale argument. Four possible options are applied on the same dataset below:
+
+* `globalminmax`: No scaling
+* `uniminmax`: Standardize to Min = 0 and Max = 1
+* `std`:Normalize univariately (substract mean & divide by sd)
+* `center`: Standardize and center variables
+
+```r
+ggparcoord(data,
+    columns = 1:4, groupColumn = 5, order = "anyClass",
+    scale="globalminmax",
+    showPoints = TRUE, 
+    title = "No scaling",
+    alphaLines = 0.3
+    ) + 
+  scale_color_viridis(discrete=TRUE) +
+  theme_ipsum()+
+  theme(
+    legend.position="none",
+    plot.title = element_text(size=13)
+  ) +
+  xlab("")
+```
+
+![](https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode31-1.png)
+
+```r
+ggparcoord(data,
+    columns = 1:4, groupColumn = 5, order = "anyClass",
+    scale="uniminmax",
+    showPoints = TRUE, 
+    title = "Standardize to Min = 0 and Max = 1",
+    alphaLines = 0.3
+    ) + 
+  scale_color_viridis(discrete=TRUE) +
+  theme_ipsum()+
+  theme(
+    legend.position="none",
+    plot.title = element_text(size=13)
+  ) +
+  xlab("")
+```
+
+![](https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode32-1.png)
+
+```r
+ggparcoord(data,
+    columns = 1:4, groupColumn = 5, order = "anyClass",
+    scale="std",
+    showPoints = TRUE, 
+    title = "Normalize univariately (substract mean & divide by sd)",
+    alphaLines = 0.3
+    ) + 
+  scale_color_viridis(discrete=TRUE) +
+  theme_ipsum()+
+  theme(
+    legend.position="none",
+    plot.title = element_text(size=13)
+  ) +
+  xlab("")
+```
+
+![](https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode33-1.png)
+
+```r
+ggparcoord(data,
+    columns = 1:4, groupColumn = 5, order = "anyClass",
+    scale="center",
+    showPoints = TRUE, 
+    title = "Standardize and center variables",
+    alphaLines = 0.3
+    ) + 
+  scale_color_viridis(discrete=TRUE) +
+  theme_ipsum()+
+  theme(
+    legend.position="none",
+    plot.title = element_text(size=13)
+  ) +
+  xlab("")
+```
+
+![](https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode34-1.png)
+
+### Highlight a Group
+
+Data visualization aims to highlight a story in the data. If you are interested in a specific group, you can highlight it as follow:
+
+```r 
+# Libraries
+library(GGally)
+library(dplyr)
+# Data set is provided by R natively
+data <- iris
+# Plot
+data %>%
+  arrange(desc(Species)) %>%
+  ggparcoord(
+    columns = 1:4, groupColumn = 5, order = "anyClass",
+    showPoints = TRUE, 
+    title = "Original",
+    alphaLines = 1
+    ) + 
+  scale_color_manual(values=c( "#69b3a2", "#E8E8E8", "#E8E8E8") ) +
+  theme_ipsum()+
+  theme(
+    legend.position="Default",
+    plot.title = element_text(size=10)
+  ) +
+  xlab("")
+```
+
+![](https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode4-1.png)
+
+#### Step by Step - The `MASS` Library
+
+The [MASS](https://cran.r-project.org/web/packages/MASS/index.html) library allows to build parallel coordinates chart thanks to the `parcoord()` function. Learn how to [use](https://www.r-graph-gallery.com/93-parrallel-plot.html) the function, how to [reorder](https://www.r-graph-gallery.com/93-parrallel-plot.html#reorder) variables, how to custom the [color](https://www.r-graph-gallery.com/93-parrallel-plot.html#reorder) palette and how to [highlight](https://www.r-graph-gallery.com/93-parrallel-plot.html#highlight) a group on the chart.
+
+
+### Parallel Chart with the `MASS` Library
+ 
+This section explains how to build a [parallel coordinate chart](https://www.r-graph-gallery.com/parallel-plot.html) with `R` and the `MASS` library. Note that using `ggplot2` is probably a better option.
+
+#### The `parcoord()` Function of the `MASS` Library
+
+The `MASS` library provides the `parcoord()` function that automatically builds parallel coordinates chart. The input dataset must be a data frame composed by numeric variables only. Each variable will be used to build one vertical axis of the chart.
+
+```r
+# You need the MASS library
+library(MASS)
+ 
+# Vector color
+my_colors <- colors()[as.numeric(iris$Species)*11]
+ 
+# Make the graph !
+parcoord(iris[,c(1:4)] , col= my_colors  )
+```
+
+![](https://www.r-graph-gallery.com/93-parrallel-plot_files/figure-html/thecode-1.png)
+
+### Reorder Variables
+
+It is important to find the best variable order in your parallel coordinates chart. To change it, just change the order in the input dataset.
+
+<u>Note</u>: the `RColorBrewer` package is used to generate a nice and reliable color palette.
+
+
+```r
+# You need the MASS library
+library(MASS)
+ 
+# Vector color
+library(RColorBrewer)
+palette <- brewer.pal(3, "Set1") 
+ my_colors <- palette[as.numeric(iris$Species)]
+# Make the graph !
+parcoord(iris[,c(1,3,4,2)] , col= my_colors  )
+```
+
+![](https://www.r-graph-gallery.com/93-parrallel-plot_files/figure-html/thecode2-1.png)
+
+### Highlight a Group
+
+Data visualization aims to highlight a story in the data. If you are interested in a specific group, you can highlight it as follow:
+
+```r
+# You need the MASS library
+library(MASS)
+ 
+# Let's use the Iris dataset as an example
+data(iris)
+ 
+# Vector color: red if Setosa, grey otherwise.
+isSetosa <- ifelse(iris$Species=="setosa","red","grey")
+# Make the graph !
+parcoord(iris[,c(1,3,4,2)] , col=isSetosa  )
+```
+
+![](https://www.r-graph-gallery.com/93-parrallel-plot_files/figure-html/thecode3-1.png)
+
+
 ## Radar Chart
 
 ---
@@ -1335,1005 +2340,3 @@ dev.off()
   ![](https://www.r-graph-gallery.com/img/graph/102-text-mining-and-wordcloud3.png)
 </center>
 
-
-## Parallel Coordinates Chart
-
----
-
-This is the [Parallel Coordinates chart](https://www.data-to-viz.com/graph/parallel.html) section of the gallery. If you want to know more about this kind of chart, visit [data-to-viz.com](https://www.data-to-viz.com/graph/parallel.html). If you're looking for a simple way to implement it in d3.js, pick an example below.
-
-#### Step by Step - The `ggally` Library
-
-The [ggally](https://github.com/ggobi/ggally) package is a ggplot2 extension that allows to build parallel coordinates charts thanks to the parcoord() function. It allows to beneficiate the grammar of graphics and all the usual ggplot2 customization.
-
-
-### Parallel Coordinates Chart with ggally
- 
-`ggally` is a `ggplot2` extension. It allows to build [parallel coordinates charts](https://www.r-graph-gallery.com/parallel-plot.html) thanks to the `ggparcoord()` function. Check several reproducible examples in this section.
-
-
-#### Most Basic
-
-This is the most basic parallel coordinates chart you can build with `R`, the `ggally` packages and its `ggparcoord()` function. 
-
-The input dataset must be a data frame with several numeric variables, each being used as a vertical axis on the chart. Columns number of these variables are specified in the `columns` argument of the function.
-
-<u>Note</u>: Categoric variable is used to color lines, as specified in the `groupColumn` variable.
-
-```r
-# Libraries
-library(GGally)
-# Data set is provided by R natively
-data <- iris
-# Plot
-ggparcoord(data,
-    columns = 1:4, groupColumn = 5
-    )
-```
-
-![](https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode-1.png)
-
-### Custom Color, Theme, General Appearance
-
-This is pretty much the same chart as the previous one, except for the following customization's:
-
-* Color palette is improved thanks to the `viridis` package.
-* Title is added with `title`, and customized in theme.
-* Dots are added with `showPoints`.
-* Transparency is applied to lines with `alphaLines`.
-* `theme_ipsum()` is used for the general appearance.
-
-```r
-# Libraries
-library(hrbrthemes)
-library(GGally)
-library(viridis)
-# Data set is provided by R natively
-data <- iris
-# Plot
-ggparcoord(data,
-    columns = 1:4, groupColumn = 5, order = "anyClass",
-    showPoints = TRUE, 
-    title = "Parallel Coordinate Plot for the Iris Data",
-    alphaLines = 0.3
-    ) + 
-  scale_color_viridis(discrete=TRUE) +
-  theme_ipsum()+
-  theme(
-    plot.title = element_text(size=10)
-  )
-```
-
-![](https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode2-1.png)
-
-### Scaling
-
-Scaling transforms the raw data to a new scale that is common with other variables. It is a crucial step to compare variables that do not have the same unit, but can also help otherwise as shown in the example below.
-
-The `ggally` package offers a scale argument. Four possible options are applied on the same dataset below:
-
-* `globalminmax`: No scaling
-* `uniminmax`: Standardize to Min = 0 and Max = 1
-* `std`:Normalize univariately (substract mean & divide by sd)
-* `center`: Standardize and center variables
-
-```r
-ggparcoord(data,
-    columns = 1:4, groupColumn = 5, order = "anyClass",
-    scale="globalminmax",
-    showPoints = TRUE, 
-    title = "No scaling",
-    alphaLines = 0.3
-    ) + 
-  scale_color_viridis(discrete=TRUE) +
-  theme_ipsum()+
-  theme(
-    legend.position="none",
-    plot.title = element_text(size=13)
-  ) +
-  xlab("")
-```
-
-![](https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode31-1.png)
-
-```r
-ggparcoord(data,
-    columns = 1:4, groupColumn = 5, order = "anyClass",
-    scale="uniminmax",
-    showPoints = TRUE, 
-    title = "Standardize to Min = 0 and Max = 1",
-    alphaLines = 0.3
-    ) + 
-  scale_color_viridis(discrete=TRUE) +
-  theme_ipsum()+
-  theme(
-    legend.position="none",
-    plot.title = element_text(size=13)
-  ) +
-  xlab("")
-```
-
-![](https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode32-1.png)
-
-```r
-ggparcoord(data,
-    columns = 1:4, groupColumn = 5, order = "anyClass",
-    scale="std",
-    showPoints = TRUE, 
-    title = "Normalize univariately (substract mean & divide by sd)",
-    alphaLines = 0.3
-    ) + 
-  scale_color_viridis(discrete=TRUE) +
-  theme_ipsum()+
-  theme(
-    legend.position="none",
-    plot.title = element_text(size=13)
-  ) +
-  xlab("")
-```
-
-![](https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode33-1.png)
-
-```r
-ggparcoord(data,
-    columns = 1:4, groupColumn = 5, order = "anyClass",
-    scale="center",
-    showPoints = TRUE, 
-    title = "Standardize and center variables",
-    alphaLines = 0.3
-    ) + 
-  scale_color_viridis(discrete=TRUE) +
-  theme_ipsum()+
-  theme(
-    legend.position="none",
-    plot.title = element_text(size=13)
-  ) +
-  xlab("")
-```
-
-![](https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode34-1.png)
-
-### Highlight a Group
-
-Data visualization aims to highlight a story in the data. If you are interested in a specific group, you can highlight it as follow:
-
-```r 
-# Libraries
-library(GGally)
-library(dplyr)
-# Data set is provided by R natively
-data <- iris
-# Plot
-data %>%
-  arrange(desc(Species)) %>%
-  ggparcoord(
-    columns = 1:4, groupColumn = 5, order = "anyClass",
-    showPoints = TRUE, 
-    title = "Original",
-    alphaLines = 1
-    ) + 
-  scale_color_manual(values=c( "#69b3a2", "#E8E8E8", "#E8E8E8") ) +
-  theme_ipsum()+
-  theme(
-    legend.position="Default",
-    plot.title = element_text(size=10)
-  ) +
-  xlab("")
-```
-
-![](https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode4-1.png)
-
-#### Step by Step - The `MASS` Library
-
-The [MASS](https://cran.r-project.org/web/packages/MASS/index.html) library allows to build parallel coordinates chart thanks to the `parcoord()` function. Learn how to [use](https://www.r-graph-gallery.com/93-parrallel-plot.html) the function, how to [reorder](https://www.r-graph-gallery.com/93-parrallel-plot.html#reorder) variables, how to custom the [color](https://www.r-graph-gallery.com/93-parrallel-plot.html#reorder) palette and how to [highlight](https://www.r-graph-gallery.com/93-parrallel-plot.html#highlight) a group on the chart.
-
-
-### Parallel Chart with the `MASS` Library
- 
-This section explains how to build a [parallel coordinate chart](https://www.r-graph-gallery.com/parallel-plot.html) with `R` and the `MASS` library. Note that using `ggplot2` is probably a better option.
-
-#### The `parcoord()` Function of the `MASS` Library
-
-The `MASS` library provides the `parcoord()` function that automatically builds parallel coordinates chart. The input dataset must be a data frame composed by numeric variables only. Each variable will be used to build one vertical axis of the chart.
-
-```r
-# You need the MASS library
-library(MASS)
- 
-# Vector color
-my_colors <- colors()[as.numeric(iris$Species)*11]
- 
-# Make the graph !
-parcoord(iris[,c(1:4)] , col= my_colors  )
-```
-
-![](https://www.r-graph-gallery.com/93-parrallel-plot_files/figure-html/thecode-1.png)
-
-### Reorder Variables
-
-It is important to find the best variable order in your parallel coordinates chart. To change it, just change the order in the input dataset.
-
-<u>Note</u>: the `RColorBrewer` package is used to generate a nice and reliable color palette.
-
-
-```r
-# You need the MASS library
-library(MASS)
- 
-# Vector color
-library(RColorBrewer)
-palette <- brewer.pal(3, "Set1") 
- my_colors <- palette[as.numeric(iris$Species)]
-# Make the graph !
-parcoord(iris[,c(1,3,4,2)] , col= my_colors  )
-```
-
-![](https://www.r-graph-gallery.com/93-parrallel-plot_files/figure-html/thecode2-1.png)
-
-### Highlight a Group
-
-Data visualization aims to highlight a story in the data. If you are interested in a specific group, you can highlight it as follow:
-
-```r
-# You need the MASS library
-library(MASS)
- 
-# Let's use the Iris dataset as an example
-data(iris)
- 
-# Vector color: red if Setosa, grey otherwise.
-isSetosa <- ifelse(iris$Species=="setosa","red","grey")
-# Make the graph !
-parcoord(iris[,c(1,3,4,2)] , col=isSetosa  )
-```
-
-![](https://www.r-graph-gallery.com/93-parrallel-plot_files/figure-html/thecode3-1.png)
-
-## Lollipop Plot
-
---- 
-
-A [lollipop plot](https://www.data-to-viz.com/graph/lollipop.html) is basically a [barplot](https://www.r-graph-gallery.com/barplot.html), where the bar is transformed in a line and a dot. It shows the relationship between a numeric and a categorical variable. Lollipop charts can be created using ggplot2: the trick is to combine geom_point() for the dots with geom_segment() for the stems. See this basic example to see how to proceed.
-
-#### `GGPLOT2`
-
-Lollipop charts can be created using `ggplot2`: the trick is to combine `geom_point()` for the dots with `geom_segment()` for the stems. See this [basic example](https://www.r-graph-gallery.com/300-basic-lollipop-plot.html) to see how to proceed.
-
-
-### Most Basic Lollipop Plot
-
-How to build a very basic [lollipop chart](https://www.r-graph-gallery.com/lollipop-plot.html) with `R` and [ggplot2](https://www.r-graph-gallery.com/ggplot2-package.html). This section how to use `geom_point()` and `geom_segment()` based on different input formats.
-
-#### From 2 Numeric Variables
-
-A [lollipop plot](https://www.r-graph-gallery.com/lollipop-plot.html) is very close from both [scatterplots](https://www.r-graph-gallery.com/scatterplot.html) and [barplots](https://www.r-graph-gallery.com/barplot.html).
-
-Thus, 2 types of input format work to build it:
-
-* 2 numeric values like for a scatterplot
-* one numeric and one categorical variable like for the barplot.
-
-In any case, a lollipop is built using `geom_point()` for the circle, and `geom_segment()` for the stem.
-
-```{r lollipop-chart, echo=TRUE, message=FALSE, warning=FALSE}
-# Libraries
-library(ggplot2)
-# Create data
-data <- data.frame(x=seq(1,30), y=abs(rnorm(30)))
- 
-# Plot
-ggplot(data, aes(x=x, y=y)) +
-  geom_point() + 
-  geom_segment( aes(x=x, xend=x, y=0, yend=y))
-```
-
-### From 1 Numeric and 1 Categorical Variable
-
-The code works pretty much the same way, but it is important to note that the X axis can represent a categorical variable as well. In this case, the lollipop chart is a good replacement of the [barplot](https://www.r-graph-gallery.com/barplot.html).
-
-```{r lollipop-chart-numeric-categorial, echo=TRUE, message=FALSE, warning=FALSE}
-# Libraries
-library(ggplot2)
-# Create data
-data <- data.frame(
-  x=LETTERS[1:26], 
-  y=abs(rnorm(26))
-)
- 
-# Plot
-ggplot(data, aes(x=x, y=y)) +
-  geom_point() + 
-  geom_segment( aes(x=x, xend=x, y=0, yend=y))
-```
-
-### Custom Lollipop Chart
-
-A [lollipop chart](https://www.r-graph-gallery.com/lollipop-plot.html) is constituted of a circle (made with `geom_point()`) and a segment (made with `geom_segment()`). This page explains how to customize the chart appearance with `R` and `ggplot2`.
-
-#### Marker
-
-A [lollipop plot](https://www.r-graph-gallery.com/lollipop-plot.html) is constituted of a marker and a stem. You can customize the marker as usual with [ggplot2](https://www.r-graph-gallery.com/ggplot2-package.html):
-
-* `size`, `color`
-* `alpha` : transparency
-* `shape` : see list of available shape [here](https://www.r-graph-gallery.com/6-graph-parameters-reminder.html)
-* `stroke` and `fill` : only for shapes that have stroke, like the 21
-
-```{r lollipop-chart-custom, echo=TRUE, message=FALSE, warning=FALSE}
-# Library
-library(tidyverse)
- 
-# Create data
-data <- data.frame(
-  x=LETTERS[1:26],
-  y=abs(rnorm(26))
-)
- 
-# plot
-ggplot(data, aes(x=x, y=y)) +
-  geom_segment( aes(x=x, xend=x, y=0, yend=y)) +
-  geom_point( size=5, color="red", fill=alpha("orange", 0.3), alpha=0.7, shape=21, stroke=2) 
-```
-
-### Stem
-
-The stem is built using `geom_segment()` and can be customized as well:
-
-* `size`, `color`
-* `linetype`: can be an integer (see [list](https://www.r-graph-gallery.com/6-graph-parameters-reminder.html)), a word like `dotted`, `dashed`, `dotdash` and more (type `help(linetype)`)
-
-```{r stem-plot-ggplot, echo=TRUE, message=FALSE, warning=FALSE}
-# Libraries
-library(ggplot2)
-# Create data
-data <- data.frame(
-  x=LETTERS[1:26],
-  y=abs(rnorm(26))
-)
-# Plot
-ggplot(data, aes(x=x, y=y)) +
-  geom_segment( aes(x=x, xend=x, y=0, yend=y) , size=1, color="blue", linetype="dotdash" ) +
-  geom_point()
-```
-
-### General Appearance with `theme()`
-
-As usual, you can customize the general appearance of the chart using the `theme()` function.
-
-<u>Note</u>: another solution is to use the pre-built `theme_ipsum()` offered in the `hrbrthemes` package.
-
-```{r lollipop-chart-general-apperence, echo=TRUE, message=FALSE, warning=FALSE}
-# Create data
-data <- data.frame(
-  x=LETTERS[1:26],
-  y=abs(rnorm(26))
-)
-# Plot
-ggplot(data, aes(x=x, y=y)) +
-  geom_segment( aes(x=x, xend=x, y=0, yend=y), color="grey") +
-  geom_point( color="orange", size=4) +
-  theme_light() +
-  theme(
-    panel.grid.major.x = element_blank(),
-    panel.border = element_blank(),
-    axis.ticks.x = element_blank()
-  ) +
-  xlab("") +
-  ylab("Value of Y")
-```
-
-### Horizontal Version
-
-It is pretty straightforward to flip the chart using the `coord_flip()` function.
-
-It makes sense to do so if you have long labels  they will be much easier to read.
-
-```{r lollipop-chart-horizontal, echo=TRUE, message=FALSE, warning=FALSE}
-# Libraries
-library(ggplot2)
-# Create data
-data <- data.frame(
-  x=LETTERS[1:26],
-  y=abs(rnorm(26))
-)
-# Horizontal version
-ggplot(data, aes(x=x, y=y)) +
-  geom_segment( aes(x=x, xend=x, y=0, yend=y), color="skyblue") +
-  geom_point( color="blue", size=4, alpha=0.6) +
-  theme_light() +
-  coord_flip() +
-  theme(
-    panel.grid.major.y = element_blank(),
-    panel.border = element_blank(),
-    axis.ticks.y = element_blank()
-  )
-```
-
-### Baseline
-
-Lastly, you can easily change the baseline of the chart. It gives more insight to the figure if there is a specific threshold in the data that interests you.
-
-You just have to change the y argument in the `geom_segment()` call.
-
-```{r lollipop-chart-baseline, echo=TRUE, message=FALSE, warning=FALSE}
-# Libraries
-library(ggplot2)
-# Create data
-data <- data.frame(
-  x=LETTERS[1:26],
-  y=abs(rnorm(26))
-)
-# Change baseline
-ggplot(data, aes(x=x, y=y)) +
-  geom_segment( aes(x=x, xend=x, y=1, yend=y), color="grey") +
-  geom_point( color="orange", size=4) +
-  theme_light() +
-  theme(
-    panel.grid.major.x = element_blank(),
-    panel.border = element_blank(),
-    axis.ticks.x = element_blank()
-  ) +
-  xlab("") +
-  ylab("Value of Y")
-```
-
-### Lollipop Chart with 2 Groups
-
-A [lollipop chart](https://www.r-graph-gallery.com/lollipop-plot.html) can be used to compare 2 categories, linking them with a segment to stress out their difference. This section explains how to do it with `R` and [ggplot2](https://www.r-graph-gallery.com/ggplot2-package.html). 
-
-[Lollipop plots](https://www.r-graph-gallery.com/lollipop-plot.html) can be very appropriate when it comes to compare 2 values for several entities. For each entity, one point is drawn for each variable, with a different color. Their difference is then highlighted using a segment. This type of visualisation is also called [Cleveland dot plots](https://www.data-to-viz.com/graph/lollipop.html).
- 
-As usual, it is advised to [order your individuals](https://www.r-graph-gallery.com/267-reorder-a-variable-in-ggplot2.html) by mean, median, or group difference to give even more insight to the figure.
-
-```{r lollipop-chart-two-groups, echo=TRUE, message=FALSE, warning=FALSE}
-# Library
-library(ggplot2)
-library(dplyr)
-library(hrbrthemes)
-# Create data
-value1 <- abs(rnorm(26))*2
-data <- data.frame(
-  x=LETTERS[1:26], 
-  value1=value1, 
-  value2=value1+1+rnorm(26, sd=1) 
-)
- 
-# Reorder data using average? Learn more about reordering in chart #267
-data <- data %>% 
-  rowwise() %>% 
-  mutate( mymean = mean(c(value1,value2) )) %>% 
-  arrange(mymean) %>% 
-  mutate(x=factor(x, x))
- 
-# Plot
-ggplot(data) +
-  geom_segment( aes(x=x, xend=x, y=value1, yend=value2), color="grey") +
-  geom_point( aes(x=x, y=value1), color=rgb(0.2,0.7,0.1,0.5), size=3 ) +
-  geom_point( aes(x=x, y=value2), color=rgb(0.7,0.2,0.1,0.5), size=3 ) +
-  coord_flip()+
-  theme_ipsum() +
-  theme(
-    legend.position = "none",
-  ) +
-  xlab("") +
-  ylab("Value of Y")
-```
-
-### Highlight a Group in a Lollipop Chart
- 
-This section describes how to build a [lollipop chart](https://www.r-graph-gallery.com/lollipop-plot.html) with `R` and `ggplot2`. It shows how to highlight one or several groups of interest to convey your message more efficiently.
-
-[Annotation is key](https://www.data-to-viz.com/caveat/annotation.html) in data visualization: it allows the reader to focus on the main message you want to convey. If one or a few groups specifically interest you, it is a good practice to highlight them on the plot. Your reader will understand quicker what the story behind the chart is. 
-
-To do so, you can use an `ifelse` statement to change `size`, `color`, `alpha` or any other aesthetics. Moreover, it is even more insightful to add text annotation directly on the chart.
-
-Learn more about ggplot2 annotation [here](https://www.r-graph-gallery.com/233-add-annotations-on-ggplot2-chart.html) and more generally in the [ggplot2](https://www.r-graph-gallery.com/ggplot2-package.html) section.
-
-```{r lollipop-chart-highlight-group, echo=TRUE, message=FALSE, warning=FALSE}
-# Library
-library(ggplot2)
-library(dplyr)
-library(hrbrthemes)
-# Create data
-set.seed(1000)
-data <- data.frame(
-  x=LETTERS[1:26], 
-  y=abs(rnorm(26))
-)
- 
-# Reorder the data
-data <- data %>%
-  arrange(y) %>%
-  mutate(x=factor(x,x))
-  
-# Plot
-p <- ggplot(data, aes(x=x, y=y)) +
-  geom_segment( aes(x=x, xend=x, y=0, yend=y ), color=ifelse(data$x %in% c("A","D"), "orange", "grey"), size=ifelse(data$x %in% c("A","D"), 1.3, 0.7) ) +
-  geom_point( color=ifelse(data$x %in% c("A","D"), "orange", "grey"), size=ifelse(data$x %in% c("A","D"), 5, 2) ) +
-  theme_ipsum() +
-  coord_flip() +
-  theme(
-    legend.position="none"
-  ) +
-  xlab("") +
-  ylab("Value of Y") +
-  ggtitle("How did groups A and D perform?")
-# Add annotation
-p + annotate("text", x=grep("D", data$x), y=data$y[which(data$x=="D")]*1.2, 
-           label="Group D is very impressive", 
-           color="orange", size=4 , angle=0, fontface="bold", hjust=0) + 
-  
-    annotate("text", x = grep("A", data$x), y = data$y[which(data$x=="A")]*1.2, 
-           label = paste("Group A is not too bad\n (val=",data$y[which(data$x=="A")] %>% round(2),")",sep="" ) , 
-           color="orange", size=4 , angle=0, fontface="bold", hjust=0) 
-```
-
-### Lollipop Chart with Conditional Color
-
-If your [lollipop plot](https://www.r-graph-gallery.com/lollipop-plot.html) goes on both side of an interesting threshold, you probably want to change the color of its components conditionally. Here is how using R and [ggplot2](https://www.r-graph-gallery.com/ggplot2-package.html).
-
-#### Marker
-
-Here is the process to use conditional color on your `ggplot2` chart:
-
-#### Marker
-
-Here is the process to use conditional color on your `ggplot2` chart:
-
-* Add a new column to your dataframe specifying if you are over or under the threshold (use an `ifelse` statement).
-* Give this column to the `color` aesthetic.
-
-```{r lollipop-chart-conditional-color, echo=TRUE, message=FALSE, warning=FALSE}
-# library
-library(ggplot2)
-library(dplyr)
-# Create data (this takes more sense with a numerical X axis)
-x <- seq(0, 2*pi, length.out=100)
-data <- data.frame(
-  x=x, 
-  y=sin(x) + rnorm(100, sd=0.2)
-)
- 
-# Add a column with your condition for the color
-data <- data %>% 
-  mutate(mycolor = ifelse(y>0, "type1", "type2"))
- 
-# plot
-ggplot(data, aes(x=x, y=y)) +
-  geom_segment( aes(x=x, xend=x, y=0, yend=y, color=mycolor), size=1.3, alpha=0.9) +
-  theme_light() +
-  theme(
-    legend.position = "none",
-    panel.border = element_blank(),
-  ) +
-  xlab("") +
-  ylab("Value of Y")
-```
-
-## Circular Barplot
-
----
-
-This is the [circular barplot](https://www.data-to-viz.com/graph/circularbarplot.html) section of the gallery, a variation of the well known [barplot](https://www.r-graph-gallery.com/barplot.html). Note that even if visually appealing, circular barplot must be used with care since groups [do not share the same Y axis](https://www.data-to-viz.com/graph/circularbarplot.html). It is very adapted for cyclical data though. Visit [data-to-viz.com](https://www.data-to-viz.com/graph/circularbarplot.html) for more info.
-
-#### Step by Step
-
-Here is a set of examples leading to a proper circular barplot, step by step. The first [most basic circular barchart](https://www.r-graph-gallery.com/295-basic-circular-barplot.html) shows how to use `coord_polar()` to make the barchart circular. Next examples describe the next steps to get a proper figure: [gap](https://www.r-graph-gallery.com/297-circular-barplot-with-groups.html) between groups, [labels](https://www.r-graph-gallery.com/296-add-labels-to-circular-barplot.html) and customization.
-
-### Most Basic Circular Barplot
-
-A circular [barplot](https://www.r-graph-gallery.com/barplot.html) is a barplot where bars are displayed along a circle instead of a line. This section explains how to build a basic version with `R` and [ggplot2](https://www.r-graph-gallery.com/ggplot2-package.html). It provides the reproducible code and explain how the `coord_polar()` function works.
-
-A [circular barplot](https://www.r-graph-gallery.com/circular-barplot.html) is a [barplot](https://www.r-graph-gallery.com/barplot.html) where bars are displayed along a circle instead of a line. The input dataset is the same than for a barplot: we need one numeric value per group (one group = one bar). (See more explanation in the [barplot](https://www.r-graph-gallery.com/barplot.html) section).
-
- 
-Basically, the method is the same than to do a classic barplot. At the end, we call `coord_polar()` to make the chart circular. Note that the `ylim()` argument is really important. If it starts at 0, the bars will start from the centre of the circle. If you provide a negative value, a white circle space will appear!
-
-This chart is not really insightful, go to the [next example](https://www.r-graph-gallery.com/296-add-labels-to-circular-barplot.html) to learn how to add labels!
-
-```r
-# Libraries
-library(tidyverse)
- 
-# Create dataset
-data <- data.frame(
-  id=seq(1,60),
-  individual=paste( "Mister ", seq(1,60), sep=""),
-  value=sample( seq(10,100), 60, replace=T)
-)
- 
-# Make the plot
-p <- ggplot(data, aes(x=as.factor(id), y=value)) +       # Note that id is a factor. If x is numeric, there is some space between the first bar
-  
-  # This add the bars with a blue color
-  geom_bar(stat="identity", fill=alpha("blue", 0.3)) +
-  
-  # Limits of the plot = very important. The negative value controls the size of the inner circle, the positive one is useful to add size over each bar
-  ylim(-100,120) +
-  
-  # Custom the theme: no axis title and no cartesian grid
-  theme_minimal() +
-  theme(
-    axis.text = element_blank(),
-    axis.title = element_blank(),
-    panel.grid = element_blank(),
-    plot.margin = unit(rep(-2,4), "cm")     # This remove unnecessary margin around plot
-  ) +
-  
-  # This makes the coordinate polar instead of cartesian.
-  coord_polar(start = 0)
-p
-```
-
-![](https://www.r-graph-gallery.com/295-basic-circular-barplot_files/figure-html/thecode-1.png)
-
-### Add Labels to Circular Barplot
- 
-This section explains how to add labels on a [ggplot2](https://www.r-graph-gallery.com/ggplot2-package.html) circular barchart, on top of each bar. It follows the previous most basic circular barchart. 
-
-The [chart #295](https://www.r-graph-gallery.com/295-basic-circular-barplot.html) explains how to make a basic circular barplot. The next step is to add labels to each bar, to give insight to the graphic.
-
-
-Here I suggest a method to add label at the top of each bar, using the same angle that the central part of the bar. In the code below, a short section creates a dataframe with the feature of each label, that we can then call in `geom_text()`.
-
-Note that labels are always in an angle that allows to read them easily, what requires a 180 degrees flip for some of them.
-
-```r
-# Libraries
-library(tidyverse)
- 
-# Create dataset
-data <- data.frame(
-  id=seq(1,60),
-  individual=paste( "Mister ", seq(1,60), sep=""),
-  value=sample( seq(10,100), 60, replace=T)
-)
- 
-# ----- This section prepare a dataframe for labels ---- #
-# Get the name and the y position of each label
-label_data <- data
- 
-# calculate the ANGLE of the labels
-number_of_bar <- nrow(label_data)
-angle <-  90 - 360 * (label_data$id-0.5) /number_of_bar     # I substract 0.5 because the letter must have the angle of the center of the bars. Not extreme right(1) or extreme left (0)
- 
-# calculate the alignment of labels: right or left
-# If I am on the left part of the plot, my labels have currently an angle < -90
-label_data$hjust<-ifelse( angle < -90, 1, 0)
- 
-# flip angle BY to make them readable
-label_data$angle<-ifelse(angle < -90, angle+180, angle)
-# ----- ------------------------------------------- ---- #
- 
- 
-# Start the plot
-p <- ggplot(data, aes(x=as.factor(id), y=value)) +       # Note that id is a factor. If x is numeric, there is some space between the first bar
-  
-  # This add the bars with a blue color
-  geom_bar(stat="identity", fill=alpha("skyblue", 0.7)) +
-  
-  # Limits of the plot = very important. The negative value controls the size of the inner circle, the positive one is useful to add size over each bar
-  ylim(-100,120) +
-  
-  # Custom the theme: no axis title and no cartesian grid
-  theme_minimal() +
-  theme(
-    axis.text = element_blank(),
-    axis.title = element_blank(),
-    panel.grid = element_blank(),
-    plot.margin = unit(rep(-1,4), "cm")      # Adjust the margin to make in sort labels are not truncated!
-  ) +
-  
-  # This makes the coordinate polar instead of cartesian.
-  coord_polar(start = 0) +
-  
-  # Add the labels, using the label_data dataframe that we have created before
-  geom_text(data=label_data, aes(x=id, y=value+10, label=individual, hjust=hjust), color="black", fontface="bold",alpha=0.6, size=2.5, angle= label_data$angle, inherit.aes = FALSE ) 
- 
-p
-```
-
-![](https://www.r-graph-gallery.com/296-add-labels-to-circular-barplot_files/figure-html/thecode-1.png)
-
-### Circular Barplot with Groups
- 
-This section explains how to build a [circular barchart](https://www.r-graph-gallery.com/circular-barplot.html) with groups. A gap is added between groups to highlight them. Bars are labeled, group names are annotated
-
-#### Add a Gap in the Circle
-
-A [circular barplot](https://www.r-graph-gallery.com/circular-barplot.html) is a [barplot](https://www.r-graph-gallery.com/barplot.html) where bars are displayed along a circle instead of a line. This page aims to teach you how to make a circular barplot with groups.
-
-Since this kind of chart is a bit tricky, I strongly advise to understand [graph #295](https://www.r-graph-gallery.com/295-basic-circular-barplot.html) and [#296](https://www.r-graph-gallery.com/296-add-labels-to-circular-barplot.html) that will teach you the basics.
-
-The first step is to build a circular barplot with a break in the circle. Actually, I just added a few empty lines at the end of the initial data frame:
-
-```r
-# library
-library(tidyverse)
- 
-# Create dataset
-data <- data.frame(
-  individual=paste( "Mister ", seq(1,60), sep=""),
-  value=sample( seq(10,100), 60, replace=T)
-)
- 
-# Set a number of 'empty bar'
-empty_bar <- 10
- 
-# Add lines to the initial dataset
-to_add <- matrix(NA, empty_bar, ncol(data))
-colnames(to_add) <- colnames(data)
-data <- rbind(data, to_add)
-data$id <- seq(1, nrow(data))
- 
-# Get the name and the y position of each label
-label_data <- data
-number_of_bar <- nrow(label_data)
-angle <- 90 - 360 * (label_data$id-0.5) /number_of_bar     # I substract 0.5 because the letter must have the angle of the center of the bars. Not extreme right(1) or extreme left (0)
-label_data$hjust <- ifelse( angle < -90, 1, 0)
-label_data$angle <- ifelse(angle < -90, angle+180, angle)
- 
-# Make the plot
-p <- ggplot(data, aes(x=as.factor(id), y=value)) +       # Note that id is a factor. If x is numeric, there is some space between the first bar
-  geom_bar(stat="identity", fill=alpha("green", 0.3)) +
-  ylim(-100,120) +
-  theme_minimal() +
-  theme(
-    axis.text = element_blank(),
-    axis.title = element_blank(),
-    panel.grid = element_blank(),
-    plot.margin = unit(rep(-1,4), "cm") 
-  ) +
-  coord_polar(start = 0) + 
-  geom_text(data=label_data, aes(x=id, y=value+10, label=individual, hjust=hjust), color="black", fontface="bold",alpha=0.6, size=2.5, angle= label_data$angle, inherit.aes = FALSE ) 
- 
-p
-```
-
-![](https://www.r-graph-gallery.com/297-circular-barplot-with-groups_files/figure-html/thecode-1.png)
-
-### Space between Groups
-
-This concept can now be used to add space between each group of the dataset. Added `n` lines with only `NA` at the bottom of each group.
-
-This chart is far more insightful since it allows one to quickly compare the different groups, and to compare the value of items within each group.
-
-```r
-# library
-library(tidyverse)
- 
-# Create dataset
-data <- data.frame(
-  individual=paste( "Mister ", seq(1,60), sep=""),
-  group=c( rep('A', 10), rep('B', 30), rep('C', 14), rep('D', 6)) ,
-  value=sample( seq(10,100), 60, replace=T)
-)
- 
-# Set a number of 'empty bar' to add at the end of each group
-empty_bar <- 4
-to_add <- data.frame( matrix(NA, empty_bar*nlevels(data$group), ncol(data)) )
-colnames(to_add) <- colnames(data)
-to_add$group <- rep(levels(data$group), each=empty_bar)
-data <- rbind(data, to_add)
-data <- data %>% arrange(group)
-data$id <- seq(1, nrow(data))
- 
-# Get the name and the y position of each label
-label_data <- data
-number_of_bar <- nrow(label_data)
-angle <- 90 - 360 * (label_data$id-0.5) /number_of_bar     # I substract 0.5 because the letter must have the angle of the center of the bars. Not extreme right(1) or extreme left (0)
-label_data$hjust <- ifelse( angle < -90, 1, 0)
-label_data$angle <- ifelse(angle < -90, angle+180, angle)
- 
-# Make the plot
-p <- ggplot(data, aes(x=as.factor(id), y=value, fill=group)) +       # Note that id is a factor. If x is numeric, there is some space between the first bar
-  geom_bar(stat="identity", alpha=0.5) +
-  ylim(-100,120) +
-  theme_minimal() +
-  theme(
-    legend.position = "none",
-    axis.text = element_blank(),
-    axis.title = element_blank(),
-    panel.grid = element_blank(),
-    plot.margin = unit(rep(-1,4), "cm") 
-  ) +
-  coord_polar() + 
-  geom_text(data=label_data, aes(x=id, y=value+10, label=individual, hjust=hjust), color="black", fontface="bold",alpha=0.6, size=2.5, angle= label_data$angle, inherit.aes = FALSE ) 
- 
-p
-```
-
-![](https://www.r-graph-gallery.com/297-circular-barplot-with-groups_files/figure-html/thecode2-1.png)
-
-### Order Bars
-
-Here observations are sorted by bar height within each group. It can be useful if your goal is to understand what are the highest / lowest observations within and across groups.
-
-The method used to order groups in ggplot2 is extensively described in this [dedicated page](https://www.r-graph-gallery.com/267-reorder-a-variable-in-ggplot2.html). Basically, you just have to add the following piece of code right after the data frame creation:
-
-```r
-# Order data:
-data = data %>% arrange(group, value)
-```
-
-![](https://www.r-graph-gallery.com/297-circular-barplot-with-groups_files/figure-html/unnamed-chunk-1-1.png)
-
-### Circular Barchart Customization
-
-Last but not least, it is highly advisable to add some customisation to your chart. Here we add group names (A, B, C and D), and we add a scale to help compare the sizes of the bars. 
-
-```r
-# library
-library(tidyverse)
- 
-# Create dataset
-data <- data.frame(
-  individual=paste( "Mister ", seq(1,60), sep=""),
-  group=c( rep('A', 10), rep('B', 30), rep('C', 14), rep('D', 6)) ,
-  value=sample( seq(10,100), 60, replace=T)
-)
- 
-# Set a number of 'empty bar' to add at the end of each group
-empty_bar <- 3
-to_add <- data.frame( matrix(NA, empty_bar*nlevels(data$group), ncol(data)) )
-colnames(to_add) <- colnames(data)
-to_add$group <- rep(levels(data$group), each=empty_bar)
-data <- rbind(data, to_add)
-data <- data %>% arrange(group)
-data$id <- seq(1, nrow(data))
- 
-# Get the name and the y position of each label
-label_data <- data
-number_of_bar <- nrow(label_data)
-angle <- 90 - 360 * (label_data$id-0.5) /number_of_bar     # I substract 0.5 because the letter must have the angle of the center of the bars. Not extreme right(1) or extreme left (0)
-label_data$hjust <- ifelse( angle < -90, 1, 0)
-label_data$angle <- ifelse(angle < -90, angle+180, angle)
- 
-# prepare a data frame for base lines
-base_data <- data %>% 
-  group_by(group) %>% 
-  summarize(start=min(id), end=max(id) - empty_bar) %>% 
-  rowwise() %>% 
-  mutate(title=mean(c(start, end)))
- 
-# prepare a data frame for grid (scales)
-grid_data <- base_data
-grid_data$end <- grid_data$end[ c( nrow(grid_data), 1:nrow(grid_data)-1)] + 1
-grid_data$start <- grid_data$start - 1
-grid_data <- grid_data[-1,]
- 
-# Make the plot
-p <- ggplot(data, aes(x=as.factor(id), y=value, fill=group)) +       # Note that id is a factor. If x is numeric, there is some space between the first bar
-  
-  geom_bar(aes(x=as.factor(id), y=value, fill=group), stat="identity", alpha=0.5) +
-  
-  # Add a val=100/75/50/25 lines. I do it at the beginning to make sur barplots are OVER it.
-  geom_segment(data=grid_data, aes(x = end, y = 80, xend = start, yend = 80), colour = "grey", alpha=1, size=0.3 , inherit.aes = FALSE ) +
-  geom_segment(data=grid_data, aes(x = end, y = 60, xend = start, yend = 60), colour = "grey", alpha=1, size=0.3 , inherit.aes = FALSE ) +
-  geom_segment(data=grid_data, aes(x = end, y = 40, xend = start, yend = 40), colour = "grey", alpha=1, size=0.3 , inherit.aes = FALSE ) +
-  geom_segment(data=grid_data, aes(x = end, y = 20, xend = start, yend = 20), colour = "grey", alpha=1, size=0.3 , inherit.aes = FALSE ) +
-  
-  # Add text showing the value of each 100/75/50/25 lines
-  annotate("text", x = rep(max(data$id),4), y = c(20, 40, 60, 80), label = c("20", "40", "60", "80") , color="grey", size=3 , angle=0, fontface="bold", hjust=1) +
-  
-  geom_bar(aes(x=as.factor(id), y=value, fill=group), stat="identity", alpha=0.5) +
-  ylim(-100,120) +
-  theme_minimal() +
-  theme(
-    legend.position = "none",
-    axis.text = element_blank(),
-    axis.title = element_blank(),
-    panel.grid = element_blank(),
-    plot.margin = unit(rep(-1,4), "cm") 
-  ) +
-  coord_polar() + 
-  geom_text(data=label_data, aes(x=id, y=value+10, label=individual, hjust=hjust), color="black", fontface="bold",alpha=0.6, size=2.5, angle= label_data$angle, inherit.aes = FALSE ) +
-  
-  # Add base line information
-  geom_segment(data=base_data, aes(x = start, y = -5, xend = end, yend = -5), colour = "black", alpha=0.8, size=0.6 , inherit.aes = FALSE )  +
-  geom_text(data=base_data, aes(x = title, y = -18, label=group), hjust=c(1,1,0,0), colour = "black", alpha=0.8, size=4, fontface="bold", inherit.aes = FALSE)
- 
-p
-```
-
-![](https://www.r-graph-gallery.com/297-circular-barplot-with-groups_files/figure-html/thecode4-1.png)
-
-### Circular Stacked Barplot
-
-A [circular barplot](https://www.r-graph-gallery.com/circular-barplot.html) is a [barplot](https://www.r-graph-gallery.com/barplot.html) where bars are displayed along a circle instead of a line. This page aims to teach you how to make a grouped and stacked circular barplot with `R` and `ggplot2`.
-
-A circular barplot is a barplot where bars are displayed along a circle instead of a line. This page aims to teach you how to make a grouped and stacked circular barplot. I highly recommend to visit graph [#295](https://www.r-graph-gallery.com/295-basic-circular-barplot.html), [#296](https://www.r-graph-gallery.com/296-add-labels-to-circular-barplot.html) and [#297](https://www.r-graph-gallery.com/297-circular-barplot-with-groups.html) Before diving into this code, which is a bit rough.
-
-I tried to add as many comments as possible in the code, and thus hope that the method is understandable. If it is not, please comment and ask supplementary explanations.
-
-You first need to understand how to make a [stacked barplot](https://www.r-graph-gallery.com/stacked-barplot.html) with ggplot2. Then understand how to properly add labels, calculating the good angles, flipping them if necessary, and adjusting their position. The trickiest part is probably the one allowing to add space between each group. All these steps are described one by one in the circular barchart [section](https://www.r-graph-gallery.com/circular-barplot.html).
-
-```r
-# library
-library(tidyverse)
-library(viridis)
- 
-# Create dataset
-data <- data.frame(
-  individual=paste( "Mister ", seq(1,60), sep=""),
-  group=c( rep('A', 10), rep('B', 30), rep('C', 14), rep('D', 6)) ,
-  value1=sample( seq(10,100), 60, replace=T),
-  value2=sample( seq(10,100), 60, replace=T),
-  value3=sample( seq(10,100), 60, replace=T)
-)
- 
-# Transform data in a tidy format (long format)
-data <- data %>% gather(key = "observation", value="value", -c(1,2)) 
- 
-# Set a number of 'empty bar' to add at the end of each group
-empty_bar <- 2
-nObsType <- nlevels(as.factor(data$observation))
-to_add <- data.frame( matrix(NA, empty_bar*nlevels(data$group)*nObsType, ncol(data)) )
-colnames(to_add) <- colnames(data)
-to_add$group <- rep(levels(data$group), each=empty_bar*nObsType )
-data <- rbind(data, to_add)
-data <- data %>% arrange(group, individual)
-data$id <- rep( seq(1, nrow(data)/nObsType) , each=nObsType)
- 
-# Get the name and the y position of each label
-label_data <- data %>% group_by(id, individual) %>% summarize(tot=sum(value))
-number_of_bar <- nrow(label_data)
-angle <- 90 - 360 * (label_data$id-0.5) /number_of_bar     # I substract 0.5 because the letter must have the angle of the center of the bars. Not extreme right(1) or extreme left (0)
-label_data$hjust <- ifelse( angle < -90, 1, 0)
-label_data$angle <- ifelse(angle < -90, angle+180, angle)
- 
-# prepare a data frame for base lines
-base_data <- data %>% 
-  group_by(group) %>% 
-  summarize(start=min(id), end=max(id) - empty_bar) %>% 
-  rowwise() %>% 
-  mutate(title=mean(c(start, end)))
- 
-# prepare a data frame for grid (scales)
-grid_data <- base_data
-grid_data$end <- grid_data$end[ c( nrow(grid_data), 1:nrow(grid_data)-1)] + 1
-grid_data$start <- grid_data$start - 1
-grid_data <- grid_data[-1,]
- 
-# Make the plot
-p <- ggplot(data) +      
-  
-  # Add the stacked bar
-  geom_bar(aes(x=as.factor(id), y=value, fill=observation), stat="identity", alpha=0.5) +
-  scale_fill_viridis(discrete=TRUE) +
-  
-  # Add a val=100/75/50/25 lines. I do it at the beginning to make sur barplots are OVER it.
-  geom_segment(data=grid_data, aes(x = end, y = 0, xend = start, yend = 0), colour = "grey", alpha=1, size=0.3 , inherit.aes = FALSE ) +
-  geom_segment(data=grid_data, aes(x = end, y = 50, xend = start, yend = 50), colour = "grey", alpha=1, size=0.3 , inherit.aes = FALSE ) +
-  geom_segment(data=grid_data, aes(x = end, y = 100, xend = start, yend = 100), colour = "grey", alpha=1, size=0.3 , inherit.aes = FALSE ) +
-  geom_segment(data=grid_data, aes(x = end, y = 150, xend = start, yend = 150), colour = "grey", alpha=1, size=0.3 , inherit.aes = FALSE ) +
-  geom_segment(data=grid_data, aes(x = end, y = 200, xend = start, yend = 200), colour = "grey", alpha=1, size=0.3 , inherit.aes = FALSE ) +
-  
-  # Add text showing the value of each 100/75/50/25 lines
-  ggplot2::annotate("text", x = rep(max(data$id),5), y = c(0, 50, 100, 150, 200), label = c("0", "50", "100", "150", "200") , color="grey", size=6 , angle=0, fontface="bold", hjust=1) +
-  
-  ylim(-150,max(label_data$tot, na.rm=T)) +
-  theme_minimal() +
-  theme(
-    legend.position = "none",
-    axis.text = element_blank(),
-    axis.title = element_blank(),
-    panel.grid = element_blank(),
-    plot.margin = unit(rep(-1,4), "cm") 
-  ) +
-  coord_polar() +
-  
-  # Add labels on top of each bar
-  geom_text(data=label_data, aes(x=id, y=tot+10, label=individual, hjust=hjust), color="black", fontface="bold",alpha=0.6, size=5, angle= label_data$angle, inherit.aes = FALSE ) +
-  
-  # Add base line information
-  geom_segment(data=base_data, aes(x = start, y = -5, xend = end, yend = -5), colour = "black", alpha=0.8, size=0.6 , inherit.aes = FALSE )  +
-  geom_text(data=base_data, aes(x = title, y = -18, label=group), hjust=c(1,1,0,0), colour = "black", alpha=0.8, size=4, fontface="bold", inherit.aes = FALSE)
-# Save at png
-#ggsave(p, file="output.png", width=10, height=10)
-p
-```
-
-<center>
-  ![](https://www.r-graph-gallery.com/img/graph/299-circular-stacked-barplotBig.png){width=75%}
-</center>

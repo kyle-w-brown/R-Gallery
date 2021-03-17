@@ -6,6 +6,327 @@
 knitr::include_graphics("https://www.r-graph-gallery.com/136-stacked-area-chart_files/figure-html/thecode3-1.png")
 ```
 
+## Area Chart
+
+---
+
+An [area chart](https://www.data-to-viz.com/graph/area.html) represents the evolution of a numeric variable. It is very close to a [line chart](https://www.r-graph-gallery.com/line-plot.html). This section displays many examples build with R and [ggplot2](https://www.r-graph-gallery.com/ggplot2-package.html). Have a look to data-to-viz.com if want to learn more about [line chart](https://www.r-graph-gallery.com/line-plot.html) theory.
+
+#### Note on Area Chart
+
+This section is tightly linked with other sections. A [line chart](https://www.r-graph-gallery.com/line-plot.html) is the same but doesn't fill the surface between the line and the X axis. A [connected scatterplot](https://www.r-graph-gallery.com/connected-scatterplot.html) is almost the same thing, but each observation is represented as a dot. More generally, the [time series](https://www.r-graph-gallery.com/time-series.html) section can interest you.
+
+#### Step by Step with `ggplot2`
+
+`ggplot2` allows to draw line charts thanks to the `geom_line()` function. It expects as input a data frame with 2 numeric variables, one displayed on each axis. Start your journey with the [most basic line chart](https://www.r-graph-gallery.com/line-chart-ggplot2.html).
+
+
+### Area Chart with R and `ggplot2`
+ 
+This section is a step by step introduction to [area chart](https://www.r-graph-gallery.com/area-chart.html) with `R` and [ggplot2](https://www.r-graph-gallery.com/ggplot2-package.html). It provides several reproducible examples with explanation and R code.
+
+#### Basic Line Chart with `ggplot2` and `geom_line()`
+
+An [area chart](https://www.r-graph-gallery.com/area-chart.html) displays the evolution of one or several numeric variables. Data points are usually connected by straight line segments, and the area between the X axis and the line is filled. See [data-to-viz](https://www.data-to-viz.com/graph/line.html) for a more in-depth definition.
+
+As for a line chart, the input data frame requires at least 2 columns:
+
+* An *ordered* numeric variable for the X axis
+* Another numeric variable for the Y axis
+
+Once the data is read by ggplot2 and those 2 variables are specified in the x and y arguments of the `aes()`, just call the `geom_area()` function.
+
+```{r area-chart-evolution, echo=TRUE, message=FALSE, warning=FALSE}
+# Libraries
+library(ggplot2)
+# create data
+xValue <- 1:50
+yValue <- cumsum(rnorm(50))
+data <- data.frame(xValue,yValue)
+# Plot
+ggplot(data, aes(x=xValue, y=yValue)) +
+  geom_area()
+```
+
+### Customize the Line Chart
+
+Several options are available to customize the area chart appearance:
+
+* Add a title with `ggtitle()`.
+* Change line style with arguments like `shape`, `size`, `color` and more.
+* Add transparency to the filled region with opacity
+* Custom the general theme with the `theme_ipsum()` function of the `hrbrthemes` package.
+* Highlight the top line with `geom_line()`
+* If not too many observation, show individual data points with `geom_point()`
+
+More generally, visit the [ggplot2 section](https://www.r-graph-gallery.com/ggplot2-package.html) for more ggplot2 related stuff.
+
+```{r area-chart-evolution-customize, echo=TRUE, message=FALSE, warning=FALSE}
+# Libraries
+library(ggplot2)
+library(hrbrthemes)
+# create data
+xValue <- 1:10
+yValue <- abs(cumsum(rnorm(10)))
+data <- data.frame(xValue,yValue)
+# Plot
+ggplot(data, aes(x=xValue, y=yValue)) +
+  geom_area( fill="#69b3a2", alpha=0.4) +
+  geom_line(color="#69b3a2", size=2) +
+  geom_point(size=3, color="#69b3a2") +
+  theme_ipsum() +
+  ggtitle("Evolution of something")
+```
+
+### Basic Stacked Area Chart with R
+
+This post provides the basics concerning [stacked area chart](https://www.r-graph-gallery.com/stacked-area-graph.html) with R and `ggplot2`. It takes into account several input format types and show how to customize the output.
+
+#### Most Basic Stacked Area with `ggplot2`
+
+The data frame used as input to build a [stacked area chart](https://www.r-graph-gallery.com/stacked-area-graph.html) requires 3 columns:
+
+* `x`: Numeric variable used for the X axis, often it is a time.
+* `y`: Numeric variable used for the Y axis. What are we looking at?
+* `group`: One shape will be done per group.
+
+The chart is built using the `geom_area()` function.
+
+```{r stacked-area-evolution-basic, echo=TRUE, message=FALSE, warning=FALSE}
+# Packages
+library(ggplot2)
+library(dplyr)
+ 
+# create data
+time <- as.numeric(rep(seq(1,7),each=7))  # x Axis
+value <- runif(49, 10, 100)               # y Axis
+group <- rep(LETTERS[1:7],times=7)        # group, one shape per group
+data <- data.frame(time, value, group)
+# stacked area chart
+ggplot(data, aes(x=time, y=value, fill=group)) + 
+    geom_area()
+```
+
+### Control Stacking Order with `ggplot2`
+
+The gallery offers a section dedicated to [reordering with ggplot2](https://www.r-graph-gallery.com/267-reorder-a-variable-in-ggplot2.html). This step can be tricky but the code below shows how to:
+
+* Give a specific order with the `factor()` function.
+* Order alphabetically using `sort()`.
+* Order following values at a specific data.
+
+```{r stacked-area-evolution-stacking-order, echo=TRUE, message=FALSE, warning=FALSE}
+# Give a specific order:
+data$group <- factor(data$group , levels=c("B", "A", "D", "E", "G", "F", "C") )
+# Plot again
+ggplot(data, aes(x=time, y=value, fill=group)) + 
+    geom_area()
+# Note: you can also sort levels alphabetically:
+myLevels <- levels(data$group)
+data$group <- factor(data$group , levels=sort(myLevels) )
+# Note: sort followinig values at time = 5
+myLevels <- data %>%
+  filter(time==6) %>%
+  arrange(value)
+data$group <- factor(data$group , levels=myLevels$group )
+```
+
+###  Proportional Stacked Area Chart
+
+In a proportional stacked area graph, the sum of each year is always equal to hundred and value of each group is represented through percentages.
+
+To make it, you have to calculate these percentages first. This can be done using `dplyr` of with `base R`.
+
+```{r stacked-area-evolution-proportional, echo=TRUE, message=FALSE, warning=FALSE}
+# Compute percentages with dplyr
+library(dplyr)
+data <- data  %>%
+  group_by(time, group) %>%
+  summarise(n = sum(value)) %>%
+  mutate(percentage = n / sum(n))
+# Plot
+ggplot(data, aes(x=time, y=percentage, fill=group)) + 
+    geom_area(alpha=0.6 , size=1, colour="black")
+# Note: compute percentages without dplyr:
+my_fun <- function(vec){ 
+  as.numeric(vec[2]) / sum(data$value[data$time==vec[1]]) *100 
+}
+data$percentage <- apply(data , 1 , my_fun)
+```
+
+### Color & Style
+
+Let's improve the chart general appearance:
+
+* Usage of the `viridis` color scale.
+* `theme_ipsum` of the hrbrthemes package.
+* Add title with `ggtitle`.
+
+```{r stacked-area-evolution-color-and-style, echo=TRUE, message=FALSE, warning=FALSE}
+# Library
+library(viridis)
+library(hrbrthemes)
+# Plot
+ggplot(data, aes(x=time, y=value, fill=group)) + 
+    geom_area(alpha=0.6 , size=.5, colour="white") +
+    scale_fill_viridis(discrete = T) +
+    theme_ipsum() + 
+    ggtitle("The race between ...")
+```
+
+### Stacking Area Charts
+
+#### What is Stacking
+
+`Stacking` is a process where a chart is broken up across more than one categoric variables which make up the whole. Each item of the categoric variable is represented by a shaded area. These areas are stacked on top of one another.
+
+Here is an example with a [stacked area chart](https://www.data-to-viz.com/graph/stackedarea.html). It shows the evolution of baby name occurence in the US between 1880 and 2015. Six first names are represented on top of one another.
+
+```{r stacked-area-evolution-stacking, echo=TRUE, message=FALSE, warning=FALSE, fig.height=5, fig.width=5}
+# Libraries
+library(tidyverse)
+library(babynames)
+library(streamgraph)
+library(viridis)
+library(hrbrthemes)
+library(plotly)
+# Load dataset from github
+data <- babynames %>% 
+  filter(name %in% c("Amanda", "Jessica",    "Patricia", "Deborah",   "Dorothy",  "Helen")) %>%
+  filter(sex=="F")
+# Plot
+p <- data %>% 
+  ggplot( aes(x=year, y=n, fill=name, text=name)) +
+    geom_area( ) +
+    scale_fill_viridis(discrete = TRUE) +
+    theme(legend.position="none") +
+    ggtitle("Popularity of American names in the previous 30 years") +
+    theme_ipsum() +
+    theme(legend.position="none")
+ggplotly(p, tooltip="text")
+```
+
+#### Heaven or Hell?
+
+The efficiency of stacked area graph is discussed and it must be used with care. To put it in a nutshell:
+
+* Stacked graphs are `appropriate` to study the `evolution of the whole` and the `relative proportions` of each group. Indeed, the top of the areas allows to visualize how the whole behaves, like for a classic area chart. In the previous graphic, it is easy to see that in 1920, Helen and Dorothy were common names but the 4 other names barely existed.
+
+* However, they are `not appropriate` to study the `evolution of each` individual group. This is due to 2 main reasons. First, all except the since they do not have a flat `baseline`, it is very hard to read their values at each tile stamp.
+
+### Example: Mental Arithmetic
+
+In the previous graphic, try to find out how many times the name Dorothy was given in 1920.
+
+It is not trivial to find it out using the previous chart. You have to mentally do 75000 - 37000 which is hard. If you want to convey a message efficiently, you don't want the audience to perform mental arithmetic.
+
+#### Example: Optical Illusion.
+
+> Important note: this section is inspired from this post by Dr. Drang.
+Dr Drang gives this nice example. Consider the graphic below, and try to visualize how the 3 categories evolved on the period:
+
+```{r stacked-area-evolution-stacking-2, echo=TRUE, message=FALSE, warning=FALSE}
+# create dummy data
+don <- data.frame(
+  x = rep(seq(2000,2005), 3),
+  value = c(  75, 73, 68, 57, 36, 0, 15, 16, 17, 18, 19, 20, 10, 11, 15, 25, 45, 80),
+  group = rep(c("A", "B", "C"), each=6)
+)
+#plot
+don %>% 
+  ggplot( aes(x=x, y=value, fill=group)) +
+    geom_area( ) +
+    scale_fill_viridis(discrete = TRUE) +
+    theme(legend.position="none") +
+    theme_ipsum() +
+    theme(legend.position="none")
+```
+
+It looks obvious that the yellow category increased, the purple decreased, and the green. is harder to read. At a first glance it looks like it is slightly decreasing I would say.
+
+Now let's plot just the green group to find out:
+
+```{r stacked-area-evolution-stacking-3, echo=TRUE, message=FALSE, warning=FALSE}
+#plot
+don %>% 
+  filter(group=="B") %>%
+  ggplot( aes(x=x, y=value, fill=group)) +
+    geom_area( fill="#22908C") +
+    theme(legend.position="none") +
+    theme_ipsum() +
+    theme(legend.position="none")
+```
+
+#### Workaround
+
+If you have just a `few categories`, I would suggest to build a line chart. Here it is easy to follow a category and understand how it evolved accurately.
+
+```{r stacked-area-evolution-stacking-4, echo=TRUE, message=FALSE, warning=FALSE}
+data %>%
+  ggplot( aes(x=year, y=n, group=name, color=name)) +
+    geom_line() +
+    scale_color_viridis(discrete = TRUE) +
+    theme(legend.position="none") +
+    ggtitle("Popularity of American names in the previous 30 years") +
+    theme_ipsum()
+```
+
+However, this solution is not suitable if you have `many categories`. Indeed, it would result in a spaghetti chart that is very hard to read. You can read more about this here.
+
+Instead I would suggest to use `small multiple: here each category has its own section in the graphic. It makes easy to understand the pattern of each category.
+```{r stacked-area-evolution-stacking-5, echo=TRUE, message=FALSE, warning=FALSE}
+data %>%
+  ggplot( aes(x=year, y=n, group=name, fill=name)) +
+    geom_area() +
+    scale_fill_viridis(discrete = TRUE) +
+    theme(legend.position="none") +
+    ggtitle("Popularity of American names in the previous 30 years") +
+    theme_ipsum() +
+    theme(
+      legend.position="none",
+      panel.spacing = unit(0.1, "lines"),
+      strip.text.x = element_text(size = 8)
+    ) +
+    facet_wrap(~name, scale="free_y")
+```
+
+#### Going Further
+
+* Stacked Area Graphs Are Not Your Friend by [Everyday analytics](http://www.everydayanalytics.ca/2014/08/stacked-area-graphs-are-not-your-friend.html).
+* Quantitative Displays for Combining Time-Series and Part-to-Whole Relationships by [Stephen Few](http://www.perceptualedge.com/articles/visual_business_intelligence/displays_for_combining_time-series_and_part-to-whole.pdf). 
+* I hate stacked area charts by [Dr Drang](http://www.leancrew.com/all-this/2011/11/i-hate-stacked-area-charts/).
+
+
+### Interactive Area Chart with R and plotly
+ 
+The `plotly` package allows to build interactive charts directly from R. Here is a application to [area chart](https://www.r-graph-gallery.com/area-chart.html), using both the `plot_ly()` and `ggplotly()` functions.
+
+The `ggplotly()` function of the `plotly` library makes it a breeze to build an interactive version. Try to hover circles to get a tooltip, or select an area of interest for zooming. Double click to reinitialize.
+
+### Basic Line Chart with ggplot2 and `geom_line()`
+
+Base R also allows to build area charts thanks to the `polygon()` function. This functions requires 2 inputs: x and y.
+
+Note that extreme values of both are added at the beginning and at the end of each vectors to make sure the polygon is closed.
+
+This section describes how to build an area chart using base R and the `polygon()` function. See the area chart section for a ggplot2 implementation.
+
+```{r line-chart-ggplot-evolution-basic, echo=TRUE, message=FALSE, warning=FALSE}
+# Create data
+data <- data.frame(
+  x=seq(1,10), 
+  y=sample(seq(1,15),10)
+)
+# Add line on top
+plot( data$x , data$y , col=rgb(0.2,0.1,0.5,0.9) , type="o" , lwd=3 , xlab="" , ylab="size" , pch=20)
+# Fill the area
+polygon( 
+  c(min(data$x), data$x , max(data$x)) , 
+  c( min(data$y) , data$y , min(data$y)) , 
+  col=rgb(0.2,0.1,0.5,0.2) , border=F
+)
+```
+
 ## Line Chart
 
 ---
@@ -1124,328 +1445,6 @@ obj2 <- xyplot(var2 ~ x, data, type = "l", lwd=2)
  
 # --> Make the plot with second y axis AND legend:
 doubleYScale(obj1, obj2, text = c("obj1", "obj2") , add.ylab2 = TRUE)
-```
-
-
-## Area Chart
-
----
-
-An [area chart](https://www.data-to-viz.com/graph/area.html) represents the evolution of a numeric variable. It is very close to a [line chart](https://www.r-graph-gallery.com/line-plot.html). This section displays many examples build with R and [ggplot2](https://www.r-graph-gallery.com/ggplot2-package.html). Have a look to data-to-viz.com if want to learn more about [line chart](https://www.r-graph-gallery.com/line-plot.html) theory.
-
-#### Note on Area Chart
-
-This section is tightly linked with other sections. A [line chart](https://www.r-graph-gallery.com/line-plot.html) is the same but doesn't fill the surface between the line and the X axis. A [connected scatterplot](https://www.r-graph-gallery.com/connected-scatterplot.html) is almost the same thing, but each observation is represented as a dot. More generally, the [time series](https://www.r-graph-gallery.com/time-series.html) section can interest you.
-
-#### Step by Step with `ggplot2`
-
-`ggplot2` allows to draw line charts thanks to the `geom_line()` function. It expects as input a data frame with 2 numeric variables, one displayed on each axis. Start your journey with the [most basic line chart](https://www.r-graph-gallery.com/line-chart-ggplot2.html).
-
-
-### Area Chart with R and `ggplot2`
- 
-This section is a step by step introduction to [area chart](https://www.r-graph-gallery.com/area-chart.html) with `R` and [ggplot2](https://www.r-graph-gallery.com/ggplot2-package.html). It provides several reproducible examples with explanation and R code.
-
-#### Basic Line Chart with `ggplot2` and `geom_line()`
-
-An [area chart](https://www.r-graph-gallery.com/area-chart.html) displays the evolution of one or several numeric variables. Data points are usually connected by straight line segments, and the area between the X axis and the line is filled. See [data-to-viz](https://www.data-to-viz.com/graph/line.html) for a more in-depth definition.
-
-As for a line chart, the input data frame requires at least 2 columns:
-
-* An *ordered* numeric variable for the X axis
-* Another numeric variable for the Y axis
-
-Once the data is read by ggplot2 and those 2 variables are specified in the x and y arguments of the `aes()`, just call the `geom_area()` function.
-
-```{r area-chart-evolution, echo=TRUE, message=FALSE, warning=FALSE}
-# Libraries
-library(ggplot2)
-# create data
-xValue <- 1:50
-yValue <- cumsum(rnorm(50))
-data <- data.frame(xValue,yValue)
-# Plot
-ggplot(data, aes(x=xValue, y=yValue)) +
-  geom_area()
-```
-
-### Customize the Line Chart
-
-Several options are available to customize the area chart appearance:
-
-* Add a title with `ggtitle()`.
-* Change line style with arguments like `shape`, `size`, `color` and more.
-* Add transparency to the filled region with opacity
-* Custom the general theme with the `theme_ipsum()` function of the `hrbrthemes` package.
-* Highlight the top line with `geom_line()`
-* If not too many observation, show individual data points with `geom_point()`
-
-More generally, visit the [ggplot2 section](https://www.r-graph-gallery.com/ggplot2-package.html) for more ggplot2 related stuff.
-
-```{r area-chart-evolution-customize, echo=TRUE, message=FALSE, warning=FALSE}
-# Libraries
-library(ggplot2)
-library(hrbrthemes)
-# create data
-xValue <- 1:10
-yValue <- abs(cumsum(rnorm(10)))
-data <- data.frame(xValue,yValue)
-# Plot
-ggplot(data, aes(x=xValue, y=yValue)) +
-  geom_area( fill="#69b3a2", alpha=0.4) +
-  geom_line(color="#69b3a2", size=2) +
-  geom_point(size=3, color="#69b3a2") +
-  theme_ipsum() +
-  ggtitle("Evolution of something")
-```
-
-### Basic Stacked Area Chart with R
-
-This post provides the basics concerning [stacked area chart](https://www.r-graph-gallery.com/stacked-area-graph.html) with R and `ggplot2`. It takes into account several input format types and show how to customize the output.
-
-#### Most Basic Stacked Area with `ggplot2`
-
-The data frame used as input to build a [stacked area chart](https://www.r-graph-gallery.com/stacked-area-graph.html) requires 3 columns:
-
-* `x`: Numeric variable used for the X axis, often it is a time.
-* `y`: Numeric variable used for the Y axis. What are we looking at?
-* `group`: One shape will be done per group.
-
-The chart is built using the `geom_area()` function.
-
-```{r stacked-area-evolution-basic, echo=TRUE, message=FALSE, warning=FALSE}
-# Packages
-library(ggplot2)
-library(dplyr)
- 
-# create data
-time <- as.numeric(rep(seq(1,7),each=7))  # x Axis
-value <- runif(49, 10, 100)               # y Axis
-group <- rep(LETTERS[1:7],times=7)        # group, one shape per group
-data <- data.frame(time, value, group)
-# stacked area chart
-ggplot(data, aes(x=time, y=value, fill=group)) + 
-    geom_area()
-```
-
-### Control Stacking Order with `ggplot2`
-
-The gallery offers a section dedicated to [reordering with ggplot2](https://www.r-graph-gallery.com/267-reorder-a-variable-in-ggplot2.html). This step can be tricky but the code below shows how to:
-
-* Give a specific order with the `factor()` function.
-* Order alphabetically using `sort()`.
-* Order following values at a specific data.
-
-```{r stacked-area-evolution-stacking-order, echo=TRUE, message=FALSE, warning=FALSE}
-# Give a specific order:
-data$group <- factor(data$group , levels=c("B", "A", "D", "E", "G", "F", "C") )
-# Plot again
-ggplot(data, aes(x=time, y=value, fill=group)) + 
-    geom_area()
-# Note: you can also sort levels alphabetically:
-myLevels <- levels(data$group)
-data$group <- factor(data$group , levels=sort(myLevels) )
-# Note: sort followinig values at time = 5
-myLevels <- data %>%
-  filter(time==6) %>%
-  arrange(value)
-data$group <- factor(data$group , levels=myLevels$group )
-```
-
-###  Proportional Stacked Area Chart
-
-In a proportional stacked area graph, the sum of each year is always equal to hundred and value of each group is represented through percentages.
-
-To make it, you have to calculate these percentages first. This can be done using `dplyr` of with `base R`.
-
-```{r stacked-area-evolution-proportional, echo=TRUE, message=FALSE, warning=FALSE}
-# Compute percentages with dplyr
-library(dplyr)
-data <- data  %>%
-  group_by(time, group) %>%
-  summarise(n = sum(value)) %>%
-  mutate(percentage = n / sum(n))
-# Plot
-ggplot(data, aes(x=time, y=percentage, fill=group)) + 
-    geom_area(alpha=0.6 , size=1, colour="black")
-# Note: compute percentages without dplyr:
-my_fun <- function(vec){ 
-  as.numeric(vec[2]) / sum(data$value[data$time==vec[1]]) *100 
-}
-data$percentage <- apply(data , 1 , my_fun)
-```
-
-### Color & Style
-
-Let's improve the chart general appearance:
-
-* Usage of the `viridis` color scale.
-* `theme_ipsum` of the hrbrthemes package.
-* Add title with `ggtitle`.
-
-```{r stacked-area-evolution-color-and-style, echo=TRUE, message=FALSE, warning=FALSE}
-# Library
-library(viridis)
-library(hrbrthemes)
-# Plot
-ggplot(data, aes(x=time, y=value, fill=group)) + 
-    geom_area(alpha=0.6 , size=.5, colour="white") +
-    scale_fill_viridis(discrete = T) +
-    theme_ipsum() + 
-    ggtitle("The race between ...")
-```
-
-### Stacking Area Charts
-
-#### What is Stacking
-
-`Stacking` is a process where a chart is broken up across more than one categoric variables which make up the whole. Each item of the categoric variable is represented by a shaded area. These areas are stacked on top of one another.
-
-Here is an example with a [stacked area chart](https://www.data-to-viz.com/graph/stackedarea.html). It shows the evolution of baby name occurence in the US between 1880 and 2015. Six first names are represented on top of one another.
-
-```{r stacked-area-evolution-stacking, echo=TRUE, message=FALSE, warning=FALSE, fig.height=5, fig.width=5}
-# Libraries
-library(tidyverse)
-library(babynames)
-library(streamgraph)
-library(viridis)
-library(hrbrthemes)
-library(plotly)
-# Load dataset from github
-data <- babynames %>% 
-  filter(name %in% c("Amanda", "Jessica",    "Patricia", "Deborah",   "Dorothy",  "Helen")) %>%
-  filter(sex=="F")
-# Plot
-p <- data %>% 
-  ggplot( aes(x=year, y=n, fill=name, text=name)) +
-    geom_area( ) +
-    scale_fill_viridis(discrete = TRUE) +
-    theme(legend.position="none") +
-    ggtitle("Popularity of American names in the previous 30 years") +
-    theme_ipsum() +
-    theme(legend.position="none")
-ggplotly(p, tooltip="text")
-```
-
-#### Heaven or Hell?
-
-The efficiency of stacked area graph is discussed and it must be used with care. To put it in a nutshell:
-
-* Stacked graphs are `appropriate` to study the `evolution of the whole` and the `relative proportions` of each group. Indeed, the top of the areas allows to visualize how the whole behaves, like for a classic area chart. In the previous graphic, it is easy to see that in 1920, Helen and Dorothy were common names but the 4 other names barely existed.
-
-* However, they are `not appropriate` to study the `evolution of each` individual group. This is due to 2 main reasons. First, all except the since they do not have a flat `baseline`, it is very hard to read their values at each tile stamp.
-
-### Example: Mental Arithmetic
-
-In the previous graphic, try to find out how many times the name Dorothy was given in 1920.
-
-It is not trivial to find it out using the previous chart. You have to mentally do 75000 - 37000 which is hard. If you want to convey a message efficiently, you don't want the audience to perform mental arithmetic.
-
-#### Example: Optical Illusion.
-
-> Important note: this section is inspired from this post by Dr. Drang.
-Dr Drang gives this nice example. Consider the graphic below, and try to visualize how the 3 categories evolved on the period:
-
-```{r stacked-area-evolution-stacking-2, echo=TRUE, message=FALSE, warning=FALSE}
-# create dummy data
-don <- data.frame(
-  x = rep(seq(2000,2005), 3),
-  value = c(  75, 73, 68, 57, 36, 0, 15, 16, 17, 18, 19, 20, 10, 11, 15, 25, 45, 80),
-  group = rep(c("A", "B", "C"), each=6)
-)
-#plot
-don %>% 
-  ggplot( aes(x=x, y=value, fill=group)) +
-    geom_area( ) +
-    scale_fill_viridis(discrete = TRUE) +
-    theme(legend.position="none") +
-    theme_ipsum() +
-    theme(legend.position="none")
-```
-
-It looks obvious that the yellow category increased, the purple decreased, and the green. is harder to read. At a first glance it looks like it is slightly decreasing I would say.
-
-Now let's plot just the green group to find out:
-
-```{r stacked-area-evolution-stacking-3, echo=TRUE, message=FALSE, warning=FALSE}
-#plot
-don %>% 
-  filter(group=="B") %>%
-  ggplot( aes(x=x, y=value, fill=group)) +
-    geom_area( fill="#22908C") +
-    theme(legend.position="none") +
-    theme_ipsum() +
-    theme(legend.position="none")
-```
-
-#### Workaround
-
-If you have just a `few categories`, I would suggest to build a line chart. Here it is easy to follow a category and understand how it evolved accurately.
-
-```{r stacked-area-evolution-stacking-4, echo=TRUE, message=FALSE, warning=FALSE}
-data %>%
-  ggplot( aes(x=year, y=n, group=name, color=name)) +
-    geom_line() +
-    scale_color_viridis(discrete = TRUE) +
-    theme(legend.position="none") +
-    ggtitle("Popularity of American names in the previous 30 years") +
-    theme_ipsum()
-```
-
-However, this solution is not suitable if you have `many categories`. Indeed, it would result in a spaghetti chart that is very hard to read. You can read more about this here.
-
-Instead I would suggest to use `small multiple: here each category has its own section in the graphic. It makes easy to understand the pattern of each category.
-```{r stacked-area-evolution-stacking-5, echo=TRUE, message=FALSE, warning=FALSE}
-data %>%
-  ggplot( aes(x=year, y=n, group=name, fill=name)) +
-    geom_area() +
-    scale_fill_viridis(discrete = TRUE) +
-    theme(legend.position="none") +
-    ggtitle("Popularity of American names in the previous 30 years") +
-    theme_ipsum() +
-    theme(
-      legend.position="none",
-      panel.spacing = unit(0.1, "lines"),
-      strip.text.x = element_text(size = 8)
-    ) +
-    facet_wrap(~name, scale="free_y")
-```
-
-#### Going Further
-
-* Stacked Area Graphs Are Not Your Friend by [Everyday analytics](http://www.everydayanalytics.ca/2014/08/stacked-area-graphs-are-not-your-friend.html).
-* Quantitative Displays for Combining Time-Series and Part-to-Whole Relationships by [Stephen Few](http://www.perceptualedge.com/articles/visual_business_intelligence/displays_for_combining_time-series_and_part-to-whole.pdf). 
-* I hate stacked area charts by [Dr Drang](http://www.leancrew.com/all-this/2011/11/i-hate-stacked-area-charts/).
-
-
-### Interactive Area Chart with R and plotly
- 
-The `plotly` package allows to build interactive charts directly from R. Here is a application to [area chart](https://www.r-graph-gallery.com/area-chart.html), using both the `plot_ly()` and `ggplotly()` functions.
-
-The `ggplotly()` function of the `plotly` library makes it a breeze to build an interactive version. Try to hover circles to get a tooltip, or select an area of interest for zooming. Double click to reinitialize.
-
-### Basic Line Chart with ggplot2 and `geom_line()`
-
-Base R also allows to build area charts thanks to the `polygon()` function. This functions requires 2 inputs: x and y.
-
-Note that extreme values of both are added at the beginning and at the end of each vectors to make sure the polygon is closed.
-
-This section describes how to build an area chart using base R and the `polygon()` function. See the area chart section for a ggplot2 implementation.
-
-```{r line-chart-ggplot-evolution-basic, echo=TRUE, message=FALSE, warning=FALSE}
-# Create data
-data <- data.frame(
-  x=seq(1,10), 
-  y=sample(seq(1,15),10)
-)
-# Add line on top
-plot( data$x , data$y , col=rgb(0.2,0.1,0.5,0.9) , type="o" , lwd=3 , xlab="" , ylab="size" , pch=20)
-# Fill the area
-polygon( 
-  c(min(data$x), data$x , max(data$x)) , 
-  c( min(data$y) , data$y , min(data$y)) , 
-  col=rgb(0.2,0.1,0.5,0.2) , border=F
-)
 ```
 
 ## Streamgraph
