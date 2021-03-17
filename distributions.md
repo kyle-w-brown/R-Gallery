@@ -1,4 +1,4 @@
-# Distributions {#distributions}
+# Distributions
 
 ---
 
