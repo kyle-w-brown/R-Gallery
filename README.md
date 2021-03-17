@@ -83,3 +83,41 @@ data %>%
 <p align="center"> 
 <img src="https://www.r-graph-gallery.com/135-stacked-density-graph_files/figure-html/unnamed-chunk-3-1.png" width="65%">
 </p>
+
+<br>
+
+# Histogram
+
+### Histogram with Several Groups - `ggplot2`
+
+A [histogram](https://www.data-to-viz.com/graph/histogram.html) displays the distribution of a numeric variable. A common task is to compare this distribution through several groups. This document explains how to do so using R and [ggplot2](https://www.r-graph-gallery.com/ggplot2-package.html).
+
+#### Several Histograms on the Same Axis
+
+If the number of group or variable you have is relatively low, you can display all of them on the same axis, using a bit of transparency to make sure you do not hide any data.
+
+<u>Note</u>: with 2 groups, you can also build a [mirror histogram](https://www.r-graph-gallery.com/density_mirror_ggplot2.html)
+
+```r
+# library
+library(ggplot2)
+library(dplyr)
+library(hrbrthemes)
+# Build dataset with different distributions
+data <- data.frame(
+  type = c( rep("variable 1", 1000), rep("variable 2", 1000) ),
+  value = c( rnorm(1000), rnorm(1000, mean=4) )
+)
+# Represent it
+p <- data %>%
+  ggplot( aes(x=value, fill=type)) +
+    geom_histogram( color="#e9ecef", alpha=0.6, position = 'identity') +
+    scale_fill_manual(values=c("#69b3a2", "#404080")) +
+    theme_ipsum() +
+    labs(fill="")
+p
+```
+
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/histogram_several_group_files/figure-html/unnamed-chunk-2-1.png" width="65%">
+</p>
