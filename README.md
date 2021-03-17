@@ -23,7 +23,9 @@ While this book was created to encapsulate the entire [R Graph Gallery](https://
 
 <br>
 
-# Density Plot
+# Distributions
+
+## Density Plot
 
 ### Custom with `theme_ipsum`
 
@@ -86,7 +88,7 @@ data %>%
 
 <br>
 
-# Histogram
+## Histogram
 
 ### Histogram with Several Groups - `ggplot2`
 
@@ -143,5 +145,34 @@ boxplot(my_variable , horizontal=TRUE , ylim=c(-10,20), xaxt="n" , col=rgb(0.8,0
 par(mar=c(4, 3.1, 1.1, 2.1))
 hist(my_variable , breaks=40 , col=rgb(0.2,0.8,0.5,0.5) , border=F , main="" , xlab="value of the variable", xlim=c(-10,20))
 ```
-![](https://www.r-graph-gallery.com/82-boxplot-on-top-of-histogram_files/figure-html/unnamed-chunk-1-1.png)
 
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/82-boxplot-on-top-of-histogram_files/figure-html/unnamed-chunk-1-1.png" width="65%">
+</p>
+
+<br>
+
+## Violin Plot
+
+### Method 1: the `forcats` library
+
+The [Forecats library](https://github.com/tidyverse/forcats) is a library from the `tidyverse` especially made to handle factors in R. It provides a suite of useful tools that solve common problems with factors. `The fact_reorder()` function allows to reorder the factor. The `fact_reorder()` function allows to reorder the factor (`data$name` for example) following the value of another column (`data$val` here).
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+# load the library
+library(forcats)
+# Reorder following the value of another column:
+data %>%
+  mutate(name = fct_reorder(name, val)) %>%
+  ggplot( aes(x=name, y=val)) +
+  geom_bar(stat="identity", fill="#f68060", alpha=.6, width=.4) +
+  coord_flip() +
+  xlab("") +
+  theme_bw()
+```
+
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/267-reorder-a-variable-in-ggplot2_files/figure-html/unnamed-chunk-2-1.png" width="65%">
+</p>
+
+<br>
