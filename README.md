@@ -45,8 +45,6 @@ data %>%
     theme_ipsum()
 ```
 
-![](https://www.r-graph-gallery.com/21-distribution-plot-using-ggplot2_files/figure-html/unnamed-chunk-3-1.png)
-
 <p align="center"> 
 <img src="https://www.r-graph-gallery.com/21-distribution-plot-using-ggplot2_files/figure-html/unnamed-chunk-3-1.png" width="65%">
 </p>
@@ -81,8 +79,7 @@ data %>%
     ylab("") +
     xlab("Assigned Probability (%)")
 ```
-![](https://www.r-graph-gallery.com/135-stacked-density-graph_files/figure-html/unnamed-chunk-3-1.png)
 
 <p align="center"> 
-<img src="https://www.r-graph-gallery.com/135-stacked-density-graph_files/figure-html/unnamed-chunk-3-1.png" width="85%">
+<img src="https://www.r-graph-gallery.com/135-stacked-density-graph_files/figure-html/unnamed-chunk-3-1.png" width="65%">
 </p>
