@@ -10,7 +10,7 @@ Welcome to the R Gallery Book, a complete guide to the [R Graph Gallery](https:/
 <br>
 
 <p align="center"> 
-<img src="images/rgallery.png" width="85%">
+<img src="images/rgallery.png" width="65%">
 </p>
 
 
