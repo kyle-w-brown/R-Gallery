@@ -188,9 +188,9 @@ data %>%
 
 --- 
 
-
+<p align="center"> 
 ![](https://www.r-graph-gallery.com/img/other/ggplot2Hex.jpg)
-
+</p>
 
 <br>
  
