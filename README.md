@@ -43,9 +43,8 @@ ggplot(gapminder, aes(gdpPercap, lifeExp, size = pop, color = continent)) +
 # Save at gif:
 anim_save("271-ggplot2-animated-gif-chart-with-gganimate1.gif")
 ```
-<center>
-  ![](https://www.r-graph-gallery.com/img/graph/271-ggplot2-animated-gif-chart-with-gganimate1.gif)
-</center>
+
+![](gif/271-ggplot2-animated-gif-chart-with-gganimate1.gif)
 
 # Distributions
 
