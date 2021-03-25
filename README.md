@@ -3777,13 +3777,8 @@ If you have a barplot with many bars of similar length, consider a lollipop char
 
 If you don't scale your data, your choropleth will basically look like a population heatmap.</div>
 
-<div>[![](https://www.data-to-viz.com/img/mistake/map_scale.png)](https://blog.datawrapper.de/weeklychart-logscale3/)
+[![](https://www.data-to-viz.com/img/mistake/map_scale.png)](https://blog.datawrapper.de/weeklychart-logscale3/) [How to Read a Log Scale](https://blog.datawrapper.de/weeklychart-logscale3/) [![](https://www.data-to-viz.com/img/mistake/choropleth_vocab.png)](https://twitter.com/hashtag/chloropleth) 
+[There is no 'L' in choropleth](https://twitter.com/hashtag/chloropleth)
 
-[How to Read a Log Scale](https://blog.datawrapper.de/weeklychart-logscale3/)
-
-Comparing percentage change on a linear scale can be misleading, use a log scale instead. By datawrapper.</div> 
-
-[![](https://www.data-to-viz.com/img/mistake/choropleth_vocab.png)](https://twitter.com/hashtag/chloropleth) [There is no 'L' in choropleth](https://twitter.com/hashtag/chloropleth)
-And people won't miss an opportunity to make you notice.</div> 
 
 
