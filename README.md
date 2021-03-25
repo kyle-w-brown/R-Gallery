@@ -23,7 +23,7 @@ While this book was created to encapsulate the entire [R Graph Gallery](https://
 
 ### Table of Contents
 
-* [`ggplot2`](#`ggplot2`)
+* [`ggplot2`](#general-knowledge)
 * [Data Art](#data-art)
 * [3D Charts](#3d-charts)
 * [Interactive Charts](#interactive-charts)
