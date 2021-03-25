@@ -46,6 +46,8 @@ anim_save("271-ggplot2-animated-gif-chart-with-gganimate1.gif")
 
 ![](gif/271-ggplot2-animated-gif-chart-with-gganimate1.gif)
 
+![](https://www.r-graph-gallery.com/img/graph/271-ggplot2-animated-gif-chart-with-gganimate1.gif){width=75%}
+
 # Distributions
 
 ## Density Plot
