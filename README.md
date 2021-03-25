@@ -19,7 +19,16 @@ While this book was created to encapsulate the entire [R Graph Gallery](https://
 
 
 
-## Note: The book is rather large and may take time to load completely
+## General Knowledge Chapter 
+
+### Table of Contents
+
+* [`ggplot2`](#`ggplot2`)
+* [Data Art](#data-art)
+* [3D Charts](#3d-charts)
+* [Interactive Charts](#interactive-charts)
+* [Animation](#animation)
+
 
 <br>
 
