@@ -19,7 +19,7 @@ gallery focuses on it so almost every section there starts with `ggplot2` exampl
 
 This page is dedicated to general `ggplot2` tips that you can apply to any chart, like customizing a title, adding annotation, or using faceting. If you're new to `ggplot2`, a good starting point is probably this [online course](https://www.datacamp.com/?tap_a=5644-dce66f&tap_s=230804-f65650).
 
-### Add Text Labels with ggplot2
+### Add Text Labels with `ggplot2`
  
 This document is dedicated to text annotation with `ggplot2`. It provides several examples with reproducible code showing how to use function like `geom_label` and `geom_text`.
 
@@ -31,7 +31,7 @@ This example demonstrates how to use `geom_text()` to add text as markers. It wo
 * `nudge_x` and `nudge_y`: shifts the text along X and Y axis.
 * `check_overlap` tries to avoid text overlap. Note that a package called `ggrepel` extends this concept further.
 
-```{r ggplot-package, echo=TRUE, message=FALSE, warning=FALSE}
+```r 
 # library
 library(ggplot2)
  
@@ -48,11 +48,15 @@ ggplot(data, aes(x=wt, y=mpg)) +
   )
 ```
 
+<center>
+  ![](https://www.r-graph-gallery.com/275-add-text-labels-with-ggplot2_files/figure-html/thecode-1.png){width=75%}
+</center>
+
 ### Add Labels with  `geom_label()`
 
 `geom_label()` works pretty much the same way as `geom_text()`. However, text is wrapped in a rectangle that you can customize (see next example).
 
-```{r ggplot-add-labels, echo=TRUE, message=FALSE, warning=FALSE}
+```r
 # library
 library(ggplot2)
  
@@ -69,11 +73,15 @@ ggplot(data, aes(x=wt, y=mpg)) +
   )
 ```
 
+<center>
+  ![](https://www.r-graph-gallery.com/275-add-text-labels-with-ggplot2_files/figure-html/thecode2-1.png){width=75%}
+</center>
+
 ### Add One Text Label Only
 
 Of course, you don't have to label all dots on the chart. You can also add a piece of text on a specific position. Since we're here, note that you can custom the annotation of `geom_label` with `label.padding`, `label.size`, `color` and `fill` as described below:
 
-```{r ggplot-add-one-text-label-only, echo=TRUE, message=FALSE, warning=FALSE}
+```r
 # library
 library(ggplot2)
  
@@ -94,17 +102,23 @@ ggplot(data, aes(x=wt, y=mpg)) +
   )
 ```
 
+<center>
+  ![](https://www.r-graph-gallery.com/275-add-text-labels-with-ggplot2_files/figure-html/thecode3-1.png){width=75%}
+</center>
+
 ### Add Labels for a Selection of Marker
 
 Last but not least, you can also select a group of marker and annotate them only. Here, only car with `mpg` > 20 and `wt` > 3 are annotated thanks to a data filtering in the `geom_label()` call.
 
-```{r ggplot-add-labels-selection-marker, echo=TRUE, message=FALSE, warning=FALSE}
+```r 
 # library
 library(ggplot2)
 library(dplyr)
 library(tibble)
+
 # Keep 30 first rows in the mtcars natively available dataset
 data=head(mtcars, 30)
+
 # Change data rownames as a real column called 'carName'
 data <- data %>%
   rownames_to_column(var="carName")
@@ -117,6 +131,10 @@ ggplot(data, aes(x=wt, y=mpg)) +
     aes(label=carName)
   )
 ```
+
+<center>
+  ![](https://www.r-graph-gallery.com/275-add-text-labels-with-ggplot2_files/figure-html/thecode4-1.png){width=75%}
+</center>
 
 ### How to Annotate a Plot in `ggplot2`
  
@@ -133,9 +151,10 @@ Using `ggplot2`, 2 main functions are available for that kind of annotation:
 
 Note that the `annotate()` function is a good alternative that can reduces the code length for simple cases.
 
-```{r ggplot-annotation, echo=TRUE, message=FALSE, warning=FALSE}
+```r 
 # library
 library(ggplot2)
+
 # basic graph
 p <- ggplot(mtcars, aes(x = wt, y = mpg)) + 
   geom_point()
@@ -146,39 +165,68 @@ annotation <- data.frame(
    y = c(20,25),
    label = c("label 1", "label 2")
 )
+
 # Add text
 p + geom_text(data=annotation, aes( x=x, y=y, label=label),                 
            color="orange", 
            size=7 , angle=45, fontface="bold" )
+
 # Note: possible to shorten with annotate:
 # p +
 #  annotate("text", x = c(2,4.5), y = c(20,25), 
 #           label = c("label 1", "label 2") , color="orange", 
 #           size=7 , angle=45, fontface="bold")
+```
+<center>
+  ![](https://www.r-graph-gallery.com/233-add-annotations-on-ggplot2-chart_files/figure-html/thecodeA-1.png){width=75%}
+</center>
+
+```r
 # Right chart: using labels
 p + geom_label(data=annotation, aes( x=x, y=y, label=label),                  
            color="orange", 
            size=7 , angle=45, fontface="bold" )
 ```
 
+<center>
+  ![](https://www.r-graph-gallery.com/233-add-annotations-on-ggplot2-chart_files/figure-html/thecodeB-1.png){width=75%}
+</center>
+
 ### Add Shapes with `annotate()`
 
 The `annotate()` function allows to add all kind of shape on a ggplot2 chart. The first argument will control what kind is used: rect or segment for rectangle, segment or arrow.
 
-```{r ggplot-annotation-shapes, echo=TRUE, message=FALSE, warning=FALSE}
+```r
 # Add rectangles
 p + annotate("rect", xmin=c(2,4), xmax=c(3,5), ymin=c(20,10) , ymax=c(30,20), alpha=0.2, color="blue", fill="blue")
+```
+<center>
+  ![](https://www.r-graph-gallery.com/233-add-annotations-on-ggplot2-chart_files/figure-html/thecode1A-1.png){width=75%}
+</center>
+
+```r
 # Add segments
 p + annotate("segment", x = 1, xend = 3, y = 25, yend = 15, colour = "purple", size=3, alpha=0.6)
+```
+
+<center>
+  ![](https://www.r-graph-gallery.com/233-add-annotations-on-ggplot2-chart_files/figure-html/thecode1B-1.png){width=75%}
+</center>
+
+```r
 # Add arrow
 p + annotate("segment", x = 2, xend = 4, y = 15, yend = 25, colour = "pink", size=3, alpha=0.6, arrow=arrow())
 ```
+
+<center>
+  ![](https://www.r-graph-gallery.com/233-add-annotations-on-ggplot2-chart_files/figure-html/thecode1C-1.png){width=75%}
+</center>
 
 ### Add Ablines with `geom_hline()` and `geom_vline()`
 
 An abline is a segment that goes from one chart extremity to the other. `ggplot2` offers the `geom_hline()` and `geom_vline()` functions that are dedicated to it.
 
-```{r ggplot-add-ablines, echo=TRUE, message=FALSE, warning=FALSE}
+```r
 p + 
   # horizontal
   geom_hline(yintercept=25, color="orange", size=1) + 
@@ -186,37 +234,53 @@ p +
   geom_vline(xintercept=3, color="orange", size=1)
 ```
 
+<center>
+  ![](https://www.r-graph-gallery.com/233-add-annotations-on-ggplot2-chart_files/figure-html/thecode2-1.png){width=75%}
+</center>
+
 ### Add a Point and a Range with `pointrange()`
 
 Last kind of annotation, add a dot and a segment directly with `pointrange()`.
 
-```{r ggplot-add-point-range, echo=TRUE, message=FALSE, warning=FALSE}
+```r
 # Add point and range
 p + annotate("pointrange", x = 3.5, y = 20, ymin = 12, ymax = 28,colour = "orange", size = 1.5, alpha=0.4)
 ```
 
+<center>
+  ![](https://www.r-graph-gallery.com/233-add-annotations-on-ggplot2-chart_files/figure-html/thecode3-1.png){width=75%}
+</center>
+
 ### Marginal Plot
 
 Marginal plots are not natively supported by  `ggplot2, but their realisation is straightforward thanks to the `ggExtra` library as illustrated in [graph #277](https://www.r-graph-gallery.com/277-marginal-histogram-for-ggplot2.html).
+
 #### `ggplot2` Scatterplot with Rug
  
 This section demonstrates how to build a [scatterplot](https://www.r-graph-gallery.com/scatterplot.html) with rug with `R` and [ggplot2](https://www.r-graph-gallery.com/ggplot2-package.html). Adding rug gives insight about variable distribution and is especially helpful when markers overlap.
+
 #### Adding Rug with `geom_rug()`
 
 A [scatterplot](https://www.r-graph-gallery.com/scatterplot.html) displays the relationship between 2 numeric variables. You can easily add rug on X and Y axis thanks to the `geom_rug()` function to illustrate the distribution of dots.
 
 Note you can as well add [marginal plots](https://www.r-graph-gallery.com/277-marginal-histogram-for-ggplot2.html) to show these distributions.
 
-```{r ggplot-scatterplot-rug, echo=TRUE, message=FALSE, warning=FALSE}
+```r
 # library
 library(ggplot2)
+
 # Iris dataset
 head(iris)
+
 # plot
 ggplot(data=iris, aes(x=Sepal.Length, Petal.Length)) +
   geom_point() +
   geom_rug(col="steelblue",alpha=0.1, size=1.5)
 ```
+
+<center>
+  ![](https://www.r-graph-gallery.com/276-scatterplot-with-rug-ggplot2_files/figure-html/thecode-1.png){width=75%}
+</center>
 
 ### Marginal Distribution with `ggplot2` and `ggExtra`
  
@@ -252,19 +316,26 @@ p3 <- ggMarginal(p, type="boxplot")
 ```r
 p1
 ```
-![](https://www.r-graph-gallery.com/277-marginal-histogram-for-ggplot2_files/figure-html/unnamed-chunk-1-1.png)
+
+<center>
+  ![](https://www.r-graph-gallery.com/277-marginal-histogram-for-ggplot2_files/figure-html/unnamed-chunk-1-1.png){width=75%}
+</center>
 
 ```r
 p2
 ```
 
-![](https://www.r-graph-gallery.com/277-marginal-histogram-for-ggplot2_files/figure-html/unnamed-chunk-2-1.png)
+<center>
+  ![](https://www.r-graph-gallery.com/277-marginal-histogram-for-ggplot2_files/figure-html/unnamed-chunk-2-1.png){width=75%}
+</center>
 
 ```r
 p3
 ```
 
-![](https://www.r-graph-gallery.com/277-marginal-histogram-for-ggplot2_files/figure-html/unnamed-chunk-3-1.png)
+<center>
+  ![](https://www.r-graph-gallery.com/277-marginal-histogram-for-ggplot2_files/figure-html/unnamed-chunk-3-1.png){width=75%}
+</center>
 
 ### More Customization
 
@@ -300,19 +371,26 @@ p3 <- ggMarginal(p, margins = 'x', color="purple", size=4)
 ```r
 p1
 ```
-![](https://www.r-graph-gallery.com/277-marginal-histogram-for-ggplot2_files/figure-html/unnamed-chunk-4-1.png)
+<center>
+  ![](https://www.r-graph-gallery.com/277-marginal-histogram-for-ggplot2_files/figure-html/unnamed-chunk-4-1.png){width=75%}
+</center>
+
 
 ```r
 p2
 ```
 
-![](https://www.r-graph-gallery.com/277-marginal-histogram-for-ggplot2_files/figure-html/unnamed-chunk-5-1.png)
+<center>
+  ![](https://www.r-graph-gallery.com/277-marginal-histogram-for-ggplot2_files/figure-html/unnamed-chunk-5-1.png){width=75%}
+</center>
 
 ```r
 p3
 ```
 
-![](https://www.r-graph-gallery.com/277-marginal-histogram-for-ggplot2_files/figure-html/unnamed-chunk-6-1.png)
+<center>
+  ![](https://www.r-graph-gallery.com/277-marginal-histogram-for-ggplot2_files/figure-html/unnamed-chunk-6-1.png){width=75%}
+</center>
 
 ### `ggplot2` Chart Appearance
 
@@ -337,14 +415,19 @@ Basically two main functions will allow to customize it:
 
 Let's see how to use them
 
-```{r ggplot-default-axis, echo=TRUE, message=FALSE, warning=FALSE}
+```r
 # Load ggplot2
 library(ggplot2)
+
 # Very basic chart
 basic <- ggplot( mtcars , aes(x=mpg, y=wt)) + 
   geom_point()
 basic
 ```
+
+<center>
+  ![](https://www.r-graph-gallery.com/238-custom-layout-axis-ggplot2_files/figure-html/thecode-1.png){width=75%}
+</center>
 
 ### Set Axis Title and Limits with `xlab()` and `xlim()`
 
@@ -352,11 +435,15 @@ Two basic options that are used in almost every charts are `xlab()` and `xlim()`
 
 <u>Note</u>: it's possible to specify only the lower or upper bound of a limit. For instance, try `xlim(0,NA)`
 
-```{r ggplot-set-axis-title-and-limits, echo=TRUE, message=FALSE, warning=FALSE}
+```r
 basic+
     xlab("mpg value") + 
     xlim(0,50)
 ```
+
+<center>
+  ![](https://www.r-graph-gallery.com/238-custom-layout-axis-ggplot2_files/figure-html/thecode2-1.png){width=75%}
+</center>
 
 ### Customize Axis Title Appearance: `axis.title`
 
@@ -366,17 +453,23 @@ The `theme()` function allows to customize all parts of the `ggplot2` chart. The
 basic + theme(axis.title = element_text( angle = 90, color="red", size=15, face=3)) # face = title location
 ```
 
-![](https://www.r-graph-gallery.com/238-custom-layout-axis-ggplot2_files/figure-html/thecode3a-1.png)
+<center>
+  ![](https://www.r-graph-gallery.com/238-custom-layout-axis-ggplot2_files/figure-html/thecode3a-1.png){width=75%}
+</center>
 
-```{r ggplot-customize-axis-title-appearence, echo=TRUE, message=FALSE, warning=FALSE}
+```r
 basic + theme(axis.title.x = element_text( angle = 90, color="red", size=15, face=3))
 ```
+
+<center>
+  ![](https://www.r-graph-gallery.com/238-custom-layout-axis-ggplot2_files/figure-html/thecode3b-1.png){width=75%}
+</center>
 
 ### Customize Axis Labels: `axis.text`
 
 Using pretty much the same process, the `axis.text()` function allows to control text label features. Once more, using `axis.text.x()` would modify the x axis only.
 
-```{r ggplot-customize-axis-labels, echo=TRUE, message=FALSE, warning=FALSE}
+```r
 basic + 
   theme(axis.text = element_text( 
     angle = 90, 
@@ -385,6 +478,10 @@ basic +
     face=3)
   )
 ```
+
+<center>
+  ![](https://www.r-graph-gallery.com/238-custom-layout-axis-ggplot2_files/figure-html/thecode4-1.png){width=75%}
+</center>
 
 ### Customize Axis Ticks and Axis Line with `axis.ticks()` and `axis.line()`
 
@@ -401,14 +498,19 @@ basic + theme(
 )
 ```
 
-![](https://www.r-graph-gallery.com/238-custom-layout-axis-ggplot2_files/figure-html/thecode5a-1.png)
+<center>
+  ![](https://www.r-graph-gallery.com/238-custom-layout-axis-ggplot2_files/figure-html/thecode5a-1.png){width=75%}
+</center>
 
 ```r
 # chart 2: axis lines
 basic + theme(axis.line = element_line(size = 3, colour = "green", linetype=2))
 ```
 
-![](https://www.r-graph-gallery.com/238-custom-layout-axis-ggplot2_files/figure-html/thecode5b-1.png)
+<center>
+  ![](https://www.r-graph-gallery.com/238-custom-layout-axis-ggplot2_files/figure-html/thecode5b-1.png){width=75%}
+</center>
+
 
 ```r
 # chart 3: combination
@@ -420,7 +522,11 @@ ggplot( mtcars , aes(x=mpg, y=wt)) + geom_point() +
         )
 ```
 
-![](https://www.r-graph-gallery.com/238-custom-layout-axis-ggplot2_files/figure-html/thecode5c-1.png)
+<center>
+  ![](https://www.r-graph-gallery.com/238-custom-layout-axis-ggplot2_files/figure-html/thecode5c-1.png){width=75%}
+</center>
+
+
 
 ### Background Manipulation with R and ggplot2
 
@@ -432,14 +538,19 @@ Let's start with a very basic `ggplot2` [scatterplot](https://www.r-graph-galler
 
 It is possible to change that thanks to the `theme()` function. Keep reading to learn how!
 
-```{r ggplot-default-background, echo=TRUE, message=FALSE, warning=FALSE}
+```r 
 # Load ggplot2
 library(ggplot2)
+
 # Very basic chart
 basic <- ggplot( mtcars , aes(x=mpg, y=wt)) +
   geom_point()
 basic
 ```
+
+<center>
+  ![](https://www.r-graph-gallery.com/240-custom-layout-background-ggplot2_files/figure-html/thecode-1.png){width=75%}
+</center>
 
 ### Background Color: `plot.background` and `panel.background`
 
@@ -447,12 +558,16 @@ Two options of the `theme()` functions are available to control the map backgrou
 
 Both are rectangles, with features specified through an `element_rect()` function.
 
-```{r ggplot-background-color, echo=TRUE, message=FALSE, warning=FALSE}
+```r
 basic + theme(
     plot.background = element_rect(fill = "green"), 
     panel.background = element_rect(fill = "red", colour="blue")
     )
 ```
+
+<center>
+  ![](https://www.r-graph-gallery.com/240-custom-layout-background-ggplot2_files/figure-html/thecode2-1.png){width=75%}
+</center>
 
 ### Customize the Grid: `panel.grid.major` and `panel.grid.minor`
 
@@ -462,18 +577,28 @@ Once more, you can add the options `.y` or `.x` at the end of the function name 
 
 Features are wrapped in an `element_line()` function. Specifying `element_blanck()` will simply removing the grid.
 
-```{r ggplot-background-customize-grid, echo=TRUE, message=FALSE, warning=FALSE}
+```r
 # Modify for both axis
 basic + theme(
     panel.grid.major = element_line(colour = "red", linetype = "dotted"),
     panel.grid.minor = element_line(colour = "blue", size = 2)
     )
+```
+<center>
+  ![](https://www.r-graph-gallery.com/240-custom-layout-background-ggplot2_files/figure-html/thecode3a-1.png){width=75%}
+</center>
+
+```r
 # Modify y axis only (remove)
 basic + theme(
     panel.grid.major.y = element_blank(),
     panel.grid.minor.y = element_blank()
 )
 ```
+
+<center>
+  ![](https://www.r-graph-gallery.com/240-custom-layout-background-ggplot2_files/figure-html/thecode3b-1.png){width=75%}
+</center>
 
 ### Building a Nice Legend with R and `ggplot2`
 
@@ -487,20 +612,25 @@ Here is an example based on the mtcars dataset. This section is gonna show how t
 
 <u>Note</u>: this post is strongly inspired by the doc you get typing `ggplot2::theme`, give it a go!
 
-```{r ggplot-building-background-grid, echo=TRUE, message=FALSE, warning=FALSE}
+```r
 # Load ggplot2
 library(ggplot2)
+
 # Very basic chart
 basic <- ggplot(mtcars, aes(wt, mpg, colour = factor(cyl), shape = factor(vs) )) +
        geom_point()
 basic
 ```
 
+<center>
+  ![](https://www.r-graph-gallery.com/239-custom-layout-legend-ggplot2_files/figure-html/thecode-1.png){width=65%}
+</center>
+
 ### Change Legend Title with `labs()`
 
 The `labs()` function allows to change the legend titles. You can specify one title per section of the legend, i.e. per aesthetics in use in the chart.
 
-```{r ggplot-change-legend-title, echo=TRUE, message=FALSE, warning=FALSE}
+```r
 basic+
   labs(
          colour = "name1",
@@ -508,16 +638,31 @@ basic+
         )
 ```
 
+<center>
+  ![](https://www.r-graph-gallery.com/239-custom-layout-legend-ggplot2_files/figure-html/thecode2-1.png){width=65%}
+</center>
+
 ### Get Rid of the Legend: `guides()` and `theme()`
 
 It is possible to remove a specific part or the whole legend thanks to the `theme()` and the `guides()` function. See code below:
 
-```{r ggplot-delete-legend, echo=TRUE, message=FALSE, warning=FALSE}
+```r
 # Left -> get rid of one part of the legend
 basic + guides(shape=FALSE)
+```
+
+<center>
+  ![](https://www.r-graph-gallery.com/239-custom-layout-legend-ggplot2_files/figure-html/thecode3a-1.png){width=75%}
+</center>
+
+```r
 # Right -> only the x axis is modified
 basic + theme(legend.position = "none")
 ```
+
+<center>
+  ![](https://www.r-graph-gallery.com/239-custom-layout-legend-ggplot2_files/figure-html/thecode3b-1.png){width=75%}
+</center>
 
 ### Control Legend Position with `legend.position`
 
@@ -527,9 +672,16 @@ To put it around the chart, use the `legend.position` option and specify `top`, 
 
 Note: the command `legend.justification` sets the corner that the position refers to.
 
-```{r ggplot-legend-position, echo=TRUE, message=FALSE, warning=FALSE}
+```r
 # Left -> legend around the plot
 basic + theme(legend.position = "bottom")
+```
+
+<center>
+  ![](https://www.r-graph-gallery.com/239-custom-layout-legend-ggplot2_files/figure-html/thecode4a-1.png){width=75%}
+</center>
+
+```r
 # Right -> inside the plot area
 basic + theme(
     legend.position = c(.95, .95),
@@ -538,6 +690,10 @@ basic + theme(
     legend.margin = margin(6, 6, 6, 6)
     )
 ```
+
+<center>
+  ![](https://www.r-graph-gallery.com/239-custom-layout-legend-ggplot2_files/figure-html/thecode4b-1.png){width=75%}
+</center>
 
 ### Legend Appearance
 
@@ -548,19 +704,48 @@ Here are 4 examples showing how to customize the legend main features:
 * Text with `legend.text`: here you can control the color, the size of the right part of the legend.
 * Title with `legend.title`.
 
-```{r ggplot-legend-appearance, echo=TRUE, message=FALSE, warning=FALSE}
+```r
 # custom box around legend
 basic + theme(
     legend.box.background = element_rect(color="red", size=2),
     legend.box.margin = margin(116, 6, 6, 6)
 )
+```
+
+<center>
+  ![](https://www.r-graph-gallery.com/239-custom-layout-legend-ggplot2_files/figure-html/thecode5a-1.png){width=55%}
+</center>
+
+
+```r
 # custom the key
 basic + theme(legend.key = element_rect(fill = "white", colour = "black"))
+```
+
+<center>
+  ![](https://www.r-graph-gallery.com/239-custom-layout-legend-ggplot2_files/figure-html/thecode5b-1.png){width=55%}
+</center>
+
+
+```r
 # custom the text
 basic + theme(legend.text = element_text(size = 8, colour = "red"))
+```
+
+<center>
+  ![](https://www.r-graph-gallery.com/239-custom-layout-legend-ggplot2_files/figure-html/thecode5c-1.png){width=55%}
+</center>
+
+
+
+```r
 # custom the title
 basic + theme(legend.title = element_text(face = "bold"))
 ```
+
+<center>
+  ![](https://www.r-graph-gallery.com/239-custom-layout-legend-ggplot2_files/figure-html/thecode5d-1.png){width=55%}
+</center>
 
 
 ### Reorder a Variable with `ggplot2`
@@ -576,6 +761,7 @@ This post explains how to reorder the level of your factor through several examp
 # Library
 library(ggplot2)
 library(dplyr)
+
 # Dataset 1: one value per group
 data <- data.frame(
   name=c("north","south","south-east","north-west","south-west","north-east","west","east"),
@@ -593,6 +779,7 @@ The [Forecats](https://github.com/tidyverse/forcats) library is a library from t
 ```r
 # load the library
 library(forcats)
+
 # Reorder following the value of another column:
 data %>%
   mutate(name = fct_reorder(name, val)) %>%
@@ -702,6 +889,7 @@ In case your an unconditional user of the good old R, here is how to control the
 ```r
 # reorder is close to order, but is made to change the order of the factor levels.
 mpg$class = with(mpg, reorder(class, hwy, median))
+
 p <- mpg %>%
   ggplot( aes(x=class, y=hwy, fill=class)) + 
     geom_violin() +
@@ -777,6 +965,7 @@ ggplot( data=data, aes(x=x)) +
 <center>
   ![](https://www.r-graph-gallery.com/289-control-ggplot2-title_files/figure-html/thecode3a-1.png){width=75%}
 </center>
+
 ```r  
 # Adjust the position of title
 ggplot( data=data, aes(x=x)) + 
@@ -787,6 +976,7 @@ ggplot( data=data, aes(x=x)) +
     plot.title=element_text( hjust=1, vjust=0.5, face='bold')
   )
 ```
+
 <center>
   ![](https://www.r-graph-gallery.com/289-control-ggplot2-title_files/figure-html/thecode3b-1.png){width=75%}
 </center>
@@ -821,19 +1011,24 @@ Faceting is the process that split the chart window in several small parts (a gr
 
 It is a very [powerful technique](https://www.data-to-viz.com/graph/area.html) in data visualization, and a major advantage of using `ggplot2` is that it offers functions allowing to build it in a single line of code. Here is an example showing the evolution of a few baby names in the US. ([source](https://www.data-to-viz.com/graph/area.html))
 
-```{r ggplot-faceting-small-multiple, echo=TRUE, message=FALSE, warning=FALSE}
+```r
 # Libraries
 library(tidyverse)
 library(hrbrthemes)
 library(babynames)
 library(viridis)
+
 # Load dataset from github
 data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/3_TwoNumOrdered.csv", header=T)
 data$date <- as.Date(data$date)
+
 # Load dataset from github
 don <- babynames %>% 
   filter(name %in% c("Ashley", "Amanda", "Mary", "Deborah",   "Dorothy", "Betty", "Helen", "Jennifer", "Shirley")) %>%
   filter(sex=="F")
+```
+
+```r
 # Plot
 don %>%
   ggplot( aes(x=year, y=n, group=name, fill=name)) +
@@ -851,6 +1046,10 @@ don %>%
     facet_wrap(~name, scale="free_y")
 ```
 
+<center>
+  ![](https://www.r-graph-gallery.com/223-faceting-with-ggplot2_files/figure-html/thecode-1.png){width=75%}
+</center>
+
 ### Faceting with `facet_wrap()`
 
 `facet_wrap()` is the most common function for faceting with ggplot2. It builds a new chart for each level of a categorical variable. You can add the charts horizontally (graph1) or vertically (graph2, using `dir="v"`). Note that if the number of group is big enough, ggplot2 will automatically display charts on several rows/columns.
@@ -860,7 +1059,7 @@ The grey bar showing the related level can be placed on top or on the bottom tha
 Last but not least, you can choose whether every graph have the same scale or not with the `scales` option (graph4).
 
 
-```{r ggplot-facet-wrap, echo=TRUE, message=FALSE, warning=FALSE}
+```r
 # library & datset
 library(ggplot2)
 head(mtcars)
@@ -870,16 +1069,37 @@ ggplot( mtcars , aes(x=mpg, y=wt, color=as.factor(cyl) )) +
   geom_point(size=3) +  
   facet_wrap(~cyl) +
   theme(legend.position="none")
+```
+
+<center>
+  ![](https://www.r-graph-gallery.com/223-faceting-with-ggplot2_files/figure-html/thecode3a-1.png){width=55%}
+</center>
+
+```r
 # Split by row
 ggplot( mtcars , aes(x=mpg, y=wt, color=as.factor(cyl)  )) + 
   geom_point(size=3) +  
   facet_wrap(~cyl , dir="v")  +
   theme(legend.position="none")
+```
+
+<center>
+  ![](https://www.r-graph-gallery.com/223-faceting-with-ggplot2_files/figure-html/thecode3b-1.png){width=55%}
+</center>
+
+```r
 # Add label at the bottom
 ggplot( mtcars , aes(x=mpg, y=wt, color=as.factor(cyl)  )) + 
   geom_point(size=3) +  
   facet_wrap(~cyl , strip.position="bottom") +
   theme(legend.position="none")
+```
+
+<center>
+  ![](https://www.r-graph-gallery.com/223-faceting-with-ggplot2_files/figure-html/thecode3c-1.png){width=55%}
+</center>
+
+```r
 # Use same scales for all
 ggplot( mtcars , aes(x=mpg, y=wt, color=as.factor(cyl)  )) + 
   geom_point(size=3) +  
@@ -887,18 +1107,26 @@ ggplot( mtcars , aes(x=mpg, y=wt, color=as.factor(cyl)  )) +
   theme(legend.position="none")
 ```
 
+<center>
+  ![](https://www.r-graph-gallery.com/223-faceting-with-ggplot2_files/figure-html/thecode3d-1.png){width=55%}
+</center>
+
 ### `facet_grid()`
 
 `facet_grid()` is the second function allowing to build small multiples with `ggplot2`. It allows to build one chart for each combinations of 2 categorical variables. One variable will be used for rows, the other for columns.
 
 The two variables must be given around a ~, the first being displayed as row, the second as column. The `facet-grid()` function also accepts the `scales` argument described above.
 
-```{r ggplot-facet-grid, echo=TRUE, message=FALSE, warning=FALSE}
+```r
 # Faceted ggplot2 using facet_grid():
 ggplot( mtcars , aes(x=mpg, y=wt )) + 
   geom_point() +
   facet_grid( cyl ~ gear)
 ```
+
+<center>
+  ![](https://www.r-graph-gallery.com/223-faceting-with-ggplot2_files/figure-html/thecode5-1.png){width=55%}
+</center>
 
 ### Customize Small Multiple Appearance with `ggplot2`
 
@@ -921,7 +1149,7 @@ basic=ggplot(mtcars, aes(wt, mpg)) +
 basic
 ```
 <center>
-  ![](https://www.r-graph-gallery.com/241-custom-layout-strip-ggplot2_files/figure-html/thecodeA-1.png){width=75%}
+  ![](https://www.r-graph-gallery.com/241-custom-layout-strip-ggplot2_files/figure-html/thecodeA-1.png){width=55%}
 </center>
 
 ```r
@@ -930,7 +1158,7 @@ basic + theme(strip.background = element_rect(colour = "red", fill = alpha("blue
 ```
 
 <center>
-  ![](https://www.r-graph-gallery.com/241-custom-layout-strip-ggplot2_files/figure-html/thecodeB-1.png){width=75%}
+  ![](https://www.r-graph-gallery.com/241-custom-layout-strip-ggplot2_files/figure-html/thecodeB-1.png){width=55%}
 </center>
 
 ```r
@@ -939,7 +1167,7 @@ basic + theme(strip.text.x = element_text(colour = "red", face = "bold", size=10
 ```
 
 <center>
-  ![](https://www.r-graph-gallery.com/241-custom-layout-strip-ggplot2_files/figure-html/thecodeC-1.png){width=75%}
+  ![](https://www.r-graph-gallery.com/241-custom-layout-strip-ggplot2_files/figure-html/thecodeC-1.png){width=55%}
 </center>
 
 ```r
@@ -960,7 +1188,7 @@ The gridExtra package makes it a breeze. It offers the `grid.arrange()` function
 
 For more complex layout, the `arrangeGrob()` functions allows to do some nesting. Here are 4 examples to illustrate how `gridExtra` works:
 
-```{r ggplot-multiple-charts-one-page, echo=TRUE, message=FALSE, warning=FALSE}
+```r
 # libraries
 library(ggplot2)
 library(gridExtra)
@@ -970,31 +1198,65 @@ g1 <- ggplot(mtcars, aes(x=qsec)) + geom_density(fill="slateblue")
 g2 <- ggplot(mtcars, aes(x=drat, y=qsec, color=cyl)) + geom_point(size=5) + theme(legend.position="none")
 g3 <- ggplot(mtcars, aes(x=factor(cyl), y=qsec, fill=cyl)) + geom_boxplot() + theme(legend.position="none")
 g4 <- ggplot(mtcars , aes(x=factor(cyl), fill=factor(cyl))) +  geom_bar()
- 
+```
+
+```r
 # Plots
 grid.arrange(g2, arrangeGrob(g3, g4, ncol=2), nrow = 2)
+```
+
+<center>
+  ![](https://www.r-graph-gallery.com/261-multiple-graphs-on-same-page_files/figure-html/thecodeA-1.png){width=55%}
+</center>
+
+```r
 grid.arrange(g1, g2, g3, nrow = 3)
+```
+
+<center>
+  ![](https://www.r-graph-gallery.com/261-multiple-graphs-on-same-page_files/figure-html/thecodeB-1.png){width=55%}
+</center>
+
+```r
 grid.arrange(g2, arrangeGrob(g3, g4, ncol=2), nrow = 1)
+```
+
+<center>
+  ![](https://www.r-graph-gallery.com/261-multiple-graphs-on-same-page_files/figure-html/thecodeC-1.png){width=55%}
+</center>
+
+```r
 grid.arrange(g2, arrangeGrob(g3, g4, nrow=2), nrow = 1)
 ```
+
+<center>
+  ![](https://www.r-graph-gallery.com/261-multiple-graphs-on-same-page_files/figure-html/thecodeD-1.png){width=55%}
+</center>
 
 ### `Plotly`: Turn your `ggplot` Interactive
 
 Another awesome feature of `ggplot2` is its link with the `plotly` library. If you know how to make a `ggplot2` chart, you are 10 seconds away to rendering an interactive version. Just call the `ggplotly()` function, and you're done. Visit the interactive graphic section of the gallery for more.
 
-```{r interactive-plotly-gdp-percapita, echo=TRUE, message=FALSE, warning=FALSE}
+```r
 library(ggplot2)
 library(plotly)
 library(gapminder)
+
 p <- gapminder %>%
   filter(year==1977) %>%
   ggplot( aes(gdpPercap, lifeExp, size = pop, color=continent)) +
   geom_point() +
   theme_bw()
+
 ggplotly(p)
 ```
 
-AN OVERVIEW OF GGPLOT2 POSSIBILITIES
+<center>
+```{r gapminder-gdp-general-html, echo=FALSE}
+htmltools::tags$iframe(title = "My embedded document", src = "generalHtml/gapminder-gdp.html", height="500px", width = "100%")
+```
+</center>
+
 
 ### An Overview of `ggplot2` Possibilities
 
@@ -1014,13 +1276,16 @@ library(ggplot2)
 library(dplyr)
 library(hrbrthemes)
 library(viridis)
+
 # create a dataset
 data <- data.frame(
   name=c( rep("A",500), rep("B",500), rep("B",500), rep("C",20), rep('D', 100)  ),
   value=c( rnorm(500, 10, 5), rnorm(500, 13, 1), rnorm(500, 18, 1), rnorm(20, 25, 4), rnorm(100, 12, 1) )
 )
+
 # sample size
 sample_size = data %>% group_by(name) %>% summarize(num=n())
+
 # Plot
 data %>%
   left_join(sample_size) %>%
@@ -1038,7 +1303,9 @@ data %>%
     xlab("")
 ```
 
-![](https://www.r-graph-gallery.com/violin_and_boxplot_ggplot2_files/figure-html/unnamed-chunk-1-1.png)
+<center>
+  ![](https://www.r-graph-gallery.com/violin_and_boxplot_ggplot2_files/figure-html/unnamed-chunk-1-1.png)
+</center>
 
 ### Boxplot with Individual Data Points
  
@@ -1056,11 +1323,13 @@ Now, do you see the bimodal distribution hidden behind group B?
 library(tidyverse)
 library(hrbrthemes)
 library(viridis)
+
 # create a dataset
 data <- data.frame(
   name=c( rep("A",500), rep("B",500), rep("B",500), rep("C",20), rep('D', 100)  ),
   value=c( rnorm(500, 10, 5), rnorm(500, 13, 1), rnorm(500, 18, 1), rnorm(20, 25, 4), rnorm(100, 12, 1) )
 )
+
 # Plot
 data %>%
   ggplot( aes(x=name, y=value, fill=name)) +
@@ -1075,7 +1344,10 @@ data %>%
     ggtitle("A boxplot with jitter") +
     xlab("")
 ```
-![](https://www.r-graph-gallery.com/89-box-and-scatter-plot-with-ggplot2_files/figure-html/unnamed-chunk-1-1.png)
+
+<center>
+  ![](https://www.r-graph-gallery.com/89-box-and-scatter-plot-with-ggplot2_files/figure-html/unnamed-chunk-1-1.png){width=75%}
+</center>
 
 In case you're not convinced, here is how the basic [boxplot](https://www.r-graph-gallery.com/boxplot.html) and the basic [violin plot](https://www.r-graph-gallery.com/violin.html) look like:
 
@@ -1094,7 +1366,9 @@ data %>%
     xlab("")
 ```
 
-![](https://www.r-graph-gallery.com/89-box-and-scatter-plot-with-ggplot2_files/figure-html/unnamed-chunk-3-1.png)
+<center>
+  ![](https://www.r-graph-gallery.com/89-box-and-scatter-plot-with-ggplot2_files/figure-html/unnamed-chunk-3-1.png){width=75%}
+</center>
 
 ```r
 # Violin basic
@@ -1111,7 +1385,9 @@ data %>%
     xlab("")
 ```
 
-![](https://www.r-graph-gallery.com/89-box-and-scatter-plot-with-ggplot2_files/figure-html/unnamed-chunk-3-2.png)
+<center>
+  ![](https://www.r-graph-gallery.com/89-box-and-scatter-plot-with-ggplot2_files/figure-html/unnamed-chunk-3-2.png){width=75%}
+</center>
 
 
 ### Map a Variable to Marker Feature in `ggplot2` Scatterplot
@@ -1128,6 +1404,7 @@ Note that the legend is built automatically.
 # load ggplot2
 library(ggplot2)
 library(hrbrthemes)
+
 # mtcars dataset is natively available in R
 # head(mtcars)
  
@@ -1149,6 +1426,7 @@ You can map variables to any marker features. For instance, specie is represent 
 # load ggplot2
 library(ggplot2)
 library(hrbrthemes)
+
 # Transparency
 ggplot(iris, aes(x=Sepal.Length, y=Sepal.Width, alpha=Species)) + 
     geom_point(size=6, color="#69b3a2") +
@@ -1189,6 +1467,7 @@ Last but not least, note that you can map one or several variables to one or sev
 # load ggplot2
 library(ggplot2)
 library(hrbrthemes)
+
 # A basic scatterplot with color depending on Species
 ggplot(iris, aes(x=Sepal.Length, y=Sepal.Width, shape=Species, alpha=Species, size=Species, color=Species)) + 
     geom_point() +
@@ -1214,9 +1493,11 @@ Here, the relationship between life expectancy (`y`) and gdp per capita (`x`) of
 # Libraries
 library(ggplot2)
 library(dplyr)
+
 # The dataset is provided in the gapminder library
 library(gapminder)
 data <- gapminder %>% filter(year=="2007") %>% dplyr::select(-year)
+
 # Most basic bubble plot
 ggplot(data, aes(x=gdpPercap, y=lifeExp, size = pop)) +
     geom_point(alpha=0.7)
@@ -1237,9 +1518,11 @@ The first thing we need to improve on the previous chart is the bubble size. `sc
 # Libraries
 library(ggplot2)
 library(dplyr)
+
 # The dataset is provided in the gapminder library
 library(gapminder)
 data <- gapminder %>% filter(year=="2007") %>% dplyr::select(-year)
+
 # Most basic bubble plot
 data %>%
   arrange(desc(pop)) %>%
@@ -1260,9 +1543,11 @@ If you have one more variable in your dataset, why not showing it using circle c
 # Libraries
 library(ggplot2)
 library(dplyr)
+
 # The dataset is provided in the gapminder library
 library(gapminder)
 data <- gapminder %>% filter(year=="2007") %>% dplyr::select(-year)
+
 # Most basic bubble plot
 data %>%
   arrange(desc(pop)) %>%
@@ -1290,9 +1575,11 @@ library(ggplot2)
 library(dplyr)
 library(hrbrthemes)
 library(viridis)
+
 # The dataset is provided in the gapminder library
 library(gapminder)
 data <- gapminder %>% filter(year=="2007") %>% dplyr::select(-year)
+
 # Most basic bubble plot
 data %>%
   arrange(desc(pop)) %>%
@@ -1323,9 +1610,11 @@ A [connected scatterplot](https://www.r-graph-gallery.com/connected-scatterplot.
 # Libraries
 library(ggplot2)
 library(dplyr)
+
 # Load dataset from github
 data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/3_TwoNumOrdered.csv", header=T)
 data$date <- as.Date(data$date)
+
 # Plot
 data %>%
   tail(10) %>%
@@ -1347,9 +1636,11 @@ Custom the general theme with the `theme_ipsum()` function of the `hrbrthemes` p
 library(ggplot2)
 library(dplyr)
 library(hrbrthemes)
+
 # Load dataset from github
 data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/3_TwoNumOrdered.csv", header=T)
 data$date <- as.Date(data$date)
+
 # Plot
 data %>%
   tail(10) %>%
@@ -1381,6 +1672,7 @@ library(dplyr)
 library(babynames)
 library(ggrepel)
 library(tidyr)
+
 # data
 data <- babynames %>% 
   filter(name %in% c("Ashley", "Amanda")) %>%
@@ -1388,6 +1680,7 @@ data <- babynames %>%
   filter(year>1970) %>%
   select(year, name, n) %>%
   spread(key = name, value=n, -1)
+
 # plot
 data %>% 
   ggplot(aes(x=Amanda, y=Ashley, label=year)) +
@@ -1411,6 +1704,7 @@ library(dplyr)
 library(babynames)
 library(ggrepel)
 library(tidyr)
+
 # data
 data <- babynames %>% 
   filter(name %in% c("Ashley", "Amanda")) %>%
@@ -1418,8 +1712,10 @@ data <- babynames %>%
   filter(year>1970) %>%
   select(year, name, n) %>%
   spread(key = name, value=n, -1)
+
 # Select a few date to label the chart
 tmp_date <- data %>% sample_frac(0.3)
+
 # plot 
 data %>% 
   ggplot(aes(x=Amanda, y=Ashley, label=year)) +
@@ -1454,16 +1750,19 @@ The input dataset must be a data frame with several numeric variables, each bein
 ```r
 # Libraries
 library(GGally)
+
 # Data set is provided by R natively
 data <- iris
+
 # Plot
 ggparcoord(data,
     columns = 1:4, groupColumn = 5
     ) 
 ```
 
-
-![](https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode-1.png)
+<center>
+  ![](https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode-1.png)
+</center>
 
 
 ### Custom Color, Theme, General Appearance
@@ -1481,8 +1780,10 @@ This is pretty much the same chart as te previous one, except for the following 
 library(hrbrthemes)
 library(GGally)
 library(viridis)
+
 # Data set is provided by R natively
 data <- iris
+
 # Plot
 ggparcoord(data,
     columns = 1:4, groupColumn = 5, order = "anyClass",
@@ -1497,8 +1798,9 @@ ggparcoord(data,
   )
 ```
 
-
-![](https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode2-1.png)
+<center>
+  ![](https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode2-1.png)
+</center>
 
 ### Scaling
 
@@ -1528,9 +1830,9 @@ ggparcoord(data,
   xlab("")
 ```
 
-
-![](https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode31-1.png)
-
+<center>
+  ![](https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode31-1.png)
+</center>
 
 
 ```r
@@ -1550,7 +1852,9 @@ ggparcoord(data,
   xlab("")
 ```
 
-![](https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode32-1.png)
+<center>
+  ![](https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode32-1.png)
+</center>
 
 
 ```r
@@ -1570,9 +1874,9 @@ ggparcoord(data,
   xlab("")
 ```
 
-![](https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode33-1.png)
-
-
+<center>
+  ![](https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode33-1.png)
+</center>
 
 ```r
 ggparcoord(data,
@@ -1591,7 +1895,9 @@ ggparcoord(data,
   xlab("")
 ```
 
-![](https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode34-1.png)
+<center>
+  ![](https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode34-1.png)
+</center>
 
 ### Highlight a Group
 
@@ -1601,8 +1907,10 @@ Data visualization aims to highlight a story in the data. If you are interested 
 # Libraries
 library(GGally)
 library(dplyr)
+
 # Data set is provided by R natively
 data <- iris
+
 # Plot
 data %>%
   arrange(desc(Species)) %>%
@@ -1621,8 +1929,9 @@ data %>%
   xlab("")
 ```
 
-
-![](https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode4-1.png)
+<center>
+  ![](https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode4-1.png)
+</center>
 
 
 ### Lollipop Chart with Conditional Color
@@ -1640,6 +1949,7 @@ Here is the process to use conditional color on your ggplot2 chart:
 # library
 library(ggplot2)
 library(dplyr)
+
 # Create data (this takes more sense with a numerical X axis)
 x <- seq(0, 2*pi, length.out=100)
 data <- data.frame(
@@ -1682,6 +1992,7 @@ As usual, it is advised to [order your individuals](https://www.r-graph-gallery.
 library(ggplot2)
 library(dplyr)
 library(hrbrthemes)
+
 # Create data
 value1 <- abs(rnorm(26))*2
 data <- data.frame(
@@ -1771,7 +2082,7 @@ p
 ```
 
 <center>
-  ![](https://www.r-graph-gallery.com/297-circular-barplot-with-groups_files/figure-html/thecode-1.png){width=85%}
+  ![](https://www.r-graph-gallery.com/297-circular-barplot-with-groups_files/figure-html/thecode-1.png){width=75%}
 </center>
 
 ### Space between Groups
@@ -1826,7 +2137,7 @@ p
 ```
 
 <center>
-  ![](https://www.r-graph-gallery.com/297-circular-barplot-with-groups_files/figure-html/thecode2-1.png){width=85%}
+  ![](https://www.r-graph-gallery.com/297-circular-barplot-with-groups_files/figure-html/thecode2-1.png){width=75%}
 </center>
 
 
@@ -1842,7 +2153,7 @@ data = data %>% arrange(group, value)
 ```
 
 <center>
-  ![](https://www.r-graph-gallery.com/297-circular-barplot-with-groups_files/figure-html/unnamed-chunk-1-1.png){width=85%}
+  ![](https://www.r-graph-gallery.com/297-circular-barplot-with-groups_files/figure-html/unnamed-chunk-1-1.png){width=75%}
 </center>
 
 ### Circular Barchart Customization
@@ -1933,7 +2244,7 @@ p
 
 Here is an example with a [stacked area chart](https://www.data-to-viz.com/graph/stackedarea.html). It shows the evolution of baby name occurence in the US between 1880 and 2015. Six first names are represented on top of one another.
 
-```{r ggplotly-stacking-general, echo=TRUE, message=FALSE, warning=FALSE, fig.align='center', fig.height=5, fig.width=5}
+```r 
 # Libraries
 library(tidyverse)
 library(babynames)
@@ -1941,10 +2252,12 @@ library(streamgraph)
 library(viridis)
 library(hrbrthemes)
 library(plotly)
+
 # Load dataset from github
 data <- babynames %>% 
   filter(name %in% c("Amanda", "Jessica",    "Patricia", "Deborah",   "Dorothy",  "Helen")) %>%
   filter(sex=="F")
+
 # Plot
 p <- data %>% 
   ggplot( aes(x=year, y=n, fill=name, text=name)) +
@@ -1957,18 +2270,28 @@ p <- data %>%
 ggplotly(p, tooltip="text")
 ```
 
+<center>
+```{r popular-names-stacking-general-html, echo=FALSE}
+htmltools::tags$iframe(title = "My embedded document", src = "generalHtml/popularNames-stacking.html", height="500px", width = "100%")
+```
+</center>
+
+
+
 ### Example: Optical Illusion
 
 > Important note: this section is inspired from [this post](http://www.leancrew.com/all-this/2011/11/i-hate-stacked-area-charts/) by Dr. Drang.
+
 Dr Drang gives this nice example. Consider the graphic below, and try to visualize how the 3 categories evolved on the period:
 
-```{r optical-example, echo=TRUE, message=FALSE, warning=FALSE}
+```r
 # create dummy data
 don <- data.frame(
   x = rep(seq(2000,2005), 3),
   value = c(  75, 73, 68, 57, 36, 0, 15, 16, 17, 18, 19, 20, 10, 11, 15, 25, 45, 80),
   group = rep(c("A", "B", "C"), each=6)
 )
+
 #plot
 don %>% 
   ggplot( aes(x=x, y=value, fill=group)) +
@@ -1979,12 +2302,15 @@ don %>%
     theme(legend.position="none")
 ```
 
+<center>
+  ![](generalHtml/stacking.PNG)
+</center>
 
 It looks obvious that the yellow category increased, the purple decreased, and the green. is harder to read. At a first glance it looks like it is slightly decreasing I would say.
 
 Now let's plot just the green group to find out:
 
-```{r green-group, echo=TRUE, message=FALSE, warning=FALSE}
+```r
 #plot
 don %>% 
   filter(group=="B") %>%
@@ -1995,11 +2321,14 @@ don %>%
     theme(legend.position="none")
 ```
 
+<center>
+  ![](generalHtml/stacking-two.PNG)
+</center>
 
 ### Workaround
 If you have just a `few categories`, I would suggest to build a line chart. Here it is easy to follow a category and understand how it evolved accurately.
 
-```{r workaround-few-categories, echo=TRUE, message=FALSE, warning=FALSE}
+```r
 data %>%
   ggplot( aes(x=year, y=n, group=name, color=name)) +
     geom_line() +
@@ -2009,10 +2338,16 @@ data %>%
     theme_ipsum()
 ```
 
+
+<center>
+  ![](generalHtml/stacking-four.PNG)
+</center>
+
 However, this solution is not suitable if you have many categories. Indeed, it would result in a spaghetti chart that is very hard to read. You can read more about this here.
 
 Instead I would suggest to use `small multiple: here each category has its own section in the graphic. It makes easy to understand the pattern of each category.
-```{r many-categories-ggplotly, echo=TRUE, message=FALSE, warning=FALSE}
+
+```r
 data %>%
   ggplot( aes(x=year, y=n, group=name, fill=name)) +
     geom_area() +
@@ -2028,6 +2363,9 @@ data %>%
     facet_wrap(~name, scale="free_y")
 ```
 
+<center>
+  ![](generalHtml/stacking-five.PNG)
+</center>
 
 ### Basic Stacked area Chart with R
 
@@ -2054,6 +2392,7 @@ time <- as.numeric(rep(seq(1,7),each=7))  # x Axis
 value <- runif(49, 10, 100)               # y Axis
 group <- rep(LETTERS[1:7],times=7)        # group, one shape per group
 data <- data.frame(time, value, group)
+
 # stacked area chart
 ggplot(data, aes(x=time, y=value, fill=group)) + 
     geom_area()
@@ -2073,12 +2412,15 @@ The gallery offers a post dedicated to [reordering with ggplot2](https://www.r-g
 ```r
 # Give a specific order:
 data$group <- factor(data$group , levels=c("B", "A", "D", "E", "G", "F", "C") )
+
 # Plot again
 ggplot(data, aes(x=time, y=value, fill=group)) + 
     geom_area()
+
 # Note: you can also sort levels alphabetically:
 myLevels <- levels(data$group)
 data$group <- factor(data$group , levels=sort(myLevels) )
+
 # Note: sort followinig values at time = 5
 myLevels <- data %>%
   filter(time==6) %>%
@@ -2102,9 +2444,11 @@ data <- data  %>%
   group_by(time, group) %>%
   summarise(n = sum(value)) %>%
   mutate(percentage = n / sum(n))
+
 # Plot
 ggplot(data, aes(x=time, y=percentage, fill=group)) + 
     geom_area(alpha=0.6 , size=1, colour="black")
+
 # Note: compute percentages without dplyr:
 my_fun <- function(vec){ 
   as.numeric(vec[2]) / sum(data$value[data$time==vec[1]]) *100 
@@ -2127,6 +2471,7 @@ Let's improve the chart general appearance:
 # Library
 library(viridis)
 library(hrbrthemes)
+
 # Plot
 ggplot(data, aes(x=time, y=value, fill=group)) + 
     geom_area(alpha=0.6 , size=.5, colour="white") +
@@ -2138,9 +2483,147 @@ ggplot(data, aes(x=time, y=value, fill=group)) +
   ![](https://www.r-graph-gallery.com/136-stacked-area-chart_files/figure-html/thecode4-1.png){width=75%}
 </center>
 
-## Animation
+## Data Art
 
----
+Sometimes programming can be used to generate figures that are aestetically pleasing, but don't bring any insight. Here are a few pieces of data art built from R and ggplot2. Visit [data-to-art.com](https://www.data-to-art.com/) for more.
+
+### Using R and ggplot2 for Data Art.
+
+R and ggplot2 are awesome tool to produce random shapes. Welcome in the field of generative coding or data art.
+
+```r
+set.seed(345)
+library(ggplot2)
+library(RColorBrewer)
+ngroup=30
+names=paste("G_",seq(1,ngroup),sep="")
+DAT=data.frame()
+
+for(i in seq(1:30)){
+    data=data.frame( matrix(0, ngroup , 3))
+    data[,1]=i
+    data[,2]=sample(names, nrow(data))
+    data[,3]=prop.table(sample( c(rep(0,100),c(1:ngroup)) ,nrow(data)))
+    DAT=rbind(DAT,data)
+    }
+colnames(DAT)=c("Year","Group","Value")
+DAT=DAT[order( DAT$Year, DAT$Group) , ]
+
+
+coul = brewer.pal(12, "Paired") 
+coul = colorRampPalette(coul)(ngroup)
+coul=coul[sample(c(1:length(coul)) , size=length(coul) ) ]
+
+ggplot(DAT, aes(x=Year, y=Value, fill=Group )) + 
+    geom_area(alpha=1  )+
+    theme_bw() +
+    #scale_fill_brewer(colour="red", breaks=rev(levels(DAT$Group)))+
+    scale_fill_manual(values = coul)+
+     theme(
+        text = element_blank(),
+        line = element_blank(),
+        title = element_blank(),
+        legend.position="none",
+        panel.border = element_blank(),
+        panel.background = element_blank())
+```
+
+<center>
+  ![](https://www.r-graph-gallery.com/144-droid-bb-8-data-art_files/figure-html/thecode-1.png){width=85%}
+</center>
+
+### Random Shapes
+
+```r
+set.seed(345)
+library(ggplot2)
+library(RColorBrewer)
+ngroup=30
+names=paste("G_",seq(1,ngroup),sep="")
+DAT=data.frame()
+
+for(i in seq(1:30)){
+    data=data.frame( matrix(0, ngroup , 3))
+    data[,1]=i
+    data[,2]=sample(names, nrow(data))
+    data[,3]=prop.table(sample( c(rep(0,100),c(1:ngroup)) ,nrow(data)))
+    DAT=rbind(DAT,data)
+    }
+colnames(DAT)=c("Year","Group","Value")
+DAT=DAT[order( DAT$Year, DAT$Group) , ]
+
+
+coul = brewer.pal(12, "Paired") 
+coul = colorRampPalette(coul)(ngroup)
+coul=coul[sample(c(1:length(coul)) , size=length(coul) ) ]
+
+ggplot(DAT, aes(x=Year, y=Value, fill=Group )) + 
+    geom_area(alpha=1  )+
+    theme_bw() +
+    #scale_fill_brewer(colour="red", breaks=rev(levels(DAT$Group)))+
+    scale_fill_manual(values = coul)+
+     theme(
+        text = element_blank(),
+        line = element_blank(),
+        title = element_blank(),
+        legend.position="none",
+        panel.border = element_blank(),
+        panel.background = element_blank())
+```
+
+<center>
+  ![](https://www.r-graph-gallery.com/137-spring-shapes-data-art_files/figure-html/thecode-1.png){width=85%}
+</center>
+
+### R Snail
+ 
+A piece of generative art built by Christophe Cariou with R.
+
+```r
+par(mfrow=c(1,1),mar=c(0,0,0,0),oma=c(1,1,1,1))
+plot(0,0,type="n", xlim=c(-2,32), ylim=c(3,27),
+    xaxs="i", yaxs="i", axes=FALSE, xlab=NA, ylab=NA,
+    asp=1)
+
+for (j in 0:35) {
+for (i in 0:35) {
+
+    R <- 8
+    alpha <- j*10
+    X <- 15+R*cos(alpha/180*pi)
+    Y <- 15+R*sin(alpha/180*pi)
+
+    r <- 3
+    beta <- i*10
+    x <- 15+r*cos(beta/180*pi)
+    y <- 15+r*sin(beta/180*pi)
+
+    d1 <- sqrt((X-x)^2+(Y-y)^2)
+    xc <- x
+    yc <- y
+
+  n <- 180-atan((Y-y)/(X-x))/pi*180
+
+    alpha2 <- -(0:n)
+    theta <- alpha2/180*pi
+
+    b <- d1/(n/180*pi)
+    r <- b*theta
+
+    x1 <- xc+r*cos(theta)
+    y1 <- yc+r*sin(theta)
+
+    lines(x1,y1, col="black")
+
+    }
+}
+```
+
+<center>
+  ![](https://www.r-graph-gallery.com/127-r-snail_files/figure-html/thecode-1.png){width=85%}
+</center>
+
+## Animation
 
 An animated chart displays several chart states one after the other.
 
@@ -2186,6 +2669,7 @@ ggplot(gapminder, aes(gdpPercap, lifeExp, size = pop, color = continent)) +
   labs(title = 'Year: {frame_time}', x = 'GDP per capita', y = 'life expectancy') +
   transition_time(year) +
   ease_aes('linear')
+
 # Save at gif:
 anim_save("271-ggplot2-animated-gif-chart-with-gganimate1.gif")
 ```
@@ -2219,6 +2703,7 @@ ggplot(gapminder, aes(gdpPercap, lifeExp, size = pop, colour = country)) +
   labs(title = 'Year: {frame_time}', x = 'GDP per capita', y = 'life expectancy') +
   transition_time(year) +
   ease_aes('linear')
+
 # Save at gif:
 anim_save("271-ggplot2-animated-gif-chart-with-gganimate2.gif")
 ```
@@ -2260,6 +2745,7 @@ ggplot(data, aes(x=group, y=values, fill=group)) +
     state_length = 1
   ) +
   ease_aes('sine-in-out')
+
 # Save at gif:
 anim_save("288-animated-barplot-transition.gif")
 ```
@@ -2276,6 +2762,7 @@ library(ggplot2)
 library(gganimate)
 library(babynames)
 library(hrbrthemes)
+
 # Keep only 3 names
 don <- babynames %>% 
   filter(name %in% c("Ashley", "Patricia", "Helen")) %>%
@@ -2291,6 +2778,9 @@ don %>%
     theme_ipsum() +
     ylab("Number of babies born") +
     transition_reveal(year)
+
+
+
 # Save at gif:
 anim_save("287-smooth-animation-with-tweenr.gif")
 ```
@@ -2327,8 +2817,10 @@ par(bg="grey")
     text(.5, .5, i, cex = 6 )
   }
 dev.off()
+
 # Use image magick
 system("convert -delay 80 *.png animated_count_down.gif")
+
 # Remove png files
 file.remove(list.files(pattern=".png"))
 ```
@@ -2348,15 +2840,20 @@ It also provides the `plot3d()` and `play3d()` functions that allow to animate t
 ```r
 library( rgl )
 library(magick)
+
 # Let's use the iris dataset
 # iris
+
 # This is ugly
 colors <- c("royalblue1", "darkcyan", "oldlace")
 iris$color <- colors[ as.numeric( as.factor(iris$Species) ) ]
+
 # Static chart
 plot3d( iris[,1], iris[,2], iris[,3], col = iris$color, type = "s", radius = .2 )
+
 # We can indicate the axis and the rotation velocity
 play3d( spin3d( axis = c(0, 0, 1), rpm = 20), duration = 10 )
+
 # Save like gif
 movie3d(
   movie="3dAnimatedScatterplot", 
@@ -2368,13 +2865,14 @@ movie3d(
 ```
 
 <center>
-  ![](https://www.r-graph-gallery.com/img/graph/3-r-animated-cube.gif){width=75%}
+  ![](https://www.r-graph-gallery.com/img/graph/167-animated-3d-plot-imagemagick.gif){width=75%}
 </center>
 
 
 ```r
 # Library for 3D
 library(lattice)
+
 # Initiate data
 b0 <- 10
 b1 <- .5
@@ -2382,6 +2880,7 @@ b2 <- .3
 int12 <- .2
 g <- expand.grid(x = 1:20, y = 1:20)
 g$z <- b0 + b1*g$x + b2*g$y + int12*g$x*g$y
+
 # Make several .png images
 png(file="example%03d.png", width=480, heigh=480)
 for (i in seq(0, 350 ,10)){
@@ -2390,8 +2889,10 @@ for (i in seq(0, 350 ,10)){
               drape=TRUE))
   }
 dev.off()
+
 # convert pdf to gif using ImageMagick
 system("convert -delay 40 *.png animated_3D_plot.gif")
+
 # cleaning up
 file.remove(list.files(pattern=".png"))
 ```
@@ -2400,235 +2901,7 @@ file.remove(list.files(pattern=".png"))
   ![](https://www.r-graph-gallery.com/img/graph/167-animated-3d-plot-imagemagick.gif){width=75%}
 </center>
 
-## Data Art
-
----
-
-Sometimes programming can be used to generate figures that are aestetically pleasing, but don't bring any insight. Here are a few pieces of data art built from R and ggplot2. Visit [data-to-art.com](https://www.data-to-art.com/) for more.
-
-### Using R and ggplot2 for Data Art.
-
-R and ggplot2 are awesome tool to produce random shapes. Welcome in the field of generative coding or data art.
-
-```{r ggplot-data-art, echo=TRUE, message=FALSE, warning=FALSE}
-set.seed(345)
-library(ggplot2)
-library(RColorBrewer)
-ngroup=30
-names=paste("G_",seq(1,ngroup),sep="")
-DAT=data.frame()
-for(i in seq(1:30)){
-    data=data.frame( matrix(0, ngroup , 3))
-    data[,1]=i
-    data[,2]=sample(names, nrow(data))
-    data[,3]=prop.table(sample( c(rep(0,100),c(1:ngroup)) ,nrow(data)))
-    DAT=rbind(DAT,data)
-    }
-colnames(DAT)=c("Year","Group","Value")
-DAT=DAT[order( DAT$Year, DAT$Group) , ]
-coul = brewer.pal(12, "Paired") 
-coul = colorRampPalette(coul)(ngroup)
-coul=coul[sample(c(1:length(coul)) , size=length(coul) ) ]
-ggplot(DAT, aes(x=Year, y=Value, fill=Group )) + 
-    geom_area(alpha=1  )+
-    theme_bw() +
-    #scale_fill_brewer(colour="red", breaks=rev(levels(DAT$Group)))+
-    scale_fill_manual(values = coul)+
-     theme(
-        text = element_blank(),
-        line = element_blank(),
-        title = element_blank(),
-        legend.position="none",
-        panel.border = element_blank(),
-        panel.background = element_blank())
-```
-
-### R Snail
- 
-A piece of generative art built by Christophe Cariou with R.
-
-```{r ggplot-data-art-r-snail, echo=TRUE, message=FALSE, warning=FALSE}
-par(mfrow=c(1,1),mar=c(0,0,0,0),oma=c(1,1,1,1))
-plot(0,0,type="n", xlim=c(-2,32), ylim=c(3,27),
-    xaxs="i", yaxs="i", axes=FALSE, xlab=NA, ylab=NA,
-    asp=1)
-for (j in 0:35) {
-for (i in 0:35) {
-    R <- 8
-    alpha <- j*10
-    X <- 15+R*cos(alpha/180*pi)
-    Y <- 15+R*sin(alpha/180*pi)
-    r <- 3
-    beta <- i*10
-    x <- 15+r*cos(beta/180*pi)
-    y <- 15+r*sin(beta/180*pi)
-    d1 <- sqrt((X-x)^2+(Y-y)^2)
-    xc <- x
-    yc <- y
-  n <- 180-atan((Y-y)/(X-x))/pi*180
-    alpha2 <- -(0:n)
-    theta <- alpha2/180*pi
-    b <- d1/(n/180*pi)
-    r <- b*theta
-    x1 <- xc+r*cos(theta)
-    y1 <- yc+r*sin(theta)
-    lines(x1,y1, col="black")
-    }
-}
-```
-
-
-## Interactive Charts
-
-An interactive charts allows the user to perform actions: zooming, hovering a marker to get a tooltip, choosing a variable to display and more. `R` offers a set of packages called the `html widgets`: they allow to build interactive dataviz directly from R.
-
-#### Scatter and Bubble Plots: Use `Plotly`
-
-The best way to build an interactive bubble chart from R is through the `plotly` library. If you know how to make a `ggplot2` chart, you are 10 seconds away to rendering an interactive version= just call the `ggplotly()` function, and you're done.
-
-```{r interactive-chart-ggplotly-ggplot, echo=TRUE, message=FALSE, warning=FALSE}
-library(ggplot2)
-library(plotly)
-library(gapminder)
-p <- gapminder %>%
-  filter(year==1977) %>%
-  ggplot( aes(gdpPercap, lifeExp, size = pop, color=continent)) +
-  geom_point() +
-  theme_bw()
-ggplotly(p)
-```
-
-
-### Streamgraph with Dropdown Button
- 
-The `streamgraph` package allows to add a dropdown button that controls which group to highlight. See how to use this option with explanation and reproducible code.
-
-```r
-# Library
-library(streamgraph)
- 
-# Create data:
-data <- data.frame(
-  year=rep(seq(1990,2016) , each=10),
-  name=rep(letters[1:10] , 27),
-  value=sample( seq(0,1,0.0001) , 270)
-)
- 
-# Stream graph with a legend
-pp <- streamgraph(data, key="name", value="value", date="year", height="300px", width="1000px") %>%
-  sg_legend(show=TRUE, label="names: ")
-  
-# save the widget
-# library(htmlwidgets)
-# saveWidget(pp, file=paste0( getwd(), "/generalHtml/streamgraphDropdown.html"))
-```
-
-<center>
-```{r, echo=FALSE}
-htmltools::tags$iframe(title = "My embedded document", src = "generalHtml/streamgraphDropdown.html", height="400px", width = "100%")
-```
-</center>
-
-
-### Interactive Chord Diagram with R
- 
-This section describes how to build an interactive [chord diagram](https://www.r-graph-gallery.com/chord-diagram.html) on which you can hover groups to highlight flows.
-
-```r
-# Load package
-# devtools::install_github("mattflor/chorddiag")
-library(chorddiag)
-# Create dummy data
-m <- matrix(c(11975,  5871, 8916, 2868,
-              1951, 10048, 2060, 6171,
-              8010, 16145, 8090, 8045,
-              1013,   990,  940, 6907),
-            byrow = TRUE,
-            nrow = 4, ncol = 4)
-# A vector of 4 colors for 4 groups
-haircolors <- c("black", "blonde", "brown", "red")
-dimnames(m) <- list(have = haircolors,
-                    prefer = haircolors)
-groupColors <- c("#000000", "#FFDD89", "#957244", "#F26223")
-# Build the chord diagram:
-p <- chorddiag(m, groupColors = groupColors, groupnamePadding = 20)
-p
-# save the widget
-# library(htmlwidgets)
-# saveWidget(p, file=paste0( getwd(), "/generalHtml/chord_interactive.html"))
-```
-
-<center>
-```{r, echo=FALSE}
-htmltools::tags$iframe(title = "My embedded document", src = "generalHtml/chord_interactive.html", height="400px", width = "100%")
-```
-</center>
-
-### Interactive Network Chart with R
- 
-The `networkD3` package allows to build interactive [network diagram](https://www.r-graph-gallery.com/network.html) directly from R. It allows to zoom, hover nodes, reorganize the layout and more. This post explains how to use the library with reproducible examples.
-
-```r
-# Libraries
-library(igraph)
-library(networkD3)
-# create a dataset:
-data <- data_frame(
-  from=c("A", "A", "B", "D", "C", "D", "E", "B", "C", "D", "K", "A", "M"),
-  to=c("B", "E", "F", "A", "C", "A", "B", "Z", "A", "C", "A", "B", "K")
-)
-# Plot
-p <- simpleNetwork(data, height="100px", width="100px")
-# p
-# save the widget
-# library(htmlwidgets)
-# saveWidget(p, file=paste0( getwd(), "/generalHtml/networkInteractive1.html"))
-```
-
-<center>
-```{r, echo=FALSE}
-htmltools::tags$iframe(title = "My embedded document", src = "generalHtml/networkInteractive1.html", height="400px", width = "100%")
-```
-</center>
-
-
-```r
-# Libraries
-library(igraph)
-library(networkD3)
-# create a dataset:
-data <- data_frame(
-  from=c("A", "A", "B", "D", "C", "D", "E", "B", "C", "D", "K", "A", "M"),
-  to=c("B", "E", "F", "A", "C", "A", "B", "Z", "A", "C", "A", "B", "K")
-)
-# Plot
-p <- simpleNetwork(data, height="100px", width="100px",        
-        Source = 1,                 # column number of source
-        Target = 2,                 # column number of target
-        linkDistance = 10,          # distance between node. Increase this value to have more space between nodes
-        charge = -900,                # numeric value indicating either the strength of the node repulsion (negative value) or attraction (positive value)
-        fontSize = 14,               # size of the node names
-        fontFamily = "serif",       # font og node names
-        linkColour = "#666",        # colour of edges, MUST be a common colour for the whole graph
-        nodeColour = "#69b3a2",     # colour of nodes, MUST be a common colour for the whole graph
-        opacity = 0.9,              # opacity of nodes. 0=transparent. 1=no transparency
-        zoom = T                    # Can you zoom on the figure?
-        )
-#p
-# save the widget
-# library(htmlwidgets)
-# saveWidget(p, file=paste0( getwd(), "/generalHtml/networkInteractive2.html"))
-```
-
-<center>
-```{r, echo=FALSE}
-htmltools::tags$iframe(title = "My embedded document", src = "generalHtml/networkInteractive2.html", height="400px", width = "100%")
-```
-</center>
-
 ## 3D Charts
-
----
 
 `R` allows to build three dimensional charts, mainly thanks to the `rgl` package. Even if 3D is often a [bad practice](https://www.data-to-viz.com/caveat/3d.html), it can be useful in specific situation. This section provides several examples made in R.
 
@@ -2646,10 +2919,13 @@ Rows and columns actually describe a grid, and the cell value will be mapped to 
 ```r
 # Library
 library(plotly)
+
 # Data: volcano is provided by plotly
+
 # Plot
 p <- plot_ly(z = volcano, type = "surface")
 p 
+
 # save the widget
 # library(htmlwidgets)
 # saveWidget(p, file=paste0( getwd(), "/generalHtml/3dSurface.html"))
@@ -2672,14 +2948,19 @@ With the `rgl` package, you can make the image moove and zoom in an out. Find th
 ```r
 # Library rgl
 library(rgl)
+
 #Choose the size of the image on the output (800,650 to have 800 x 600)
 r3dDefaults$windowRect <- c(0,50, 800, 650) 
 open3d()
+
 #If you want to put line on the background
 #bg3d(sphere = TRUE, color = c("grey", "white"), lit = TRUE, back = "lines" ,lwd=2)
+
 # This is to output a rgl plot in a rmarkdown document. Note that you must add webgl=TRUE, results='hide' in the chunck header
 library(knitr)
 knit_hooks$set(webgl = hook_webgl)
+
+
 # plot
 bg3d( col=rgb(0.2,0.8,0.5,0.8) )
 theta <- seq(0, 2*pi, len = 50)
@@ -2687,8 +2968,11 @@ knot <- cylinder3d(
 center = cbind(sin(theta) + 3*sin(2*theta), 2*sin(3*theta), cos(theta) - 2*cos(2*theta)),
 e1 = cbind(cos(theta) + 4*cos(2*theta),6*cos(3*theta),sin(theta) + 4*sin(2*theta)),radius = 0.9,closed = TRUE)
 shade3d(addNormals(subdivision3d(knot, depth = 2)), col = rgb(0.4,0.2,0.8,0.3))
+
 # save it as png
 # rgl.snapshot( "~/Desktop/#20_portfolio_knot_3D.png", fmt="png", top=TRUE  )
+
+
 # Export as an html file if needed:
 writeWebGL( filename="generalHtml/3dknot.html" ,  width=600, height=600)
 ```
@@ -2735,15 +3019,20 @@ It also provides the `plot3d()` and play3d() functions that allow to animate the
 ```r
 library( rgl )
 library(magick)
+
 # Let's use the iris dataset
 # iris
+
 # This is ugly
 colors <- c("royalblue1", "darkcyan", "oldlace")
 iris$color <- colors[ as.numeric( as.factor(iris$Species) ) ]
+
 # Static chart
 plot3d( iris[,1], iris[,2], iris[,3], col = iris$color, type = "s", radius = .2 )
+
 # We can indicate the axis and the rotation velocity
 play3d( spin3d( axis = c(0, 0, 1), rpm = 20), duration = 10 )
+
 # Save like gif
 movie3d(
   movie="3dAnimatedScatterplot", 
@@ -2759,7 +3048,174 @@ movie3d(
   ![](https://www.r-graph-gallery.com/img/graph/3-r-animated-cube.gif){width=75%}
 </center>
 
+## Interactive Charts
 
+An interactive charts allows the user to perform actions: zooming, hovering a marker to get a tooltip, choosing a variable to display and more. `R` offers a set of packages called the `html widgets`: they allow to build interactive dataviz directly from R.
+
+#### Scatter and Bubble Plots: Use `Plotly`
+
+The best way to build an interactive bubble chart from R is through the `plotly` library. If you know how to make a `ggplot2` chart, you are 10 seconds away to rendering an interactive version= just call the `ggplotly()` function, and you're done.
+
+```r
+library(ggplot2)
+library(plotly)
+library(gapminder)
+
+p <- gapminder %>%
+  filter(year==1977) %>%
+  ggplot( aes(gdpPercap, lifeExp, size = pop, color=continent)) +
+  geom_point() +
+  theme_bw()
+
+ggplotly(p)
+```
+
+<center>
+```{r popular-names-general-html, echo=FALSE}
+htmltools::tags$iframe(title = "My embedded document", src = "generalHtml/popularNames-stacking.html", height="550px", width = "100%")
+```
+</center>
+
+
+### Streamgraph with Dropdown Button
+ 
+The `streamgraph` package allows to add a dropdown button that controls which group to highlight. See how to use this option with explanation and reproducible code.
+
+```r
+# Library
+library(streamgraph)
+ 
+# Create data:
+data <- data.frame(
+  year=rep(seq(1990,2016) , each=10),
+  name=rep(letters[1:10] , 27),
+  value=sample( seq(0,1,0.0001) , 270)
+)
+ 
+# Stream graph with a legend
+pp <- streamgraph(data, key="name", value="value", date="year", height="300px", width="1000px") %>%
+  sg_legend(show=TRUE, label="names: ")
+  
+
+# save the widget
+# library(htmlwidgets)
+# saveWidget(pp, file=paste0( getwd(), "/generalHtml/streamgraphDropdown.html"))
+```
+
+<center>
+```{r, echo=FALSE}
+htmltools::tags$iframe(title = "My embedded document", src = "generalHtml/streamgraphDropdown.html", height="400px", width = "100%")
+```
+</center>
+
+
+### Interactive Chord Diagram with R
+ 
+This section describes how to build an interactive [chord diagram](https://www.r-graph-gallery.com/chord-diagram.html) on which you can hover groups to highlight flows.
+
+```r
+# Load package
+# devtools::install_github("mattflor/chorddiag")
+library(chorddiag)
+
+# Create dummy data
+m <- matrix(c(11975,  5871, 8916, 2868,
+              1951, 10048, 2060, 6171,
+              8010, 16145, 8090, 8045,
+              1013,   990,  940, 6907),
+            byrow = TRUE,
+            nrow = 4, ncol = 4)
+
+# A vector of 4 colors for 4 groups
+haircolors <- c("black", "blonde", "brown", "red")
+dimnames(m) <- list(have = haircolors,
+                    prefer = haircolors)
+groupColors <- c("#000000", "#FFDD89", "#957244", "#F26223")
+
+# Build the chord diagram:
+p <- chorddiag(m, groupColors = groupColors, groupnamePadding = 20)
+p
+
+# save the widget
+# library(htmlwidgets)
+# saveWidget(p, file=paste0( getwd(), "/generalHtml/chord_interactive.html"))
+```
+
+<center>
+```{r, echo=FALSE}
+htmltools::tags$iframe(title = "My embedded document", src = "generalHtml/chord_interactive.html", height="400px", width = "100%")
+```
+</center>
+
+### Interactive Network Chart with R
+ 
+The `networkD3` package allows to build interactive [network diagram](https://www.r-graph-gallery.com/network.html) directly from R. It allows to zoom, hover nodes, reorganize the layout and more. This post explains how to use the library with reproducible examples.
+
+```r
+# Libraries
+library(igraph)
+library(networkD3)
+
+# create a dataset:
+data <- data_frame(
+  from=c("A", "A", "B", "D", "C", "D", "E", "B", "C", "D", "K", "A", "M"),
+  to=c("B", "E", "F", "A", "C", "A", "B", "Z", "A", "C", "A", "B", "K")
+)
+
+# Plot
+p <- simpleNetwork(data, height="100px", width="100px")
+
+# p
+
+# save the widget
+# library(htmlwidgets)
+# saveWidget(p, file=paste0( getwd(), "/generalHtml/networkInteractive1.html"))
+```
+
+<center>
+```{r, echo=FALSE}
+htmltools::tags$iframe(title = "My embedded document", src = "generalHtml/networkInteractive1.html", height="400px", width = "100%")
+```
+</center>
+
+
+```r
+# Libraries
+library(igraph)
+library(networkD3)
+
+# create a dataset:
+data <- data_frame(
+  from=c("A", "A", "B", "D", "C", "D", "E", "B", "C", "D", "K", "A", "M"),
+  to=c("B", "E", "F", "A", "C", "A", "B", "Z", "A", "C", "A", "B", "K")
+)
+
+# Plot
+p <- simpleNetwork(data, height="100px", width="100px",        
+        Source = 1,                 # column number of source
+        Target = 2,                 # column number of target
+        linkDistance = 10,          # distance between node. Increase this value to have more space between nodes
+        charge = -900,                # numeric value indicating either the strength of the node repulsion (negative value) or attraction (positive value)
+        fontSize = 14,               # size of the node names
+        fontFamily = "serif",       # font og node names
+        linkColour = "#666",        # colour of edges, MUST be a common colour for the whole graph
+        nodeColour = "#69b3a2",     # colour of nodes, MUST be a common colour for the whole graph
+        opacity = 0.9,              # opacity of nodes. 0=transparent. 1=no transparency
+        zoom = T                    # Can you zoom on the figure?
+        )
+
+#p
+
+# save the widget
+# library(htmlwidgets)
+# saveWidget(p, file=paste0( getwd(), "/generalHtml/networkInteractive2.html"))
+```
+
+<center>
+```{r, echo=FALSE}
+htmltools::tags$iframe(title = "My embedded document", src = "generalHtml/networkInteractive2.html", height="400px", width = "100%")
+```
+</center>
 
 ## Caveats
 
@@ -3002,3 +3458,4 @@ Comparing percentage change on a linear scale can be misleading, use a log scale
 
 And people won't miss an opportunity to make you notice.</div> 
 </div>
+
