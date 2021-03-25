@@ -3783,11 +3783,10 @@ If you don't scale your data, your choropleth will basically look like a populat
 
 Comparing percentage change on a linear scale can be misleading, use a log scale instead. By datawrapper.</div> 
 
-<div>[![](https://www.data-to-viz.com/img/mistake/choropleth_vocab.png)](https://twitter.com/hashtag/chloropleth)
+[![](https://www.data-to-viz.com/img/mistake/choropleth_vocab.png)](https://twitter.com/hashtag/chloropleth)
 
 [There is no 'L' in choropleth](https://twitter.com/hashtag/chloropleth)
 
 And people won't miss an opportunity to make you notice.</div> 
-</div>
 
 
