@@ -188,9 +188,9 @@ data %>%
 
 --- 
 
-<center>
-  ![](https://www.r-graph-gallery.com/img/other/ggplot2Hex.jpg)
-</center>
+
+![](https://www.r-graph-gallery.com/img/other/ggplot2Hex.jpg)
+
 
 <br>
  
@@ -230,9 +230,9 @@ ggplot(data, aes(x=wt, y=mpg)) +
   )
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/275-add-text-labels-with-ggplot2_files/figure-html/thecode-1.png){width=75%}
-</center>
+
+![](https://www.r-graph-gallery.com/275-add-text-labels-with-ggplot2_files/figure-html/thecode-1.png)
+
 
 ### Add Labels with  `geom_label()`
 
@@ -255,9 +255,9 @@ ggplot(data, aes(x=wt, y=mpg)) +
   )
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/275-add-text-labels-with-ggplot2_files/figure-html/thecode2-1.png){width=75%}
-</center>
+
+![](https://www.r-graph-gallery.com/275-add-text-labels-with-ggplot2_files/figure-html/thecode2-1.png)
+
 
 ### Add One Text Label Only
 
@@ -284,9 +284,9 @@ ggplot(data, aes(x=wt, y=mpg)) +
   )
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/275-add-text-labels-with-ggplot2_files/figure-html/thecode3-1.png){width=75%}
-</center>
+
+![](https://www.r-graph-gallery.com/275-add-text-labels-with-ggplot2_files/figure-html/thecode3-1.png)
+
 
 ### Add Labels for a Selection of Marker
 
@@ -314,9 +314,9 @@ ggplot(data, aes(x=wt, y=mpg)) +
   )
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/275-add-text-labels-with-ggplot2_files/figure-html/thecode4-1.png){width=75%}
-</center>
+
+![](https://www.r-graph-gallery.com/275-add-text-labels-with-ggplot2_files/figure-html/thecode4-1.png)
+
 
 ### How to Annotate a Plot in `ggplot2`
  
@@ -359,9 +359,9 @@ p + geom_text(data=annotation, aes( x=x, y=y, label=label),
 #           label = c("label 1", "label 2") , color="orange", 
 #           size=7 , angle=45, fontface="bold")
 ```
-<center>
-  ![](https://www.r-graph-gallery.com/233-add-annotations-on-ggplot2-chart_files/figure-html/thecodeA-1.png){width=75%}
-</center>
+
+![](https://www.r-graph-gallery.com/233-add-annotations-on-ggplot2-chart_files/figure-html/thecodeA-1.png)
+
 
 ```r
 # Right chart: using labels
@@ -370,9 +370,9 @@ p + geom_label(data=annotation, aes( x=x, y=y, label=label),
            size=7 , angle=45, fontface="bold" )
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/233-add-annotations-on-ggplot2-chart_files/figure-html/thecodeB-1.png){width=75%}
-</center>
+
+![](https://www.r-graph-gallery.com/233-add-annotations-on-ggplot2-chart_files/figure-html/thecodeB-1.png)
+
 
 ### Add Shapes with `annotate()`
 
@@ -382,27 +382,27 @@ The `annotate()` function allows to add all kind of shape on a ggplot2 chart. Th
 # Add rectangles
 p + annotate("rect", xmin=c(2,4), xmax=c(3,5), ymin=c(20,10) , ymax=c(30,20), alpha=0.2, color="blue", fill="blue")
 ```
-<center>
-  ![](https://www.r-graph-gallery.com/233-add-annotations-on-ggplot2-chart_files/figure-html/thecode1A-1.png){width=75%}
-</center>
+
+![](https://www.r-graph-gallery.com/233-add-annotations-on-ggplot2-chart_files/figure-html/thecode1A-1.png)
+
 
 ```r
 # Add segments
 p + annotate("segment", x = 1, xend = 3, y = 25, yend = 15, colour = "purple", size=3, alpha=0.6)
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/233-add-annotations-on-ggplot2-chart_files/figure-html/thecode1B-1.png){width=75%}
-</center>
+
+![](https://www.r-graph-gallery.com/233-add-annotations-on-ggplot2-chart_files/figure-html/thecode1B-1.png)
+
 
 ```r
 # Add arrow
 p + annotate("segment", x = 2, xend = 4, y = 15, yend = 25, colour = "pink", size=3, alpha=0.6, arrow=arrow())
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/233-add-annotations-on-ggplot2-chart_files/figure-html/thecode1C-1.png){width=75%}
-</center>
+
+![](https://www.r-graph-gallery.com/233-add-annotations-on-ggplot2-chart_files/figure-html/thecode1C-1.png)
+
 
 ### Add Ablines with `geom_hline()` and `geom_vline()`
 
@@ -416,9 +416,9 @@ p +
   geom_vline(xintercept=3, color="orange", size=1)
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/233-add-annotations-on-ggplot2-chart_files/figure-html/thecode2-1.png){width=75%}
-</center>
+
+![](https://www.r-graph-gallery.com/233-add-annotations-on-ggplot2-chart_files/figure-html/thecode2-1.png)
+
 
 ### Add a Point and a Range with `pointrange()`
 
@@ -429,9 +429,9 @@ Last kind of annotation, add a dot and a segment directly with `pointrange()`.
 p + annotate("pointrange", x = 3.5, y = 20, ymin = 12, ymax = 28,colour = "orange", size = 1.5, alpha=0.4)
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/233-add-annotations-on-ggplot2-chart_files/figure-html/thecode3-1.png){width=75%}
-</center>
+
+![](https://www.r-graph-gallery.com/233-add-annotations-on-ggplot2-chart_files/figure-html/thecode3-1.png)
+
 
 ### Marginal Plot
 
@@ -460,9 +460,9 @@ ggplot(data=iris, aes(x=Sepal.Length, Petal.Length)) +
   geom_rug(col="steelblue",alpha=0.1, size=1.5)
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/276-scatterplot-with-rug-ggplot2_files/figure-html/thecode-1.png){width=75%}
-</center>
+
+![](https://www.r-graph-gallery.com/276-scatterplot-with-rug-ggplot2_files/figure-html/thecode-1.png)
+
 
 ### Marginal Distribution with `ggplot2` and `ggExtra`
  
@@ -499,25 +499,25 @@ p3 <- ggMarginal(p, type="boxplot")
 p1
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/277-marginal-histogram-for-ggplot2_files/figure-html/unnamed-chunk-1-1.png){width=75%}
-</center>
+
+![](https://www.r-graph-gallery.com/277-marginal-histogram-for-ggplot2_files/figure-html/unnamed-chunk-1-1.png)
+
 
 ```r
 p2
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/277-marginal-histogram-for-ggplot2_files/figure-html/unnamed-chunk-2-1.png){width=75%}
-</center>
+
+![](https://www.r-graph-gallery.com/277-marginal-histogram-for-ggplot2_files/figure-html/unnamed-chunk-2-1.png)
+
 
 ```r
 p3
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/277-marginal-histogram-for-ggplot2_files/figure-html/unnamed-chunk-3-1.png){width=75%}
-</center>
+
+![](https://www.r-graph-gallery.com/277-marginal-histogram-for-ggplot2_files/figure-html/unnamed-chunk-3-1.png)
+
 
 ### More Customization
 
@@ -553,26 +553,26 @@ p3 <- ggMarginal(p, margins = 'x', color="purple", size=4)
 ```r
 p1
 ```
-<center>
-  ![](https://www.r-graph-gallery.com/277-marginal-histogram-for-ggplot2_files/figure-html/unnamed-chunk-4-1.png){width=75%}
-</center>
+
+![](https://www.r-graph-gallery.com/277-marginal-histogram-for-ggplot2_files/figure-html/unnamed-chunk-4-1.png)
+
 
 
 ```r
 p2
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/277-marginal-histogram-for-ggplot2_files/figure-html/unnamed-chunk-5-1.png){width=75%}
-</center>
+
+![](https://www.r-graph-gallery.com/277-marginal-histogram-for-ggplot2_files/figure-html/unnamed-chunk-5-1.png)
+
 
 ```r
 p3
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/277-marginal-histogram-for-ggplot2_files/figure-html/unnamed-chunk-6-1.png){width=75%}
-</center>
+
+![](https://www.r-graph-gallery.com/277-marginal-histogram-for-ggplot2_files/figure-html/unnamed-chunk-6-1.png)
+
 
 ### `ggplot2` Chart Appearance
 
@@ -607,9 +607,9 @@ basic <- ggplot( mtcars , aes(x=mpg, y=wt)) +
 basic
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/238-custom-layout-axis-ggplot2_files/figure-html/thecode-1.png){width=75%}
-</center>
+
+![](https://www.r-graph-gallery.com/238-custom-layout-axis-ggplot2_files/figure-html/thecode-1.png)
+
 
 ### Set Axis Title and Limits with `xlab()` and `xlim()`
 
@@ -623,9 +623,8 @@ basic+
     xlim(0,50)
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/238-custom-layout-axis-ggplot2_files/figure-html/thecode2-1.png){width=75%}
-</center>
+![](https://www.r-graph-gallery.com/238-custom-layout-axis-ggplot2_files/figure-html/thecode2-1.png)
+
 
 ### Customize Axis Title Appearance: `axis.title`
 
@@ -635,17 +634,17 @@ The `theme()` function allows to customize all parts of the `ggplot2` chart. The
 basic + theme(axis.title = element_text( angle = 90, color="red", size=15, face=3)) # face = title location
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/238-custom-layout-axis-ggplot2_files/figure-html/thecode3a-1.png){width=75%}
-</center>
+
+![](https://www.r-graph-gallery.com/238-custom-layout-axis-ggplot2_files/figure-html/thecode3a-1.png)
+
 
 ```r
 basic + theme(axis.title.x = element_text( angle = 90, color="red", size=15, face=3))
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/238-custom-layout-axis-ggplot2_files/figure-html/thecode3b-1.png){width=75%}
-</center>
+
+![](https://www.r-graph-gallery.com/238-custom-layout-axis-ggplot2_files/figure-html/thecode3b-1.png)
+
 
 ### Customize Axis Labels: `axis.text`
 
@@ -661,9 +660,9 @@ basic +
   )
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/238-custom-layout-axis-ggplot2_files/figure-html/thecode4-1.png){width=75%}
-</center>
+
+![](https://www.r-graph-gallery.com/238-custom-layout-axis-ggplot2_files/figure-html/thecode4-1.png)
+
 
 ### Customize Axis Ticks and Axis Line with `axis.ticks()` and `axis.line()`
 
@@ -680,18 +679,18 @@ basic + theme(
 )
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/238-custom-layout-axis-ggplot2_files/figure-html/thecode5a-1.png){width=75%}
-</center>
+
+![](https://www.r-graph-gallery.com/238-custom-layout-axis-ggplot2_files/figure-html/thecode5a-1.png)
+
 
 ```r
 # chart 2: axis lines
 basic + theme(axis.line = element_line(size = 3, colour = "green", linetype=2))
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/238-custom-layout-axis-ggplot2_files/figure-html/thecode5b-1.png){width=75%}
-</center>
+
+![](https://www.r-graph-gallery.com/238-custom-layout-axis-ggplot2_files/figure-html/thecode5b-1.png)
+
 
 
 ```r
@@ -704,9 +703,8 @@ ggplot( mtcars , aes(x=mpg, y=wt)) + geom_point() +
         )
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/238-custom-layout-axis-ggplot2_files/figure-html/thecode5c-1.png){width=75%}
-</center>
+![](https://www.r-graph-gallery.com/238-custom-layout-axis-ggplot2_files/figure-html/thecode5c-1.png)
+
 
 
 
@@ -730,9 +728,8 @@ basic <- ggplot( mtcars , aes(x=mpg, y=wt)) +
 basic
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/240-custom-layout-background-ggplot2_files/figure-html/thecode-1.png){width=75%}
-</center>
+
+![](https://www.r-graph-gallery.com/240-custom-layout-background-ggplot2_files/figure-html/thecode-1.png){width=75%}
 
 ### Background Color: `plot.background` and `panel.background`
 
@@ -747,9 +744,9 @@ basic + theme(
     )
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/240-custom-layout-background-ggplot2_files/figure-html/thecode2-1.png){width=75%}
-</center>
+
+![](https://www.r-graph-gallery.com/240-custom-layout-background-ggplot2_files/figure-html/thecode2-1.png)
+
 
 ### Customize the Grid: `panel.grid.major` and `panel.grid.minor`
 
@@ -766,9 +763,9 @@ basic + theme(
     panel.grid.minor = element_line(colour = "blue", size = 2)
     )
 ```
-<center>
-  ![](https://www.r-graph-gallery.com/240-custom-layout-background-ggplot2_files/figure-html/thecode3a-1.png){width=75%}
-</center>
+
+![](https://www.r-graph-gallery.com/240-custom-layout-background-ggplot2_files/figure-html/thecode3a-1.png)
+
 
 ```r
 # Modify y axis only (remove)
@@ -778,9 +775,9 @@ basic + theme(
 )
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/240-custom-layout-background-ggplot2_files/figure-html/thecode3b-1.png){width=75%}
-</center>
+
+![](https://www.r-graph-gallery.com/240-custom-layout-background-ggplot2_files/figure-html/thecode3b-1.png)
+
 
 ### Building a Nice Legend with R and `ggplot2`
 
@@ -804,9 +801,8 @@ basic <- ggplot(mtcars, aes(wt, mpg, colour = factor(cyl), shape = factor(vs) ))
 basic
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/239-custom-layout-legend-ggplot2_files/figure-html/thecode-1.png){width=65%}
-</center>
+![](https://www.r-graph-gallery.com/239-custom-layout-legend-ggplot2_files/figure-html/thecode-1.png){width=65%}
+
 
 ### Change Legend Title with `labs()`
 
@@ -820,9 +816,9 @@ basic+
         )
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/239-custom-layout-legend-ggplot2_files/figure-html/thecode2-1.png){width=65%}
-</center>
+
+![](https://www.r-graph-gallery.com/239-custom-layout-legend-ggplot2_files/figure-html/thecode2-1.png)
+
 
 ### Get Rid of the Legend: `guides()` and `theme()`
 
@@ -833,18 +829,17 @@ It is possible to remove a specific part or the whole legend thanks to the `them
 basic + guides(shape=FALSE)
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/239-custom-layout-legend-ggplot2_files/figure-html/thecode3a-1.png){width=75%}
-</center>
+
+![](https://www.r-graph-gallery.com/239-custom-layout-legend-ggplot2_files/figure-html/thecode3a-1.png)
+
 
 ```r
 # Right -> only the x axis is modified
 basic + theme(legend.position = "none")
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/239-custom-layout-legend-ggplot2_files/figure-html/thecode3b-1.png){width=75%}
-</center>
+![](https://www.r-graph-gallery.com/239-custom-layout-legend-ggplot2_files/figure-html/thecode3b-1.png){width=75%}
+
 
 ### Control Legend Position with `legend.position`
 
@@ -859,9 +854,9 @@ Note: the command `legend.justification` sets the corner that the position refer
 basic + theme(legend.position = "bottom")
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/239-custom-layout-legend-ggplot2_files/figure-html/thecode4a-1.png){width=75%}
-</center>
+
+![](https://www.r-graph-gallery.com/239-custom-layout-legend-ggplot2_files/figure-html/thecode4a-1.png)
+
 
 ```r
 # Right -> inside the plot area
@@ -873,9 +868,9 @@ basic + theme(
     )
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/239-custom-layout-legend-ggplot2_files/figure-html/thecode4b-1.png){width=75%}
-</center>
+
+![](https://www.r-graph-gallery.com/239-custom-layout-legend-ggplot2_files/figure-html/thecode4b-1.png)
+
 
 ### Legend Appearance
 
@@ -894,9 +889,9 @@ basic + theme(
 )
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/239-custom-layout-legend-ggplot2_files/figure-html/thecode5a-1.png){width=55%}
-</center>
+
+![](https://www.r-graph-gallery.com/239-custom-layout-legend-ggplot2_files/figure-html/thecode5a-1.png)
+
 
 
 ```r
@@ -904,9 +899,8 @@ basic + theme(
 basic + theme(legend.key = element_rect(fill = "white", colour = "black"))
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/239-custom-layout-legend-ggplot2_files/figure-html/thecode5b-1.png){width=55%}
-</center>
+
+![](https://www.r-graph-gallery.com/239-custom-layout-legend-ggplot2_files/figure-html/thecode5b-1.png)
 
 
 ```r
@@ -914,9 +908,9 @@ basic + theme(legend.key = element_rect(fill = "white", colour = "black"))
 basic + theme(legend.text = element_text(size = 8, colour = "red"))
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/239-custom-layout-legend-ggplot2_files/figure-html/thecode5c-1.png){width=55%}
-</center>
+
+![](https://www.r-graph-gallery.com/239-custom-layout-legend-ggplot2_files/figure-html/thecode5c-1.png)
+
 
 
 
@@ -925,9 +919,9 @@ basic + theme(legend.text = element_text(size = 8, colour = "red"))
 basic + theme(legend.title = element_text(face = "bold"))
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/239-custom-layout-legend-ggplot2_files/figure-html/thecode5d-1.png){width=55%}
-</center>
+
+![](https://www.r-graph-gallery.com/239-custom-layout-legend-ggplot2_files/figure-html/thecode5d-1.png)
+
 
 
 ### Reorder a Variable with `ggplot2`
@@ -980,9 +974,9 @@ data %>%
     xlab("") +
     theme_bw()
 ```
-<center>
-  ![](https://www.r-graph-gallery.com/267-reorder-a-variable-in-ggplot2_files/figure-html/unnamed-chunk-2-1.png){width=50%}![](https://www.r-graph-gallery.com/267-reorder-a-variable-in-ggplot2_files/figure-html/unnamed-chunk-2-2.png){width=50%}
-</center>
+
+![](https://www.r-graph-gallery.com/267-reorder-a-variable-in-ggplot2_files/figure-html/unnamed-chunk-2-1.png)![](https://www.r-graph-gallery.com/267-reorder-a-variable-in-ggplot2_files/figure-html/unnamed-chunk-2-2.png)
+
 
 If you have several values per level of your factor, you can specify which function to apply to determine the order. The default is to use the median, but you can use the number of data points per group to make the classification:
 
@@ -1008,9 +1002,9 @@ mpg %>%
     xlab("")
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/267-reorder-a-variable-in-ggplot2_files/figure-html/unnamed-chunk-3-1.png){width=50%}![](https://www.r-graph-gallery.com/267-reorder-a-variable-in-ggplot2_files/figure-html/unnamed-chunk-3-2.png){width=50%}
-</center>
+
+![](https://www.r-graph-gallery.com/267-reorder-a-variable-in-ggplot2_files/figure-html/unnamed-chunk-3-1.png)![](https://www.r-graph-gallery.com/267-reorder-a-variable-in-ggplot2_files/figure-html/unnamed-chunk-3-2.png)
+
 
 The last common operation is to provide a specific order to your levels, you can do so using the `fct_relevel()` function as follow:
 
@@ -1028,9 +1022,8 @@ p <- data %>%
 #p
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/267-reorder-a-variable-in-ggplot2_files/figure-html/unnamed-chunk-5-1.png){width=75%}
-</center>
+![](https://www.r-graph-gallery.com/267-reorder-a-variable-in-ggplot2_files/figure-html/unnamed-chunk-5-1.png)
+
 
 ### Method 2: Using `dplyr` Only
 
@@ -1061,7 +1054,7 @@ data %>%
     xlab("")
 ```
 
-![](https://www.r-graph-gallery.com/267-reorder-a-variable-in-ggplot2_files/figure-html/unnamed-chunk-6-1.png){width=50%}![](https://www.r-graph-gallery.com/267-reorder-a-variable-in-ggplot2_files/figure-html/unnamed-chunk-6-2.png){width=50%}
+![](https://www.r-graph-gallery.com/267-reorder-a-variable-in-ggplot2_files/figure-html/unnamed-chunk-6-1.png)![](https://www.r-graph-gallery.com/267-reorder-a-variable-in-ggplot2_files/figure-html/unnamed-chunk-6-2.png)
 
 
 ### Method 3: the `reorder()` function of Base R
@@ -1081,9 +1074,9 @@ p <- mpg %>%
 #p
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/267-reorder-a-variable-in-ggplot2_files/figure-html/unnamed-chunk-8-1.png){width=75%}
-</center>
+
+![](https://www.r-graph-gallery.com/267-reorder-a-variable-in-ggplot2_files/figure-html/unnamed-chunk-8-1.png)
+
 
 ### `ggplot2` Title
 
@@ -1109,9 +1102,8 @@ ggplot( data=data, aes(x=x)) +
   theme_minimal()
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/289-control-ggplot2-title_files/figure-html/thecode-1.png){width=75%}
-</center>
+![](https://www.r-graph-gallery.com/289-control-ggplot2-title_files/figure-html/thecode-1.png)
+
 
 ### Title on Several Lines
 
@@ -1125,9 +1117,9 @@ ggplot( data=data, aes(x=x)) +
   theme_minimal() 
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/289-control-ggplot2-title_files/figure-html/thecode2-1.png){width=75%}
-</center>
+
+![](https://www.r-graph-gallery.com/289-control-ggplot2-title_files/figure-html/thecode2-1.png)
+
 
 ### Title Appearance and Position
 
@@ -1144,9 +1136,9 @@ ggplot( data=data, aes(x=x)) +
   )
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/289-control-ggplot2-title_files/figure-html/thecode3a-1.png){width=75%}
-</center>
+
+![](https://www.r-graph-gallery.com/289-control-ggplot2-title_files/figure-html/thecode3a-1.png)
+
 
 ```r  
 # Adjust the position of title
@@ -1159,9 +1151,8 @@ ggplot( data=data, aes(x=x)) +
   )
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/289-control-ggplot2-title_files/figure-html/thecode3b-1.png){width=75%}
-</center>
+
+![](https://www.r-graph-gallery.com/289-control-ggplot2-title_files/figure-html/thecode3b-1.png)
 
 ### Customize a Specific Word Only
 
@@ -1175,9 +1166,9 @@ ggplot( data=data, aes(x=x)) +
   ggtitle(my_title) +
   theme_minimal()
 ```
-<center>
-  ![](https://www.r-graph-gallery.com/289-control-ggplot2-title_files/figure-html/thecode5-1.png){width=75%}
-</center>
+
+![](https://www.r-graph-gallery.com/289-control-ggplot2-title_files/figure-html/thecode5-1.png)
+
 
 ### Small Multiples: `facet_wrap()` and `facet_grid()`
 
@@ -1228,9 +1219,9 @@ don %>%
     facet_wrap(~name, scale="free_y")
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/223-faceting-with-ggplot2_files/figure-html/thecode-1.png){width=75%}
-</center>
+
+![](https://www.r-graph-gallery.com/223-faceting-with-ggplot2_files/figure-html/thecode-1.png)
+
 
 ### Faceting with `facet_wrap()`
 
@@ -1253,9 +1244,9 @@ ggplot( mtcars , aes(x=mpg, y=wt, color=as.factor(cyl) )) +
   theme(legend.position="none")
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/223-faceting-with-ggplot2_files/figure-html/thecode3a-1.png){width=55%}
-</center>
+
+![](https://www.r-graph-gallery.com/223-faceting-with-ggplot2_files/figure-html/thecode3a-1.png)
+
 
 ```r
 # Split by row
@@ -1265,9 +1256,9 @@ ggplot( mtcars , aes(x=mpg, y=wt, color=as.factor(cyl)  )) +
   theme(legend.position="none")
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/223-faceting-with-ggplot2_files/figure-html/thecode3b-1.png){width=55%}
-</center>
+
+![](https://www.r-graph-gallery.com/223-faceting-with-ggplot2_files/figure-html/thecode3b-1.png)
+
 
 ```r
 # Add label at the bottom
@@ -1277,9 +1268,9 @@ ggplot( mtcars , aes(x=mpg, y=wt, color=as.factor(cyl)  )) +
   theme(legend.position="none")
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/223-faceting-with-ggplot2_files/figure-html/thecode3c-1.png){width=55%}
-</center>
+
+![](https://www.r-graph-gallery.com/223-faceting-with-ggplot2_files/figure-html/thecode3c-1.png)
+
 
 ```r
 # Use same scales for all
@@ -1289,9 +1280,9 @@ ggplot( mtcars , aes(x=mpg, y=wt, color=as.factor(cyl)  )) +
   theme(legend.position="none")
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/223-faceting-with-ggplot2_files/figure-html/thecode3d-1.png){width=55%}
-</center>
+
+![](https://www.r-graph-gallery.com/223-faceting-with-ggplot2_files/figure-html/thecode3d-1.png)
+
 
 ### `facet_grid()`
 
@@ -1306,9 +1297,9 @@ ggplot( mtcars , aes(x=mpg, y=wt )) +
   facet_grid( cyl ~ gear)
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/223-faceting-with-ggplot2_files/figure-html/thecode5-1.png){width=55%}
-</center>
+
+![](https://www.r-graph-gallery.com/223-faceting-with-ggplot2_files/figure-html/thecode5-1.png)
+
 
 ### Customize Small Multiple Appearance with `ggplot2`
 
@@ -1330,35 +1321,34 @@ basic=ggplot(mtcars, aes(wt, mpg)) +
     facet_wrap(~ cyl)
 basic
 ```
-<center>
-  ![](https://www.r-graph-gallery.com/241-custom-layout-strip-ggplot2_files/figure-html/thecodeA-1.png){width=55%}
-</center>
+
+![](https://www.r-graph-gallery.com/241-custom-layout-strip-ggplot2_files/figure-html/thecodeA-1.png)
+
 
 ```r
 # Change background
 basic + theme(strip.background = element_rect(colour = "red", fill = alpha("blue",0.2) ))
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/241-custom-layout-strip-ggplot2_files/figure-html/thecodeB-1.png){width=55%}
-</center>
+![](https://www.r-graph-gallery.com/241-custom-layout-strip-ggplot2_files/figure-html/thecodeB-1.png)
+
 
 ```r
 # Change the text 
 basic + theme(strip.text.x = element_text(colour = "red", face = "bold", size=10, angle=30))
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/241-custom-layout-strip-ggplot2_files/figure-html/thecodeC-1.png){width=55%}
-</center>
+
+![](https://www.r-graph-gallery.com/241-custom-layout-strip-ggplot2_files/figure-html/thecodeC-1.png)
+
 
 ```r
 # Change the space between parts:
 basic + theme(panel.spacing = unit(4, "lines"))
 ```
-<center>
-  ![](https://www.r-graph-gallery.com/241-custom-layout-strip-ggplot2_files/figure-html/thecodeD-1.png){width=75%}
-</center>
+
+![](https://www.r-graph-gallery.com/241-custom-layout-strip-ggplot2_files/figure-html/thecodeD-1.png)
+
 
 ### Multiple ggplot2 Charts on a Single Page
 
@@ -1387,57 +1377,33 @@ g4 <- ggplot(mtcars , aes(x=factor(cyl), fill=factor(cyl))) +  geom_bar()
 grid.arrange(g2, arrangeGrob(g3, g4, ncol=2), nrow = 2)
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/261-multiple-graphs-on-same-page_files/figure-html/thecodeA-1.png){width=55%}
-</center>
+
+![](https://www.r-graph-gallery.com/261-multiple-graphs-on-same-page_files/figure-html/thecodeA-1.png)
+
 
 ```r
 grid.arrange(g1, g2, g3, nrow = 3)
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/261-multiple-graphs-on-same-page_files/figure-html/thecodeB-1.png){width=55%}
-</center>
+
+![](https://www.r-graph-gallery.com/261-multiple-graphs-on-same-page_files/figure-html/thecodeB-1.png)
+
 
 ```r
 grid.arrange(g2, arrangeGrob(g3, g4, ncol=2), nrow = 1)
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/261-multiple-graphs-on-same-page_files/figure-html/thecodeC-1.png){width=55%}
-</center>
+![](https://www.r-graph-gallery.com/261-multiple-graphs-on-same-page_files/figure-html/thecodeC-1.png)
+
 
 ```r
 grid.arrange(g2, arrangeGrob(g3, g4, nrow=2), nrow = 1)
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/261-multiple-graphs-on-same-page_files/figure-html/thecodeD-1.png){width=55%}
-</center>
 
-### `Plotly`: Turn your `ggplot` Interactive
+![](https://www.r-graph-gallery.com/261-multiple-graphs-on-same-page_files/figure-html/thecodeD-1.png)
 
-Another awesome feature of `ggplot2` is its link with the `plotly` library. If you know how to make a `ggplot2` chart, you are 10 seconds away to rendering an interactive version. Just call the `ggplotly()` function, and you're done. Visit the interactive graphic section of the gallery for more.
 
-```r
-library(ggplot2)
-library(plotly)
-library(gapminder)
-
-p <- gapminder %>%
-  filter(year==1977) %>%
-  ggplot( aes(gdpPercap, lifeExp, size = pop, color=continent)) +
-  geom_point() +
-  theme_bw()
-
-ggplotly(p)
-```
-
-<center>
-```{r gapminder-gdp-general-html, echo=FALSE}
-htmltools::tags$iframe(title = "My embedded document", src = "generalHtml/gapminder-gdp.html", height="500px", width = "100%")
-```
-</center>
 
 
 ### An Overview of `ggplot2` Possibilities
@@ -1485,9 +1451,9 @@ data %>%
     xlab("")
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/violin_and_boxplot_ggplot2_files/figure-html/unnamed-chunk-1-1.png)
-</center>
+
+![](https://www.r-graph-gallery.com/violin_and_boxplot_ggplot2_files/figure-html/unnamed-chunk-1-1.png)
+
 
 ### Boxplot with Individual Data Points
  
@@ -1527,9 +1493,9 @@ data %>%
     xlab("")
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/89-box-and-scatter-plot-with-ggplot2_files/figure-html/unnamed-chunk-1-1.png){width=75%}
-</center>
+
+![](https://www.r-graph-gallery.com/89-box-and-scatter-plot-with-ggplot2_files/figure-html/unnamed-chunk-1-1.png){width=75%}
+
 
 In case you're not convinced, here is how the basic [boxplot](https://www.r-graph-gallery.com/boxplot.html) and the basic [violin plot](https://www.r-graph-gallery.com/violin.html) look like:
 
@@ -1548,9 +1514,9 @@ data %>%
     xlab("")
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/89-box-and-scatter-plot-with-ggplot2_files/figure-html/unnamed-chunk-3-1.png){width=75%}
-</center>
+
+![](https://www.r-graph-gallery.com/89-box-and-scatter-plot-with-ggplot2_files/figure-html/unnamed-chunk-3-1.png)
+
 
 ```r
 # Violin basic
@@ -1567,9 +1533,8 @@ data %>%
     xlab("")
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/89-box-and-scatter-plot-with-ggplot2_files/figure-html/unnamed-chunk-3-2.png){width=75%}
-</center>
+![](https://www.r-graph-gallery.com/89-box-and-scatter-plot-with-ggplot2_files/figure-html/unnamed-chunk-3-2.png)
+
 
 
 ### Map a Variable to Marker Feature in `ggplot2` Scatterplot
@@ -1596,9 +1561,9 @@ ggplot(iris, aes(x=Sepal.Length, y=Sepal.Width, color=Species)) +
     theme_ipsum()
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/274-map-a-variable-to-ggplot2-scatterplot_files/figure-html/thecode-1.png){width=75%}
-</center>
+
+![](https://www.r-graph-gallery.com/274-map-a-variable-to-ggplot2-scatterplot_files/figure-html/thecode-1.png)
+
 
 ### Works with any Aesthetics
 
@@ -1615,9 +1580,9 @@ ggplot(iris, aes(x=Sepal.Length, y=Sepal.Width, alpha=Species)) +
     theme_ipsum()
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/274-map-a-variable-to-ggplot2-scatterplot_files/figure-html/unnamed-chunk-2-1.png){width=75%}
-</center>
+
+![](https://www.r-graph-gallery.com/274-map-a-variable-to-ggplot2-scatterplot_files/figure-html/unnamed-chunk-2-1.png)
+
 ```r
 # Shape
 ggplot(iris, aes(x=Sepal.Length, y=Sepal.Width, shape=Species)) + 
@@ -1636,9 +1601,9 @@ ggplot(iris, aes(x=Sepal.Length, y=Sepal.Width, shape=Species)) +
     theme_ipsum()
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/274-map-a-variable-to-ggplot2-scatterplot_files/figure-html/unnamed-chunk-2-3.png){width=75%}
-</center>
+
+![](https://www.r-graph-gallery.com/274-map-a-variable-to-ggplot2-scatterplot_files/figure-html/unnamed-chunk-2-3.png)
+
 
 
 ### Mapping to Several Features
@@ -1655,9 +1620,9 @@ ggplot(iris, aes(x=Sepal.Length, y=Sepal.Width, shape=Species, alpha=Species, si
     geom_point() +
     theme_ipsum()
 ```
-<center>
-  ![](https://www.r-graph-gallery.com/274-map-a-variable-to-ggplot2-scatterplot_files/figure-html/thecode3-1.png){width=75%}
-</center>
+
+![](https://www.r-graph-gallery.com/274-map-a-variable-to-ggplot2-scatterplot_files/figure-html/thecode3-1.png)
+
 
 ### Bubble Plot with `ggplot2`
  
@@ -1684,9 +1649,9 @@ data <- gapminder %>% filter(year=="2007") %>% dplyr::select(-year)
 ggplot(data, aes(x=gdpPercap, y=lifeExp, size = pop)) +
     geom_point(alpha=0.7)
 ```
-<center>
-  ![](https://www.r-graph-gallery.com/320-the-basis-of-bubble-plot_files/figure-html/thecode-1.png){width=75%}
-</center>
+
+![](https://www.r-graph-gallery.com/320-the-basis-of-bubble-plot_files/figure-html/thecode-1.png)
+
 
 ### Control Circle Size with `scale_size()`
 
@@ -1713,9 +1678,9 @@ data %>%
     geom_point(alpha=0.5) +
     scale_size(range = c(.1, 24), name="Population (M)")
 ```
-<center>
-  ![](https://www.r-graph-gallery.com/320-the-basis-of-bubble-plot_files/figure-html/thecode2-1.png){width=75%}
-</center>
+
+![](https://www.r-graph-gallery.com/320-the-basis-of-bubble-plot_files/figure-html/thecode2-1.png)
+
 
 ### Add a Fourth Dimension: Color
 
@@ -1738,9 +1703,9 @@ data %>%
     geom_point(alpha=0.5) +
     scale_size(range = c(.1, 24), name="Population (M)")
 ```
-<center>
-  ![](https://www.r-graph-gallery.com/320-the-basis-of-bubble-plot_files/figure-html/thecode3-1.png){width=75%}
-</center>
+
+![](https://www.r-graph-gallery.com/320-the-basis-of-bubble-plot_files/figure-html/thecode3-1.png)
+
 
 ### Make it Pretty
 
@@ -1776,9 +1741,9 @@ data %>%
     xlab("Gdp per Capita") +
     theme(legend.position = "none")
 ```
-<center>
-  ![](https://www.r-graph-gallery.com/320-the-basis-of-bubble-plot_files/figure-html/thecode4-1.png){width=75%}
-</center>
+
+![](https://www.r-graph-gallery.com/320-the-basis-of-bubble-plot_files/figure-html/thecode4-1.png)
+
 
 ### Connected Scatterplot with R and `ggplot2`
 
@@ -1805,9 +1770,9 @@ data %>%
     geom_point()
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/connected_scatterplot_ggplot2_files/figure-html/thecode-1.png){width=65%}
-</center>
+
+![](https://www.r-graph-gallery.com/connected_scatterplot_ggplot2_files/figure-html/thecode-1.png)
+
 
 ### Customize the Connected Scatterplot
 
@@ -1833,9 +1798,8 @@ data %>%
     ggtitle("Evolution of bitcoin price")
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/connected_scatterplot_ggplot2_files/figure-html/thecode2-1.png){width=75%}
-</center>
+
+![](https://www.r-graph-gallery.com/connected_scatterplot_ggplot2_files/figure-html/thecode2-1.png)
 
 ### Connected Scatterplot to Show an Evolution
 
@@ -1874,9 +1838,10 @@ data %>%
       ) 
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/connected_scatterplot_ggplot2_files/figure-html/thecode3-1.png){width=75%}
-</center>
+
+![](https://www.r-graph-gallery.com/connected_scatterplot_ggplot2_files/figure-html/thecode3-1.png)
+
+
 It makes sense to add arrows and labels to guide the reader in the chart:
 
 ```r
@@ -1913,9 +1878,9 @@ data %>%
       theme_ipsum()
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/connected_scatterplot_ggplot2_files/figure-html/thecode4-1.png){width=75%}
-</center>
+
+![](https://www.r-graph-gallery.com/connected_scatterplot_ggplot2_files/figure-html/thecode4-1.png){width=75%}
+
 
 ### Parallel Coordinates Chart with `ggally`
 
@@ -1942,9 +1907,9 @@ ggparcoord(data,
     ) 
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode-1.png)
-</center>
+
+![](https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode-1.png)
+
 
 
 ### Custom Color, Theme, General Appearance
@@ -1980,9 +1945,9 @@ ggparcoord(data,
   )
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode2-1.png)
-</center>
+
+![](https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode2-1.png)
+
 
 ### Scaling
 
@@ -2012,9 +1977,8 @@ ggparcoord(data,
   xlab("")
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode31-1.png)
-</center>
+![](https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode31-1.png)
+
 
 
 ```r
@@ -2034,9 +1998,7 @@ ggparcoord(data,
   xlab("")
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode32-1.png)
-</center>
+![](https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode32-1.png)
 
 
 ```r
@@ -2056,9 +2018,8 @@ ggparcoord(data,
   xlab("")
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode33-1.png)
-</center>
+![](https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode33-1.png)
+
 
 ```r
 ggparcoord(data,
@@ -2077,9 +2038,8 @@ ggparcoord(data,
   xlab("")
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode34-1.png)
-</center>
+![](https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode34-1.png)
+
 
 ### Highlight a Group
 
@@ -2111,9 +2071,8 @@ data %>%
   xlab("")
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode4-1.png)
-</center>
+![](https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode4-1.png)
+
 
 
 ### Lollipop Chart with Conditional Color
@@ -2155,9 +2114,9 @@ ggplot(data, aes(x=x, y=y)) +
   ylab("Value of Y")
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/302-lollipop-chart-with-conditional-color_files/figure-html/thecode-1.png){width=75%}
-</center>
+
+![](https://www.r-graph-gallery.com/302-lollipop-chart-with-conditional-color_files/figure-html/thecode-1.png)
+
 
 ### Lollipop Chart with 2 Groups
  
@@ -2204,9 +2163,8 @@ ggplot(data) +
   ylab("Value of Y")
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/303-lollipop-plot-with-2-values_files/figure-html/thecode-1.png){width=75%}
-</center>
+![](https://www.r-graph-gallery.com/303-lollipop-plot-with-2-values_files/figure-html/thecode-1.png)
+
 
 ### Circular Barplot with Groups
 
@@ -2263,9 +2221,8 @@ p <- ggplot(data, aes(x=as.factor(id), y=value)) +       # Note that id is a fac
 p
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/297-circular-barplot-with-groups_files/figure-html/thecode-1.png){width=75%}
-</center>
+
+![](https://www.r-graph-gallery.com/297-circular-barplot-with-groups_files/figure-html/thecode-1.png)
 
 ### Space between Groups
 
@@ -2318,9 +2275,8 @@ p <- ggplot(data, aes(x=as.factor(id), y=value, fill=group)) +       # Note that
 p
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/297-circular-barplot-with-groups_files/figure-html/thecode2-1.png){width=75%}
-</center>
+![](https://www.r-graph-gallery.com/297-circular-barplot-with-groups_files/figure-html/thecode2-1.png)
+
 
 
 ### Order Bars
@@ -2334,9 +2290,9 @@ The method used to order groups in ggplot2 is extensively described in this [ded
 data = data %>% arrange(group, value)
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/297-circular-barplot-with-groups_files/figure-html/unnamed-chunk-1-1.png){width=75%}
-</center>
+
+![](https://www.r-graph-gallery.com/297-circular-barplot-with-groups_files/figure-html/unnamed-chunk-1-1.png)
+
 
 ### Circular Barchart Customization
 
@@ -2416,47 +2372,11 @@ p <- ggplot(data, aes(x=as.factor(id), y=value, fill=group)) +       # Note that
 p
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/297-circular-barplot-with-groups_files/figure-html/thecode4-1.png)
-</center>
 
-### What is Stacking
+![](https://www.r-graph-gallery.com/297-circular-barplot-with-groups_files/figure-html/thecode4-1.png)
 
-`Stacking` is a process where a chart is broken up across more than one categoric variables which make up the whole. Each item of the categoric variable is represented by a shaded area. These areas are stacked on top of one another.
 
-Here is an example with a [stacked area chart](https://www.data-to-viz.com/graph/stackedarea.html). It shows the evolution of baby name occurence in the US between 1880 and 2015. Six first names are represented on top of one another.
 
-```r 
-# Libraries
-library(tidyverse)
-library(babynames)
-library(streamgraph)
-library(viridis)
-library(hrbrthemes)
-library(plotly)
-
-# Load dataset from github
-data <- babynames %>% 
-  filter(name %in% c("Amanda", "Jessica",    "Patricia", "Deborah",   "Dorothy",  "Helen")) %>%
-  filter(sex=="F")
-
-# Plot
-p <- data %>% 
-  ggplot( aes(x=year, y=n, fill=name, text=name)) +
-    geom_area( ) +
-    scale_fill_viridis(discrete = TRUE) +
-    theme(legend.position="none") +
-    ggtitle("Popularity of American names in the previous 30 years") +
-    theme_ipsum() +
-    theme(legend.position="none")
-ggplotly(p, tooltip="text")
-```
-
-<center>
-```{r popular-names-stacking-general-html, echo=FALSE}
-htmltools::tags$iframe(title = "My embedded document", src = "generalHtml/popularNames-stacking.html", height="500px", width = "100%")
-```
-</center>
 
 
 
@@ -2484,9 +2404,8 @@ don %>%
     theme(legend.position="none")
 ```
 
-<center>
-  ![](generalHtml/stacking.PNG)
-</center>
+
+![](generalHtml/stacking.PNG)
 
 It looks obvious that the yellow category increased, the purple decreased, and the green. is harder to read. At a first glance it looks like it is slightly decreasing I would say.
 
@@ -2503,9 +2422,9 @@ don %>%
     theme(legend.position="none")
 ```
 
-<center>
-  ![](generalHtml/stacking-two.PNG)
-</center>
+
+![](generalHtml/stacking-two.PNG)
+
 
 ### Workaround
 If you have just a `few categories`, I would suggest to build a line chart. Here it is easy to follow a category and understand how it evolved accurately.
@@ -2521,9 +2440,9 @@ data %>%
 ```
 
 
-<center>
-  ![](generalHtml/stacking-four.PNG)
-</center>
+
+![](generalHtml/stacking-four.PNG)
+
 
 However, this solution is not suitable if you have many categories. Indeed, it would result in a spaghetti chart that is very hard to read. You can read more about this here.
 
@@ -2545,9 +2464,9 @@ data %>%
     facet_wrap(~name, scale="free_y")
 ```
 
-<center>
-  ![](generalHtml/stacking-five.PNG)
-</center>
+
+![](generalHtml/stacking-five.PNG)
+
 
 ### Basic Stacked area Chart with R
 
@@ -2579,9 +2498,9 @@ data <- data.frame(time, value, group)
 ggplot(data, aes(x=time, y=value, fill=group)) + 
     geom_area()
 ```
-<center>
-  ![](https://www.r-graph-gallery.com/136-stacked-area-chart_files/figure-html/thecode-1.png){width=75%}
-</center>
+
+![](https://www.r-graph-gallery.com/136-stacked-area-chart_files/figure-html/thecode-1.png)
+
 
 ### Control Stacking Order with `ggplot2`
 
@@ -2609,9 +2528,9 @@ myLevels <- data %>%
   arrange(value)
 data$group <- factor(data$group , levels=myLevels$group )
 ```
-<center>
-  ![](https://www.r-graph-gallery.com/136-stacked-area-chart_files/figure-html/thecode2-1.png){width=75%}
-</center>
+
+![](https://www.r-graph-gallery.com/136-stacked-area-chart_files/figure-html/thecode2-1.png)
+
 
 ### Proportional Stacked Area Chart
 
@@ -2637,9 +2556,9 @@ my_fun <- function(vec){
 }
 data$percentage <- apply(data , 1 , my_fun)
 ```
-<center>
-  ![](https://www.r-graph-gallery.com/136-stacked-area-chart_files/figure-html/thecode3-1.png){width=75%}
-</center>
+
+![](https://www.r-graph-gallery.com/136-stacked-area-chart_files/figure-html/thecode3-1.png)
+
 
 ### Color & Style
 
@@ -2661,9 +2580,9 @@ ggplot(data, aes(x=time, y=value, fill=group)) +
     theme_ipsum() + 
     ggtitle("The race between ...")
 ```
-<center>
-  ![](https://www.r-graph-gallery.com/136-stacked-area-chart_files/figure-html/thecode4-1.png){width=75%}
-</center>
+
+![](https://www.r-graph-gallery.com/136-stacked-area-chart_files/figure-html/thecode4-1.png)
+
 
 ## Data Art
 
@@ -2710,9 +2629,9 @@ ggplot(DAT, aes(x=Year, y=Value, fill=Group )) +
         panel.background = element_blank())
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/144-droid-bb-8-data-art_files/figure-html/thecode-1.png){width=85%}
-</center>
+
+![](https://www.r-graph-gallery.com/144-droid-bb-8-data-art_files/figure-html/thecode-1.png)
+
 
 ### Random Shapes
 
@@ -2753,9 +2672,8 @@ ggplot(DAT, aes(x=Year, y=Value, fill=Group )) +
         panel.background = element_blank())
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/137-spring-shapes-data-art_files/figure-html/thecode-1.png){width=85%}
-</center>
+
+![](https://www.r-graph-gallery.com/137-spring-shapes-data-art_files/figure-html/thecode-1.png)
 
 ### R Snail
  
@@ -2801,93 +2719,11 @@ for (i in 0:35) {
 }
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/127-r-snail_files/figure-html/thecode-1.png){width=85%}
-</center>
+
+![](https://www.r-graph-gallery.com/127-r-snail_files/figure-html/thecode-1.png)
 
 
 
-## 3D Charts
-
-`R` allows to build three dimensional charts, mainly thanks to the `rgl` package. Even if 3D is often a [bad practice](https://www.data-to-viz.com/caveat/3d.html), it can be useful in specific situation. This section provides several examples made in R.
-
-
-### 3d Surface Plot with R and `plotly`
-
-A surface plot displays the evolution of a numeric variable on a grid. The R plotly package offers some great functions to build that kind of chart.
-
-#### Most Basic Bubble Chart with `geom_point()`
-
-Plotly allows to build charts thanks to it `plot_ly()` function. It offers several `type` option. `surface `allows to make surface plots and expect a matrix as input.
-
-Rows and columns actually describe a grid, and the cell value will be mapped to the surface height. Once the chart is done, you can hover and zoom on the chart for more details.
-
-```r
-# Library
-library(plotly)
-
-# Data: volcano is provided by plotly
-
-# Plot
-p <- plot_ly(z = volcano, type = "surface")
-p 
-
-# save the widget
-# library(htmlwidgets)
-# saveWidget(p, file=paste0( getwd(), "/generalHtml/3dSurface.html"))
-```
-
-<center>
-```{r, echo=FALSE}
-htmltools::tags$iframe(title = "My embedded document", src = "generalHtml/3dSurface.html", height="500px", width = "100%")
-```
-</center>
-
-
-
-### Building a 3D Knot with R and `rgl`
-
-This is an illustration of what is possible to do with R and the `rgl` library: a 3D knot.
-
-With the `rgl` package, you can make the image moove and zoom in an out. Find this image in the interactive mode here.
-
-```r
-# Library rgl
-library(rgl)
-
-#Choose the size of the image on the output (800,650 to have 800 x 600)
-r3dDefaults$windowRect <- c(0,50, 800, 650) 
-open3d()
-
-#If you want to put line on the background
-#bg3d(sphere = TRUE, color = c("grey", "white"), lit = TRUE, back = "lines" ,lwd=2)
-
-# This is to output a rgl plot in a rmarkdown document. Note that you must add webgl=TRUE, results='hide' in the chunck header
-library(knitr)
-knit_hooks$set(webgl = hook_webgl)
-
-
-# plot
-bg3d( col=rgb(0.2,0.8,0.5,0.8) )
-theta <- seq(0, 2*pi, len = 50)
-knot <- cylinder3d(
-center = cbind(sin(theta) + 3*sin(2*theta), 2*sin(3*theta), cos(theta) - 2*cos(2*theta)),
-e1 = cbind(cos(theta) + 4*cos(2*theta),6*cos(3*theta),sin(theta) + 4*sin(2*theta)),radius = 0.9,closed = TRUE)
-shade3d(addNormals(subdivision3d(knot, depth = 2)), col = rgb(0.4,0.2,0.8,0.3))
-
-# save it as png
-# rgl.snapshot( "~/Desktop/#20_portfolio_knot_3D.png", fmt="png", top=TRUE  )
-
-
-# Export as an html file if needed:
-writeWebGL( filename="generalHtml/3dknot.html" ,  width=600, height=600)
-```
-
-<center>
-```{r, echo=FALSE}
-htmltools::tags$iframe(title = "My embedded document", src = "generalHtml/3dknot.html", height="500px", width = "100%")
-```
-</center>
 
 
 ### Nifty Graph: A 3d Imitation with R
@@ -2909,9 +2745,9 @@ par(mar=c(0,0,0,0))
 plot(r$x,r$y, pch=".", col="blue", cex=1.2)
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/59-nifty-graph_files/figure-html/thecode-1.png){width=75%}
-</center>
+
+![](https://www.r-graph-gallery.com/59-nifty-graph_files/figure-html/thecode-1.png)
+
 
 ### Animated 3d Chart with R
  
@@ -2950,178 +2786,11 @@ movie3d(
 )
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/img/graph/3-r-animated-cube.gif){width=75%}
-</center>
-
-## Interactive Charts
-
-An interactive charts allows the user to perform actions: zooming, hovering a marker to get a tooltip, choosing a variable to display and more. `R` offers a set of packages called the `html widgets`: they allow to build interactive dataviz directly from R.
-
-#### Scatter and Bubble Plots: Use `Plotly`
-
-The best way to build an interactive bubble chart from R is through the `plotly` library. If you know how to make a `ggplot2` chart, you are 10 seconds away to rendering an interactive version= just call the `ggplotly()` function, and you're done.
-
-```r
-library(ggplot2)
-library(plotly)
-library(gapminder)
-
-p <- gapminder %>%
-  filter(year==1977) %>%
-  ggplot( aes(gdpPercap, lifeExp, size = pop, color=continent)) +
-  geom_point() +
-  theme_bw()
-
-ggplotly(p)
-```
-
-<center>
-```{r popular-names-general-html, echo=FALSE}
-htmltools::tags$iframe(title = "My embedded document", src = "generalHtml/popularNames-stacking.html", height="550px", width = "100%")
-```
-</center>
+![](https://www.r-graph-gallery.com/img/graph/3-r-animated-cube.gif)
 
 
-### Streamgraph with Dropdown Button
- 
-The `streamgraph` package allows to add a dropdown button that controls which group to highlight. See how to use this option with explanation and reproducible code.
-
-```r
-# Library
-library(streamgraph)
- 
-# Create data:
-data <- data.frame(
-  year=rep(seq(1990,2016) , each=10),
-  name=rep(letters[1:10] , 27),
-  value=sample( seq(0,1,0.0001) , 270)
-)
- 
-# Stream graph with a legend
-pp <- streamgraph(data, key="name", value="value", date="year", height="300px", width="1000px") %>%
-  sg_legend(show=TRUE, label="names: ")
-  
-
-# save the widget
-# library(htmlwidgets)
-# saveWidget(pp, file=paste0( getwd(), "/generalHtml/streamgraphDropdown.html"))
-```
-
-<center>
-```{r, echo=FALSE}
-htmltools::tags$iframe(title = "My embedded document", src = "generalHtml/streamgraphDropdown.html", height="400px", width = "100%")
-```
-</center>
 
 
-### Interactive Chord Diagram with R
- 
-This section describes how to build an interactive [chord diagram](https://www.r-graph-gallery.com/chord-diagram.html) on which you can hover groups to highlight flows.
-
-```r
-# Load package
-# devtools::install_github("mattflor/chorddiag")
-library(chorddiag)
-
-# Create dummy data
-m <- matrix(c(11975,  5871, 8916, 2868,
-              1951, 10048, 2060, 6171,
-              8010, 16145, 8090, 8045,
-              1013,   990,  940, 6907),
-            byrow = TRUE,
-            nrow = 4, ncol = 4)
-
-# A vector of 4 colors for 4 groups
-haircolors <- c("black", "blonde", "brown", "red")
-dimnames(m) <- list(have = haircolors,
-                    prefer = haircolors)
-groupColors <- c("#000000", "#FFDD89", "#957244", "#F26223")
-
-# Build the chord diagram:
-p <- chorddiag(m, groupColors = groupColors, groupnamePadding = 20)
-p
-
-# save the widget
-# library(htmlwidgets)
-# saveWidget(p, file=paste0( getwd(), "/generalHtml/chord_interactive.html"))
-```
-
-<center>
-```{r, echo=FALSE}
-htmltools::tags$iframe(title = "My embedded document", src = "generalHtml/chord_interactive.html", height="400px", width = "100%")
-```
-</center>
-
-### Interactive Network Chart with R
- 
-The `networkD3` package allows to build interactive [network diagram](https://www.r-graph-gallery.com/network.html) directly from R. It allows to zoom, hover nodes, reorganize the layout and more. This post explains how to use the library with reproducible examples.
-
-```r
-# Libraries
-library(igraph)
-library(networkD3)
-
-# create a dataset:
-data <- data_frame(
-  from=c("A", "A", "B", "D", "C", "D", "E", "B", "C", "D", "K", "A", "M"),
-  to=c("B", "E", "F", "A", "C", "A", "B", "Z", "A", "C", "A", "B", "K")
-)
-
-# Plot
-p <- simpleNetwork(data, height="100px", width="100px")
-
-# p
-
-# save the widget
-# library(htmlwidgets)
-# saveWidget(p, file=paste0( getwd(), "/generalHtml/networkInteractive1.html"))
-```
-
-<center>
-```{r, echo=FALSE}
-htmltools::tags$iframe(title = "My embedded document", src = "generalHtml/networkInteractive1.html", height="400px", width = "100%")
-```
-</center>
-
-
-```r
-# Libraries
-library(igraph)
-library(networkD3)
-
-# create a dataset:
-data <- data_frame(
-  from=c("A", "A", "B", "D", "C", "D", "E", "B", "C", "D", "K", "A", "M"),
-  to=c("B", "E", "F", "A", "C", "A", "B", "Z", "A", "C", "A", "B", "K")
-)
-
-# Plot
-p <- simpleNetwork(data, height="100px", width="100px",        
-        Source = 1,                 # column number of source
-        Target = 2,                 # column number of target
-        linkDistance = 10,          # distance between node. Increase this value to have more space between nodes
-        charge = -900,                # numeric value indicating either the strength of the node repulsion (negative value) or attraction (positive value)
-        fontSize = 14,               # size of the node names
-        fontFamily = "serif",       # font og node names
-        linkColour = "#666",        # colour of edges, MUST be a common colour for the whole graph
-        nodeColour = "#69b3a2",     # colour of nodes, MUST be a common colour for the whole graph
-        opacity = 0.9,              # opacity of nodes. 0=transparent. 1=no transparency
-        zoom = T                    # Can you zoom on the figure?
-        )
-
-#p
-
-# save the widget
-# library(htmlwidgets)
-# saveWidget(p, file=paste0( getwd(), "/generalHtml/networkInteractive2.html"))
-```
-
-<center>
-```{r, echo=FALSE}
-htmltools::tags$iframe(title = "My embedded document", src = "generalHtml/networkInteractive2.html", height="400px", width = "100%")
-```
-</center>
 
 ## Animation
 
@@ -3173,9 +2842,9 @@ ggplot(gapminder, aes(gdpPercap, lifeExp, size = pop, color = continent)) +
 # Save at gif:
 anim_save("271-ggplot2-animated-gif-chart-with-gganimate1.gif")
 ```
-<center>
-  ![](https://www.r-graph-gallery.com/img/graph/271-ggplot2-animated-gif-chart-with-gganimate1.gif){width=75%}
-</center>
+
+![](https://www.r-graph-gallery.com/img/graph/271-ggplot2-animated-gif-chart-with-gganimate1.gif)
+
 
 ### Use Small Multiple
 
@@ -3208,9 +2877,9 @@ ggplot(gapminder, aes(gdpPercap, lifeExp, size = pop, colour = country)) +
 anim_save("271-ggplot2-animated-gif-chart-with-gganimate2.gif")
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/img/graph/271-ggplot2-animated-gif-chart-with-gganimate2.gif){width=75%}
-</center>
+
+![](https://www.r-graph-gallery.com/img/graph/271-ggplot2-animated-gif-chart-with-gganimate2.gif)
+
 
 ### Smooth Barplot Transition
 
@@ -3250,9 +2919,9 @@ ggplot(data, aes(x=group, y=values, fill=group)) +
 anim_save("288-animated-barplot-transition.gif")
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/img/graph/288-animated-barplot-transition.gif){width=75%}
-</center>
+
+![](https://www.r-graph-gallery.com/img/graph/288-animated-barplot-transition.gif)
+
 
 ### Progressive Line Chart Rendering
 
@@ -3285,9 +2954,9 @@ don %>%
 anim_save("287-smooth-animation-with-tweenr.gif")
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/img/graph/287-smooth-animation-with-tweenr.gif){width=75%}
-</center>
+
+![](https://www.r-graph-gallery.com/img/graph/287-smooth-animation-with-tweenr.gif)
+
 
 ### Concatenate `.png` Images with `Image Magick`
 
@@ -3325,9 +2994,9 @@ system("convert -delay 80 *.png animated_count_down.gif")
 file.remove(list.files(pattern=".png"))
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/img/graph/166-basic-animated-graph-with-imagemagick.gif){width=75%}
-</center>
+
+![](https://www.r-graph-gallery.com/img/graph/166-basic-animated-graph-with-imagemagick.gif)
+
 
 ### Animated 3d Chart with R
 
@@ -3364,9 +3033,9 @@ movie3d(
   
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/img/graph/167-animated-3d-plot-imagemagick.gif){width=75%}
-</center>
+
+![](https://www.r-graph-gallery.com/img/graph/167-animated-3d-plot-imagemagick.gif)
+
 
 
 ```r
@@ -3397,91 +3066,9 @@ system("convert -delay 40 *.png animated_3D_plot.gif")
 file.remove(list.files(pattern=".png"))
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/img/graph/167-animated-3d-plot-imagemagick.gif){width=75%}
-</center>
-
-## 3D Charts
-
-`R` allows to build three dimensional charts, mainly thanks to the `rgl` package. Even if 3D is often a [bad practice](https://www.data-to-viz.com/caveat/3d.html), it can be useful in specific situation. This section provides several examples made in R.
+![](https://www.r-graph-gallery.com/img/graph/167-animated-3d-plot-imagemagick.gif)
 
 
-### 3d Surface Plot with R and `plotly`
-
-A surface plot displays the evolution of a numeric variable on a grid. The R plotly package offers some great functions to build that kind of chart.
-
-#### Most Basic Bubble Chart with `geom_point()`
-
-Plotly allows to build charts thanks to it `plot_ly()` function. It offers several `type` option. `surface `allows to make surface plots and expect a matrix as input.
-
-Rows and columns actually describe a grid, and the cell value will be mapped to the surface height. Once the chart is done, you can hover and zoom on the chart for more details.
-
-```r
-# Library
-library(plotly)
-
-# Data: volcano is provided by plotly
-
-# Plot
-p <- plot_ly(z = volcano, type = "surface")
-p 
-
-# save the widget
-# library(htmlwidgets)
-# saveWidget(p, file=paste0( getwd(), "/generalHtml/3dSurface.html"))
-```
-
-<center>
-```{r, echo=FALSE}
-htmltools::tags$iframe(title = "My embedded document", src = "generalHtml/3dSurface.html", height="500px", width = "100%")
-```
-</center>
-
-
-
-### Building a 3D Knot with R and `rgl`
-
-This is an illustration of what is possible to do with R and the `rgl` library: a 3D knot.
-
-With the `rgl` package, you can make the image moove and zoom in an out. Find this image in the interactive mode here.
-
-```r
-# Library rgl
-library(rgl)
-
-#Choose the size of the image on the output (800,650 to have 800 x 600)
-r3dDefaults$windowRect <- c(0,50, 800, 650) 
-open3d()
-
-#If you want to put line on the background
-#bg3d(sphere = TRUE, color = c("grey", "white"), lit = TRUE, back = "lines" ,lwd=2)
-
-# This is to output a rgl plot in a rmarkdown document. Note that you must add webgl=TRUE, results='hide' in the chunck header
-library(knitr)
-knit_hooks$set(webgl = hook_webgl)
-
-
-# plot
-bg3d( col=rgb(0.2,0.8,0.5,0.8) )
-theta <- seq(0, 2*pi, len = 50)
-knot <- cylinder3d(
-center = cbind(sin(theta) + 3*sin(2*theta), 2*sin(3*theta), cos(theta) - 2*cos(2*theta)),
-e1 = cbind(cos(theta) + 4*cos(2*theta),6*cos(3*theta),sin(theta) + 4*sin(2*theta)),radius = 0.9,closed = TRUE)
-shade3d(addNormals(subdivision3d(knot, depth = 2)), col = rgb(0.4,0.2,0.8,0.3))
-
-# save it as png
-# rgl.snapshot( "~/Desktop/#20_portfolio_knot_3D.png", fmt="png", top=TRUE  )
-
-
-# Export as an html file if needed:
-writeWebGL( filename="generalHtml/3dknot.html" ,  width=600, height=600)
-```
-
-<center>
-```{r, echo=FALSE}
-htmltools::tags$iframe(title = "My embedded document", src = "generalHtml/3dknot.html", height="500px", width = "100%")
-```
-</center>
 
 
 ### Nifty Graph: A 3d Imitation with R
@@ -3503,9 +3090,9 @@ par(mar=c(0,0,0,0))
 plot(r$x,r$y, pch=".", col="blue", cex=1.2)
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/59-nifty-graph_files/figure-html/thecode-1.png){width=75%}
-</center>
+
+![](https://www.r-graph-gallery.com/59-nifty-graph_files/figure-html/thecode-1.png)
+
 
 ### Animated 3d Chart with R
  
@@ -3544,243 +3131,10 @@ movie3d(
 )
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/img/graph/3-r-animated-cube.gif){width=75%}
-</center>
 
-## Caveats
+![](https://www.r-graph-gallery.com/img/graph/3-r-animated-cube.gif)
 
----
 
-
-
-</style>
-<style>
-  .col3 {
-    display: grid;
-    columns: 3 100px;
-    align-content: space-evenly;
-    grid-template-columns: auto auto auto;
-    grid-gap: 10px;
-    padding: 10px;
-    text-align: center;
-    padding: 20px 0;
-    font-size: 10px;
-    -webkit-columns: 3 100px;
-    -moz-columns: 3 100px;
-    }
-</style>
-
-
-
-
-
-<div class="col3">
-
-<div>[![](https://www.data-to-viz.com/img/mistake/annotate.png)](https://www.data-to-viz.com/caveat/cut_y_axis.html)
-
-[Cut or Not to Cut (the Y Axis)](https://www.data-to-viz.com/caveat/cut_y_axis.html)
-
-Cutting the Y-axis is one fo the most controversial practice in data viz. See why.</div>
-
-<div>[![](https://www.data-to-viz.com/img/mistake/order_data.png)](https://www.data-to-viz.com/caveat/order_data.html)
-
-[Order your Data](https://www.data-to-viz.com/caveat/order_data.html)
-
-When displaying the value of several entities, ordering them makes the graph much more insightful.</div>
-
-
-<div>[![](https://www.data-to-viz.com/img/mistake/spaghetti.png)](https://www.data-to-viz.com/caveat/spaghetti.html)
-
-[The Spaghetti Chart](https://www.data-to-viz.com/caveat/spaghetti.html)
-
-A line graph with too many lines becomes unreadable: it is called a spaghetti graph.</div> 
-
-<div>[![](https://www.data-to-viz.com/img/mistake/pie.png)](https://www.data-to-viz.com/caveat/spaghetti.html)
-
-[Piecharts](https://www.data-to-viz.com/caveat/pie.html)
-
-The human eye is bad at reading angles. See how to replace the most criticized chart ever.</div>
-
-<div>[![](https://www.data-to-viz.com/img/mistake/bin_size.png)](https://www.data-to-viz.com/caveat/bin_size.html)
-
-[Play with your Histogram Bin Size](https://www.data-to-viz.com/caveat/bin_size.html)
-
-Always try different bin sizes when you build a histogram, it can lead to different insights.</div> 
-
-<div>[![](https://www.data-to-viz.com/img/mistake/boxplot.png)](https://www.data-to-viz.com/caveat/boxplot.html)
-
-[Do boxplots hide information?](https://www.data-to-viz.com/caveat/boxplot.html)
-
-Boxplots are a great way to summarize a distribution but hide the sample size and their distribution.</div> 
-
-
-<div>[![](https://www.data-to-viz.com/img/mistake/error_bar.png)](https://www.data-to-viz.com/caveat/error_bar.html)
-
-[The Problem with Error Bars](https://www.data-to-viz.com/caveat/error_bar.html)
-
-Barplots with error bars must be used with great care. See why and how to replace them.</div>
-
-<div>[![](https://www.data-to-viz.com/img/mistake/multi_distribution.png)](https://www.data-to-viz.com/caveat/multi_distribution.html)
-
-[Too Many Distributions](https://www.data-to-viz.com/caveat/multi_distribution.html)
-
-If you need to compare the distributions of many variables, don't clutter your graphic.</div> 
-
-<div>[![](https://www.data-to-viz.com/img/mistake/overplotting.png)](https://www.data-to-viz.com/caveat/overplotting.html)
-
-[How to Avoid Overplotting](https://www.data-to-viz.com/caveat/overplotting.html)
-
-Too many points on your scatter plot makes it unreadable? Techniques exist to avoid overplotting.</div>
-
-<div>[![](https://www.data-to-viz.com/img/mistake/rainbow.png)](https://blog.datawrapper.de/colors/)
-
-[Rainbow Color Palette](https://blog.datawrapper.de/colors/)
-
-Avoid the rainbow color palette when you map a numeric variable So many better palettes exist.</div> 
-
-<div>[![](https://www.data-to-viz.com/img/mistake/small_multiple.png)](https://www.data-to-viz.com/caveat/small_multiple.html)
-
-[Faceting Horizontal or Vertical?](https://www.data-to-viz.com/caveat/small_multiple.html)
-
-Placing the individual plot horizontally or vertically is an important choice to make.</div> 
-
-<div>[![](https://www.data-to-viz.com/img/mistake/counter_intuitive.png)](https://www.data-to-viz.com/caveat/counter_intuitive.html)
-
-[Don't be Counter Intuitive](https://www.data-to-viz.com/caveat/counter_intuitive.html)
-
-Your audience is used to a few dataviz standards. Not respecting standards can be misleading.</div>
-
-<div>[![](https://www.data-to-viz.com/img/mistake/dual_axis.png)](https://blog.datawrapper.de/dualaxis/)
-
-[The Problem with Dual Axis](https://blog.datawrapper.de/dualaxis/)
-
-Using dual axes is a good way to manipulate the history behind your data. Avoid it. (blog by datawrapper).</div>
-
-<div>[![](https://www.data-to-viz.com/img/mistake/calculation_error.png)](https://www.data-to-viz.com/caveat/calculation_error.html)
-
-[Calculation Errors](https://www.data-to-viz.com/caveat/calculation_error.html)
-
-Always double-check the values written on the chart. Does your sum make sense?</div>
-
-<div>[![](https://www.data-to-viz.com/img/mistake/circular_barplot_accordeon.png)](https://www.data-to-viz.com/caveat/circular_barplot_accordeon.html)
-
-[Barplots with Radical Coordinates](https://www.data-to-viz.com/caveat/circular_barplot_accordeon.html)
-
-This kind of barplot distorts reality: outer bars tend to look bigger than the inner ones.</div> 
-
-<div>[![](https://www.data-to-viz.com/img/mistake/connect_your_dot.png)](https://www.data-to-viz.com/caveat/connect_your_dot.html)
-
-[Connect the Dots when X-Axis is Ordered](https://www.data-to-viz.com/caveat/connect_your_dot.html)
-
-If your X-axis is ordered, connecting the dots will make the message much clearer.</div> 
-
-<div>[![](https://www.data-to-viz.com/img/mistake/color_com_nothing.png)](https://www.data-to-viz.com/caveat/color_com_nothing.html)
-
-[Color that Communicates Nothing](https://www.data-to-viz.com/caveat/color_com_nothing.html)
-
-A bad use of colors can be misleading. If your color does not represent anything, don't use it.</div> 
-
-<div>[![](https://www.data-to-viz.com/img/mistake/radius_or_area.png)](https://www.data-to-viz.com/caveat/radius_or_area.html)
-
-[Bubble Size: Radius or Area](https://www.data-to-viz.com/caveat/radius_or_area.html)
-
-When using bubbles on a chart, their must be proportional to the underlying variable. Not their radius.</div> 
-
-<div>[![](https://www.data-to-viz.com/img/mistake/hard_label.png)](https://www.data-to-viz.com/caveat/hard_label.html)
-
-[When axis labels break your neck](https://www.data-to-viz.com/caveat/hard_label.html)
-
-Having long and vertical axis labels can be annoyig. If you can, flip your chart.</div>
-
-<div>[![](https://www.data-to-viz.com/img/mistake/circular_bar_yaxis.png)](https://www.data-to-viz.com/caveat/circular_bar_yaxis.html)
-
-[Circular Plots and Distortion](https://www.data-to-viz.com/caveat/circular_bar_yaxis.html)
-
-Set a sufficient inner circle size to avoid bar shape distortion.</div> 
-
-<div>[![](https://www.data-to-viz.com/img/mistake/stacking.png)](https://www.data-to-viz.com/caveat/stacking.html)
-
-[The issue with Stacking](https://www.data-to-viz.com/caveat/stacking.html)
-
-Stacking makes it difficult to analyze each represented group. See when to use it.</div> 
-
-<div>[![](https://www.data-to-viz.com/img/mistake/mental_workout.png)](https://www.data-to-viz.com/caveat/mental_calculation.html)
-
-[Mental Arithmetic](https://www.data-to-viz.com/caveat/mental_calculation.html)
-
-Don't ask the reader to do mental arithmetic, it is hard to compare shapes.</div> 
-
-<div>[![](https://www.data-to-viz.com/img/mistake/bubble_hard.png)](https://www.data-to-viz.com/caveat/area_hard.html)
-
-[Area is a Poor Metaphor](https://www.data-to-viz.com/caveat/area_hard.html)
-
-Human brains struggle to translate areas to precise values. Prefer other shapes.</div> 
-
-<div>[![](https://www.data-to-viz.com/img/mistake/ungrouped_grouped_barplot.png)](https://www.data-to-viz.com/caveat/grouped_bar.html)
-
-[Grouped Barplot must be Grouped](https://www.data-to-viz.com/caveat/grouped_bar.html)
-
-In a grouped barplot, bars in the same group must be close to each other. It makes grouping obvious.</div> 
-
-<div>[![](https://www.data-to-viz.com/img/mistake/declutter_your_graphic.png)](https://www.data-to-viz.com/caveat/declutter.html)
-
-[De-clutter your Chart](https://www.data-to-viz.com/caveat/declutter.html)
-
-Keep on what's necessary on your graphic: 3d, color effect, redundant info, etc. hide the story.</div>
-
-<div>[![](https://www.data-to-viz.com/img/mistake/mind_your_legend.png)](https://www.r-graph-gallery.com/239-custom-layout-legend-ggplot2.html)
-
-[Mind your Legend](https://www.r-graph-gallery.com/239-custom-layout-legend-ggplot2.html)
-
-A few tips for a useful legend. Hint: you should worry if you have 14 groups.</div> 
-
-<div>[![](https://www.data-to-viz.com/img/mistake/consistency_sev_graph.png)](https://www.data-to-viz.com/caveat/consistency.html)
-
-[Consistency between Charts](https://www.data-to-viz.com/caveat/consistency.html)
-
-If you present several graphics, be consistent. Does each color always represent the same group.</div>
-
-<div>[![](https://www.data-to-viz.com/img/mistake/spider.png)](https://www.data-to-viz.com/caveat/spider.html)
-
-[Spider Chart and its Caveats](https://www.data-to-viz.com/caveat/spider.html)
-
-Spider or radar charts are often criticized in dataviz, here is an overview of the topic.</div> 
-
-<div>[![](https://www.data-to-viz.com/img/mistake/heatmap.png)](https://www.data-to-viz.com/graph/heatmap.html)
-
-[What you should Consider when doing Heatmaps](https://www.data-to-viz.com/graph/heatmap.html)
-
-Heatmaps are a powerful way of visualizing information. A few features must be considered.</div> 
-
-<div>[![](https://www.data-to-viz.com/img/mistake/simpson.png)](https://www.data-to-viz.com/caveat/simpson.html)
-
-[The Simpson Paradox](https://www.data-to-viz.com/caveat/simpson.html)
-
-When a trend appears in several different groups of data but reverses when these groups are combined.</div>
-
-<div>[![](https://www.data-to-viz.com/img/mistake/annotate.png)](https://www.data-to-viz.com/caveat/annotation.html)
-
-[Annotate your Chart](https://www.data-to-viz.com/caveat/annotation.html)
-
-Help the reader understand your point: highlight the important part.</div> 
-
-<div>[![](https://www.data-to-viz.com/img/mistake/moire.png)](https://gravyanecdote.com/uncategorized/wrappedbarsthoughts/)
-
-[The Moire Effect](https://gravyanecdote.com/uncategorized/wrappedbarsthoughts/)
-
-If you have a barplot with many bars of similar length, consider a lollipop chart instead. </div>
-
-<div>[![](https://www.data-to-viz.com/img/mistake/choropleth_normalization.png)](https://xkcd.com/1138/)
-
-[Choropleth and Normalization](https://xkcd.com/1138/)
-
-If you don't scale your data, your choropleth will basically look like a population heatmap.</div>
-
-[![](https://www.data-to-viz.com/img/mistake/map_scale.png)](https://blog.datawrapper.de/weeklychart-logscale3/) 
-[How to Read a Log Scale](https://blog.datawrapper.de/weeklychart-logscale3/) [![](https://www.data-to-viz.com/img/mistake/choropleth_vocab.png)](https://twitter.com/hashtag/chloropleth) 
-
-[There is no 'L' in choropleth](https://twitter.com/hashtag/chloropleth)
 
 
 
