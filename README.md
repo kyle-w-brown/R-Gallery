@@ -25,8 +25,9 @@ While this book was created to encapsulate the entire [R Graph Gallery](https://
 
 ### Table of Contents
 * [Animation](#animation)
-* [`ggplot2`](#general-knowledge)
 * [Data Art](#data-art)
+* [`ggplot2`](#general-knowledge)
+
 
 
 
@@ -374,6 +375,213 @@ movie3d(
 
 ![](https://www.r-graph-gallery.com/img/graph/3-r-animated-cube.gif)
 
+---
+
+## Data Art
+
+Sometimes programming can be used to generate figures that are aestetically pleasing, but don't bring any insight. Here are a few pieces of data art built from R and ggplot2. Visit [data-to-art.com](https://www.data-to-art.com/) for more.
+
+### Using R and ggplot2 for Data Art.
+
+R and ggplot2 are awesome tool to produce random shapes. Welcome in the field of generative coding or data art.
+
+```r
+set.seed(345)
+library(ggplot2)
+library(RColorBrewer)
+ngroup=30
+names=paste("G_",seq(1,ngroup),sep="")
+DAT=data.frame()
+
+for(i in seq(1:30)){
+    data=data.frame( matrix(0, ngroup , 3))
+    data[,1]=i
+    data[,2]=sample(names, nrow(data))
+    data[,3]=prop.table(sample( c(rep(0,100),c(1:ngroup)) ,nrow(data)))
+    DAT=rbind(DAT,data)
+    }
+colnames(DAT)=c("Year","Group","Value")
+DAT=DAT[order( DAT$Year, DAT$Group) , ]
+
+
+coul = brewer.pal(12, "Paired") 
+coul = colorRampPalette(coul)(ngroup)
+coul=coul[sample(c(1:length(coul)) , size=length(coul) ) ]
+
+ggplot(DAT, aes(x=Year, y=Value, fill=Group )) + 
+    geom_area(alpha=1  )+
+    theme_bw() +
+    #scale_fill_brewer(colour="red", breaks=rev(levels(DAT$Group)))+
+    scale_fill_manual(values = coul)+
+     theme(
+        text = element_blank(),
+        line = element_blank(),
+        title = element_blank(),
+        legend.position="none",
+        panel.border = element_blank(),
+        panel.background = element_blank())
+```
+
+
+![](https://www.r-graph-gallery.com/144-droid-bb-8-data-art_files/figure-html/thecode-1.png)
+
+
+### Random Shapes
+
+```r
+set.seed(345)
+library(ggplot2)
+library(RColorBrewer)
+ngroup=30
+names=paste("G_",seq(1,ngroup),sep="")
+DAT=data.frame()
+
+for(i in seq(1:30)){
+    data=data.frame( matrix(0, ngroup , 3))
+    data[,1]=i
+    data[,2]=sample(names, nrow(data))
+    data[,3]=prop.table(sample( c(rep(0,100),c(1:ngroup)) ,nrow(data)))
+    DAT=rbind(DAT,data)
+    }
+colnames(DAT)=c("Year","Group","Value")
+DAT=DAT[order( DAT$Year, DAT$Group) , ]
+
+
+coul = brewer.pal(12, "Paired") 
+coul = colorRampPalette(coul)(ngroup)
+coul=coul[sample(c(1:length(coul)) , size=length(coul) ) ]
+
+ggplot(DAT, aes(x=Year, y=Value, fill=Group )) + 
+    geom_area(alpha=1  )+
+    theme_bw() +
+    #scale_fill_brewer(colour="red", breaks=rev(levels(DAT$Group)))+
+    scale_fill_manual(values = coul)+
+     theme(
+        text = element_blank(),
+        line = element_blank(),
+        title = element_blank(),
+        legend.position="none",
+        panel.border = element_blank(),
+        panel.background = element_blank())
+```
+
+
+![](https://www.r-graph-gallery.com/137-spring-shapes-data-art_files/figure-html/thecode-1.png)
+
+### R Snail
+ 
+A piece of generative art built by Christophe Cariou with R.
+
+```r
+par(mfrow=c(1,1),mar=c(0,0,0,0),oma=c(1,1,1,1))
+plot(0,0,type="n", xlim=c(-2,32), ylim=c(3,27),
+    xaxs="i", yaxs="i", axes=FALSE, xlab=NA, ylab=NA,
+    asp=1)
+
+for (j in 0:35) {
+for (i in 0:35) {
+
+    R <- 8
+    alpha <- j*10
+    X <- 15+R*cos(alpha/180*pi)
+    Y <- 15+R*sin(alpha/180*pi)
+
+    r <- 3
+    beta <- i*10
+    x <- 15+r*cos(beta/180*pi)
+    y <- 15+r*sin(beta/180*pi)
+
+    d1 <- sqrt((X-x)^2+(Y-y)^2)
+    xc <- x
+    yc <- y
+
+  n <- 180-atan((Y-y)/(X-x))/pi*180
+
+    alpha2 <- -(0:n)
+    theta <- alpha2/180*pi
+
+    b <- d1/(n/180*pi)
+    r <- b*theta
+
+    x1 <- xc+r*cos(theta)
+    y1 <- yc+r*sin(theta)
+
+    lines(x1,y1, col="black")
+
+    }
+}
+```
+
+
+![](https://www.r-graph-gallery.com/127-r-snail_files/figure-html/thecode-1.png)
+
+
+
+
+
+### Nifty Graph: A 3d Imitation with R
+ 
+A graph by Matt Asher showing probability function in a data art fashion.
+
+```r
+moxbuller = function(n) {   
+    u = runif(n)   
+    v = runif(n)   
+    x = cos(2*pi*u)*sqrt(-2*log(v))  
+    y = sin(2*pi*v)*sqrt(-2*log(u))
+    r = list(x=x, y=y)
+    return(r) 
+}
+r = moxbuller(50000) 
+par(bg="black") 
+par(mar=c(0,0,0,0)) 
+plot(r$x,r$y, pch=".", col="blue", cex=1.2)
+```
+
+
+![](https://www.r-graph-gallery.com/59-nifty-graph_files/figure-html/thecode-1.png)
+
+
+### Animated 3d Chart with R
+ 
+This post shows how to build a 3d [scatterplot](https://www.r-graph-gallery.com/scatterplot.html) and make it spin thanks to the `rgl` package. Reproducible code is provided.
+
+The `rgl` package is the best option to build 3d charts in R. Please see this post for an introduction to 3d scatterplots using it.
+
+It also provides the `plot3d()` and play3d() functions that allow to animate the 3d chart, and eventually to export the result at a `.gif` format. Here is an application to the famous `iris` dataset, with a nice animated 3d scatterplot chart.
+
+
+```r
+library( rgl )
+library(magick)
+
+# Let's use the iris dataset
+# iris
+
+# This is ugly
+colors <- c("royalblue1", "darkcyan", "oldlace")
+iris$color <- colors[ as.numeric( as.factor(iris$Species) ) ]
+
+# Static chart
+plot3d( iris[,1], iris[,2], iris[,3], col = iris$color, type = "s", radius = .2 )
+
+# We can indicate the axis and the rotation velocity
+play3d( spin3d( axis = c(0, 0, 1), rpm = 20), duration = 10 )
+
+# Save like gif
+movie3d(
+  movie="3dAnimatedScatterplot", 
+  spin3d( axis = c(0, 0, 1), rpm = 7),
+  duration = 10, 
+  dir = "~/Desktop",
+  type = "gif", 
+  clean = TRUE
+)
+```
+
+![](https://www.r-graph-gallery.com/img/graph/3-r-animated-cube.gif)
+
+---
 
 # Distributions
 
@@ -529,9 +737,6 @@ data %>%
 
 <br>
 
----
-
-# General Knowledge 
 
 ---
 
@@ -2933,216 +3138,5 @@ ggplot(data, aes(x=time, y=value, fill=group)) +
 ```
 
 ![](https://www.r-graph-gallery.com/136-stacked-area-chart_files/figure-html/thecode4-1.png)
-
-
-## Data Art
-
-Sometimes programming can be used to generate figures that are aestetically pleasing, but don't bring any insight. Here are a few pieces of data art built from R and ggplot2. Visit [data-to-art.com](https://www.data-to-art.com/) for more.
-
-### Using R and ggplot2 for Data Art.
-
-R and ggplot2 are awesome tool to produce random shapes. Welcome in the field of generative coding or data art.
-
-```r
-set.seed(345)
-library(ggplot2)
-library(RColorBrewer)
-ngroup=30
-names=paste("G_",seq(1,ngroup),sep="")
-DAT=data.frame()
-
-for(i in seq(1:30)){
-    data=data.frame( matrix(0, ngroup , 3))
-    data[,1]=i
-    data[,2]=sample(names, nrow(data))
-    data[,3]=prop.table(sample( c(rep(0,100),c(1:ngroup)) ,nrow(data)))
-    DAT=rbind(DAT,data)
-    }
-colnames(DAT)=c("Year","Group","Value")
-DAT=DAT[order( DAT$Year, DAT$Group) , ]
-
-
-coul = brewer.pal(12, "Paired") 
-coul = colorRampPalette(coul)(ngroup)
-coul=coul[sample(c(1:length(coul)) , size=length(coul) ) ]
-
-ggplot(DAT, aes(x=Year, y=Value, fill=Group )) + 
-    geom_area(alpha=1  )+
-    theme_bw() +
-    #scale_fill_brewer(colour="red", breaks=rev(levels(DAT$Group)))+
-    scale_fill_manual(values = coul)+
-     theme(
-        text = element_blank(),
-        line = element_blank(),
-        title = element_blank(),
-        legend.position="none",
-        panel.border = element_blank(),
-        panel.background = element_blank())
-```
-
-
-![](https://www.r-graph-gallery.com/144-droid-bb-8-data-art_files/figure-html/thecode-1.png)
-
-
-### Random Shapes
-
-```r
-set.seed(345)
-library(ggplot2)
-library(RColorBrewer)
-ngroup=30
-names=paste("G_",seq(1,ngroup),sep="")
-DAT=data.frame()
-
-for(i in seq(1:30)){
-    data=data.frame( matrix(0, ngroup , 3))
-    data[,1]=i
-    data[,2]=sample(names, nrow(data))
-    data[,3]=prop.table(sample( c(rep(0,100),c(1:ngroup)) ,nrow(data)))
-    DAT=rbind(DAT,data)
-    }
-colnames(DAT)=c("Year","Group","Value")
-DAT=DAT[order( DAT$Year, DAT$Group) , ]
-
-
-coul = brewer.pal(12, "Paired") 
-coul = colorRampPalette(coul)(ngroup)
-coul=coul[sample(c(1:length(coul)) , size=length(coul) ) ]
-
-ggplot(DAT, aes(x=Year, y=Value, fill=Group )) + 
-    geom_area(alpha=1  )+
-    theme_bw() +
-    #scale_fill_brewer(colour="red", breaks=rev(levels(DAT$Group)))+
-    scale_fill_manual(values = coul)+
-     theme(
-        text = element_blank(),
-        line = element_blank(),
-        title = element_blank(),
-        legend.position="none",
-        panel.border = element_blank(),
-        panel.background = element_blank())
-```
-
-
-![](https://www.r-graph-gallery.com/137-spring-shapes-data-art_files/figure-html/thecode-1.png)
-
-### R Snail
- 
-A piece of generative art built by Christophe Cariou with R.
-
-```r
-par(mfrow=c(1,1),mar=c(0,0,0,0),oma=c(1,1,1,1))
-plot(0,0,type="n", xlim=c(-2,32), ylim=c(3,27),
-    xaxs="i", yaxs="i", axes=FALSE, xlab=NA, ylab=NA,
-    asp=1)
-
-for (j in 0:35) {
-for (i in 0:35) {
-
-    R <- 8
-    alpha <- j*10
-    X <- 15+R*cos(alpha/180*pi)
-    Y <- 15+R*sin(alpha/180*pi)
-
-    r <- 3
-    beta <- i*10
-    x <- 15+r*cos(beta/180*pi)
-    y <- 15+r*sin(beta/180*pi)
-
-    d1 <- sqrt((X-x)^2+(Y-y)^2)
-    xc <- x
-    yc <- y
-
-  n <- 180-atan((Y-y)/(X-x))/pi*180
-
-    alpha2 <- -(0:n)
-    theta <- alpha2/180*pi
-
-    b <- d1/(n/180*pi)
-    r <- b*theta
-
-    x1 <- xc+r*cos(theta)
-    y1 <- yc+r*sin(theta)
-
-    lines(x1,y1, col="black")
-
-    }
-}
-```
-
-
-![](https://www.r-graph-gallery.com/127-r-snail_files/figure-html/thecode-1.png)
-
-
-
-
-
-### Nifty Graph: A 3d Imitation with R
- 
-A graph by Matt Asher showing probability function in a data art fashion.
-
-```r
-moxbuller = function(n) {   
-    u = runif(n)   
-    v = runif(n)   
-    x = cos(2*pi*u)*sqrt(-2*log(v))  
-    y = sin(2*pi*v)*sqrt(-2*log(u))
-    r = list(x=x, y=y)
-    return(r) 
-}
-r = moxbuller(50000) 
-par(bg="black") 
-par(mar=c(0,0,0,0)) 
-plot(r$x,r$y, pch=".", col="blue", cex=1.2)
-```
-
-
-![](https://www.r-graph-gallery.com/59-nifty-graph_files/figure-html/thecode-1.png)
-
-
-### Animated 3d Chart with R
- 
-This post shows how to build a 3d [scatterplot](https://www.r-graph-gallery.com/scatterplot.html) and make it spin thanks to the `rgl` package. Reproducible code is provided.
-
-The `rgl` package is the best option to build 3d charts in R. Please see this post for an introduction to 3d scatterplots using it.
-
-It also provides the `plot3d()` and play3d() functions that allow to animate the 3d chart, and eventually to export the result at a `.gif` format. Here is an application to the famous `iris` dataset, with a nice animated 3d scatterplot chart.
-
-
-```r
-library( rgl )
-library(magick)
-
-# Let's use the iris dataset
-# iris
-
-# This is ugly
-colors <- c("royalblue1", "darkcyan", "oldlace")
-iris$color <- colors[ as.numeric( as.factor(iris$Species) ) ]
-
-# Static chart
-plot3d( iris[,1], iris[,2], iris[,3], col = iris$color, type = "s", radius = .2 )
-
-# We can indicate the axis and the rotation velocity
-play3d( spin3d( axis = c(0, 0, 1), rpm = 20), duration = 10 )
-
-# Save like gif
-movie3d(
-  movie="3dAnimatedScatterplot", 
-  spin3d( axis = c(0, 0, 1), rpm = 7),
-  duration = 10, 
-  dir = "~/Desktop",
-  type = "gif", 
-  clean = TRUE
-)
-```
-
-![](https://www.r-graph-gallery.com/img/graph/3-r-animated-cube.gif)
-
-
-
-
-
-
 
 
