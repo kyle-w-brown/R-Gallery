@@ -2961,7 +2961,7 @@ don %>%
 ```
 
 
-![](generalHtml/stacking.PNG)
+![](images/stacking.PNG)
 
 It looks obvious that the yellow category increased, the purple decreased, and the green. is harder to read. At a first glance it looks like it is slightly decreasing I would say.
 
@@ -2979,7 +2979,7 @@ don %>%
 ```
 
 
-![](generalHtml/stacking-two.PNG)
+![](images/stacking-two.PNG)
 
 
 ### Workaround
@@ -2997,7 +2997,7 @@ data %>%
 
 
 
-![](generalHtml/stacking-four.PNG)
+![](images/stacking-three.PNG)
 
 
 However, this solution is not suitable if you have many categories. Indeed, it would result in a spaghetti chart that is very hard to read. You can read more about this here.
@@ -3021,7 +3021,7 @@ data %>%
 ```
 
 
-![](generalHtml/stacking-five.PNG)
+![](images/stacking-four.PNG)
 
 
 ### Basic Stacked area Chart with R
