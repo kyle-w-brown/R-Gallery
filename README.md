@@ -85,11 +85,7 @@ anim_save("271-ggplot2-animated-gif-chart-with-gganimate1.gif")
 ```
 
 <p align="center"> 
-![](https://www.r-graph-gallery.com/img/graph/271-ggplot2-animated-gif-chart-with-gganimate1.gif)
-</p>
-
-<p align="center"> 
-<img src="https://www.r-graph-gallery.com/img/graph/271-ggplot2-animated-gif-chart-with-gganimate1.gif" width="35%">
+<img src="https://www.r-graph-gallery.com/img/graph/271-ggplot2-animated-gif-chart-with-gganimate1.gif" width="85%">
 </p>
 
 
