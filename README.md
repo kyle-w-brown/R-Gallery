@@ -521,7 +521,7 @@ for (i in 0:35) {
 ```
 
 <p align="center"> 
-<img src="https://www.r-graph-gallery.com/127-r-snail_files/figure-html/thecode-1.png" width="75%">
+<img src="https://www.r-graph-gallery.com/127-r-snail_files/figure-html/thecode-1.png" width="65%">
 </p>
 
 
@@ -547,7 +547,7 @@ plot(r$x,r$y, pch=".", col="blue", cex=1.2)
 ```
 
 <p align="center"> 
-<img src="https://www.r-graph-gallery.com/59-nifty-graph_files/figure-html/thecode-1.png" width="75%">
+<img src="https://www.r-graph-gallery.com/59-nifty-graph_files/figure-html/thecode-1.png" width="50%">
 </p>
 
 
@@ -755,8 +755,9 @@ data %>%
 
 --- 
 
-
-![](https://www.r-graph-gallery.com/img/other/ggplot2Hex.jpg)
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/img/other/ggplot2Hex.jpg">
+</p>
 
 
 <br>
