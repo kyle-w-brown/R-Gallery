@@ -718,7 +718,7 @@ hist(my_variable , breaks=40 , col=rgb(0.2,0.8,0.5,0.5) , border=F , main="" , x
 ```
 
 <p align="center"> 
-<img src="https://www.r-graph-gallery.com/82-boxplot-on-top-of-histogram_files/figure-html/unnamed-chunk-1-1.png" width="65%">
+<img src="https://www.r-graph-gallery.com/82-boxplot-on-top-of-histogram_files/figure-html/unnamed-chunk-1-1.png" width="50%">
 </p>
 
 <br>
@@ -798,8 +798,9 @@ ggplot(data, aes(x=wt, y=mpg)) +
   )
 ```
 
-
-![](https://www.r-graph-gallery.com/275-add-text-labels-with-ggplot2_files/figure-html/thecode-1.png)
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/275-add-text-labels-with-ggplot2_files/figure-html/thecode-1.png" width="65%">
+</p>
 
 
 ### Add Labels with  `geom_label()`
@@ -823,8 +824,9 @@ ggplot(data, aes(x=wt, y=mpg)) +
   )
 ```
 
-
-![](https://www.r-graph-gallery.com/275-add-text-labels-with-ggplot2_files/figure-html/thecode2-1.png)
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/275-add-text-labels-with-ggplot2_files/figure-html/thecode2-1.png" width="65%">
+</p>
 
 
 ### Add One Text Label Only
@@ -852,8 +854,9 @@ ggplot(data, aes(x=wt, y=mpg)) +
   )
 ```
 
-
-![](https://www.r-graph-gallery.com/275-add-text-labels-with-ggplot2_files/figure-html/thecode3-1.png)
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/275-add-text-labels-with-ggplot2_files/figure-html/thecode3-1.png" width="65%">
+</p>
 
 
 ### Add Labels for a Selection of Marker
@@ -882,8 +885,9 @@ ggplot(data, aes(x=wt, y=mpg)) +
   )
 ```
 
-
-![](https://www.r-graph-gallery.com/275-add-text-labels-with-ggplot2_files/figure-html/thecode4-1.png)
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/275-add-text-labels-with-ggplot2_files/figure-html/thecode4-1.png" width="65%">
+</p>
 
 
 ### How to Annotate a Plot in `ggplot2`
@@ -928,8 +932,9 @@ p + geom_text(data=annotation, aes( x=x, y=y, label=label),
 #           size=7 , angle=45, fontface="bold")
 ```
 
-![](https://www.r-graph-gallery.com/233-add-annotations-on-ggplot2-chart_files/figure-html/thecodeA-1.png)
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/233-add-annotations-on-ggplot2-chart_files/figure-html/thecodeA-1.png" width="65%">
+</p>
 
 ```r
 # Right chart: using labels
@@ -939,7 +944,9 @@ p + geom_label(data=annotation, aes( x=x, y=y, label=label),
 ```
 
 
-![](https://www.r-graph-gallery.com/233-add-annotations-on-ggplot2-chart_files/figure-html/thecodeB-1.png)
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/233-add-annotations-on-ggplot2-chart_files/figure-html/thecodeB-1.png" width="65%">
+</p>
 
 
 ### Add Shapes with `annotate()`
@@ -959,8 +966,9 @@ p + annotate("rect", xmin=c(2,4), xmax=c(3,5), ymin=c(20,10) , ymax=c(30,20), al
 p + annotate("segment", x = 1, xend = 3, y = 25, yend = 15, colour = "purple", size=3, alpha=0.6)
 ```
 
-
-![](https://www.r-graph-gallery.com/233-add-annotations-on-ggplot2-chart_files/figure-html/thecode1B-1.png)
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/233-add-annotations-on-ggplot2-chart_files/figure-html/thecode1B-1.png" width="65%">
+</p>
 
 
 ```r
@@ -968,8 +976,10 @@ p + annotate("segment", x = 1, xend = 3, y = 25, yend = 15, colour = "purple", s
 p + annotate("segment", x = 2, xend = 4, y = 15, yend = 25, colour = "pink", size=3, alpha=0.6, arrow=arrow())
 ```
 
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/233-add-annotations-on-ggplot2-chart_files/figure-html/thecode1C-1.png" width="65%">
+</p>
 
-![](https://www.r-graph-gallery.com/233-add-annotations-on-ggplot2-chart_files/figure-html/thecode1C-1.png)
 
 
 ### Add Ablines with `geom_hline()` and `geom_vline()`
@@ -984,9 +994,9 @@ p +
   geom_vline(xintercept=3, color="orange", size=1)
 ```
 
-
-![](https://www.r-graph-gallery.com/233-add-annotations-on-ggplot2-chart_files/figure-html/thecode2-1.png)
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/233-add-annotations-on-ggplot2-chart_files/figure-html/thecode2-1.png" width="65%">
+</p>
 
 ### Add a Point and a Range with `pointrange()`
 
@@ -997,8 +1007,10 @@ Last kind of annotation, add a dot and a segment directly with `pointrange()`.
 p + annotate("pointrange", x = 3.5, y = 20, ymin = 12, ymax = 28,colour = "orange", size = 1.5, alpha=0.4)
 ```
 
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/233-add-annotations-on-ggplot2-chart_files/figure-html/thecode3-1.png" width="65%">
+</p>
 
-![](https://www.r-graph-gallery.com/233-add-annotations-on-ggplot2-chart_files/figure-html/thecode3-1.png)
 
 
 ### Marginal Plot
@@ -1028,8 +1040,10 @@ ggplot(data=iris, aes(x=Sepal.Length, Petal.Length)) +
   geom_rug(col="steelblue",alpha=0.1, size=1.5)
 ```
 
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/276-scatterplot-with-rug-ggplot2_files/figure-html/thecode-1.png" width="65%">
+</p>
 
-![](https://www.r-graph-gallery.com/276-scatterplot-with-rug-ggplot2_files/figure-html/thecode-1.png)
 
 
 ### Marginal Distribution with `ggplot2` and `ggExtra`
@@ -1067,25 +1081,25 @@ p3 <- ggMarginal(p, type="boxplot")
 p1
 ```
 
-
-![](https://www.r-graph-gallery.com/277-marginal-histogram-for-ggplot2_files/figure-html/unnamed-chunk-1-1.png)
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/277-marginal-histogram-for-ggplot2_files/figure-html/unnamed-chunk-1-1.png" width="65%">
+</p>
 
 ```r
 p2
 ```
 
-
-![](https://www.r-graph-gallery.com/277-marginal-histogram-for-ggplot2_files/figure-html/unnamed-chunk-2-1.png)
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/277-marginal-histogram-for-ggplot2_files/figure-html/unnamed-chunk-2-1.png" width="65%">
+</p>
 
 ```r
 p3
 ```
 
-
-![](https://www.r-graph-gallery.com/277-marginal-histogram-for-ggplot2_files/figure-html/unnamed-chunk-3-1.png)
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/277-marginal-histogram-for-ggplot2_files/figure-html/unnamed-chunk-3-1.png" width="65%">
+</p>
 
 ### More Customization
 
@@ -1122,25 +1136,26 @@ p3 <- ggMarginal(p, margins = 'x', color="purple", size=4)
 p1
 ```
 
-![](https://www.r-graph-gallery.com/277-marginal-histogram-for-ggplot2_files/figure-html/unnamed-chunk-4-1.png)
-
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/277-marginal-histogram-for-ggplot2_files/figure-html/unnamed-chunk-4-1.png" width="65%">
+</p>
 
 ```r
 p2
 ```
 
-
-![](https://www.r-graph-gallery.com/277-marginal-histogram-for-ggplot2_files/figure-html/unnamed-chunk-5-1.png)
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/277-marginal-histogram-for-ggplot2_files/figure-html/unnamed-chunk-5-1.png" width="65%">
+</p>
 
 ```r
 p3
 ```
 
 
-![](https://www.r-graph-gallery.com/277-marginal-histogram-for-ggplot2_files/figure-html/unnamed-chunk-6-1.png)
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/277-marginal-histogram-for-ggplot2_files/figure-html/unnamed-chunk-6-1.png" width="65%">
+</p>
 
 ### `ggplot2` Chart Appearance
 
@@ -1175,9 +1190,9 @@ basic <- ggplot( mtcars , aes(x=mpg, y=wt)) +
 basic
 ```
 
-
-![](https://www.r-graph-gallery.com/238-custom-layout-axis-ggplot2_files/figure-html/thecode-1.png)
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/238-custom-layout-axis-ggplot2_files/figure-html/thecode-1.png" width="65%">
+</p>
 
 ### Set Axis Title and Limits with `xlab()` and `xlim()`
 
@@ -1191,8 +1206,10 @@ basic+
     xlim(0,50)
 ```
 
-![](https://www.r-graph-gallery.com/238-custom-layout-axis-ggplot2_files/figure-html/thecode2-1.png)
 
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/238-custom-layout-axis-ggplot2_files/figure-html/thecode2-1.png" width="65%">
+</p>
 
 ### Customize Axis Title Appearance: `axis.title`
 
@@ -1202,16 +1219,18 @@ The `theme()` function allows to customize all parts of the `ggplot2` chart. The
 basic + theme(axis.title = element_text( angle = 90, color="red", size=15, face=3)) # face = title location
 ```
 
-
-![](https://www.r-graph-gallery.com/238-custom-layout-axis-ggplot2_files/figure-html/thecode3a-1.png)
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/238-custom-layout-axis-ggplot2_files/figure-html/thecode3a-1.png" width="65%">
+</p>
 
 
 ```r
 basic + theme(axis.title.x = element_text( angle = 90, color="red", size=15, face=3))
 ```
 
-
-![](https://www.r-graph-gallery.com/238-custom-layout-axis-ggplot2_files/figure-html/thecode3b-1.png)
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/238-custom-layout-axis-ggplot2_files/figure-html/thecode3b-1.png" width="65%">
+</p>
 
 
 ### Customize Axis Labels: `axis.text`
@@ -1228,9 +1247,9 @@ basic +
   )
 ```
 
-
-![](https://www.r-graph-gallery.com/238-custom-layout-axis-ggplot2_files/figure-html/thecode4-1.png)
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/238-custom-layout-axis-ggplot2_files/figure-html/thecode4-1.png" width="65%">
+</p>
 
 ### Customize Axis Ticks and Axis Line with `axis.ticks()` and `axis.line()`
 
@@ -1247,9 +1266,9 @@ basic + theme(
 )
 ```
 
-
-![](https://www.r-graph-gallery.com/238-custom-layout-axis-ggplot2_files/figure-html/thecode5a-1.png)
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/238-custom-layout-axis-ggplot2_files/figure-html/thecode5a-1.png" width="65%">
+</p>
 
 ```r
 # chart 2: axis lines
@@ -1257,9 +1276,9 @@ basic + theme(axis.line = element_line(size = 3, colour = "green", linetype=2))
 ```
 
 
-![](https://www.r-graph-gallery.com/238-custom-layout-axis-ggplot2_files/figure-html/thecode5b-1.png)
-
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/238-custom-layout-axis-ggplot2_files/figure-html/thecode5b-1.png" width="65%">
+</p>
 
 ```r
 # chart 3: combination
@@ -1271,9 +1290,9 @@ ggplot( mtcars , aes(x=mpg, y=wt)) + geom_point() +
         )
 ```
 
-![](https://www.r-graph-gallery.com/238-custom-layout-axis-ggplot2_files/figure-html/thecode5c-1.png)
-
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/238-custom-layout-axis-ggplot2_files/figure-html/thecode5c-1.png" width="65%">
+</p>
 
 
 ### Background Manipulation with R and ggplot2
@@ -1296,8 +1315,9 @@ basic <- ggplot( mtcars , aes(x=mpg, y=wt)) +
 basic
 ```
 
-
-![](https://www.r-graph-gallery.com/240-custom-layout-background-ggplot2_files/figure-html/thecode-1.png){width=75%}
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/240-custom-layout-background-ggplot2_files/figure-html/thecode-1.png" width="65%">
+</p>
 
 ### Background Color: `plot.background` and `panel.background`
 
@@ -1312,9 +1332,9 @@ basic + theme(
     )
 ```
 
-
-![](https://www.r-graph-gallery.com/240-custom-layout-background-ggplot2_files/figure-html/thecode2-1.png)
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/240-custom-layout-background-ggplot2_files/figure-html/thecode2-1.png" width="65%">
+</p>
 
 ### Customize the Grid: `panel.grid.major` and `panel.grid.minor`
 
@@ -1332,8 +1352,9 @@ basic + theme(
     )
 ```
 
-![](https://www.r-graph-gallery.com/240-custom-layout-background-ggplot2_files/figure-html/thecode3a-1.png)
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/240-custom-layout-background-ggplot2_files/figure-html/thecode3a-1.png" width="65%">
+</p>
 
 ```r
 # Modify y axis only (remove)
@@ -1343,9 +1364,9 @@ basic + theme(
 )
 ```
 
-
-![](https://www.r-graph-gallery.com/240-custom-layout-background-ggplot2_files/figure-html/thecode3b-1.png)
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/240-custom-layout-background-ggplot2_files/figure-html/thecode3b-1.png" width="65%">
+</p>
 
 ### Building a Nice Legend with R and `ggplot2`
 
@@ -1369,8 +1390,9 @@ basic <- ggplot(mtcars, aes(wt, mpg, colour = factor(cyl), shape = factor(vs) ))
 basic
 ```
 
-![](https://www.r-graph-gallery.com/239-custom-layout-legend-ggplot2_files/figure-html/thecode-1.png){width=65%}
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/239-custom-layout-legend-ggplot2_files/figure-html/thecode-1.png" width="65%">
+</p>
 
 ### Change Legend Title with `labs()`
 
@@ -1384,8 +1406,9 @@ basic+
         )
 ```
 
-
-![](https://www.r-graph-gallery.com/239-custom-layout-legend-ggplot2_files/figure-html/thecode2-1.png)
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/239-custom-layout-legend-ggplot2_files/figure-html/thecode2-1.png" width="65%">
+</p>
 
 
 ### Get Rid of the Legend: `guides()` and `theme()`
@@ -1397,17 +1420,18 @@ It is possible to remove a specific part or the whole legend thanks to the `them
 basic + guides(shape=FALSE)
 ```
 
-
-![](https://www.r-graph-gallery.com/239-custom-layout-legend-ggplot2_files/figure-html/thecode3a-1.png)
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/239-custom-layout-legend-ggplot2_files/figure-html/thecode3a-1.png" width="65%">
+</p>
 
 ```r
 # Right -> only the x axis is modified
 basic + theme(legend.position = "none")
 ```
 
-![](https://www.r-graph-gallery.com/239-custom-layout-legend-ggplot2_files/figure-html/thecode3b-1.png){width=75%}
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/239-custom-layout-legend-ggplot2_files/figure-html/thecode3b-1.png" width="65%">
+</p>
 
 ### Control Legend Position with `legend.position`
 
@@ -1422,8 +1446,9 @@ Note: the command `legend.justification` sets the corner that the position refer
 basic + theme(legend.position = "bottom")
 ```
 
-
-![](https://www.r-graph-gallery.com/239-custom-layout-legend-ggplot2_files/figure-html/thecode4a-1.png)
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/239-custom-layout-legend-ggplot2_files/figure-html/thecode4a-1.png" width="65%">
+</p>
 
 
 ```r
@@ -1436,8 +1461,10 @@ basic + theme(
     )
 ```
 
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/239-custom-layout-legend-ggplot2_files/figure-html/thecode4b-1.png" width="65%">
+</p>
 
-![](https://www.r-graph-gallery.com/239-custom-layout-legend-ggplot2_files/figure-html/thecode4b-1.png)
 
 
 ### Legend Appearance
@@ -1457,18 +1484,18 @@ basic + theme(
 )
 ```
 
-
-![](https://www.r-graph-gallery.com/239-custom-layout-legend-ggplot2_files/figure-html/thecode5a-1.png)
-
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/239-custom-layout-legend-ggplot2_files/figure-html/thecode5a-1.png" width="65%">
+</p>
 
 ```r
 # custom the key
 basic + theme(legend.key = element_rect(fill = "white", colour = "black"))
 ```
 
-
-![](https://www.r-graph-gallery.com/239-custom-layout-legend-ggplot2_files/figure-html/thecode5b-1.png)
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/239-custom-layout-legend-ggplot2_files/figure-html/thecode5b-1.png" width="65%">
+</p>
 
 
 ```r
@@ -1476,10 +1503,9 @@ basic + theme(legend.key = element_rect(fill = "white", colour = "black"))
 basic + theme(legend.text = element_text(size = 8, colour = "red"))
 ```
 
-
-![](https://www.r-graph-gallery.com/239-custom-layout-legend-ggplot2_files/figure-html/thecode5c-1.png)
-
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/239-custom-layout-legend-ggplot2_files/figure-html/thecode5c-1.png" width="65%">
+</p>
 
 
 ```r
@@ -1487,8 +1513,7 @@ basic + theme(legend.text = element_text(size = 8, colour = "red"))
 basic + theme(legend.title = element_text(face = "bold"))
 ```
 
-
-![](https://www.r-graph-gallery.com/239-custom-layout-legend-ggplot2_files/figure-html/thecode5d-1.png)
+c
 
 
 
@@ -1590,7 +1615,10 @@ p <- data %>%
 #p
 ```
 
-![](https://www.r-graph-gallery.com/267-reorder-a-variable-in-ggplot2_files/figure-html/unnamed-chunk-5-1.png)
+<p align="center"> 
+<img src="ttps://www.r-graph-gallery.com/267-reorder-a-variable-in-ggplot2_files/figure-html/unnamed-chunk-5-1.png" width="65%">
+</p>
+
 
 
 ### Method 2: Using `dplyr` Only
@@ -1642,8 +1670,10 @@ p <- mpg %>%
 #p
 ```
 
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/267-reorder-a-variable-in-ggplot2_files/figure-html/unnamed-chunk-8-1.png" width="65%">
+</p>
 
-![](https://www.r-graph-gallery.com/267-reorder-a-variable-in-ggplot2_files/figure-html/unnamed-chunk-8-1.png)
 
 
 ### `ggplot2` Title
@@ -1670,8 +1700,9 @@ ggplot( data=data, aes(x=x)) +
   theme_minimal()
 ```
 
-![](https://www.r-graph-gallery.com/289-control-ggplot2-title_files/figure-html/thecode-1.png)
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/289-control-ggplot2-title_files/figure-html/thecode-1.png" width="65%">
+</p>
 
 ### Title on Several Lines
 
@@ -1685,9 +1716,9 @@ ggplot( data=data, aes(x=x)) +
   theme_minimal() 
 ```
 
-
-![](https://www.r-graph-gallery.com/289-control-ggplot2-title_files/figure-html/thecode2-1.png)
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/289-control-ggplot2-title_files/figure-html/thecode2-1.png" width="65%">
+</p>
 
 ### Title Appearance and Position
 
@@ -1704,9 +1735,9 @@ ggplot( data=data, aes(x=x)) +
   )
 ```
 
-
-![](https://www.r-graph-gallery.com/289-control-ggplot2-title_files/figure-html/thecode3a-1.png)
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/289-control-ggplot2-title_files/figure-html/thecode3a-1.png" width="65%">
+</p>
 
 ```r  
 # Adjust the position of title
@@ -1719,8 +1750,9 @@ ggplot( data=data, aes(x=x)) +
   )
 ```
 
-
-![](https://www.r-graph-gallery.com/289-control-ggplot2-title_files/figure-html/thecode3b-1.png)
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/289-control-ggplot2-title_files/figure-html/thecode3b-1.png" width="65%">
+</p>
 
 ### Customize a Specific Word Only
 
@@ -1735,8 +1767,9 @@ ggplot( data=data, aes(x=x)) +
   theme_minimal()
 ```
 
-![](https://www.r-graph-gallery.com/289-control-ggplot2-title_files/figure-html/thecode5-1.png)
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/289-control-ggplot2-title_files/figure-html/thecode5-1.png" width="65%">
+</p>
 
 ### Small Multiples: `facet_wrap()` and `facet_grid()`
 
@@ -1787,9 +1820,9 @@ don %>%
     facet_wrap(~name, scale="free_y")
 ```
 
-
-![](https://www.r-graph-gallery.com/223-faceting-with-ggplot2_files/figure-html/thecode-1.png)
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/223-faceting-with-ggplot2_files/figure-html/thecode-1.png" width="65%">
+</p>
 
 ### Faceting with `facet_wrap()`
 
@@ -1812,9 +1845,9 @@ ggplot( mtcars , aes(x=mpg, y=wt, color=as.factor(cyl) )) +
   theme(legend.position="none")
 ```
 
-
-![](https://www.r-graph-gallery.com/223-faceting-with-ggplot2_files/figure-html/thecode3a-1.png)
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/223-faceting-with-ggplot2_files/figure-html/thecode3a-1.png" width="65%">
+</p>
 
 ```r
 # Split by row
@@ -1824,9 +1857,9 @@ ggplot( mtcars , aes(x=mpg, y=wt, color=as.factor(cyl)  )) +
   theme(legend.position="none")
 ```
 
-
-![](https://www.r-graph-gallery.com/223-faceting-with-ggplot2_files/figure-html/thecode3b-1.png)
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/223-faceting-with-ggplot2_files/figure-html/thecode3b-1.png" width="65%">
+</p>
 
 ```r
 # Add label at the bottom
@@ -1836,8 +1869,9 @@ ggplot( mtcars , aes(x=mpg, y=wt, color=as.factor(cyl)  )) +
   theme(legend.position="none")
 ```
 
-
-![](https://www.r-graph-gallery.com/223-faceting-with-ggplot2_files/figure-html/thecode3c-1.png)
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/223-faceting-with-ggplot2_files/figure-html/thecode3c-1.png" width="65%">
+</p>
 
 
 ```r
@@ -1848,8 +1882,9 @@ ggplot( mtcars , aes(x=mpg, y=wt, color=as.factor(cyl)  )) +
   theme(legend.position="none")
 ```
 
-
-![](https://www.r-graph-gallery.com/223-faceting-with-ggplot2_files/figure-html/thecode3d-1.png)
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/223-faceting-with-ggplot2_files/figure-html/thecode3d-1.png" width="65%">
+</p>
 
 
 ### `facet_grid()`
@@ -1865,8 +1900,9 @@ ggplot( mtcars , aes(x=mpg, y=wt )) +
   facet_grid( cyl ~ gear)
 ```
 
-
-![](https://www.r-graph-gallery.com/223-faceting-with-ggplot2_files/figure-html/thecode5-1.png)
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/223-faceting-with-ggplot2_files/figure-html/thecode5-1.png" width="65%">
+</p>
 
 
 ### Customize Small Multiple Appearance with `ggplot2`
@@ -1890,33 +1926,36 @@ basic=ggplot(mtcars, aes(wt, mpg)) +
 basic
 ```
 
-![](https://www.r-graph-gallery.com/241-custom-layout-strip-ggplot2_files/figure-html/thecodeA-1.png)
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/241-custom-layout-strip-ggplot2_files/figure-html/thecodeA-1.png" width="65%">
+</p>
 
 ```r
 # Change background
 basic + theme(strip.background = element_rect(colour = "red", fill = alpha("blue",0.2) ))
 ```
 
-![](https://www.r-graph-gallery.com/241-custom-layout-strip-ggplot2_files/figure-html/thecodeB-1.png)
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/241-custom-layout-strip-ggplot2_files/figure-html/thecodeB-1.png" width="65%">
+</p>
 
 ```r
 # Change the text 
 basic + theme(strip.text.x = element_text(colour = "red", face = "bold", size=10, angle=30))
 ```
 
-
-![](https://www.r-graph-gallery.com/241-custom-layout-strip-ggplot2_files/figure-html/thecodeC-1.png)
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/241-custom-layout-strip-ggplot2_files/figure-html/thecodeC-1.png" width="65%">
+</p>
 
 ```r
 # Change the space between parts:
 basic + theme(panel.spacing = unit(4, "lines"))
 ```
 
-![](https://www.r-graph-gallery.com/241-custom-layout-strip-ggplot2_files/figure-html/thecodeD-1.png)
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/241-custom-layout-strip-ggplot2_files/figure-html/thecodeD-1.png" width="65%">
+</p>
 
 ### Multiple ggplot2 Charts on a Single Page
 
@@ -1945,32 +1984,34 @@ g4 <- ggplot(mtcars , aes(x=factor(cyl), fill=factor(cyl))) +  geom_bar()
 grid.arrange(g2, arrangeGrob(g3, g4, ncol=2), nrow = 2)
 ```
 
-
-![](https://www.r-graph-gallery.com/261-multiple-graphs-on-same-page_files/figure-html/thecodeA-1.png)
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/261-multiple-graphs-on-same-page_files/figure-html/thecodeA-1.png" width="65%">
+</p>
 
 ```r
 grid.arrange(g1, g2, g3, nrow = 3)
 ```
 
 
-![](https://www.r-graph-gallery.com/261-multiple-graphs-on-same-page_files/figure-html/thecodeB-1.png)
-
+<p align="center"> 
+<img src=https://www.r-graph-gallery.com/261-multiple-graphs-on-same-page_files/figure-html/thecodeB-1.png" width="65%">
+</p>
 
 ```r
 grid.arrange(g2, arrangeGrob(g3, g4, ncol=2), nrow = 1)
 ```
 
-![](https://www.r-graph-gallery.com/261-multiple-graphs-on-same-page_files/figure-html/thecodeC-1.png)
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/261-multiple-graphs-on-same-page_files/figure-html/thecodeC-1.png" width="65%">
+</p>
 
 ```r
 grid.arrange(g2, arrangeGrob(g3, g4, nrow=2), nrow = 1)
 ```
 
-
-![](https://www.r-graph-gallery.com/261-multiple-graphs-on-same-page_files/figure-html/thecodeD-1.png)
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/261-multiple-graphs-on-same-page_files/figure-html/thecodeD-1.pngv" width="65%">
+</p>
 
 
 
@@ -2019,8 +2060,9 @@ data %>%
     xlab("")
 ```
 
-
-![](https://www.r-graph-gallery.com/violin_and_boxplot_ggplot2_files/figure-html/unnamed-chunk-1-1.png)
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/violin_and_boxplot_ggplot2_files/figure-html/unnamed-chunk-1-1.png" width="65%">
+</p>
 
 
 ### Boxplot with Individual Data Points
@@ -2061,9 +2103,9 @@ data %>%
     xlab("")
 ```
 
-
-![](https://www.r-graph-gallery.com/89-box-and-scatter-plot-with-ggplot2_files/figure-html/unnamed-chunk-1-1.png){width=75%}
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/89-box-and-scatter-plot-with-ggplot2_files/figure-html/unnamed-chunk-1-1.png" width="65%">
+</p>
 
 In case you're not convinced, here is how the basic [boxplot](https://www.r-graph-gallery.com/boxplot.html) and the basic [violin plot](https://www.r-graph-gallery.com/violin.html) look like:
 
@@ -2082,9 +2124,9 @@ data %>%
     xlab("")
 ```
 
-
-![](https://www.r-graph-gallery.com/89-box-and-scatter-plot-with-ggplot2_files/figure-html/unnamed-chunk-3-1.png)
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/89-box-and-scatter-plot-with-ggplot2_files/figure-html/unnamed-chunk-3-1.png" width="65%">
+</p>
 
 ```r
 # Violin basic
@@ -2101,9 +2143,9 @@ data %>%
     xlab("")
 ```
 
-![](https://www.r-graph-gallery.com/89-box-and-scatter-plot-with-ggplot2_files/figure-html/unnamed-chunk-3-2.png)
-
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/89-box-and-scatter-plot-with-ggplot2_files/figure-html/unnamed-chunk-3-2.png" width="65%">
+</p>
 
 ### Map a Variable to Marker Feature in `ggplot2` Scatterplot
 
@@ -2129,9 +2171,9 @@ ggplot(iris, aes(x=Sepal.Length, y=Sepal.Width, color=Species)) +
     theme_ipsum()
 ```
 
-
-![](https://www.r-graph-gallery.com/274-map-a-variable-to-ggplot2-scatterplot_files/figure-html/thecode-1.png)
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/274-map-a-variable-to-ggplot2-scatterplot_files/figure-html/thecode-1.png" width="65%">
+</p>
 
 ### Works with any Aesthetics
 
@@ -2149,7 +2191,9 @@ ggplot(iris, aes(x=Sepal.Length, y=Sepal.Width, alpha=Species)) +
 ```
 
 
-![](https://www.r-graph-gallery.com/274-map-a-variable-to-ggplot2-scatterplot_files/figure-html/unnamed-chunk-2-1.png)
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/274-map-a-variable-to-ggplot2-scatterplot_files/figure-html/unnamed-chunk-2-1.png" width="65%">
+</p>
 
 ```r
 # Shape
@@ -2158,9 +2202,9 @@ ggplot(iris, aes(x=Sepal.Length, y=Sepal.Width, shape=Species)) +
     theme_ipsum()
 ```
 
-<center>
-  ![](https://www.r-graph-gallery.com/274-map-a-variable-to-ggplot2-scatterplot_files/figure-html/unnamed-chunk-2-2.png){width=75%}
-</center>
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/274-map-a-variable-to-ggplot2-scatterplot_files/figure-html/unnamed-chunk-2-2.png" width="65%">
+</p>
 
 ```r
 # Size
@@ -2169,10 +2213,9 @@ ggplot(iris, aes(x=Sepal.Length, y=Sepal.Width, shape=Species)) +
     theme_ipsum()
 ```
 
-
-![](https://www.r-graph-gallery.com/274-map-a-variable-to-ggplot2-scatterplot_files/figure-html/unnamed-chunk-2-3.png)
-
-
+<p align="center"> 
+<img src=https://www.r-graph-gallery.com/274-map-a-variable-to-ggplot2-scatterplot_files/figure-html/unnamed-chunk-2-3.png" width="65%">
+</p>
 
 ### Mapping to Several Features
 
@@ -2189,8 +2232,9 @@ ggplot(iris, aes(x=Sepal.Length, y=Sepal.Width, shape=Species, alpha=Species, si
     theme_ipsum()
 ```
 
-![](https://www.r-graph-gallery.com/274-map-a-variable-to-ggplot2-scatterplot_files/figure-html/thecode3-1.png)
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/274-map-a-variable-to-ggplot2-scatterplot_files/figure-html/thecode3-1.png" width="65%">
+</p>
 
 ### Bubble Plot with `ggplot2`
  
@@ -2218,7 +2262,9 @@ ggplot(data, aes(x=gdpPercap, y=lifeExp, size = pop)) +
     geom_point(alpha=0.7)
 ```
 
-![](https://www.r-graph-gallery.com/320-the-basis-of-bubble-plot_files/figure-html/thecode-1.png)
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/320-the-basis-of-bubble-plot_files/figure-html/thecode-1.png" width="65%">
+</p>
 
 
 ### Control Circle Size with `scale_size()`
@@ -2247,8 +2293,9 @@ data %>%
     scale_size(range = c(.1, 24), name="Population (M)")
 ```
 
-![](https://www.r-graph-gallery.com/320-the-basis-of-bubble-plot_files/figure-html/thecode2-1.png)
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/320-the-basis-of-bubble-plot_files/figure-html/thecode2-1.png" width="65%">
+</p>
 
 ### Add a Fourth Dimension: Color
 
@@ -2272,8 +2319,9 @@ data %>%
     scale_size(range = c(.1, 24), name="Population (M)")
 ```
 
-![](https://www.r-graph-gallery.com/320-the-basis-of-bubble-plot_files/figure-html/thecode3-1.png)
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/320-the-basis-of-bubble-plot_files/figure-html/thecode3-1.png" width="65%">
+</p>
 
 ### Make it Pretty
 
@@ -2310,8 +2358,9 @@ data %>%
     theme(legend.position = "none")
 ```
 
-![](https://www.r-graph-gallery.com/320-the-basis-of-bubble-plot_files/figure-html/thecode4-1.png)
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/320-the-basis-of-bubble-plot_files/figure-html/thecode4-1.png" width="65%">
+</p>
 
 ### Connected Scatterplot with R and `ggplot2`
 
@@ -2338,9 +2387,9 @@ data %>%
     geom_point()
 ```
 
-
-![](https://www.r-graph-gallery.com/connected_scatterplot_ggplot2_files/figure-html/thecode-1.png)
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/connected_scatterplot_ggplot2_files/figure-html/thecode-1.png" width="65%">
+</p>
 
 ### Customize the Connected Scatterplot
 
@@ -2366,8 +2415,9 @@ data %>%
     ggtitle("Evolution of bitcoin price")
 ```
 
-
-![](https://www.r-graph-gallery.com/connected_scatterplot_ggplot2_files/figure-html/thecode2-1.png)
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/connected_scatterplot_ggplot2_files/figure-html/thecode2-1.png" width="65%">
+</p>
 
 ### Connected Scatterplot to Show an Evolution
 
@@ -2406,9 +2456,9 @@ data %>%
       ) 
 ```
 
-
-![](https://www.r-graph-gallery.com/connected_scatterplot_ggplot2_files/figure-html/thecode3-1.png)
-
+<p align="center"> 
+<img src="ttps://www.r-graph-gallery.com/connected_scatterplot_ggplot2_files/figure-html/thecode3-1.png" width="65%">
+</p>
 
 It makes sense to add arrows and labels to guide the reader in the chart:
 
@@ -2446,9 +2496,9 @@ data %>%
       theme_ipsum()
 ```
 
-
-![](https://www.r-graph-gallery.com/connected_scatterplot_ggplot2_files/figure-html/thecode4-1.png){width=75%}
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/connected_scatterplot_ggplot2_files/figure-html/thecode4-1.png" width="65%">
+</p>
 
 ### Parallel Coordinates Chart with `ggally`
 
@@ -2475,10 +2525,9 @@ ggparcoord(data,
     ) 
 ```
 
-
-![](https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode-1.png)
-
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode-1.png" width="65%">
+</p>
 
 ### Custom Color, Theme, General Appearance
 
@@ -2513,9 +2562,9 @@ ggparcoord(data,
   )
 ```
 
-
-![](https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode2-1.png)
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode2-1.png" width="65%">
+</p>
 
 ### Scaling
 
@@ -2545,9 +2594,9 @@ ggparcoord(data,
   xlab("")
 ```
 
-![](https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode31-1.png)
-
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode31-1.png" width="65%">
+</p>
 
 ```r
 ggparcoord(data,
@@ -2566,8 +2615,9 @@ ggparcoord(data,
   xlab("")
 ```
 
-![](https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode32-1.png)
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode32-1.png" width="65%">
+</p>
 
 ```r
 ggparcoord(data,
@@ -2586,8 +2636,9 @@ ggparcoord(data,
   xlab("")
 ```
 
-![](https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode33-1.png)
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode33-1.png" width="65%">
+</p>
 
 ```r
 ggparcoord(data,
@@ -2606,8 +2657,9 @@ ggparcoord(data,
   xlab("")
 ```
 
-![](https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode34-1.png)
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode34-1.png" width="65%">
+</p>
 
 ### Highlight a Group
 
@@ -2639,9 +2691,9 @@ data %>%
   xlab("")
 ```
 
-![](https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode4-1.png)
-
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode4-1.png" width="65%">
+</p>
 
 ### Lollipop Chart with Conditional Color
  
@@ -2683,8 +2735,9 @@ ggplot(data, aes(x=x, y=y)) +
 ```
 
 
-![](https://www.r-graph-gallery.com/302-lollipop-chart-with-conditional-color_files/figure-html/thecode-1.png)
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/302-lollipop-chart-with-conditional-color_files/figure-html/thecode-1.png" width="65%">
+</p>
 
 ### Lollipop Chart with 2 Groups
  
@@ -2731,8 +2784,9 @@ ggplot(data) +
   ylab("Value of Y")
 ```
 
-![](https://www.r-graph-gallery.com/303-lollipop-plot-with-2-values_files/figure-html/thecode-1.png)
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/303-lollipop-plot-with-2-values_files/figure-html/thecode-1.png" width="65%">
+</p>
 
 ### Circular Barplot with Groups
 
@@ -2789,8 +2843,9 @@ p <- ggplot(data, aes(x=as.factor(id), y=value)) +       # Note that id is a fac
 p
 ```
 
-
-![](https://www.r-graph-gallery.com/297-circular-barplot-with-groups_files/figure-html/thecode-1.png)
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/297-circular-barplot-with-groups_files/figure-html/thecode-1.png" width="65%">
+</p>
 
 ### Space between Groups
 
@@ -2843,9 +2898,9 @@ p <- ggplot(data, aes(x=as.factor(id), y=value, fill=group)) +       # Note that
 p
 ```
 
-![](https://www.r-graph-gallery.com/297-circular-barplot-with-groups_files/figure-html/thecode2-1.png)
-
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/297-circular-barplot-with-groups_files/figure-html/thecode2-1.png" width="65%">
+</p>
 
 ### Order Bars
 
@@ -2858,9 +2913,9 @@ The method used to order groups in ggplot2 is extensively described in this [ded
 data = data %>% arrange(group, value)
 ```
 
-
-![](https://www.r-graph-gallery.com/297-circular-barplot-with-groups_files/figure-html/unnamed-chunk-1-1.png)
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/297-circular-barplot-with-groups_files/figure-html/unnamed-chunk-1-1.png" width="65%">
+</p>
 
 ### Circular Barchart Customization
 
@@ -2940,10 +2995,9 @@ p <- ggplot(data, aes(x=as.factor(id), y=value, fill=group)) +       # Note that
 p
 ```
 
-
-![](https://www.r-graph-gallery.com/297-circular-barplot-with-groups_files/figure-html/thecode4-1.png)
-
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/297-circular-barplot-with-groups_files/figure-html/thecode4-1.png" width="65%">
+</p>
 
 
 
@@ -2972,8 +3026,9 @@ don %>%
     theme(legend.position="none")
 ```
 
-
-![](images/stacking.PNG)
+<p align="center"> 
+<img src="images/stacking.PNG" width="65%">
+</p>
 
 It looks obvious that the yellow category increased, the purple decreased, and the green. is harder to read. At a first glance it looks like it is slightly decreasing I would say.
 
@@ -2990,9 +3045,9 @@ don %>%
     theme(legend.position="none")
 ```
 
-
-![](images/stacking-two.PNG)
-
+<p align="center"> 
+<img src="images/stacking-two.PNG" width="65%">
+</p>
 
 ### Workaround
 If you have just a `few categories`, I would suggest to build a line chart. Here it is easy to follow a category and understand how it evolved accurately.
@@ -3007,10 +3062,9 @@ data %>%
     theme_ipsum()
 ```
 
-
-
-![](images/stacking-three.PNG)
-
+<p align="center"> 
+<img src="images/stacking-three.PNG" width="65%">
+</p>
 
 However, this solution is not suitable if you have many categories. Indeed, it would result in a spaghetti chart that is very hard to read. You can read more about this here.
 
@@ -3032,9 +3086,9 @@ data %>%
     facet_wrap(~name, scale="free_y")
 ```
 
-
-![](images/stacking-four.PNG)
-
+<p align="center"> 
+<img src="images/stacking-four.PNG" width="65%">
+</p>
 
 ### Basic Stacked area Chart with R
 
@@ -3067,8 +3121,9 @@ ggplot(data, aes(x=time, y=value, fill=group)) +
     geom_area()
 ```
 
-![](https://www.r-graph-gallery.com/136-stacked-area-chart_files/figure-html/thecode-1.png)
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/136-stacked-area-chart_files/figure-html/thecode-1.png" width="65%">
+</p>
 
 ### Control Stacking Order with `ggplot2`
 
@@ -3097,8 +3152,9 @@ myLevels <- data %>%
 data$group <- factor(data$group , levels=myLevels$group )
 ```
 
-![](https://www.r-graph-gallery.com/136-stacked-area-chart_files/figure-html/thecode2-1.png)
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/136-stacked-area-chart_files/figure-html/thecode2-1.png" width="65%">
+</p>
 
 ### Proportional Stacked Area Chart
 
@@ -3125,8 +3181,9 @@ my_fun <- function(vec){
 data$percentage <- apply(data , 1 , my_fun)
 ```
 
-![](https://www.r-graph-gallery.com/136-stacked-area-chart_files/figure-html/thecode3-1.png)
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/136-stacked-area-chart_files/figure-html/thecode3-1.png" width="65%">
+</p>
 
 ### Color & Style
 
@@ -3149,6 +3206,6 @@ ggplot(data, aes(x=time, y=value, fill=group)) +
     ggtitle("The race between ...")
 ```
 
-![](https://www.r-graph-gallery.com/136-stacked-area-chart_files/figure-html/thecode4-1.png)
-
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/136-stacked-area-chart_files/figure-html/thecode4-1.png" width="65%">
+</p>
