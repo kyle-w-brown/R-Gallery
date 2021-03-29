@@ -85,7 +85,7 @@ anim_save("271-ggplot2-animated-gif-chart-with-gganimate1.gif")
 ```
 
 <p align="center"> 
-<img src="https://www.r-graph-gallery.com/img/graph/271-ggplot2-animated-gif-chart-with-gganimate1.gif" width="40%">
+<img src="https://www.r-graph-gallery.com/img/graph/271-ggplot2-animated-gif-chart-with-gganimate1.gif" width="50%">
 </p>
 
 
@@ -121,7 +121,7 @@ anim_save("271-ggplot2-animated-gif-chart-with-gganimate2.gif")
 ```
 
 <p align="center"> 
-![](https://www.r-graph-gallery.com/img/graph/271-ggplot2-animated-gif-chart-with-gganimate2.gif)
+<img src="https://www.r-graph-gallery.com/img/graph/271-ggplot2-animated-gif-chart-with-gganimate2.gif" width="50%">
 </p>
 
 ### Smooth Barplot Transition
@@ -162,8 +162,10 @@ ggplot(data, aes(x=group, y=values, fill=group)) +
 anim_save("288-animated-barplot-transition.gif")
 ```
 
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/img/graph/288-animated-barplot-transition.gif" width="50%">
+</p>
 
-![](https://www.r-graph-gallery.com/img/graph/288-animated-barplot-transition.gif)
 
 
 ### Progressive Line Chart Rendering
@@ -197,9 +199,9 @@ don %>%
 anim_save("287-smooth-animation-with-tweenr.gif")
 ```
 
-
-![](https://www.r-graph-gallery.com/img/graph/287-smooth-animation-with-tweenr.gif)
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/img/graph/287-smooth-animation-with-tweenr.gif" width="50%">
+</p>
 
 ### Concatenate `.png` Images with `Image Magick`
 
@@ -237,9 +239,9 @@ system("convert -delay 80 *.png animated_count_down.gif")
 file.remove(list.files(pattern=".png"))
 ```
 
-
-![](https://www.r-graph-gallery.com/img/graph/166-basic-animated-graph-with-imagemagick.gif)
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/img/graph/166-basic-animated-graph-with-imagemagick.gif" width="50%">
+</p>
 
 ### Animated 3d Chart with R
 
@@ -277,8 +279,9 @@ movie3d(
 ```
 
 
-![](https://www.r-graph-gallery.com/img/graph/167-animated-3d-plot-imagemagick.gif)
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/img/graph/167-animated-3d-plot-imagemagick.gif" width="50%">
+</p>
 
 
 ```r
@@ -333,9 +336,9 @@ par(mar=c(0,0,0,0))
 plot(r$x,r$y, pch=".", col="blue", cex=1.2)
 ```
 
-
-![](https://www.r-graph-gallery.com/59-nifty-graph_files/figure-html/thecode-1.png)
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/59-nifty-graph_files/figure-html/thecode-1.png" width="75%">
+</p>
 
 ### Animated 3d Chart with R
  
@@ -374,8 +377,9 @@ movie3d(
 )
 ```
 
-
-![](https://www.r-graph-gallery.com/img/graph/3-r-animated-cube.gif)
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/img/graph/3-r-animated-cube.gif" width="50%">
+</p>
 
 ---
 
@@ -424,9 +428,9 @@ ggplot(DAT, aes(x=Year, y=Value, fill=Group )) +
         panel.background = element_blank())
 ```
 
-
-![](https://www.r-graph-gallery.com/144-droid-bb-8-data-art_files/figure-html/thecode-1.png)
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/144-droid-bb-8-data-art_files/figure-html/thecode-1.png" width="75%">
+</p>
 
 ### Random Shapes
 
@@ -467,8 +471,9 @@ ggplot(DAT, aes(x=Year, y=Value, fill=Group )) +
         panel.background = element_blank())
 ```
 
-
-![](https://www.r-graph-gallery.com/137-spring-shapes-data-art_files/figure-html/thecode-1.png)
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/137-spring-shapes-data-art_files/figure-html/thecode-1.png" width="75%">
+</p>
 
 ### R Snail
  
@@ -514,9 +519,9 @@ for (i in 0:35) {
 }
 ```
 
-
-![](https://www.r-graph-gallery.com/127-r-snail_files/figure-html/thecode-1.png)
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/127-r-snail_files/figure-html/thecode-1.png" width="75%">
+</p>
 
 
 
@@ -540,8 +545,9 @@ par(mar=c(0,0,0,0))
 plot(r$x,r$y, pch=".", col="blue", cex=1.2)
 ```
 
-
-![](https://www.r-graph-gallery.com/59-nifty-graph_files/figure-html/thecode-1.png)
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/59-nifty-graph_files/figure-html/thecode-1.png" width="75%">
+</p>
 
 
 ### Animated 3d Chart with R
@@ -581,7 +587,9 @@ movie3d(
 )
 ```
 
-![](https://www.r-graph-gallery.com/img/graph/3-r-animated-cube.gif)
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/img/graph/3-r-animated-cube.gif" width="50%">
+</p>
 
 ---
 
