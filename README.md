@@ -1999,7 +1999,7 @@ grid.arrange(g1, g2, g3, nrow = 3)
 
 
 <p align="center"> 
-<img src=https://www.r-graph-gallery.com/261-multiple-graphs-on-same-page_files/figure-html/thecodeB-1.png" width="65%">
+<img src="https://www.r-graph-gallery.com/261-multiple-graphs-on-same-page_files/figure-html/thecodeB-1.png" width="65%">
 </p>
 
 ```r
