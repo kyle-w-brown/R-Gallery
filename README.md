@@ -1513,7 +1513,10 @@ basic + theme(legend.text = element_text(size = 8, colour = "red"))
 basic + theme(legend.title = element_text(face = "bold"))
 ```
 
-c
+
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/239-custom-layout-legend-ggplot2_files/figure-html/thecode5d-1.png" width="65%">
+</p>
 
 
 
@@ -1568,8 +1571,9 @@ data %>%
     theme_bw()
 ```
 
-![](https://www.r-graph-gallery.com/267-reorder-a-variable-in-ggplot2_files/figure-html/unnamed-chunk-2-1.png)![](https://www.r-graph-gallery.com/267-reorder-a-variable-in-ggplot2_files/figure-html/unnamed-chunk-2-2.png)
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/267-reorder-a-variable-in-ggplot2_files/figure-html/unnamed-chunk-2-1.png" width="45%"> <img src="https://www.r-graph-gallery.com/267-reorder-a-variable-in-ggplot2_files/figure-html/unnamed-chunk-2-2.png" width="45%">
+</p>
 
 If you have several values per level of your factor, you can specify which function to apply to determine the order. The default is to use the median, but you can use the number of data points per group to make the classification:
 
@@ -1596,8 +1600,9 @@ mpg %>%
 ```
 
 
-![](https://www.r-graph-gallery.com/267-reorder-a-variable-in-ggplot2_files/figure-html/unnamed-chunk-3-1.png)![](https://www.r-graph-gallery.com/267-reorder-a-variable-in-ggplot2_files/figure-html/unnamed-chunk-3-2.png)
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/267-reorder-a-variable-in-ggplot2_files/figure-html/unnamed-chunk-3-1.png" width="45%"> <img src="https://www.r-graph-gallery.com/267-reorder-a-variable-in-ggplot2_files/figure-html/unnamed-chunk-3-2.png" width="45%">
+</p>
 
 The last common operation is to provide a specific order to your levels, you can do so using the `fct_relevel()` function as follow:
 
@@ -1650,7 +1655,9 @@ data %>%
     xlab("")
 ```
 
-![](https://www.r-graph-gallery.com/267-reorder-a-variable-in-ggplot2_files/figure-html/unnamed-chunk-6-1.png)![](https://www.r-graph-gallery.com/267-reorder-a-variable-in-ggplot2_files/figure-html/unnamed-chunk-6-2.png)
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/267-reorder-a-variable-in-ggplot2_files/figure-html/unnamed-chunk-6-1.png" width="45%"> <img src="https://www.r-graph-gallery.com/267-reorder-a-variable-in-ggplot2_files/figure-html/unnamed-chunk-6-2.png" width="45%">
+</p>
 
 
 ### Method 3: the `reorder()` function of Base R
@@ -3087,7 +3094,7 @@ data %>%
 ```
 
 <p align="center"> 
-<img src="images/stacking-four.PNG" width="65%">
+<img src="images/stacking-four.PNG" width="85%">
 </p>
 
 ### Basic Stacked area Chart with R
