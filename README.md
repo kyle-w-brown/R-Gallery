@@ -382,6 +382,9 @@ movie3d(
 <img src="https://www.r-graph-gallery.com/img/graph/3-r-animated-cube.gif" width="50%">
 </p>
 
+---
+
+<br>
 
 ## Data Art
 
@@ -593,6 +596,8 @@ movie3d(
 
 ---
 
+<br>
+
 # Distributions
 
 ## Density Plot
@@ -655,6 +660,8 @@ data %>%
 <p align="center"> 
 <img src="https://www.r-graph-gallery.com/135-stacked-density-graph_files/figure-html/unnamed-chunk-3-1.png" width="65%">
 </p>
+
+---
 
 <br>
 
@@ -720,6 +727,8 @@ hist(my_variable , breaks=40 , col=rgb(0.2,0.8,0.5,0.5) , border=F , main="" , x
 <img src="https://www.r-graph-gallery.com/82-boxplot-on-top-of-histogram_files/figure-html/unnamed-chunk-1-1.png" width="50%">
 </p>
 
+---
+
 <br>
 
 ## Violin Plot
@@ -744,6 +753,8 @@ data %>%
 <p align="center"> 
 <img src="https://www.r-graph-gallery.com/267-reorder-a-variable-in-ggplot2_files/figure-html/unnamed-chunk-2-1.png" width="65%">
 </p>
+
+---
 
 <br>
 
