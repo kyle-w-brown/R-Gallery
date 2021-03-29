@@ -338,7 +338,7 @@ plot(r$x,r$y, pch=".", col="blue", cex=1.2)
 ```
 
 <p align="center"> 
-<img src="https://www.r-graph-gallery.com/59-nifty-graph_files/figure-html/thecode-1.png" width="75%">
+<img src="https://www.r-graph-gallery.com/59-nifty-graph_files/figure-html/thecode-1.png" width="50%">
 </p>
 
 ### Animated 3d Chart with R
