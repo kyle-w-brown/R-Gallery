@@ -955,8 +955,9 @@ The `annotate()` function allows to add all kind of shape on a ggplot2 chart. Th
 p + annotate("rect", xmin=c(2,4), xmax=c(3,5), ymin=c(20,10) , ymax=c(30,20), alpha=0.2, color="blue", fill="blue")
 ```
 
-![](https://www.r-graph-gallery.com/233-add-annotations-on-ggplot2-chart_files/figure-html/thecode1A-1.png)
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/233-add-annotations-on-ggplot2-chart_files/figure-html/thecode1A-1.png" width="65%">
+</p>
 
 ```r
 # Add segments
