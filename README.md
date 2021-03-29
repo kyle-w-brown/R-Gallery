@@ -2015,7 +2015,7 @@ grid.arrange(g2, arrangeGrob(g3, g4, nrow=2), nrow = 1)
 ```
 
 <p align="center"> 
-<img src="https://www.r-graph-gallery.com/261-multiple-graphs-on-same-page_files/figure-html/thecodeD-1.pngv" width="65%">
+<img src="https://www.r-graph-gallery.com/261-multiple-graphs-on-same-page_files/figure-html/thecodeD-1.png" width="65%">
 </p>
 
 
@@ -2219,7 +2219,7 @@ ggplot(iris, aes(x=Sepal.Length, y=Sepal.Width, shape=Species)) +
 ```
 
 <p align="center"> 
-<img src=https://www.r-graph-gallery.com/274-map-a-variable-to-ggplot2-scatterplot_files/figure-html/unnamed-chunk-2-3.png" width="65%">
+<img src="https://www.r-graph-gallery.com/274-map-a-variable-to-ggplot2-scatterplot_files/figure-html/unnamed-chunk-2-3.png" width="65%">
 </p>
 
 ### Mapping to Several Features
@@ -2531,7 +2531,7 @@ ggparcoord(data,
 ```
 
 <p align="center"> 
-<img src="https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode-1.png" width="65%">
+<img src="https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode-1.png" width="85%">
 </p>
 
 ### Custom Color, Theme, General Appearance
@@ -2568,7 +2568,7 @@ ggparcoord(data,
 ```
 
 <p align="center"> 
-<img src="https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode2-1.png" width="65%">
+<img src="https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode2-1.png" width="85%">
 </p>
 
 ### Scaling
@@ -2600,7 +2600,7 @@ ggparcoord(data,
 ```
 
 <p align="center"> 
-<img src="https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode31-1.png" width="65%">
+<img src="https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode31-1.png" width="85%">
 </p>
 
 ```r
@@ -2621,7 +2621,7 @@ ggparcoord(data,
 ```
 
 <p align="center"> 
-<img src="https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode32-1.png" width="65%">
+<img src="https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode32-1.png" width="85%">
 </p>
 
 ```r
@@ -2642,7 +2642,7 @@ ggparcoord(data,
 ```
 
 <p align="center"> 
-<img src="https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode33-1.png" width="65%">
+<img src="https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode33-1.png" width="85%">
 </p>
 
 ```r
@@ -2663,7 +2663,7 @@ ggparcoord(data,
 ```
 
 <p align="center"> 
-<img src="https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode34-1.png" width="65%">
+<img src="https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode34-1.png" width="85%">
 </p>
 
 ### Highlight a Group
@@ -2697,7 +2697,7 @@ data %>%
 ```
 
 <p align="center"> 
-<img src="https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode4-1.png" width="65%">
+<img src="https://www.r-graph-gallery.com/parallel-plot-ggally_files/figure-html/thecode4-1.png" width="85%">
 </p>
 
 ### Lollipop Chart with Conditional Color
