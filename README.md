@@ -84,7 +84,10 @@ ggplot(gapminder, aes(gdpPercap, lifeExp, size = pop, color = continent)) +
 anim_save("271-ggplot2-animated-gif-chart-with-gganimate1.gif")
 ```
 
+<p align="center"> 
 ![](https://www.r-graph-gallery.com/img/graph/271-ggplot2-animated-gif-chart-with-gganimate1.gif)
+</p>
+
 
 
 ### Use Small Multiple
@@ -118,9 +121,9 @@ ggplot(gapminder, aes(gdpPercap, lifeExp, size = pop, colour = country)) +
 anim_save("271-ggplot2-animated-gif-chart-with-gganimate2.gif")
 ```
 
-
+<p align="center"> 
 ![](https://www.r-graph-gallery.com/img/graph/271-ggplot2-animated-gif-chart-with-gganimate2.gif)
-
+</p>
 
 ### Smooth Barplot Transition
 
