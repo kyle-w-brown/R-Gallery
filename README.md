@@ -312,8 +312,9 @@ system("convert -delay 40 *.png animated_3D_plot.gif")
 file.remove(list.files(pattern=".png"))
 ```
 
-![](https://www.r-graph-gallery.com/img/graph/167-animated-3d-plot-imagemagick.gif)
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/img/graph/167-animated-3d-plot-imagemagick.gif" width="50%">
+</p>
 
 
 
