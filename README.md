@@ -382,7 +382,6 @@ movie3d(
 <img src="https://www.r-graph-gallery.com/img/graph/3-r-animated-cube.gif" width="50%">
 </p>
 
----
 
 ## Data Art
 
@@ -749,11 +748,9 @@ data %>%
 <br>
 
 
----
 
 ## `ggplot2`
 
---- 
 
 <p align="center"> 
 <img src="https://www.r-graph-gallery.com/img/other/ggplot2Hex.jpg">
