@@ -28,7 +28,9 @@ While this book was created to encapsulate the entire [R Graph Gallery](https://
 * [Data Art](#data-art)
 * [`ggplot2`](#general-knowledge)
 
-
+<p align="center"> 
+<img src="https://www.r-graph-gallery.com/img/other/ggplot2Hex.jpg">
+</p>
 
 
 <br>
