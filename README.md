@@ -26,7 +26,7 @@ While this book was created to encapsulate the entire [R Graph Gallery](https://
 ### Table of Contents
 * [Animation](#animation)
 * [Data Art](#data-art)
-* [`ggplot2`](#general-knowledge)
+* [`ggplot2`](#ggplot2)
 
 <p align="center"> 
 <img src="https://www.r-graph-gallery.com/img/other/ggplot2Hex.jpg">
